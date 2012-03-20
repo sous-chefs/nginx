@@ -20,7 +20,6 @@
 # limitations under the License.
 #
 
-node.set[:nginx][:source][:prefix] = "/opt/nginx-#{node[:nginx][:version]}"
 node.set[:nginx][:binary]          = "#{node[:nginx][:source][:prefix]}/sbin/nginx"
 node.set[:nginx][:daemon_disable]  = true
 
@@ -70,10 +69,8 @@ end
 end
 
 node.run_state[:nginx_force_recompile] = false
-node.run_state[:nginx_configure_flags] = [
-  "--prefix=#{node[:nginx][:source][:prefix]}",
-  "--conf-path=#{node[:nginx][:dir]}/nginx.conf"
-]
+node.run_state[:nginx_configure_flags] = 
+  node[:nginx][:source][:default_configure_flags] | node[:nginx][:configure_flags]
 
 node[:nginx][:source][:modules].each do |ngx_module|
   include_recipe "nginx::#{ngx_module}"
@@ -93,7 +90,7 @@ bash "compile_nginx_source" do
   not_if do
     nginx_force_recompile == false &&
       node.automatic_attrs[:nginx][:version] == node[:nginx][:version] &&
-      node[:nginx][:configure_arguments].sort == configure_flags.sort
+      node.automatic_attrs[:nginx][:configure_arguments].sort == configure_flags.sort
   end
 end
 
