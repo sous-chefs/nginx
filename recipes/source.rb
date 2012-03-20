@@ -149,7 +149,7 @@ else
       :nginx_dir => node[:nginx][:dir],
       :log_dir => node[:nginx][:log_dir],
       :pid => node[:nginx][:pid]
-      )
+    )
   end
 
   template "/etc/sysconfig/nginx" do
