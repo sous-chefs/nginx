@@ -135,6 +135,8 @@ when "bluepill"
     action :nothing
   end
 else
+  node.set[:nginx][:daemon_disable] = false
+  
   template "/etc/init.d/nginx" do
     source "nginx.init.erb"
     owner "root"
