@@ -102,6 +102,7 @@ node.run_state.delete(:nginx_force_recompile)
 
 case node[:nginx][:init_style]
 when "runit"
+  node.set[:nginx][:src_binary] = node[:nginx][:binary]
   include_recipe "runit"
 
   runit_service "nginx"
@@ -118,7 +119,7 @@ when "bluepill"
     mode 0644
     variables(
       :working_dir => node[:nginx][:source][:prefix],
-      :src_binary => set[:nginx][:binary],
+      :src_binary => node[:nginx][:binary],
       :nginx_dir => node[:nginx][:dir],
       :log_dir => node[:nginx][:log_dir],
       :pid => node[:nginx][:pid]
@@ -142,6 +143,13 @@ else
     owner "root"
     group "root"
     mode "0755"
+    variables(
+      :working_dir => node[:nginx][:source][:prefix],
+      :src_binary => node[:nginx][:binary],
+      :nginx_dir => node[:nginx][:dir],
+      :log_dir => node[:nginx][:log_dir],
+      :pid => node[:nginx][:pid]
+      )
   end
 
   template "/etc/sysconfig/nginx" do
@@ -181,4 +189,8 @@ cookbook_file "#{node[:nginx][:dir]}/mime.types" do
   group "root"
   mode "0644"
   notifies :reload, resources(:service => "nginx"), :immediately
+end
+
+service "nginx" do
+  action :start
 end
