@@ -1,3 +1,7 @@
+## v0.100.4:
+
+* [COOK-1126] - source version bump to 1.0.14
+
 ## v0.100.2:
 
 * [COOK-1053] - Add :url attribute to nginx cookbook
