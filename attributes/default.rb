@@ -25,11 +25,12 @@ default[:nginx][:url]     = "http://nginx.org/download/nginx-#{node[:nginx][:ver
 
 case platform
 when "debian","ubuntu"
-  default[:nginx][:dir]        = "/etc/nginx"
-  default[:nginx][:log_dir]    = "/var/log/nginx"
-  default[:nginx][:user]       = "www-data"
-  default[:nginx][:binary]     = "/usr/sbin/nginx"
-  default[:nginx][:init_style] = "runit"
+  default[:nginx][:dir]         = "/etc/nginx"
+  default[:nginx][:log_dir]     = "/var/log/nginx"
+  default[:nginx][:user]        = "www-data"
+  default[:nginx][:binary]      = "/usr/sbin/nginx"
+  default[:nginx][:init_style]  = "runit"
+  default[:nginx][:ppa_package] = nil
 else
   default[:nginx][:dir]        = "/etc/nginx"
   default[:nginx][:log_dir]    = "/var/log/nginx"
