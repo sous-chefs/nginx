@@ -18,7 +18,17 @@
 # limitations under the License.
 #
 
-package "nginx"
+include_recipe "apt"
+
+apt_repository "nginx-stable" do
+  uri "http://ppa.launchpad.net/nginx/stable/ubuntu"
+  distribution node['lsb']['codename']
+  components ["main"]
+  keyserver "keyserver.ubuntu.com"
+  key "C300EE8C"
+end
+
+package "nginx-extras"
 
 directory node[:nginx][:log_dir] do
   mode 0755
