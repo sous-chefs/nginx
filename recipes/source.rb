@@ -49,26 +49,6 @@ user node[:nginx][:user] do
   home "/var/www"
 end
 
-directory node[:nginx][:log_dir] do
-  mode 0755
-  owner node[:nginx][:user]
-  action :create
-end
-
-directory node[:nginx][:dir] do
-  owner "root"
-  group "root"
-  mode "0755"
-end
-
-%w{ sites-available sites-enabled conf.d }.each do |dir|
-  directory "#{node[:nginx][:dir]}/#{dir}" do
-    owner "root"
-    group "root"
-    mode "0755"
-  end
-end
-
 node.run_state[:nginx_force_recompile] = false
 node.run_state[:nginx_configure_flags] = 
   node[:nginx][:source][:default_configure_flags] | node[:nginx][:configure_flags]
@@ -172,21 +152,14 @@ end
   end
 end
 
-template "nginx.conf" do
-  path "#{node[:nginx][:dir]}/nginx.conf"
-  source "nginx.conf.erb"
-  owner "root"
-  group "root"
-  mode "0644"
-  notifies :reload, resources(:service => "nginx"), :immediately
-end
+include_recipe 'nginx::commons'
 
 cookbook_file "#{node[:nginx][:dir]}/mime.types" do
   source "mime.types"
   owner "root"
   group "root"
   mode "0644"
-  notifies :reload, resources(:service => "nginx"), :immediately
+  notifies :reload, 'service[nginx]', :immediately
 end
 
 service "nginx" do
