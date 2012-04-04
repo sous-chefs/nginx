@@ -21,7 +21,6 @@
 #
 
 default[:nginx][:version] = "1.0.14"
-default[:nginx][:url]     = "http://nginx.org/download/nginx-#{node[:nginx][:version]}.tar.gz"
 
 case platform
 when "debian","ubuntu"
@@ -60,7 +59,7 @@ default[:nginx][:gzip_types]        = [
 default[:nginx][:keepalive]          = "on"
 default[:nginx][:keepalive_timeout]  = 65
 default[:nginx][:worker_processes]   = cpu[:total]
-default[:nginx][:worker_connections] = 2048
+default[:nginx][:worker_connections] = 1024
 default[:nginx][:server_names_hash_bucket_size] = 64
 
 default[:nginx][:disable_access_log] = false
