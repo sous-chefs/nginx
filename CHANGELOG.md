@@ -1,3 +1,10 @@
+## v0.101.0:
+
+**Attribute Change**: `node['nginx']['url']` -> `node['nginx']['source']['url']`; see the README.md.
+
+* [COOK-1115] - daemonize when using init script
+* [COOK-477] - module compilation support in nginx::source
+
 ## v0.100.4:
 
 * [COOK-1126] - source version bump to 1.0.14
