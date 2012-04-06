@@ -3,7 +3,7 @@
 # Recipe:: default
 # Author:: AJ Christensen <aj@junglist.gen.nz>
 #
-# Copyright 2008-2009, Opscode, Inc.
+# Copyright 2008-2012, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,6 +21,11 @@
 include_recipe "nginx::ohai_plugin"
 
 package "nginx"
+
+service "nginx" do
+  supports :status => true, :restart => true, :reload => true
+  action :enable
+end
 
 directory node[:nginx][:log_dir] do
   mode 0755
@@ -51,9 +56,9 @@ template "#{node[:nginx][:dir]}/sites-available/default" do
   owner "root"
   group "root"
   mode 0644
+  notifies :reload, "service[nginx]"
 end
 
 service "nginx" do
-  supports :status => true, :restart => true, :reload => true
-  action [ :enable, :start ]
+  action :start
 end
