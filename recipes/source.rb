@@ -37,8 +37,11 @@ packages.each do |devpkg|
   package devpkg
 end
 
-remote_file node[:nginx][:source][:url] do
-  source node[:nginx][:source][:url]
+nginx_url = node[:nginx][:source][:url] ||
+  "http://nginx.org/download/nginx-#{node[:nginx][:version]}.tar.gz"
+
+remote_file nginx_url do
+  source nginx_url
   path src_filepath
   backup false
 end
