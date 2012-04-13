@@ -19,13 +19,9 @@
 # limitations under the License.
 #
 
-set[:nginx][:source][:prefix]                  = "/opt/nginx-#{node[:nginx][:version]}"
-set[:nginx][:source][:conf_path]               = "#{node[:nginx][:dir]}/nginx.conf"
-set[:nginx][:source][:default_configure_flags] = [
-  "--prefix=#{node[:nginx][:source][:prefix]}",
-  "--conf-path=#{node[:nginx][:dir]}/nginx.conf"
-]
-
+default[:nginx][:source][:prefix]                  = nil
+default[:nginx][:source][:conf_path]               = nil
+default[:nginx][:source][:default_configure_flags] = nil
 default[:nginx][:configure_flags]  = Array.new
 default[:nginx][:source][:url]     = nil
 default[:nginx][:source][:modules] = [
