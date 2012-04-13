@@ -18,11 +18,13 @@
 # limitations under the License.
 #
 
-include_recipe "nginx::ohai_plugin"
-
 if(node[:nginx][:install_method] == 'source')
   include_recipe 'nginx::source'
 else
+  include_recipe "nginx::ohai_plugin"
+  if(%w(redhat centos fedora scientific).include?(node[:platform]))
+    include_recipe 'yum::epel'
+  end
   package "nginx"
   service "nginx" do
     supports :status => true, :restart => true, :reload => true
