@@ -18,6 +18,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+include_attribute "nginx"
 
 set[:nginx][:source][:prefix]                  = "/opt/nginx-#{node[:nginx][:version]}"
 set[:nginx][:source][:conf_path]               = "#{node[:nginx][:dir]}/nginx.conf"
