@@ -1,3 +1,8 @@
+## v0.101.2:
+
+* [COOK-1211] - include the default attributes explicitly so version
+is available.
+
 ## v0.101.0:
 
 **Attribute Change**: `node['nginx']['url']` -> `node['nginx']['source']['url']`; see the README.md.
