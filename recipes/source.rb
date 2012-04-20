@@ -21,13 +21,29 @@
 # limitations under the License.
 #
 
+
+nginx_url = node[:nginx][:source][:url] ||
+  "http://nginx.org/download/nginx-#{node[:nginx][:version]}.tar.gz"
+
+unless(node[:nginx][:source][:prefix])
+  node.set[:nginx][:source][:prefix] = "/opt/nginx-#{node[:nginx][:version]}"
+end
+unless(node[:nginx][:source][:conf_path])
+  node.set[:nginx][:source][:conf_path] = "#{node[:nginx][:dir]}/nginx.conf"
+end
+unless(node[:nginx][:source][:default_configure_flags])
+  node.set[:nginx][:source][:default_configure_flags] = [
+    "--prefix=#{node[:nginx][:source][:prefix]}",
+    "--conf-path=#{node[:nginx][:dir]}/nginx.conf"
+  ]
+end
 node.set[:nginx][:binary]          = "#{node[:nginx][:source][:prefix]}/sbin/nginx"
 node.set[:nginx][:daemon_disable]  = true
 
 include_recipe "nginx::ohai_plugin"
 include_recipe "build-essential"
 
-src_filepath  = "#{Chef::Config[:file_cache_path]}/nginx-#{node[:nginx][:version]}.tar.gz"
+src_filepath  = "#{Chef::Config[:file_cache_path] || '/tmp'}/nginx-#{node[:nginx][:version]}.tar.gz"
 packages = value_for_platform(
     ["centos","redhat","fedora"] => {'default' => ['pcre-devel', 'openssl-devel']},
     "default" => ['libpcre3', 'libpcre3-dev', 'libssl-dev']
@@ -37,8 +53,8 @@ packages.each do |devpkg|
   package devpkg
 end
 
-remote_file node[:nginx][:source][:url] do
-  source node[:nginx][:source][:url]
+remote_file nginx_url do
+  source nginx_url
   path src_filepath
   backup false
 end
@@ -47,26 +63,6 @@ user node[:nginx][:user] do
   system true
   shell "/bin/false"
   home "/var/www"
-end
-
-directory node[:nginx][:log_dir] do
-  mode 0755
-  owner node[:nginx][:user]
-  action :create
-end
-
-directory node[:nginx][:dir] do
-  owner "root"
-  group "root"
-  mode "0755"
-end
-
-%w{ sites-available sites-enabled conf.d }.each do |dir|
-  directory "#{node[:nginx][:dir]}/#{dir}" do
-    owner "root"
-    group "root"
-    mode "0755"
-  end
 end
 
 node.run_state[:nginx_force_recompile] = false
@@ -172,21 +168,14 @@ end
   end
 end
 
-template "nginx.conf" do
-  path "#{node[:nginx][:dir]}/nginx.conf"
-  source "nginx.conf.erb"
-  owner "root"
-  group "root"
-  mode "0644"
-  notifies :reload, resources(:service => "nginx"), :immediately
-end
+include_recipe 'nginx::commons'
 
 cookbook_file "#{node[:nginx][:dir]}/mime.types" do
   source "mime.types"
   owner "root"
   group "root"
   mode "0644"
-  notifies :reload, resources(:service => "nginx"), :immediately
+  notifies :reload, 'service[nginx]', :immediately
 end
 
 service "nginx" do

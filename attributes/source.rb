@@ -18,17 +18,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-include_attribute "nginx"
 
-set[:nginx][:source][:prefix]                  = "/opt/nginx-#{node[:nginx][:version]}"
-set[:nginx][:source][:conf_path]               = "#{node[:nginx][:dir]}/nginx.conf"
-set[:nginx][:source][:default_configure_flags] = [
-  "--prefix=#{node[:nginx][:source][:prefix]}",
-  "--conf-path=#{node[:nginx][:dir]}/nginx.conf"
-]
-
+default[:nginx][:source][:prefix]                  = nil
+default[:nginx][:source][:conf_path]               = nil
+default[:nginx][:source][:default_configure_flags] = nil
 default[:nginx][:configure_flags]  = Array.new
-default[:nginx][:source][:url]     = "http://nginx.org/download/nginx-#{node[:nginx][:version]}.tar.gz"
+default[:nginx][:source][:url]     = nil
 default[:nginx][:source][:modules] = [
   "http_ssl_module",
   "http_gzip_static_module"

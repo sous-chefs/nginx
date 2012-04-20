@@ -38,6 +38,7 @@ else
 end
 
 default[:nginx][:pid] = "/var/run/nginx.pid"
+default[:nginx][:install_method] = 'package'
 
 default[:nginx][:gzip]              = "on"
 default[:nginx][:gzip_http_version] = "1.0"
