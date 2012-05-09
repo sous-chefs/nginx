@@ -106,6 +106,13 @@ These attributes are used in the `nginx::upload_progress_module` recipe.
 * `node['nginx']['upload_progress]['url']` - URL for the tarball.
 * `node['nginx']['upload_progress']['checksum']` - Checksum of the tarball.
 
+## passenger.rb 
+
+These attributes are used in the `nginx::passenger` recipe.
+
+* `node[:nginx][:passenger][:version]` - passenger gem version
+* `node[:nginx][:passenger][:max_pool_size] - maximum passenger pool size (default=10)
+
 Recipes
 =======
 
