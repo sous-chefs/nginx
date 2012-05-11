@@ -82,6 +82,7 @@ bash "compile_nginx_source" do
     tar zxf #{::File.basename(src_filepath)} -C #{::File.dirname(src_filepath)}
     cd nginx-#{node[:nginx][:version]} && ./configure #{node.run_state[:nginx_configure_flags].join(" ")}
     make && make install
+    rm -f #{node[:nginx][:dir]}/nginx.conf
   EOH
   
   not_if do
