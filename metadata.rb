@@ -2,12 +2,12 @@ maintainer        "Opscode, Inc."
 maintainer_email  "cookbooks@opscode.com"
 license           "Apache 2.0"
 description       "Installs and configures nginx"
-version           "0.101.1"
+version           "0.101.2"
 
 recipe "nginx", "Installs nginx package and sets up configuration with Debian apache style with sites-enabled/sites-available"
 recipe "nginx::source", "Installs nginx from source and sets up configuration with Debian apache style with sites-enabled/sites-available"
 
-%w{ ubuntu debian centos redhat fedora }.each do |os|
+%w{ ubuntu debian centos redhat amazon scientific oracle fedora }.each do |os|
   supports os
 end
 
@@ -16,8 +16,6 @@ end
 end
 
 depends 'ohai', '~> 1.0.2'
-
-suggests 'yum'
 
 attribute "nginx/dir",
   :display_name => "Nginx Directory",

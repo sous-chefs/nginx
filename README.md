@@ -16,12 +16,10 @@ Cookbooks
 Platform
 --------
 
-* Debian
-* Ubuntu
+* Debian/Ubuntu
+* RHEL/CentOS
 
-The `nginx::source` may work anywhere "build-essential" is avaialble.
-
-**RHEL/CentOS** The `nginx::source` recipe should work on RHEL/CentOS with "init" as the init style attribute.
+The `nginx::source` may work anywhere "build-essential" is avaialble.  The `EPEL repo` is required for nginx::default on RedHat family distros.
 
 Attributes
 ==========

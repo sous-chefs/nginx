@@ -1,3 +1,17 @@
+## COOK-1280:
+
+* Change nginx['user'] to `nginx` on redhat platform
+* Change nginx['init_style'] to `init` on redhat platform
+* Create non-existing `sites-enabled` and `sites-available` directories on redhat platform
+* Add redhat family platforms to supported OS list
+* Update README to note nginx is availabe only by EPEL on redhat platform
+* Remove template notify for non-existent ohai[custom_plugins] resource, and move `include_recipe "ohai"` a general fix for all platforms.
+
+## v0.101.2:
+
+* [COOK-1211] - include the default attributes explicitly so version
+is available.
+
 ## v0.101.0:
 
 **Attribute Change**: `node['nginx']['url']` -> `node['nginx']['source']['url']`; see the README.md.

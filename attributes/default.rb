@@ -20,31 +20,36 @@
 # limitations under the License.
 #
 
-default[:nginx][:version] = "1.0.14"
+default['nginx']['version'] = "1.0.14"
 
-case platform
+case node['platform']
 when "debian","ubuntu"
-  default[:nginx][:dir]        = "/etc/nginx"
-  default[:nginx][:log_dir]    = "/var/log/nginx"
-  default[:nginx][:user]       = "www-data"
-  default[:nginx][:binary]     = "/usr/sbin/nginx"
-  default[:nginx][:init_style] = "runit"
+  default['nginx']['dir']        = "/etc/nginx"
+  default['nginx']['log_dir']    = "/var/log/nginx"
+  default['nginx']['user']       = "www-data"
+  default['nginx']['binary']     = "/usr/sbin/nginx"
+  default['nginx']['init_style'] = "runit"
+when "redhat","centos","scientific","amazon","oracle","fedora"
+  default['nginx']['dir']        = "/etc/nginx"
+  default['nginx']['log_dir']    = "/var/log/nginx"
+  default['nginx']['user']       = "nginx"
+  default['nginx']['binary']     = "/usr/sbin/nginx"
+  default['nginx']['init_style'] = "init"
 else
-  default[:nginx][:dir]        = "/etc/nginx"
-  default[:nginx][:log_dir]    = "/var/log/nginx"
-  default[:nginx][:user]       = "www-data"
-  default[:nginx][:binary]     = "/usr/sbin/nginx"
-  default[:nginx][:init_style] = "init"
+  default['nginx']['dir']        = "/etc/nginx"
+  default['nginx']['log_dir']    = "/var/log/nginx"
+  default['nginx']['user']       = "www-data"
+  default['nginx']['binary']     = "/usr/sbin/nginx"
+  default['nginx']['init_style'] = "init"
 end
 
-default[:nginx][:pid] = "/var/run/nginx.pid"
-default[:nginx][:install_method] = 'package'
+default['nginx']['pid'] = "/var/run/nginx.pid"
 
-default[:nginx][:gzip]              = "on"
-default[:nginx][:gzip_http_version] = "1.0"
-default[:nginx][:gzip_comp_level]   = "2"
-default[:nginx][:gzip_proxied]      = "any"
-default[:nginx][:gzip_types]        = [
+default['nginx']['gzip']              = "on"
+default['nginx']['gzip_http_version'] = "1.0"
+default['nginx']['gzip_comp_level']   = "2"
+default['nginx']['gzip_proxied']      = "any"
+default['nginx']['gzip_types']        = [
   "text/plain",
   "text/html",
   "text/css",
@@ -57,10 +62,10 @@ default[:nginx][:gzip_types]        = [
   "application/json"
 ]
 
-default[:nginx][:keepalive]          = "on"
-default[:nginx][:keepalive_timeout]  = 65
-default[:nginx][:worker_processes]   = cpu[:total]
-default[:nginx][:worker_connections] = 1024
-default[:nginx][:server_names_hash_bucket_size] = 64
+default['nginx']['keepalive']          = "on"
+default['nginx']['keepalive_timeout']  = 65
+default['nginx']['worker_processes']   = cpu['total']
+default['nginx']['worker_connections'] = 1024
+default['nginx']['server_names_hash_bucket_size'] = 64
 
-default[:nginx][:disable_access_log] = false
+default['nginx']['disable_access_log'] = false
