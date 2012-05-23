@@ -20,11 +20,10 @@
 #
 
 template "#{node['ohai']['plugin_path']}/nginx.rb" do
-  source 'plugins/nginx.rb.erb'
-  owner 'root'
-  group 'root'
+  source "plugins/nginx.rb.erb"
+  owner "root"
+  group "root"
   mode 0755
-
   variables(
     :nginx_bin => node['nginx']['binary']
   )
