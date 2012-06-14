@@ -19,5 +19,5 @@
 # limitations under the License.
 #
 
-default[:nginx][:upload_progress][:url]      = "https://github.com/masterzen/nginx-upload-progress-module/tarball/v0.8.4"
-default[:nginx][:upload_progress][:checksum] = "9a6acb984d81f5d7e04214d63ae94273"
+default['nginx']['upload_progress']['url']      = "https://github.com/masterzen/nginx-upload-progress-module/tarball/v0.8.4"
+default['nginx']['upload_progress']['checksum'] = "9a6acb984d81f5d7e04214d63ae94273"
