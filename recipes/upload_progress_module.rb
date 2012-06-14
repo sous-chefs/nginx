@@ -19,13 +19,13 @@
 # limitations under the License.
 #
 
-upm_src_filename = ::File.basename(node[:nginx][:upload_progress][:url])
-upm_src_filepath = "#{Chef::Config[:file_cache_path]}/#{upm_src_filename}"
-upm_extract_path = "#{Chef::Config[:file_cache_path]}/nginx_upload_progress/#{node[:nginx][:upload_progress][:checksum]}"
+upm_src_filename = ::File.basename(node['nginx']['upload_progress']['url'])
+upm_src_filepath = "#{Chef::Config['file_cache_path']}/#{upm_src_filename}"
+upm_extract_path = "#{Chef::Config['file_cache_path']}/nginx_upload_progress/#{node['nginx']['upload_progress']['checksum']}"
 
 remote_file upm_src_filepath do
-  source node[:nginx][:upload_progress][:url]
-  checksum node[:nginx][:upload_progress][:checksum]
+  source node['nginx']['upload_progress']['url']
+  checksum node['nginx']['upload_progress']['checksum']
   owner "root"
   group "root"
   mode 0644
@@ -42,6 +42,6 @@ bash "extract_upload_progress_module" do
   not_if { ::File.exists?(upm_extract_path) }
 end
 
-node.run_state[:nginx_configure_flags] =
-  node.run_state[:nginx_configure_flags] | ["--add-module=#{upm_extract_path}"]
+node.run_state['nginx_configure_flags'] =
+  node.run_state['nginx_configure_flags'] | ["--add-module=#{upm_extract_path}"]
   
