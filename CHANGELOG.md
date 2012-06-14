@@ -8,7 +8,6 @@
 * Remove template notify for non-existent ohai[custom_plugins] resource, and move `include_recipe "ohai"` a general fix for all platforms.
 * Change symbols to strings for *foodcritic*
 * Remove unnecessary include_attribute "nginx", already in the same attribute scope
-* Convert definition to compatible LWRP for *foodcritic* 
 
 ## v0.101.2:
 
