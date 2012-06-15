@@ -89,3 +89,7 @@ attribute "nginx/server_names_hash_bucket_size",
 attribute "nginx/disable_access_log",
   :display_name => "Disable Access Log",
   :default => "false"
+
+attribute "nginx/default_site_enabled",
+  :display_name => "Default site enabled",
+  :default => "true"
