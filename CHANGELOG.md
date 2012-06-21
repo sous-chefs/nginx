@@ -1,13 +1,9 @@
-## COOK-1280:
+## v0.101.4:
 
-* Change nginx['user'] to `nginx` on redhat platform
-* Change nginx['init_style'] to `init` on redhat platform
-* Create non-existing `sites-enabled` and `sites-available` directories on redhat platform
-* Add redhat family platforms to supported OS list
-* Update README to note nginx is availabe only by EPEL on redhat platform
-* Remove template notify for non-existent ohai[custom_plugins] resource, and move `include_recipe "ohai"` a general fix for all platforms.
-* Change symbols to strings for *foodcritic*
-* Remove unnecessary include_attribute "nginx", already in the same attribute scope
+* [COOK-1280] - Improve RHEL family support and fix ohai_plugins
+ recipe bug
+* [COOK-1194] - allow installation method via attribute
+* [COOK-458] - fix duplicate nginx processes
 
 ## v0.101.2:
 
