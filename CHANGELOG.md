@@ -1,3 +1,9 @@
+## v0.101.6:
+
+Erroneous cookbook upload due to timeout.
+
+Version #'s are cheap.
+
 ## v0.101.4:
 
 * [COOK-1280] - Improve RHEL family support and fix ohai_plugins
