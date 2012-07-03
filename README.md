@@ -76,7 +76,8 @@ From: http://wiki.nginx.org/HttpRealIpModule
 
 These attributes are used in the `nginx::source` recipe. Some of them are dynamically modified during the run. See `attributes/source.rb` for default values.
 
-* `node['nginx']['source']['url']` - (versioned) URL for the Nginx source code. By default this will use the version specified as `node['nginx']['version'].
+* `node['nginx']['source']['version'] - which version of nginx to compile.
+* `node['nginx']['source']['url']` - (versioned) URL for the Nginx source code. By default this will use the version specified as `node['nginx']['source']['version'].
 * `node['nginx']['source']['prefix']` - (versioned) prefix for installing nginx from source
 * `node['nginx']['source']['conf_path']` - location of the main config file, in `node['nginx']['dir']` by default.
 * `node['nginx']['source']['modules']` - Array of modules that should be compiled into Nginx by including their recipes in `nginx::source`.
