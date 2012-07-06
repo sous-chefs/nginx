@@ -43,4 +43,4 @@ bash "extract_push_stream_module" do
 end
 
 node.run_state['nginx_configure_flags'] =
-  node.run_state['nginx_configure_flags'] | ["--add-module=#{push_stream_extract_path}/wandenberg-nginx-push-stream-module-28d9df7"]
+  node.run_state['nginx_configure_flags'] | ["--add-module=#{push_stream_extract_path}"]
