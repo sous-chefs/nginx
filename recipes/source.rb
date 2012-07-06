@@ -131,6 +131,7 @@ when "bluepill"
     action :nothing
   end
 when "upstart"
+  node.set['nginx']['daemon_disable'] = false
 
   template "/etc/init/nginx.conf" do
     source "upstart_conf.erb"
