@@ -8,6 +8,6 @@ stop on runlevel [!2345]
  
 console output
 
-exec <%= node['nginx']['binary'] -c /etc/nginx/nginx.conf  -g "daemon off;"
+exec <%= node['nginx']['binary'] %> -c /etc/nginx/nginx.conf  -g "daemon off;"
 
 respawn
