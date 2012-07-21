@@ -19,7 +19,7 @@ Platform
 * Debian/Ubuntu
 * RHEL/CentOS
 
-The `nginx::source` may work anywhere "build-essential" is avaialble.  The `EPEL repo` is required for nginx::default on RedHat family distros.
+The `nginx::source` may work anywhere "build-essential" is available.  The `EPEL repo` is required for nginx::default on RedHat family distros.
 
 Attributes
 ==========
