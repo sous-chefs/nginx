@@ -32,3 +32,5 @@ default['nginx']['source']['modules'] = [
   "http_ssl_module",
   "http_gzip_static_module"
 ]
+
+default['nginx']['source']['module_path'] =  "/opt/nginx_modules"
