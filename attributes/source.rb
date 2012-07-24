@@ -19,9 +19,9 @@
 # limitations under the License.
 #
 
-set['nginx']['source']['prefix']                  = "/opt/nginx-#{node['nginx']['version']}"
-set['nginx']['source']['conf_path']               = "#{node['nginx']['dir']}/nginx.conf"
-set['nginx']['source']['default_configure_flags'] = [
+default['nginx']['source']['prefix']                  = "/opt/nginx-#{node['nginx']['version']}"
+default['nginx']['source']['conf_path']               = "#{node['nginx']['dir']}/nginx.conf"
+default['nginx']['source']['default_configure_flags'] = [
   "--prefix=#{node['nginx']['source']['prefix']}",
   "--conf-path=#{node['nginx']['dir']}/nginx.conf"
 ]
