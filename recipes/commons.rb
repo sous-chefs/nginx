@@ -62,4 +62,6 @@ template "#{node['nginx']['dir']}/sites-available/default" do
   mode 0644
 end
 
-nginx_site 'default' if node['nginx']['default_site_enabled']
+nginx_site 'default' do
+  enabled node['nginx']['default_site_enabled']
+end
