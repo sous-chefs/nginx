@@ -147,7 +147,13 @@ else
     )
   end
 
-  template "/etc/sysconfig/nginx" do
+  defaults_path = case node['platform']
+    when 'debian', 'ubuntu'
+      '/etc/default/nginx'
+    else
+      '/etc/sysconfig/nginx'
+  end
+  template defaults_path do
     source "nginx.sysconfig.erb"
     owner "root"
     group "root"
