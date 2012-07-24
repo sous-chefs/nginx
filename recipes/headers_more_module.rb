@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: nginx
-# Recipe:: more_headers_module
+# Recipe:: headers_more_module
 #
 # Author:: Lucas Jandrew (<ljandrew@riotgames.com>)
 #
