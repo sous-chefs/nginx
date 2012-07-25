@@ -21,8 +21,10 @@
 
 include_attribute 'nginx::default'
 
+default['nginx']['daemon_disable']                    = true
 default['nginx']['source']['prefix']                  = "/opt/nginx-#{node['nginx']['version']}"
 default['nginx']['source']['conf_path']               = "#{node['nginx']['dir']}/nginx.conf"
+default['nginx']['binary']                            = "#{node['nginx']['source']['prefix']}/sbin/nginx"
 default['nginx']['source']['default_configure_flags'] = [
   "--prefix=#{node['nginx']['source']['prefix']}",
   "--conf-path=#{node['nginx']['source']['conf_path']}"

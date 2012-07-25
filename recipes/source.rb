@@ -21,25 +21,6 @@
 # limitations under the License.
 #
 
-
-nginx_url = node['nginx']['source']['url'] ||
-  "http://nginx.org/download/nginx-#{node['nginx']['version']}.tar.gz"
-
-unless(node['nginx']['source']['prefix'])
-  node.set['nginx']['source']['prefix'] = "/opt/nginx-#{node['nginx']['version']}"
-end
-unless(node['nginx']['source']['conf_path'])
-  node.set['nginx']['source']['conf_path'] = "#{node['nginx']['dir']}/nginx.conf"
-end
-unless(node['nginx']['source']['default_configure_flags'])
-  node.set['nginx']['source']['default_configure_flags'] = [
-    "--prefix=#{node['nginx']['source']['prefix']}",
-    "--conf-path=#{node['nginx']['dir']}/nginx.conf"
-  ]
-end
-node.set['nginx']['binary']          = "#{node['nginx']['source']['prefix']}/sbin/nginx"
-node.set['nginx']['daemon_disable']  = true
-
 include_recipe "nginx::ohai_plugin"
 include_recipe "build-essential"
 
@@ -53,8 +34,8 @@ packages.each do |devpkg|
   package devpkg
 end
 
-remote_file nginx_url do
-  source nginx_url
+remote_file node['nginx']['source']['url'] do
+  source node['nginx']['source']['url']
   path src_filepath
   backup false
 end
@@ -66,7 +47,7 @@ user node['nginx']['user'] do
 end
 
 node.run_state['nginx_force_recompile'] = false
-node.run_state['nginx_configure_flags'] = 
+node.run_state['nginx_configure_flags'] =
   node['nginx']['source']['default_configure_flags'] | node['nginx']['configure_flags']
 
 node['nginx']['source']['modules'].each do |ngx_module|
@@ -84,7 +65,7 @@ bash "compile_nginx_source" do
     make && make install
     rm -f #{node['nginx']['dir']}/nginx.conf
   EOH
-  
+
   not_if do
     nginx_force_recompile == false &&
       node.automatic_attrs['nginx']['version'] == node['nginx']['version'] &&
@@ -132,7 +113,7 @@ when "bluepill"
   end
 else
   node.set['nginx']['daemon_disable'] = false
-  
+
   template "/etc/init.d/nginx" do
     source "nginx.init.erb"
     owner "root"
@@ -140,10 +121,10 @@ else
     mode "0755"
     variables(
       :working_dir => node['nginx']['source']['prefix'],
-      :src_binary => node['nginx']['binary'],
-      :nginx_dir => node['nginx']['dir'],
-      :log_dir => node['nginx']['log_dir'],
-      :pid => node['nginx']['pid']
+      :src_binary  => node['nginx']['binary'],
+      :nginx_dir   => node['nginx']['dir'],
+      :log_dir     => node['nginx']['log_dir'],
+      :pid         => node['nginx']['pid']
     )
   end
 
