@@ -1,5 +1,5 @@
 server {
-  listen   80;
+  listen   <%= node['nginx']['port'] %>;
   server_name  <%= node['hostname'] %>;
 
   access_log  <%= node['nginx']['log_dir'] %>/localhost.access.log;
