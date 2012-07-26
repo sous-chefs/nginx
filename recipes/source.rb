@@ -21,6 +21,11 @@
 # limitations under the License.
 #
 
+# TODO: This belongs in attributes/source.rb but it seems that sometimes the
+# value from attributes/default.rb will win the race as to which default applies.
+# See here: https://gist.github.com/e8d1f9769485d8685f9d
+node.default['nginx']['binary'] = "#{node['nginx']['source']['prefix']}/sbin/nginx"
+
 include_recipe "nginx::ohai_plugin"
 include_recipe "build-essential"
 
