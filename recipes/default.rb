@@ -22,7 +22,7 @@ include_recipe 'nginx::ohai_plugin'
 
 case node['nginx']['install_method']
 when 'source'
-  include_recipe 'nginx::source'
+  include_recipe 'riot_nginx::source'
 when 'package'
   case node['platform']
   when 'redhat','centos','scientific','amazon','oracle'
@@ -33,7 +33,7 @@ when 'package'
     supports :status => true, :restart => true, :reload => true
     action :enable
   end
-  include_recipe 'nginx::commons'
+  include_recipe 'riot_nginx::commons'
 end
 
 service 'nginx' do
