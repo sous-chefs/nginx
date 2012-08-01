@@ -40,7 +40,7 @@ end
 node.set['nginx']['binary']          = "#{node['nginx']['source']['prefix']}/sbin/nginx"
 node.set['nginx']['daemon_disable']  = true
 
-include_recipe "riot_nginx::ohai_plugin"
+include_recipe "ljandrew_nginx::ohai_plugin"
 include_recipe "build-essential"
 
 src_filepath  = "#{Chef::Config['file_cache_path'] || '/tmp'}/nginx-#{node['nginx']['version']}.tar.gz"
@@ -70,7 +70,7 @@ node.run_state['nginx_configure_flags'] =
   node['nginx']['source']['default_configure_flags'] | node['nginx']['configure_flags']
 
 node['nginx']['source']['modules'].each do |ngx_module|
-  include_recipe "riot_nginx::#{ngx_module}"
+  include_recipe "ljandrew_nginx::#{ngx_module}"
 end
 
 configure_flags = node.run_state['nginx_configure_flags']
@@ -169,7 +169,7 @@ end
   end
 end
 
-include_recipe 'riot_nginx::commons'
+include_recipe 'ljandrew_nginx::commons'
 
 cookbook_file "#{node['nginx']['dir']}/mime.types" do
   source "mime.types"

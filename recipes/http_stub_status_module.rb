@@ -19,7 +19,7 @@
 # limitations under the License.
 #
 
-include_recipe "riot_nginx::authorized_ips"
+include_recipe "ljandrew_nginx::authorized_ips"
 
 template "nginx_status" do
   path "#{node['nginx']['dir']}/sites-available/nginx_status"
