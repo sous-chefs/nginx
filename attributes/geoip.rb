@@ -27,4 +27,4 @@ default['nginx']['geoip']['city_dat_url']         = "http://geolite.maxmind.com/
 default['nginx']['geoip']['city_dat_checksum']    = "1075c5dcd106d937c29879330713b8e5"
 default['nginx']['geoip']['lib_version']          = "1.4.8"
 default['nginx']['geoip']['lib_url']              = "http://geolite.maxmind.com/download/geoip/api/c/GeoIP-#{node['nginx']['geoip']['lib_version']}.tar.gz"
-default['nginx']['geoip']['lib_checksum']         = "05b7300435336231b556df5ab36f326d"
+default['nginx']['geoip']['lib_checksum']         = "cf0f6b2bac1153e34d6ef55ee3851479b347d2b5c191fda8ff6a51fab5291ff4"
