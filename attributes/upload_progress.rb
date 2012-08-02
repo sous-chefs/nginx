@@ -20,4 +20,4 @@
 #
 
 default['nginx']['upload_progress']['url']      = "https://github.com/masterzen/nginx-upload-progress-module/tarball/v0.8.4"
-default['nginx']['upload_progress']['checksum'] = "9a6acb984d81f5d7e04214d63ae94273"
+default['nginx']['upload_progress']['checksum'] = "7b3f81d30cd3e8af2c343b73d8518d2373b95aeb3d0243790991873a3d91d0c5"
