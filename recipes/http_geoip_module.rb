@@ -19,7 +19,7 @@
 # limitations under the License.
 #
 
-package 'libtoolize'
+package 'libtool'
 
 country_dat          = "#{node['nginx']['geoip']['path']}/GeoIP.dat"
 country_src_filename = ::File.basename(node['nginx']['geoip']['country_dat_url'])
