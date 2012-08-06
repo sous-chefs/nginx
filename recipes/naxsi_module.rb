@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: nginx
-# Recipe:: naxsi
+# Recipe:: naxsi_module
 #
 # Author:: Artiom Lunev (<artiom.lunev@gmail.com>)
 #
