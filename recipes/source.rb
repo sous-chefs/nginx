@@ -98,6 +98,7 @@ bash "compile_nginx_source" do
   not_if do
     nginx_force_recompile == false &&
       node.automatic_attrs &&
+      node.automatic_attrs['nginx'] &&
       node.automatic_attrs['nginx']['version'] == node['nginx']['version'] &&
       node.automatic_attrs['nginx']['configure_arguments'].sort == configure_flags.sort
   end
