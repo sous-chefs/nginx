@@ -70,6 +70,15 @@ node.run_state['nginx_force_recompile'] = false
 node.run_state['nginx_configure_flags'] = 
   node['nginx']['source']['default_configure_flags'] | node['nginx']['configure_flags']
 
+# Some of the modules require this dir structure exist already
+# NOTE: recursive doesn't recurse the mode, hence 2 calls here.
+directory node['nginx']['dir'] do
+  mode 0755
+end
+directory "#{node['nginx']['dir']}/conf.d" do
+  mode 0755
+end
+
 node['nginx']['source']['modules'].each do |ngx_module|
   include_recipe "nginx::#{ngx_module}"
 end
@@ -85,9 +94,10 @@ bash "compile_nginx_source" do
     make && make install
     rm -f #{node['nginx']['dir']}/nginx.conf
   EOH
-  
+
   not_if do
     nginx_force_recompile == false &&
+      node.automatic_attrs &&
       node.automatic_attrs['nginx']['version'] == node['nginx']['version'] &&
       node.automatic_attrs['nginx']['configure_arguments'].sort == configure_flags.sort
   end

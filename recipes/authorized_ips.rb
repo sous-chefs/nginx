@@ -22,10 +22,6 @@
 node.default['nginx']['remote_ip_var']  = "remote_addr"
 node.default['nginx']['authorized_ips'] = ["127.0.0.1/32"]
 
-service "nginx" do
-  supports :status => true, :restart => true, :reload => true
-end
-
 template "authorized_ip" do
   path "#{node['nginx']['dir']}/authorized_ip"
   source "modules/authorized_ip.erb"
@@ -36,6 +32,5 @@ template "authorized_ip" do
     :remote_ip_var => node['nginx']['remote_ip_var'],
     :authorized_ips => node['nginx']['authorized_ips']
   )
-
-  notifies :reload, resources(:service => "nginx")
+  notifies :reload, 'service[nginx]', :delayed
 end

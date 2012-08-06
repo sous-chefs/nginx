@@ -99,6 +99,7 @@ template "#{node['nginx']['dir']}/conf.d/http_geoip.conf" do
     :country_dat => country_dat,
     :city_dat => city_dat
   )
+  notifies :reload, 'service[nginx]', :delayed
 end
 
 node.run_state['nginx_configure_flags'] =
