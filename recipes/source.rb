@@ -134,7 +134,7 @@ when "bluepill"
   end
 else
   node.set['nginx']['daemon_disable'] = false
-  
+
   template "/etc/init.d/nginx" do
     source "nginx.init.erb"
     owner "root"
@@ -149,7 +149,13 @@ else
     )
   end
 
-  template "/etc/sysconfig/nginx" do
+  defaults_path = case node['platform']
+    when 'debian', 'ubuntu'
+      '/etc/default/nginx'
+    else
+      '/etc/sysconfig/nginx'
+  end
+  template defaults_path do
     source "nginx.sysconfig.erb"
     owner "root"
     group "root"
