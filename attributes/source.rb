@@ -19,6 +19,8 @@
 # limitations under the License.
 #
 
+include_attribute 'nginx'
+
 default['nginx']['source']['prefix']                  = "/opt/nginx-#{node['nginx']['version']}"
 default['nginx']['source']['conf_path']               = "#{node['nginx']['dir']}/nginx.conf"
 default['nginx']['source']['default_configure_flags'] = [
