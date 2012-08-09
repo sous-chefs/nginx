@@ -19,7 +19,9 @@
 # limitations under the License.
 #
 
-set['nginx']['source']['prefix']                  = "/opt/nginx-#{node['nginx']['version']}"
+default['nginx']['source']['version'] = "1.0.14"
+
+set['nginx']['source']['prefix']                  = "/opt/nginx-#{node['nginx']['source']['version']}"
 set['nginx']['source']['conf_path']               = "#{node['nginx']['dir']}/nginx.conf"
 set['nginx']['source']['default_configure_flags'] = [
   "--prefix=#{node['nginx']['source']['prefix']}",
@@ -27,7 +29,7 @@ set['nginx']['source']['default_configure_flags'] = [
 ]
 
 default['nginx']['configure_flags']  = Array.new
-default['nginx']['source']['url']     = "http://nginx.org/download/nginx-#{node['nginx']['version']}.tar.gz"
+default['nginx']['source']['url']     = "http://nginx.org/download/nginx-#{node['nginx']['source']['version']}.tar.gz"
 default['nginx']['source']['modules'] = [
   "http_ssl_module",
   "http_gzip_static_module"

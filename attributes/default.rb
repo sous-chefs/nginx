@@ -20,7 +20,6 @@
 # limitations under the License.
 #
 
-default['nginx']['version'] = "1.0.14"
 default['nginx']['dir'] = "/etc/nginx"
 default['nginx']['log_dir'] = "/var/log/nginx"
 default['nginx']['binary'] = "/usr/sbin/nginx"
