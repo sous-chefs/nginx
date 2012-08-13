@@ -20,7 +20,7 @@
 # limitations under the License.
 #
 
-default['nginx']['version'] = "1.0.14"
+default['nginx']['version'] = "1.2.2"
 default['nginx']['dir'] = "/etc/nginx"
 default['nginx']['log_dir'] = "/var/log/nginx"
 default['nginx']['binary'] = "/usr/sbin/nginx"
@@ -45,7 +45,6 @@ default['nginx']['gzip_comp_level']   = "2"
 default['nginx']['gzip_proxied']      = "any"
 default['nginx']['gzip_types']        = [
   "text/plain",
-  "text/html",
   "text/css",
   "application/x-javascript",
   "text/xml",
