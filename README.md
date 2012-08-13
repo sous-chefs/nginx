@@ -77,7 +77,8 @@ From: http://wiki.nginx.org/HttpRealIpModule
 
 These attributes are used in the `nginx::source` recipe. Some of them are dynamically modified during the run. See `attributes/source.rb` for default values.
 
-* `node['nginx']['source']['url']` - (versioned) URL for the Nginx source code. By default this will use the version specified as `node['nginx']['version'].
+* `node['nginx']['source']['version'] - which version of nginx to compile.
+* `node['nginx']['source']['url']` - (versioned) URL for the Nginx source code. By default this will use the version specified as `node['nginx']['source']['version'].
 * `node['nginx']['source']['prefix']` - (versioned) prefix for installing nginx from source
 * `node['nginx']['source']['conf_path']` - location of the main config file, in `node['nginx']['dir']` by default.
 * `node['nginx']['source']['modules']` - Array of modules that should be compiled into Nginx by including their recipes in `nginx::source`.
@@ -104,6 +105,14 @@ These attributes are used in the `nginx::upload_progress_module` recipe.
 
 * `node['nginx']['upload_progress]['url']` - URL for the tarball.
 * `node['nginx']['upload_progress']['checksum']` - Checksum of the tarball.
+
+## echo.rb
+
+These attributes are used in the `nginx::http_echo_module` recipe.
+
+* `node['nginx']['echo]['version']` - The version of http_echo you want (default: 0.40)
+* `node['nginx']['echo]['url']` - URL for the tarball.
+* `node['nginx']['echo']['checksum']` - Checksum of the tarball.
 
 Recipes
 =======
@@ -145,6 +154,7 @@ The nginx service will be set up according to `node['nginx']['init_style']`. Ava
 
 The following recipes are used to build module support into Nginx:
 
+* `http_echo_module.rb` - downloads the `http_echo_module` module and enables it as a module when compiling nginx.
 * `http_geoip_module.rb` - installs the GeoIP libraries and data files and enables the module for compilation.
 * `http_gzip_static_module.rb` - enables the module for compilation.
 * `http_realip_module.rb` - enables the module for compilation and creates the configuration.

@@ -19,15 +19,20 @@
 # limitations under the License.
 #
 
-set['nginx']['source']['prefix']                  = "/opt/nginx-#{node['nginx']['version']}"
-set['nginx']['source']['conf_path']               = "#{node['nginx']['dir']}/nginx.conf"
-set['nginx']['source']['default_configure_flags'] = [
+include_attribute 'nginx'
+
+default['nginx']['source']['version'] = "1.0.14"
+
+default['nginx']['source']['prefix']                  = "/opt/nginx-#{node['nginx']['source']['version']}"
+default['nginx']['source']['conf_path']               = "#{node['nginx']['dir']}/nginx.conf"
+default['nginx']['source']['default_configure_flags'] = [
   "--prefix=#{node['nginx']['source']['prefix']}",
   "--conf-path=#{node['nginx']['dir']}/nginx.conf"
 ]
 
 default['nginx']['configure_flags']  = Array.new
-default['nginx']['source']['url']     = "http://nginx.org/download/nginx-#{node['nginx']['version']}.tar.gz"
+default['nginx']['source']['checksum'] = "98e483925dab83683762db32c21a1e2ec685d79a298c2e32e785af0cc4bae3af"
+default['nginx']['source']['url']     = "http://nginx.org/download/nginx-#{node['nginx']['source']['version']}.tar.gz"
 default['nginx']['source']['modules'] = [
   "http_ssl_module",
   "http_gzip_static_module"
