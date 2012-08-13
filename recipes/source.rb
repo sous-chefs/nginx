@@ -41,6 +41,7 @@ node.set['nginx']['binary']          = "#{node['nginx']['source']['prefix']}/sbi
 node.set['nginx']['daemon_disable']  = true
 
 include_recipe "nginx::ohai_plugin"
+include_recipe "nginx::commons"
 include_recipe "build-essential"
 
 src_filepath  = "#{Chef::Config['file_cache_path'] || '/tmp'}/nginx-#{node['nginx']['version']}.tar.gz"
@@ -63,12 +64,6 @@ user node['nginx']['user'] do
   system true
   shell "/bin/false"
   home "/var/www"
-end
-
-directory node['nginx']['dir'] do
-  owner "root"
-  group "root"
-  mode "0755"
 end
 
 node.run_state['nginx_force_recompile'] = false
@@ -174,8 +169,6 @@ end
     group "root"
   end
 end
-
-include_recipe 'nginx::commons'
 
 cookbook_file "#{node['nginx']['dir']}/mime.types" do
   source "mime.types"
