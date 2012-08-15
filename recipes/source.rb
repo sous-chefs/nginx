@@ -22,9 +22,10 @@
 #
 
 
-nginx_url = node['nginx']['source']['url'] ||
-  "http://nginx.org/download/nginx-#{node['nginx']['version']}.tar.gz"
-
+if node['nginx']['source']['url'] == ""
+  node.set['nginx']['source']['url'] = "http://nginx.org/download/nginx-#{node['nginx']['version']}.tar.gz"
+end
+nginx_url = node['nginx']['source']['url']
 unless(node['nginx']['source']['prefix'])
   node.set['nginx']['source']['prefix'] = "/opt/nginx-#{node['nginx']['version']}"
 end
@@ -52,6 +53,9 @@ packages = value_for_platform(
 packages.each do |devpkg|
   package devpkg
 end
+
+log nginx_url
+log src_filepath
 
 remote_file nginx_url do
   source nginx_url
