@@ -86,7 +86,8 @@ These attributes are used in the `nginx::source` recipe. Some of them are dynami
 
 ## geoip.rb
 
-These attributes are used in the `nginx::http_geoip_module` recipe.
+These attributes are used in the `nginx::http_geoip_module` recipe. Please note that the country_dat_checksum and city_dat_checksum are based on downloads from
+a datacenter in Fremont, CA, USA. You really should override these with checksums for the geo tarballs from your node location.
 
 * `node['nginx']['geoip']['path']` - Location where to install the geoip libraries.
 * `node['nginx']['geoip']['enable_city']` - Whether to enable City data
