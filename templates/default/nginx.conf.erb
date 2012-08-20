@@ -12,6 +12,10 @@ events {
 }
 
 http {
+  <% if node.recipe?('nginx::naxsi_module') %>
+  include       <%= node['nginx']['dir'] %>/naxsi_core.rules;
+  <% end %>
+
   include       <%= node['nginx']['dir'] %>/mime.types;
   default_type  application/octet-stream;
 
