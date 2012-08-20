@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: nginx
-# Recipe:: commons
+# Recipe:: common/script
 # Author:: AJ Christensen <aj@junglist.gen.nz>
 #
 # Copyright 2008-2012, Opscode, Inc.
@@ -18,6 +18,11 @@
 # limitations under the License.
 #
 
-include_recipe "nginx::commons_dir"
-include_recipe "nginx::commons_script"
-include_recipe "nginx::commons_conf"
+%w(nxensite nxdissite).each do |nxscript|
+  template "/usr/sbin/#{nxscript}" do
+    source "#{nxscript}.erb"
+    mode "0755"
+    owner "root"
+    group "root"
+  end
+end
