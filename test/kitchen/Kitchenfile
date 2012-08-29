@@ -1,3 +1,4 @@
 cookbook "nginx" do
+  configuration "source"
   runtimes []
 end
