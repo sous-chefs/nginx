@@ -67,7 +67,7 @@ user node['nginx']['user'] do
 end
 
 node.run_state['nginx_force_recompile'] = false
-node.run_state['nginx_configure_flags'] = 
+node.run_state['nginx_configure_flags'] =
   node['nginx']['source']['default_configure_flags'] | node['nginx']['configure_flags']
 
 node['nginx']['source']['modules'].each do |ngx_module|
@@ -85,7 +85,7 @@ bash "compile_nginx_source" do
     make && make install
     rm -f #{node['nginx']['dir']}/nginx.conf
   EOH
-  
+
   not_if do
     nginx_force_recompile == false &&
       node.automatic_attrs['nginx'] &&
@@ -141,10 +141,7 @@ else
     group "root"
     mode "0755"
     variables(
-      :working_dir => node['nginx']['source']['prefix'],
       :src_binary => node['nginx']['binary'],
-      :nginx_dir => node['nginx']['dir'],
-      :log_dir => node['nginx']['log_dir'],
       :pid => node['nginx']['pid']
     )
   end
