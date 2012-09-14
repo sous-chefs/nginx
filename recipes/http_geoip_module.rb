@@ -28,6 +28,8 @@ city_src_filepath    = "#{Chef::Config['file_cache_path']}/#{city_src_filename}"
 geolib_filename      = ::File.basename(node['nginx']['geoip']['lib_url'])
 geolib_filepath      = "#{Chef::Config['file_cache_path']}/#{geolib_filename}"
 
+package 'libtool'
+
 remote_file geolib_filepath do
   source node['nginx']['geoip']['lib_url']
   checksum node['nginx']['geoip']['lib_checksum']
@@ -40,7 +42,9 @@ bash "extract_geolib" do
   cwd ::File.dirname(geolib_filepath)
   code <<-EOH
     tar xzvf #{geolib_filepath} -C #{::File.dirname(geolib_filepath)}
-    cd GeoIP-#{node['nginx']['geoip']['lib_version']} && ./configure
+    cd GeoIP-#{node['nginx']['geoip']['lib_version']}
+    libtoolize  # fix ./deps/GeoIP.Tpo make error in 1.4.8
+    ./configure
     make && make install
   EOH
 
