@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: nginx
-# Recipe:: commons
+# Recipe:: common/conf
 # Author:: AJ Christensen <aj@junglist.gen.nz>
 #
 # Copyright 2008-2012, Opscode, Inc.
@@ -18,6 +18,22 @@
 # limitations under the License.
 #
 
-include_recipe "nginx::commons_dir"
-include_recipe "nginx::commons_script"
-include_recipe "nginx::commons_conf"
+template "nginx.conf" do
+  path "#{node['nginx']['dir']}/nginx.conf"
+  source "nginx.conf.erb"
+  owner "root"
+  group "root"
+  mode "0644"
+  notifies :reload, 'service[nginx]', :immediately
+end
+
+template "#{node['nginx']['dir']}/sites-available/default" do
+  source "default-site.erb"
+  owner "root"
+  group "root"
+  mode 0644
+end
+
+nginx_site 'default' do
+  enable node['nginx']['default_site_enabled']
+end

@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: nginx
-# Recipe:: commons
+# Recipe:: common/dir
 # Author:: AJ Christensen <aj@junglist.gen.nz>
 #
 # Copyright 2008-2012, Opscode, Inc.
@@ -18,6 +18,22 @@
 # limitations under the License.
 #
 
-include_recipe "nginx::commons_dir"
-include_recipe "nginx::commons_script"
-include_recipe "nginx::commons_conf"
+directory node['nginx']['dir'] do
+  owner "root"
+  group "root"
+  mode "0755"
+end
+
+directory node['nginx']['log_dir'] do
+  mode 0755
+  owner node['nginx']['user']
+  action :create
+end
+
+%w(sites-available sites-enabled conf.d).each do |leaf|
+  directory File.join(node['nginx']['dir'], leaf) do
+    owner "root"
+    group "root"
+    mode "0755"
+  end
+end
