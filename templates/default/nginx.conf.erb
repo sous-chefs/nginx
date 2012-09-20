@@ -12,6 +12,10 @@ events {
 }
 
 http {
+  <% if node.recipe?('nginx::naxsi_module') %>
+  include       <%= node['nginx']['dir'] %>/naxsi_core.rules;
+  <% end %>
+
   include       <%= node['nginx']['dir'] %>/mime.types;
   default_type  application/octet-stream;
 
@@ -33,6 +37,8 @@ http {
   gzip_comp_level <%= node['nginx']['gzip_comp_level'] %>;
   gzip_proxied <%= node['nginx']['gzip_proxied'] %>;
   gzip_types <%= node['nginx']['gzip_types'].join(' ') %>;
+  gzip_min_length  1000;
+  gzip_disable     "MSIE [1-6]\.";
   <% end %>
 
   server_names_hash_bucket_size <%= node['nginx']['server_names_hash_bucket_size'] %>;

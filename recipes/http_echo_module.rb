@@ -2,9 +2,9 @@
 # Cookbook Name:: nginx
 # Recipe:: http_echo_module
 #
-# Author:: Lucas Jandrew (<ljandrew@riotgames.com>)
+# Author:: Danial Pearce (<danial@cushycms.com>)
 #
-# Copyright 2012, Riot Games
+# Copyright 2012, CushyCMS
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,34 +17,30 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
 
-tar_location = "#{Chef::Config['file_cache_path']}/headers_more.tar.gz"
-module_location = "#{node['nginx']['source']['module_path']}/http_echo"
+echo_src_filename = "echo-nginx-module-v#{node['nginx']['echo']['version']}.tar.gz"
+echo_src_filepath = "#{Chef::Config['file_cache_path']}/#{echo_src_filename}"
+echo_extract_path = "#{Chef::Config['file_cache_path']}/nginx_echo_module/#{node['nginx']['echo']['checksum']}"
 
-remote_file tar_location do
-  source node['nginx']['echo']['source_url']
-  checksum node['nginx']['echo']['source_checksum']
-  owner 'root'
-  group 'root'
-  mode 0644
+remote_file echo_src_filepath do
+  source   node['nginx']['echo']['url']
+  checksum node['nginx']['echo']['checksum']
+  owner    'root'
+  group    'root'
+  mode     0644
 end
 
-directory module_location do
-  owner "root"
-  group "root"
-  mode 0755
-  recursive true
-  action :create
-end
-
-bash "extract_echo" do
-  cwd ::File.dirname(tar_location)
+bash 'extract_http_echo_module' do
+  cwd ::File.dirname(echo_src_filepath)
   code <<-EOH
-    tar -zxvf #{tar_location} -C #{module_location}
-    mv -f #{module_location}/agentz*/* #{module_location}
-    rm -rf #{module_location}/agentz*
+    mkdir -p #{echo_extract_path}
+    tar xzf #{echo_src_filename} -C #{echo_extract_path}
+    mv #{echo_extract_path}/*/* #{echo_extract_path}/
   EOH
+
+  not_if { ::File.exists?(echo_extract_path) }
 end
 
 node.run_state['nginx_configure_flags'] =
-    node.run_state['nginx_configure_flags'] | ["--add-module=#{module_location}"]
+  node.run_state['nginx_configure_flags'] | ["--add-module=#{echo_extract_path}"]

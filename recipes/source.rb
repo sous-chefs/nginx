@@ -22,10 +22,9 @@
 #
 
 
-if node['nginx']['source']['url'] == ""
-  node.set['nginx']['source']['url'] = "http://nginx.org/download/nginx-#{node['nginx']['version']}.tar.gz"
-end
-nginx_url = node['nginx']['source']['url']
+nginx_url = node['nginx']['source']['url'] ||
+  "http://nginx.org/download/nginx-#{node['nginx']['version']}.tar.gz"
+
 unless(node['nginx']['source']['prefix'])
   node.set['nginx']['source']['prefix'] = "/opt/nginx-#{node['nginx']['version']}"
 end
@@ -59,6 +58,7 @@ log src_filepath
 
 remote_file nginx_url do
   source nginx_url
+  checksum node['nginx']['source']['checksum']
   path src_filepath
   backup false
 end
@@ -70,7 +70,7 @@ user node['nginx']['user'] do
 end
 
 node.run_state['nginx_force_recompile'] = false
-node.run_state['nginx_configure_flags'] = 
+node.run_state['nginx_configure_flags'] =
   node['nginx']['source']['default_configure_flags'] | node['nginx']['configure_flags']
 
 node['nginx']['source']['modules'].each do |ngx_module|
@@ -91,8 +91,9 @@ bash "compile_nginx_source" do
 
   not_if do
     nginx_force_recompile == false &&
-        (node.automatic_attrs['nginx'] && node.automatic_attrs['nginx']['version'] == node['nginx']['version']) &&
-        (node.automatic_attrs['nginx'] && node.automatic_attrs['nginx']['configure_arguments'].sort == configure_flags.sort)
+      node.automatic_attrs['nginx'] &&
+      node.automatic_attrs['nginx']['version'] == node['nginx']['version'] &&
+      node.automatic_attrs['nginx']['configure_arguments'].sort == configure_flags.sort
   end
 end
 
@@ -136,7 +137,7 @@ when "bluepill"
   end
 else
   node.set['nginx']['daemon_disable'] = false
-  
+
   template "/etc/init.d/nginx" do
     source "nginx.init.erb"
     owner "root"
@@ -151,7 +152,14 @@ else
     )
   end
 
-  template "/etc/sysconfig/nginx" do
+  defaults_path = case node['platform']
+    when 'debian', 'ubuntu'
+      '/etc/default/nginx'
+    else
+      '/etc/sysconfig/nginx'
+  end
+  
+  template defaults_path do
     source "nginx.sysconfig.erb"
     owner "root"
     group "root"

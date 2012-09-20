@@ -1,0 +1,5 @@
+cookbook "nginx" do
+  configuration("default") { runtimes [] }
+  configuration("source") { runtimes [] }
+  runtimes []
+end
