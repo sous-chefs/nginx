@@ -12,7 +12,7 @@ events {
 }
 
 http {
-  <% if node.recipe?('nginx::naxsi_module') %>
+  <% if node.recipe?('ljandrew_nginx::naxsi_module') %>
   include       <%= node['nginx']['dir'] %>/naxsi_core.rules;
   <% end %>
 

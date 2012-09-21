@@ -18,7 +18,7 @@
 # limitations under the License.
 #
 
-include_recipe 'nginx::ohai_plugin'
+include_recipe 'ljandrew_nginx::ohai_plugin'
 
 case node['nginx']['install_method']
 when 'source'

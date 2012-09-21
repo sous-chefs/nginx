@@ -19,7 +19,7 @@
 # limitations under the License.
 #
 
-include_attribute 'nginx'
+include_attribute 'ljandrew_nginx'
 
 default['nginx']['source']['prefix']                  = "/opt/nginx-#{node['nginx']['version']}"
 default['nginx']['source']['conf_path']               = "#{node['nginx']['dir']}/nginx.conf"
