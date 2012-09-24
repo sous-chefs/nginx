@@ -24,7 +24,7 @@ directory node['nginx']['log_dir'] do
   action :create
 end
 
-%w(sites-available sites-enabled conf.d).each do |leaf|
+%w(sites-available sites-enabled).each do |leaf|
   directory File.join(node['nginx']['dir'], leaf) do
     owner "root"
     group "root"

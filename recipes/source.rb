@@ -72,6 +72,12 @@ directory node['nginx']['dir'] do
   mode "0755"
 end
 
+directory "#{node['nginx']['dir']}/conf.d" do
+  owner "root"
+  group "root"
+  mode "0755"
+end  
+
 node.run_state['nginx_force_recompile'] = false
 node.run_state['nginx_configure_flags'] =
   node['nginx']['source']['default_configure_flags'] | node['nginx']['configure_flags']

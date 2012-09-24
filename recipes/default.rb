@@ -38,6 +38,11 @@ when 'package'
     group "root"
     mode "0755"
   end
+  directory "#{node['nginx']['dir']}/conf.d" do
+    owner "root"
+    group "root"
+    mode "0755"
+  end  
   include_recipe 'nginx::commons'
 end
 
