@@ -33,6 +33,11 @@ when 'package'
     supports :status => true, :restart => true, :reload => true
     action :enable
   end
+  directory node['nginx']['dir'] do
+    owner "root"
+    group "root"
+    mode "0755"
+  end
   include_recipe 'nginx::commons'
 end
 
