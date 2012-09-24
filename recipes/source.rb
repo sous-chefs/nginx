@@ -80,6 +80,15 @@ end
   end
 end
 
+%w{nxensite nxdissite}.each do |nxscript|
+  template "/usr/sbin/#{nxscript}" do
+    source "#{nxscript}.erb"
+    mode "0755"
+    owner "root"
+    group "root"
+  end
+end
+
 node.run_state['nginx_force_recompile'] = false
 node.run_state['nginx_configure_flags'] =
   node['nginx']['source']['default_configure_flags'] | node['nginx']['configure_flags']
@@ -176,15 +185,6 @@ else
   service "nginx" do
     supports :status => true, :restart => true, :reload => true
     action :enable
-  end
-end
-
-%w{nxensite nxdissite}.each do |nxscript|
-  template "/usr/sbin/#{nxscript}" do
-    source "#{nxscript}.erb"
-    mode "0755"
-    owner "root"
-    group "root"
   end
 end
 
