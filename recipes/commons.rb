@@ -24,14 +24,6 @@ directory node['nginx']['log_dir'] do
   action :create
 end
 
-%w(sites-available sites-enabled).each do |leaf|
-  directory File.join(node['nginx']['dir'], leaf) do
-    owner "root"
-    group "root"
-    mode "0755"
-  end
-end
-
 %w(nxensite nxdissite).each do |nxscript|
   template "/usr/sbin/#{nxscript}" do
     source "#{nxscript}.erb"

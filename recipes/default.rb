@@ -38,11 +38,13 @@ when 'package'
     group "root"
     mode "0755"
   end
-  directory "#{node['nginx']['dir']}/conf.d" do
-    owner "root"
-    group "root"
-    mode "0755"
-  end  
+  %w(sites-available sites-enabled conf.d).each do |leaf|
+    directory File.join(node['nginx']['dir'], leaf) do
+      owner "root"
+      group "root"
+      mode "0755"
+    end
+  end
   include_recipe 'nginx::commons'
 end
 
