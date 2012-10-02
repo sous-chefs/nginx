@@ -25,18 +25,29 @@
 nginx_url = node['nginx']['source']['url'] ||
   "http://nginx.org/download/nginx-#{node['nginx']['source']['version']}.tar.gz"
 
-unless(node.override_attrs['nginx']['source']['prefix'])
+if !node.override_attrs.has_key?('nginx')
+  node.override_attrs['nginx'] = Hash.new()
+end
+
+if !node.override_attrs['nginx'].has_key?('source')
+  node.override_attrs['nginx']['source'] = Hash.new()
+end
+
+unless node.override_attrs['nginx']['source'].has_key?('prefix')
   node.set['nginx']['source']['prefix'] = "/opt/nginx-#{node['nginx']['source']['version']}"
 end
-unless(node.override_attrs['nginx']['source']['conf_path'])
+
+unless node.override_attrs['nginx']['source'].has_key?('conf_path')
   node.set['nginx']['source']['conf_path'] = "#{node['nginx']['dir']}/nginx.conf"
 end
-unless(node.override_attrs['nginx']['source']['default_configure_flags'])
+
+unless node.override_attrs['nginx']['source'].has_key?('default_configure_flags')
   node.set['nginx']['source']['default_configure_flags'] = [
     "--prefix=#{node['nginx']['source']['prefix']}",
     "--conf-path=#{node['nginx']['dir']}/nginx.conf"
   ]
 end
+
 node.set['nginx']['binary']          = "#{node['nginx']['source']['prefix']}/sbin/nginx"
 node.set['nginx']['daemon_disable']  = true
 
