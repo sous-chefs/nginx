@@ -43,6 +43,9 @@ Generally used attributes. Some have platform specific values. See `attributes/d
 * `node['nginx']['keepalive_timeout']` - used for config value of `keepalive_timeout`.
 * `node['nginx']['worker_processes']` - used for config value of `worker_processes`.
 * `node['nginx']['worker_connections']` - used for config value of `events { worker_connections }`
+* `node['nginx']['worker_rlimit_nofile']` - used for config value of `worker_rlimit_nofile`. Can replace any "ulimit -n" command. The value depend on your usage (cache or not) but must always be superior than worker_connections.
+* `node['nginx']['multi_accept']` - used for config value of `events { multi_accept }`.  Try to accept() as many connections as possible. Disable by default.
+* `node['nginx']['event']` - used for config value of `events { use }`. Set the event-model. By default nginx looks for the most suitable method for your OS.
 * `node['nginx']['server_names_hash_bucket_size']` - used for config value of `server_names_hash_bucket_size`.
 * `node['nginx']['disable_access_log']` - set to true to disable the general access log, may be useful on high traffic sites.
 * `node['nginx']['default_site_enabled']` - enable the default site
