@@ -40,7 +40,7 @@ end
 bash "extract_headers_more" do
   cwd ::File.dirname(tar_location)
   code <<-EOH
-    tar -zxvf #{tar_location} -C #{module_location}
+    tar -zxf #{tar_location} -C #{module_location}
     mv -f #{module_location}/agentz*/* #{module_location}
     rm -rf #{module_location}/agentz*
   EOH
