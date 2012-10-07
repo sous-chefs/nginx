@@ -28,7 +28,7 @@ remote_file upm_src_filepath do
   checksum node['nginx']['upload_progress']['checksum']
   owner "root"
   group "root"
-  mode 0644
+  mode 00644
 end
 
 bash "extract_upload_progress_module" do
@@ -44,4 +44,3 @@ end
 
 node.run_state['nginx_configure_flags'] =
   node.run_state['nginx_configure_flags'] | ["--add-module=#{upm_extract_path}"]
-  

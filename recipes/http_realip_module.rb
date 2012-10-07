@@ -33,7 +33,7 @@ template "#{node['nginx']['dir']}/conf.d/http_realip.conf" do
   source "modules/http_realip.conf.erb"
   owner "root"
   group "root"
-  mode "0644"
+  mode 00644
   variables(
     :addresses => node['nginx']['realip']['addresses'],
     :header => node['nginx']['realip']['header']

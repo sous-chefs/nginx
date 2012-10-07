@@ -28,7 +28,7 @@ remote_file echo_src_filepath do
   checksum node['nginx']['echo']['checksum']
   owner    'root'
   group    'root'
-  mode     0644
+  mode     00644
 end
 
 bash 'extract_http_echo_module' do

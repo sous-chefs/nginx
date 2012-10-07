@@ -33,7 +33,7 @@ remote_file geolib_filepath do
   checksum node['nginx']['geoip']['lib_checksum']
   owner "root"
   group "root"
-  mode 0644
+  mode 00644
 end
 
 bash "extract_geolib" do
@@ -51,7 +51,7 @@ end
 directory node['nginx']['geoip']['path'] do
   owner "root"
   group "root"
-  mode 0755
+  mode 00755
 end
 
 remote_file country_src_filepath do
@@ -59,7 +59,7 @@ remote_file country_src_filepath do
   checksum node['nginx']['geoip']['country_dat_checksum']
   owner "root"
   group "root"
-  mode 0644
+  mode 00644
 end
 
 bash "gunzip_geo_lite_country_dat" do
@@ -77,7 +77,7 @@ if node['nginx']['geoip']['enable_city']
     checksum node['nginx']['geoip']['city_dat_checksum']
     owner "root"
     group "root"
-    mode 0644
+    mode 00644
   end
 
   bash "gunzip_geo_lite_city_dat" do
@@ -92,7 +92,7 @@ template "#{node['nginx']['dir']}/conf.d/http_geoip.conf" do
   source "modules/http_geoip.conf.erb"
   owner "root"
   group "root"
-  mode "0644"
+  mode 00644
   variables(
     :country_dat => country_dat,
     :city_dat => city_dat

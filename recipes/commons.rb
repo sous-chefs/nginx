@@ -20,7 +20,7 @@
 directory node['nginx']['dir'] do
   owner "root"
   group "root"
-  mode "0755"
+  mode 00755
 end
 
 directory node['nginx']['log_dir'] do
@@ -33,14 +33,14 @@ end
   directory File.join(node['nginx']['dir'], leaf) do
     owner "root"
     group "root"
-    mode "0755"
+    mode 00755
   end
 end
 
 %w(nxensite nxdissite).each do |nxscript|
   template "/usr/sbin/#{nxscript}" do
     source "#{nxscript}.erb"
-    mode "0755"
+    mode 00755
     owner "root"
     group "root"
   end
@@ -51,7 +51,7 @@ template "nginx.conf" do
   source "nginx.conf.erb"
   owner "root"
   group "root"
-  mode "0644"
+  mode 00644
   notifies :reload, 'service[nginx]', :immediately
 end
 
@@ -59,7 +59,7 @@ template "#{node['nginx']['dir']}/sites-available/default" do
   source "default-site.erb"
   owner "root"
   group "root"
-  mode 0644
+  mode 00644
 end
 
 nginx_site 'default' do
