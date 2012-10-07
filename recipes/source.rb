@@ -45,7 +45,7 @@ include_recipe "build-essential"
 
 src_filepath  = "#{Chef::Config['file_cache_path'] || '/tmp'}/nginx-#{node['nginx']['version']}.tar.gz"
 packages = value_for_platform(
-    ["centos","redhat","fedora"] => {'default' => ['pcre-devel', 'openssl-devel']},
+    ["centos","redhat","fedora","amazon","scientific"] => {'default' => ['pcre-devel', 'openssl-devel']},
     "default" => ['libpcre3', 'libpcre3-dev', 'libssl-dev']
   )
 
@@ -113,7 +113,7 @@ when "bluepill"
 
   template "#{node['bluepill']['conf_dir']}/nginx.pill" do
     source "nginx.pill.erb"
-    mode 0644
+    mode 00644
     variables(
       :working_dir => node['nginx']['source']['prefix'],
       :src_binary => node['nginx']['binary'],
@@ -139,7 +139,7 @@ else
     source "nginx.init.erb"
     owner "root"
     group "root"
-    mode "0755"
+    mode 00755
     variables(
       :src_binary => node['nginx']['binary'],
       :pid => node['nginx']['pid']
@@ -156,7 +156,7 @@ else
     source "nginx.sysconfig.erb"
     owner "root"
     group "root"
-    mode "0644"
+    mode 00644
   end
 
   service "nginx" do
@@ -168,7 +168,7 @@ end
 %w{nxensite nxdissite}.each do |nxscript|
   template "/usr/sbin/#{nxscript}" do
     source "#{nxscript}.erb"
-    mode "0755"
+    mode 00755
     owner "root"
     group "root"
   end
@@ -180,7 +180,7 @@ cookbook_file "#{node['nginx']['dir']}/mime.types" do
   source "mime.types"
   owner "root"
   group "root"
-  mode "0644"
+  mode 00644
   notifies :reload, 'service[nginx]', :immediately
 end
 

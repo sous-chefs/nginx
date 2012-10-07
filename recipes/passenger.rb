@@ -38,7 +38,7 @@ template "#{node["nginx"]["dir"]}/conf.d/passenger.conf" do
   source "modules/passenger.conf.erb"
   owner "root"
   group "root"
-  mode "0644"
+  mode 00644
   variables(
     :passenger_root => node["nginx"]["passenger"]["root"],
     :passenger_ruby => node["nginx"]["passenger"]["ruby"],
