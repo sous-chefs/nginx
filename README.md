@@ -110,7 +110,9 @@ These attributes are used in the `nginx::upload_progress_module` recipe.
 These attributes are used in the `nginx::passenger` recipe.
 
 * `node[:nginx][:passenger][:version]` - passenger gem version
+* `node[:nginx][:passenger][:root]` - passenger gem root path
 * `node[:nginx][:passenger][:max_pool_size]` - maximum passenger pool size (default=10)
+* `node[:nginx][:passenger][:ruby]` - Ruby path for Passenger to use (default=`$(which ruby)`)
 
 ## echo.rb
 
