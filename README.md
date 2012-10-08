@@ -113,6 +113,14 @@ These attributes are used in the `nginx::passenger` recipe.
 * `node[:nginx][:passenger][:root]` - passenger gem root path
 * `node[:nginx][:passenger][:max_pool_size]` - maximum passenger pool size (default=10)
 * `node[:nginx][:passenger][:ruby]` - Ruby path for Passenger to use (default=`$(which ruby)`)
+* `node[:nginx][:passenger][:spawn_method]` - passenger spawn method to use (default=`smart-lv2`)
+* `node[:nginx][:passenger][:use_global_queue]` - turns on or off global queuing (default=`on`)
+* `node[:nginx][:passenger][:buffer_response]` - turns on or off response buffering (default=`on`)
+* `node[:nginx][:passenger][:max_pool_size]` - passenger maximum pool size (default=`6`)
+* `node[:nginx][:passenger][:min_instances]` - minimum instances (default=`1`)
+* `node[:nginx][:passenger][:max_instances_per_app]` - maximum instances per app (default=`0`)
+* `node[:nginx][:passenger][:pool_idle_time]` - passenger pool idle time (default=`300`)
+* `node[:nginx][:passenger][:max_requests]` - maximum requests (default=`0`)
 
 ## echo.rb
 
