@@ -4,8 +4,8 @@ license           "Apache 2.0"
 description       "Installs and configures nginx"
 version           "1.0.2"
 
-recipe "ljandrew_nginx", "Installs nginx package and sets up configuration with Debian apache style with sites-enabled/sites-available"
-recipe "ljandrew_nginx::source", "Installs nginx from source and sets up configuration with Debian apache style with sites-enabled/sites-available"
+recipe "nginx", "Installs nginx package and sets up configuration with Debian apache style with sites-enabled/sites-available"
+recipe "nginx::source", "Installs nginx from source and sets up configuration with Debian apache style with sites-enabled/sites-available"
 
 %w{ ubuntu debian centos redhat amazon scientific oracle fedora }.each do |os|
   supports os
