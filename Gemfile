@@ -1,5 +1,3 @@
-Berksfilesource "http://rubygems.org"
+source :rubygems
 
-gem 'thor-foodcritic', '~> 0.1.2'
-gem 'berkshelf', '~> 0.3.0'
-gem 'thor-scmversion', '~> 0.0.3'
+gem 'test-kitchen'

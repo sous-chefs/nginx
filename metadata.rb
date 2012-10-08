@@ -15,7 +15,7 @@ end
   depends cb
 end
 
-depends 'ohai', '>= 1.0.2'
+depends 'ohai', '>= 1.1.0'
 
 attribute "nginx/dir",
   :display_name => "Nginx Directory",
