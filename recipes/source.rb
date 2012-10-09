@@ -22,15 +22,22 @@
 #
 
 
-nginx_url = node['nginx']['source']['url'] ||
-  "http://nginx.org/download/nginx-#{node['nginx']['source']['version']}.tar.gz"
-
 if !node.override_attrs.has_key?('nginx')
   node.override_attrs['nginx'] = Hash.new()
 end
 
 if !node.override_attrs['nginx'].has_key?('source')
   node.override_attrs['nginx']['source'] = Hash.new()
+end
+
+if node.override_attrs['nginx']['source'].has_key?('version')
+  node.set['nginx']['source']['version'] = node.override_attrs['nginx']['source']['version']
+end
+
+if node.override_attrs['nginx']['source'].has_key?('url')
+  nginx_url = node.override_attrs['nginx']['source']['url']
+else
+  nginx_url = "http://nginx.org/download/nginx-#{node['nginx']['source']['version']}.tar.gz"
 end
 
 unless node.override_attrs['nginx']['source'].has_key?('prefix')

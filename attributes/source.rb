@@ -21,6 +21,8 @@
 
 include_attribute 'nginx'
 
+default['nginx']['source']['version'] = '1.2.3'
+
 default['nginx']['source']['prefix']                  = "/opt/nginx-#{node['nginx']['source']['version']}"
 default['nginx']['source']['conf_path']               = "#{node['nginx']['dir']}/nginx.conf"
 default['nginx']['source']['default_configure_flags'] = [
