@@ -28,6 +28,8 @@ default['nginx']['source']['default_configure_flags'] = [
   "--conf-path=#{node['nginx']['dir']}/nginx.conf"
 ]
 
+node['nginx']['source']['module_path'] = "/opt/"
+
 default['nginx']['configure_flags']  = Array.new
 default['nginx']['source']['url']     = "http://nginx.org/download/nginx-#{node['nginx']['version']}.tar.gz"
 default['nginx']['source']['checksum'] = "06a1153b32b43f100ee9147fe230917deea648f0155111c749e35da120646bf5"
