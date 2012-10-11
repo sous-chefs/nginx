@@ -41,6 +41,7 @@ node.set['nginx']['binary']          = "#{node['nginx']['source']['prefix']}/sbi
 node.set['nginx']['daemon_disable']  = true
 
 include_recipe "nginx::ohai_plugin"
+include_recipe "nginx::commons_dir"
 include_recipe "build-essential"
 
 src_filepath  = "#{Chef::Config['file_cache_path'] || '/tmp'}/nginx-#{node['nginx']['version']}.tar.gz"
@@ -165,16 +166,8 @@ else
   end
 end
 
-%w{nxensite nxdissite}.each do |nxscript|
-  template "/usr/sbin/#{nxscript}" do
-    source "#{nxscript}.erb"
-    mode "0755"
-    owner "root"
-    group "root"
-  end
-end
-
-include_recipe 'nginx::commons'
+include_recipe "nginx::commons_script"
+include_recipe "nginx::commons_conf"
 
 cookbook_file "#{node['nginx']['dir']}/mime.types" do
   source "mime.types"
