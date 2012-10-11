@@ -19,6 +19,10 @@
 # limitations under the License.
 #
 
+if node['platform'] == 'ubuntu'
+  package 'libtool'
+end
+
 country_dat          = "#{node['nginx']['geoip']['path']}/GeoIP.dat"
 country_src_filename = ::File.basename(node['nginx']['geoip']['country_dat_url'])
 country_src_filepath = "#{Chef::Config['file_cache_path']}/#{country_src_filename}"
@@ -40,7 +44,9 @@ bash "extract_geolib" do
   cwd ::File.dirname(geolib_filepath)
   code <<-EOH
     tar xzvf #{geolib_filepath} -C #{::File.dirname(geolib_filepath)}
-    cd GeoIP-#{node['nginx']['geoip']['lib_version']} && ./configure
+    cd GeoIP-#{node['nginx']['geoip']['lib_version']}
+    which libtoolize && libtoolize -f
+    ./configure
     make && make install
   EOH
 
