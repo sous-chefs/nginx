@@ -19,9 +19,7 @@
 # limitations under the License.
 #
 
-if node['platform'] == 'ubuntu'
-  package 'libtool'
-end
+package 'libtool'
 
 country_dat          = "#{node['nginx']['geoip']['path']}/GeoIP.dat"
 country_src_filename = ::File.basename(node['nginx']['geoip']['country_dat_url'])
