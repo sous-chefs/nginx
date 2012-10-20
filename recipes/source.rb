@@ -22,21 +22,39 @@
 #
 
 
-nginx_url = node['nginx']['source']['url'] ||
-  "http://nginx.org/download/nginx-#{node['nginx']['version']}.tar.gz"
-
-unless(node['nginx']['source']['prefix'])
-  node.set['nginx']['source']['prefix'] = "/opt/nginx-#{node['nginx']['version']}"
+if !node.override_attrs.has_key?('nginx')
+  node.override_attrs['nginx'] = Hash.new()
 end
-unless(node['nginx']['source']['conf_path'])
+
+if !node.override_attrs['nginx'].has_key?('source')
+  node.override_attrs['nginx']['source'] = Hash.new()
+end
+
+if node.override_attrs['nginx']['source'].has_key?('version')
+  node.set['nginx']['source']['version'] = node.override_attrs['nginx']['source']['version']
+end
+
+if node.override_attrs['nginx']['source'].has_key?('url')
+  nginx_url = node.override_attrs['nginx']['source']['url']
+else
+  nginx_url = "http://nginx.org/download/nginx-#{node['nginx']['source']['version']}.tar.gz"
+end
+
+unless node.override_attrs['nginx']['source'].has_key?('prefix')
+  node.set['nginx']['source']['prefix'] = "/opt/nginx-#{node['nginx']['source']['version']}"
+end
+
+unless node.override_attrs['nginx']['source'].has_key?('conf_path')
   node.set['nginx']['source']['conf_path'] = "#{node['nginx']['dir']}/nginx.conf"
 end
-unless(node['nginx']['source']['default_configure_flags'])
+
+unless node.override_attrs['nginx']['source'].has_key?('default_configure_flags')
   node.set['nginx']['source']['default_configure_flags'] = [
     "--prefix=#{node['nginx']['source']['prefix']}",
     "--conf-path=#{node['nginx']['dir']}/nginx.conf"
   ]
 end
+
 node.set['nginx']['binary']          = "#{node['nginx']['source']['prefix']}/sbin/nginx"
 node.set['nginx']['daemon_disable']  = true
 
@@ -44,7 +62,7 @@ include_recipe "nginx::ohai_plugin"
 include_recipe "nginx::commons_dir"
 include_recipe "build-essential"
 
-src_filepath  = "#{Chef::Config['file_cache_path'] || '/tmp'}/nginx-#{node['nginx']['version']}.tar.gz"
+src_filepath  = "#{Chef::Config['file_cache_path'] || '/tmp'}/nginx-#{node['nginx']['source']['version']}.tar.gz"
 packages = value_for_platform(
     ["centos","redhat","fedora"] => {'default' => ['pcre-devel', 'openssl-devel']},
     "default" => ['libpcre3', 'libpcre3-dev', 'libssl-dev']
@@ -82,7 +100,7 @@ bash "compile_nginx_source" do
   cwd ::File.dirname(src_filepath)
   code <<-EOH
     tar zxf #{::File.basename(src_filepath)} -C #{::File.dirname(src_filepath)}
-    cd nginx-#{node['nginx']['version']} && ./configure #{node.run_state['nginx_configure_flags'].join(" ")}
+    cd nginx-#{node['nginx']['source']['version']} && ./configure #{node.run_state['nginx_configure_flags'].join(" ")}
     make && make install
     rm -f #{node['nginx']['dir']}/nginx.conf
   EOH
@@ -90,7 +108,7 @@ bash "compile_nginx_source" do
   not_if do
     nginx_force_recompile == false &&
       node.automatic_attrs['nginx'] &&
-      node.automatic_attrs['nginx']['version'] == node['nginx']['version'] &&
+      node.automatic_attrs['nginx']['version'] == node['nginx']['source']['version'] &&
       node.automatic_attrs['nginx']['configure_arguments'].sort == configure_flags.sort
   end
 end
@@ -142,7 +160,10 @@ else
     group "root"
     mode "0755"
     variables(
+      :working_dir => node['nginx']['source']['prefix'],
       :src_binary => node['nginx']['binary'],
+      :nginx_dir => node['nginx']['dir'],
+      :log_dir => node['nginx']['log_dir'],
       :pid => node['nginx']['pid']
     )
   end
@@ -153,6 +174,7 @@ else
     else
       '/etc/sysconfig/nginx'
   end
+
   template defaults_path do
     source "nginx.sysconfig.erb"
     owner "root"
