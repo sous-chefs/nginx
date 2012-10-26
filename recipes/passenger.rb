@@ -38,10 +38,6 @@ node.default["nginx"]["passenger"]["max_instances_per_app"] = 0
 node.default["nginx"]["passenger"]["pool_idle_time"] = 300
 node.default["nginx"]["passenger"]["max_requests"] = 0
 
-service "nginx" do
-  supports :status => true, :restart => true, :reload => true
-end
-
 template "#{node["nginx"]["dir"]}/conf.d/passenger.conf" do
   source "modules/passenger.conf.erb"
   owner "root"
@@ -60,7 +56,7 @@ template "#{node["nginx"]["dir"]}/conf.d/passenger.conf" do
     :passenger_pool_idle_time => node["nginx"]["passenger"]["pool_idle_time"],
     :passenger_max_requests => node["nginx"]["passenger"]["max_requests"]
   )
-  notifies :reload, resources(:service => "nginx")
+  notifies :reload, 'service[nginx]'
 end
 
 node.run_state[:nginx_configure_flags] =

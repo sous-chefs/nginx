@@ -33,7 +33,7 @@ template "#{node['ohai']['plugin_path']}/nginx.rb" do
     :nginx_prefix => node['nginx']['source']['prefix'],
     :nginx_bin => 'sbin/nginx'
   )
-  notifies :reload, resources(:ohai => "reload_nginx"), :immediately
+  notifies :reload, 'ohai[reload_nginx]', :immediately
 end
 
 include_recipe "ohai"
