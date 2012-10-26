@@ -147,7 +147,7 @@ cookbook_file "#{node['nginx']['dir']}/mime.types" do
   owner "root"
   group "root"
   mode 00644
-  notifies :reload, 'service[nginx]', :immediately
+  notifies :reload, 'service[nginx]'
 end
 
 node['nginx']['source']['modules'].each do |ngx_module|
@@ -163,7 +163,6 @@ bash "compile_nginx_source" do
     tar zxf #{::File.basename(src_filepath)} -C #{::File.dirname(src_filepath)}
     cd nginx-#{node['nginx']['version']} && ./configure #{node.run_state['nginx_configure_flags'].join(" ")}
     make && make install
-    rm -f #{node['nginx']['dir']}/nginx.conf
   EOH
 
   not_if do
@@ -176,7 +175,3 @@ end
 
 node.run_state.delete(:nginx_configure_flags)
 node.run_state.delete(:nginx_force_recompile)
-
-service "nginx" do
-  action :start
-end
