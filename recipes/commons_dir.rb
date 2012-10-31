@@ -21,11 +21,11 @@
 directory node['nginx']['dir'] do
   owner "root"
   group "root"
-  mode "0755"
+  mode 00755
 end
 
 directory node['nginx']['log_dir'] do
-  mode 0755
+  mode 00755
   owner node['nginx']['user']
   action :create
 end
@@ -34,6 +34,6 @@ end
   directory File.join(node['nginx']['dir'], leaf) do
     owner "root"
     group "root"
-    mode "0755"
+    mode 00755
   end
 end
