@@ -169,6 +169,7 @@ The following recipes are used to build module support into Nginx:
 * `http_gzip_static_module.rb` - enables the module for compilation.
 * `http_realip_module.rb` - enables the module for compilation and creates the configuration.
 * `http_ssl_module.rb` - enables SSL for compilation.
+* `http_perl_module.rb` - enables embedded Perl for compilation.
 * `http_stub_status_module.rb` - provides `nginx_status` configuration and enables the module for compilation.
 * `upload_progress_module.rb` - builds the `upload_progress` module and enables it as a module when compiling nginx.
 
