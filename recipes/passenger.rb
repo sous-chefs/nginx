@@ -16,11 +16,18 @@
 #
 
 #package 'libcurl4-openssl-dev' do
-# package 'ruby-devel' do
-#   action :install
-# end
 
 unless node.recipe?('rbenv::user') || node.recipe?('rbenv::system')
+  package 'ruby-dev' do
+    action :install
+    only_if { platform?('debian', 'ubuntu') }
+  end
+
+  package 'ruby-devel' do
+    action :install
+    only_if { !platform?('debian', 'ubuntu') }
+  end
+
   gem_package 'passenger' do
     action :install
     version node["nginx"]["passenger"]["version"]
