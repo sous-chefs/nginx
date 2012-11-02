@@ -15,10 +15,14 @@
 # limitations under the License.
 #
 
-#package 'libcurl4-openssl-dev' do
-package 'ruby-devel' do
+package "ruby-devel" do
+  package_name value_for_platform( ["redhat", "centos", "scientific", "amazon", "oracle"] => {
+                                     "default" => "ruby-devel" },
+                                   ["ubuntu", "debian"] => {
+                                     "default" => "ruby-dev" } )
   action :install
 end
+
 
 gem_package 'passenger' do
   action :install
