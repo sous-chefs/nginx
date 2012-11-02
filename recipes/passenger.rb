@@ -16,13 +16,15 @@
 #
 
 #package 'libcurl4-openssl-dev' do
-package 'ruby-devel' do
-  action :install
-end
+# package 'ruby-devel' do
+#   action :install
+# end
 
-gem_package 'passenger' do
-  action :install
-  version node["nginx"]["passenger"]["version"]
+unless node.recipe?('rbenv::user') || node.recipe?('rbenv::system')
+  gem_package 'passenger' do
+    action :install
+    version node["nginx"]["passenger"]["version"]
+  end
 end
 
 node.default["nginx"]["passenger"]["version"] = "3.0.12"
