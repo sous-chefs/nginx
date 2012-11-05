@@ -29,6 +29,14 @@ node.default["nginx"]["passenger"]["version"] = "3.0.12"
 node.default["nginx"]["passenger"]["root"] = "/usr/lib/ruby/gems/1.8/gems/passenger-3.0.12"
 node.default["nginx"]["passenger"]["ruby"] = %x{which ruby}.chomp
 node.default["nginx"]["passenger"]["max_pool_size"] = 10
+node.default["nginx"]["passenger"]["spawn_method"] = "smart-lv2"
+node.default["nginx"]["passenger"]["use_global_queue"] = "on"
+node.default["nginx"]["passenger"]["buffer_response"] = "on"
+node.default["nginx"]["passenger"]["max_pool_size"] = 6
+node.default["nginx"]["passenger"]["min_instances"] = 1
+node.default["nginx"]["passenger"]["max_instances_per_app"] = 0
+node.default["nginx"]["passenger"]["pool_idle_time"] = 300
+node.default["nginx"]["passenger"]["max_requests"] = 0
 
 service "nginx" do
   supports :status => true, :restart => true, :reload => true
@@ -42,7 +50,15 @@ template "#{node["nginx"]["dir"]}/conf.d/passenger.conf" do
   variables(
     :passenger_root => node["nginx"]["passenger"]["root"],
     :passenger_ruby => node["nginx"]["passenger"]["ruby"],
-    :passenger_max_pool_size => node["nginx"]["passenger"]["max_pool_size"]
+    :passenger_max_pool_size => node["nginx"]["passenger"]["max_pool_size"],
+    :passenger_spawn_method => node["nginx"]["passenger"]["spawn_method"],
+    :passenger_use_global_queue => node["nginx"]["passenger"]["use_global_queue"],
+    :passenger_buffer_response => node["nginx"]["passenger"]["buffer_response"],
+    :passenger_max_pool_size => node["nginx"]["passenger"]["max_pool_size"],
+    :passenger_min_instances => node["nginx"]["passenger"]["min_instances"],
+    :passenger_max_instances_per_app => node["nginx"]["passenger"]["max_instances_per_app"],
+    :passenger_pool_idle_time => node["nginx"]["passenger"]["pool_idle_time"],
+    :passenger_max_requests => node["nginx"]["passenger"]["max_requests"]
   )
   notifies :reload, resources(:service => "nginx")
 end
