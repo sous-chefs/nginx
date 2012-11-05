@@ -7,4 +7,4 @@ node.default["nginx"]["passenger"]["max_pool_size"] = 10
 
 # the default value of this attribute is set in the recipe.  if set here using "which
 # ruby" it results in failed chef runs on Windows just by being a dependency
-node.default["nginx"]["passenger"]["ruby"] = ""
+node.default["nginx"]["passenger"]["ruby"] = nil
