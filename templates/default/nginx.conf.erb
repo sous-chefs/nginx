@@ -51,6 +51,8 @@ http {
   <% end %>
 
   server_names_hash_bucket_size <%= node['nginx']['server_names_hash_bucket_size'] %>;
+  types_hash_max_size <%= node['nginx']['types_hash_max_size'] %>;
+  types_hash_bucket_size <%= node['nginx']['types_hash_bucket_size'] %>;
 
   include <%= node['nginx']['dir'] %>/conf.d/*.conf;
   include <%= node['nginx']['dir'] %>/sites-enabled/*;
