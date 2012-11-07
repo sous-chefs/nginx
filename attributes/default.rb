@@ -41,7 +41,7 @@ else
   default['nginx']['init_style'] = "init"
 end
 
-default['nginx']['group'] = default['nginx']['user']
+default['nginx']['group'] = node['nginx']['user']
 
 default['nginx']['pid'] = "/var/run/nginx.pid"
 
