@@ -28,6 +28,7 @@ default['nginx']['version'] = "1.2.3"
 default['nginx']['dir'] = "/etc/nginx"
 default['nginx']['log_dir'] = "/var/log/nginx"
 default['nginx']['binary'] = "/usr/sbin/nginx"
+default['nginx']['sbin'] = "/usr/sbin"
 
 case node['platform']
 when "debian","ubuntu"
@@ -36,6 +37,10 @@ when "debian","ubuntu"
 when "redhat","centos","scientific","amazon","oracle","fedora"
   default['nginx']['user']       = "nginx"
   default['nginx']['init_style'] = "init"
+when "smartos"
+  default['nginx']['user']       = "www"
+  default['nginx']['dir']        = "/opt/local/etc/nginx/"
+  default['nginx']['sbin']       = "/opt/local/sbin"
 else
   default['nginx']['user']       = "www-data"
   default['nginx']['init_style'] = "init"
