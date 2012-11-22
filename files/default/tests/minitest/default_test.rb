@@ -1,4 +1,4 @@
-require File.expand_path('../helpers', __FILE__)
+require File.expand_path('../support/helpers', __FILE__)
 
 describe 'nginx::default' do
   include Helpers::Nginx
