@@ -1,5 +1,15 @@
 cookbook "nginx" do
-  configuration("default") { runtimes [] }
-  configuration("source") { runtimes [] }
-  runtimes []
+  configuration "default"
+  configuration "source"
+  configuration "authorized_ips"
+  configuration "http_echo_module"
+  configuration "http_geoip_module"
+  configuration "http_gzip_static_module"
+  configuration "http_realip_module"
+  configuration "http_ssl_module"
+  configuration "http_stub_status_module"
+  configuration "naxsi_module"
+  configuration "ohai_plugin"
+  configuration "passenger"
+  configuration "upload_progress_module"
 end
