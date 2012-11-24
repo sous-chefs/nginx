@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: nginx
-# Recipe:: http_stub_status_module
+# Recipe:: authorized_ips
 #
 # Author:: Jamie Winsor (<jamie@vialstudios.com>)
 #

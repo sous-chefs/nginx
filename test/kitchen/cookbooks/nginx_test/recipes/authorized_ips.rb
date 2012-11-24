@@ -18,4 +18,4 @@
 #
 
 include_recipe "nginx::default"
-include_recipe "nginx::source"
+include_recipe "nginx::authorized_ips"
