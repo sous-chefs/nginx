@@ -1,3 +1,27 @@
+## v1.1.0:
+
+* [COOK-1263] - Nginx log (and possibly other) directory creations should be recursive
+* [COOK-1515] - move creation of `node['nginx']['dir']` out of commons.rb
+* [COOK-1523] - nginx `http_geoip_module` requires libtoolize
+* [COOK-1524] - nginx checksums are md5
+* [COOK-1641] - add "use", "`multi_accept`" and
+  "`worker_rlimit_nofile`" to nginx cookbook
+* [COOK-1683] - Nginx fails Windows nodes just by being required in
+  metadata
+* [COOK-1735] - Support Amazon Linux in nginx::source recipe
+* [COOK-1753] - Add ability for nginx::passenger recipe to configure
+  more Passenger global settings
+* [COOK-1754] - Allow group to be set in nginx.conf file
+* [COOK-1770] - nginx cookbook fails on servers that don't have a
+  "cpu" attribute
+* [COOK-1781] - Use 'sv' to reload nginx when using runit
+* [COOK-1789] - stop depending on bluepill, runit and yum. they are
+  not required by nginx cookbook
+* [COOK-1791] - add name attribute to metadata
+* [COOK-1837] - nginx::passenger doesn't work on debian family
+* [COOK-1956] - update naxsi version due to incompatibility with newer
+  nginx
+
 ## v1.0.2:
 
 * [COOK-1636] - relax the version constraint on ohai
