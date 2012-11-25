@@ -11,6 +11,5 @@ cookbook "nginx" do
   configuration "http_ssl_module"
   configuration "http_stub_status_module"
   configuration "naxsi_module"
-  configuration "passenger"
   configuration "upload_progress_module"
 end
