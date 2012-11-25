@@ -27,7 +27,7 @@ template "nginx_status" do
   owner "root"
   group "root"
   mode 00644
-  notifies :reload, resources(:service => "nginx")
+  notifies :reload, "service[nginx]"
 end
 
 nginx_site "nginx_status"

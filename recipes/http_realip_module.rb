@@ -25,10 +25,6 @@
 node.default['nginx']['realip']['header']    = "X-Forwarded-For"
 node.default['nginx']['realip']['addresses'] = ["127.0.0.1"]
 
-service "nginx" do
-  supports :status => true, :restart => true, :reload => true
-end
-
 template "#{node['nginx']['dir']}/conf.d/http_realip.conf" do
   source "modules/http_realip.conf.erb"
   owner "root"
@@ -39,7 +35,7 @@ template "#{node['nginx']['dir']}/conf.d/http_realip.conf" do
     :header => node['nginx']['realip']['header']
   )
 
-  notifies :reload, resources(:service => "nginx")
+  notifies :reload, "service[nginx]"
 end
 
 node.run_state['nginx_configure_flags'] =
