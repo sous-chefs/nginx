@@ -17,5 +17,5 @@
 # limitations under the License.
 #
 
-include_recipe "nginx::upload_progress_module"
+node['nginx']['source']['modules'] << "upload_progress_module"
 include_recipe "nginx::source"

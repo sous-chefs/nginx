@@ -17,5 +17,5 @@
 # limitations under the License.
 #
 
-include_recipe "nginx::http_echo_module"
+node['nginx']['source']['modules'] << "http_echo_module"
 include_recipe "nginx::source"

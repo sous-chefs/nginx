@@ -17,5 +17,5 @@
 # limitations under the License.
 #
 
-include_recipe "nginx::naxsi_module"
+node['nginx']['source']['modules'] << "naxsi_module"
 include_recipe "nginx::source"
