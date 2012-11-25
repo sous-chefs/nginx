@@ -50,4 +50,4 @@ bash "extract_naxsi_module" do
 end
 
 node.run_state['nginx_configure_flags'] =
-  ["--add-module=#{naxsi_extract_path}/naxsi-#{node['nginx']['naxsi']['version']}/naxsi_src"] | node.run_state['nginx_configure_flags']
+  ["--add-module=#{naxsi_extract_path}//naxsi_src"] | node.run_state['nginx_configure_flags']
