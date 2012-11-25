@@ -39,7 +39,7 @@ template "#{node['nginx']['dir']}/conf.d/http_realip.conf" do
     :header => node['nginx']['realip']['header']
   )
 
-  notifies :reload, resources(:service => "nginx")
+  notifies :reload, 'service[nginx]'
 end
 
 node.run_state['nginx_configure_flags'] =

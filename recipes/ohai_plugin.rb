@@ -19,14 +19,21 @@
 # limitations under the License.
 #
 
+ohai "reload_nginx" do
+  action :nothing
+  plugin "nginx"
+end
+
 template "#{node['ohai']['plugin_path']}/nginx.rb" do
   source "plugins/nginx.rb.erb"
   owner "root"
   group "root"
   mode 00755
   variables(
-    :nginx_bin => node['nginx']['binary']
+    :nginx_prefix => node['nginx']['source']['prefix'],
+    :nginx_bin => 'sbin/nginx'
   )
+  notifies :reload, 'ohai[reload_nginx]', :immediately
 end
 
 include_recipe "ohai"
