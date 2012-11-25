@@ -19,6 +19,11 @@ Platform
 * Debian/Ubuntu
 * RHEL/CentOS
 
+Programs
+--------
+
+* rake (for building passenger nginx plugin)
+
 The `nginx::source` may work anywhere "build-essential" is avaialble.  The `EPEL repo` is required for nginx::default on RedHat family distros.
 
 Attributes

@@ -46,12 +46,19 @@ nginx[:conf_path]           = nil unless nginx[:conf_path]
 
 status, stdout, stderr = run_command(:no_status_check => true, :command => "<%= @nginx_bin %> -V")
 
+new_common_sig = "^nginx: "
+old_config_arg_sig = "^configure arguments:(.+)"
+old_version_sig = "^nginx version: nginx\/(.+)"
+
+new_config_arg_sig = new_common_sig + old_config_arg_sig[1..-1]
+new_version_sig = new_common_sig + old_version_sig[1..-1]
+
 if status == 0
   stderr.split("\n").each do |line|
     case line
-    when /^configure arguments:(.+)/
-      # This could be better: I'm splitting on configure arguments which removes them and also 
-      # adds a blank string at index 0 of the array. This is why we drop index 0 and map to 
+    when /#{old_config_arg_sig}/, /#{new_config_arg_sig}/
+      # This could be better: I'm splitting on configure arguments which removes them and also
+      # adds a blank string at index 0 of the array. This is why we drop index 0 and map to
       # add the '--' prefix back to the configure argument.
       nginx[:configure_arguments] = $1.split(/\s--/).drop(1).map { |ca| "--#{ca}" }
 
@@ -59,7 +66,7 @@ if status == 0
 
       nginx[:prefix] = prefix
       nginx[:conf_path] = conf_path
-    when /^nginx version: nginx\/(.+)/
+    when /#{old_version_sig}/, /#{new_version_sig}/
       nginx[:version] = $1
     end
   end
