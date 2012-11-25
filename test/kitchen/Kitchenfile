@@ -1,4 +1,5 @@
 cookbook "nginx" do
+  configuration "ohai_plugin"
   configuration "default"
   configuration "ohai_plugin"
   configuration "source"
