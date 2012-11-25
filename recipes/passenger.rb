@@ -15,20 +15,6 @@
 # limitations under the License.
 #
 
-package "ruby-devel" do
-  package_name value_for_platform( ["redhat", "centos", "scientific", "amazon", "oracle"] => {
-                                     "default" => "ruby-devel" },
-                                   ["ubuntu", "debian"] => {
-                                     "default" => "ruby-dev" } )
-  action :install
-end
-
-
-gem_package 'passenger' do
-  action :install
-  version node["nginx"]["passenger"]["version"]
-end
-
 node.default["nginx"]["passenger"]["version"] = "3.0.12"
 node.default["nginx"]["passenger"]["root"] = "/usr/lib/ruby/gems/1.8/gems/passenger-3.0.12"
 node.default["nginx"]["passenger"]["ruby"] = %x{which ruby}.chomp
@@ -41,6 +27,19 @@ node.default["nginx"]["passenger"]["min_instances"] = 1
 node.default["nginx"]["passenger"]["max_instances_per_app"] = 0
 node.default["nginx"]["passenger"]["pool_idle_time"] = 300
 node.default["nginx"]["passenger"]["max_requests"] = 0
+
+package "ruby-devel" do
+  package_name value_for_platform( ["redhat", "centos", "scientific", "amazon", "oracle"] => {
+                                     "default" => "ruby-devel" },
+                                   ["ubuntu", "debian"] => {
+                                     "default" => "ruby-dev" } )
+  action :install
+end
+
+gem_package 'passenger' do
+  action :install
+  version node["nginx"]["passenger"]["version"]
+end
 
 template "#{node["nginx"]["dir"]}/conf.d/passenger.conf" do
   source "modules/passenger.conf.erb"
