@@ -42,6 +42,7 @@ node.set['nginx']['daemon_disable']  = true
 
 include_recipe "nginx::ohai_plugin"
 include_recipe "nginx::commons_dir"
+include_recipe "nginx::commons_script"
 include_recipe "build-essential"
 
 src_filepath  = "#{Chef::Config['file_cache_path'] || '/tmp'}/nginx-#{node['nginx']['version']}.tar.gz"
@@ -166,7 +167,6 @@ else
   end
 end
 
-include_recipe "nginx::commons_script"
 include_recipe "nginx::commons_conf"
 
 cookbook_file "#{node['nginx']['dir']}/mime.types" do
