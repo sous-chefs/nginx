@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: nginx_test
-# Recipe:: default
+# Recipe:: passenger
 #
 # Copyright 2012, Opscode, Inc.
 #
@@ -17,4 +17,5 @@
 # limitations under the License.
 #
 
-include_recipe "nginx::default"
+node['nginx']['source']['modules'] << "passenger"
+include_recipe "nginx::source"
