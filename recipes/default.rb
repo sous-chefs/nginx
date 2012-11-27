@@ -29,6 +29,14 @@ when 'package'
     include_recipe 'yum::epel'
   end
   package 'nginx'
+
+  # The nginx yum package (nginx.x86_64 0:1.0.15-2.el6) includes a default
+  # configuration file that overrides any sites in /etc/nginx/sites-enabled
+
+  file '/etc/nginx/conf.d/default.conf' do
+      action :delete
+  end
+
   service 'nginx' do
     supports :status => true, :restart => true, :reload => true
     action :enable
