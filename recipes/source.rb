@@ -173,5 +173,5 @@ bash "compile_nginx_source" do
   end
 end
 
-node.run_state.delete(:nginx_configure_flags)
-node.run_state.delete(:nginx_force_recompile)
+node.run_state.delete('nginx_configure_flags')
+node.run_state.delete('nginx_force_recompile')
