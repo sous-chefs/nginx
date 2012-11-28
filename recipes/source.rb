@@ -82,12 +82,23 @@ nginx_force_recompile = node.run_state['nginx_force_recompile']
 bash "compile_nginx_source" do
   cwd ::File.dirname(src_filepath)
   code <<-EOH
-    tar zxf #{::File.basename(src_filepath)} -C #{::File.dirname(src_filepath)}
-    cd nginx-#{node['nginx']['version']} && ./configure #{node.run_state['nginx_configure_flags'].join(" ")}
+    tar zxf #{::File.basename(src_filepath)} -C #{::File.dirname(src_filepath)} &&
+    cd nginx-#{node['nginx']['version']} &&
+    ./configure #{node.run_state['nginx_configure_flags'].join(" ")} &&
     make && make install
-    rm -f #{node['nginx']['dir']}/nginx.conf
   EOH
 
+  not_if do
+    nginx_force_recompile == false &&
+      node.automatic_attrs['nginx'] &&
+      node.automatic_attrs['nginx']['version'] == node['nginx']['version'] &&
+      node.automatic_attrs['nginx']['configure_arguments'].sort == configure_flags.sort
+  end
+end
+
+file "#{node['nginx']['dir']}/nginx.conf" do
+  action :delete
+  
   not_if do
     nginx_force_recompile == false &&
       node.automatic_attrs['nginx'] &&
