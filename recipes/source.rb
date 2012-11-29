@@ -37,7 +37,7 @@ unless(node['nginx']['source']['default_configure_flags'])
     "--conf-path=#{node['nginx']['dir']}/nginx.conf"
   ]
 end
-node.set['nginx']['binary']          = "#{node['nginx']['source']['prefix']}/sbin/nginx"
+node.set['nginx']['binary']          = node['nginx']['source']['sbin_path']
 node.set['nginx']['daemon_disable']  = true
 
 include_recipe "nginx::ohai_plugin"
