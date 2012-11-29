@@ -2,3 +2,4 @@
 .cache
 .kitchen
 bin
+*.sw*
