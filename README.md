@@ -285,6 +285,7 @@ The following recipes are used to build module support into Nginx. To
 use a module in the `nginx::source` recipe, add its recipe name to the
 attribute `node['nginx']['source']['modules']`.
 
+* `ipv6.rb` - enables IPv6 support
 * `http_echo_module.rb` - downloads the `http_echo_module` module and
   enables it as a module when compiling nginx.
 * `http_geoip_module.rb` - installs the GeoIP libraries and data files
