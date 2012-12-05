@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: nginx
-# Recipe:: http_ssl_module
+# Recipe:: ipv6
 #
 # Author:: Alan Harper (alan@sct.com.au)
 #
