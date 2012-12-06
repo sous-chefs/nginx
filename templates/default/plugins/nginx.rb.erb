@@ -44,7 +44,7 @@ nginx[:configure_arguments] = Array.new unless nginx[:configure_arguments]
 nginx[:prefix]              = nil unless nginx[:prefix]
 nginx[:conf_path]           = nil unless nginx[:conf_path]
 
-status, stdout, stderr = run_command(:no_status_check => true, :command => "<%= @nginx_bin %> -V")
+status, stdout, stderr = run_command(:no_status_check => true, :cwd => "<%= @nginx_prefix %>", :command => "<%= @nginx_bin %> -V")
 
 if status == 0
   stderr.split("\n").each do |line|
