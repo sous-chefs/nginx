@@ -36,6 +36,8 @@ package "ruby-devel" do
   action :install
 end
 
+gem_package 'rake'
+
 gem_package 'passenger' do
   action :install
   version node["nginx"]["passenger"]["version"]
