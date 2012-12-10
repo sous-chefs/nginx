@@ -28,12 +28,13 @@ node.default["nginx"]["passenger"]["max_instances_per_app"] = 0
 node.default["nginx"]["passenger"]["pool_idle_time"] = 300
 node.default["nginx"]["passenger"]["max_requests"] = 0
 
-package "ruby-devel" do
-  package_name value_for_platform( ["redhat", "centos", "scientific", "amazon", "oracle"] => {
-                                     "default" => "ruby-devel" },
-                                   ["ubuntu", "debian"] => {
-                                     "default" => "ruby-dev" } )
-  action :install
+packages = value_for_platform( ["redhat", "centos", "scientific", "amazon", "oracle"] => {
+                                 "default" => %w(ruby-devel curl-devel) },
+                               ["ubuntu", "debian"] => {
+                                 "default" => %w(ruby-dev curl-dev) } )
+
+packages.each do |devpkg|
+  package devpkg
 end
 
 gem_package 'rake'
