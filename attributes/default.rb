@@ -49,6 +49,8 @@ default['nginx']['gzip']              = "on"
 default['nginx']['gzip_http_version'] = "1.0"
 default['nginx']['gzip_comp_level']   = "2"
 default['nginx']['gzip_proxied']      = "any"
+default['nginx']['gzip_vary']         = "off"
+default['nginx']['gzip_buffers']      = nil
 default['nginx']['gzip_types']        = [
   "text/plain",
   "text/css",
