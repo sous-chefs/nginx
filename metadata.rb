@@ -2,10 +2,10 @@ maintainer        "Opscode, Inc."
 maintainer_email  "cookbooks@opscode.com"
 license           "Apache 2.0"
 description       "Installs and configures nginx"
-version           "0.101.6"
+version           "1.0.2"
 
-recipe "nginx", "Installs nginx package and sets up configuration with Debian apache style with sites-enabled/sites-available"
-recipe "nginx::source", "Installs nginx from source and sets up configuration with Debian apache style with sites-enabled/sites-available"
+recipe "ljandrew_nginx", "Installs nginx package and sets up configuration with Debian apache style with sites-enabled/sites-available"
+recipe "ljandrew_nginx::source", "Installs nginx from source and sets up configuration with Debian apache style with sites-enabled/sites-available"
 
 %w{ ubuntu debian centos redhat amazon scientific oracle fedora }.each do |os|
   supports os
@@ -15,7 +15,7 @@ end
   depends cb
 end
 
-depends 'ohai', '~> 1.0.2'
+depends 'ohai', '>= 1.0.2'
 
 attribute "nginx/dir",
   :display_name => "Nginx Directory",
@@ -61,7 +61,7 @@ attribute "nginx/gzip_types",
   :display_name => "Nginx Gzip Types",
   :description => "Supported MIME-types for gzip",
   :type => "array",
-  :default => [ "text/plain", "text/html", "text/css", "application/x-javascript", "text/xml", "application/xml", "application/xml+rss", "text/javascript" ]
+  :default => [ "text/plain", "text/css", "application/x-javascript", "text/xml", "application/xml", "application/xml+rss", "text/javascript", "application/javascript", "application/json" ]
 
 attribute "nginx/keepalive",
   :display_name => "Nginx Keepalive",
@@ -89,3 +89,7 @@ attribute "nginx/server_names_hash_bucket_size",
 attribute "nginx/disable_access_log",
   :display_name => "Disable Access Log",
   :default => "false"
+
+attribute "nginx/default_site_enabled",
+  :display_name => "Default site enabled",
+  :default => "true"

@@ -45,6 +45,7 @@ Generally used attributes. Some have platform specific values. See `attributes/d
 * `node['nginx']['worker_connections']` - used for config value of `events { worker_connections }`
 * `node['nginx']['server_names_hash_bucket_size']` - used for config value of `server_names_hash_bucket_size`.
 * `node['nginx']['disable_access_log']` - set to true to disable the general access log, may be useful on high traffic sites.
+* `node['nginx']['default_site_enabled']` - enable the default site
 
 ### Attributes for configuring the gzip module
 
@@ -104,6 +105,21 @@ These attributes are used in the `nginx::upload_progress_module` recipe.
 * `node['nginx']['upload_progress]['url']` - URL for the tarball.
 * `node['nginx']['upload_progress']['checksum']` - Checksum of the tarball.
 
+## passenger.rb
+
+These attributes are used in the `nginx::passenger` recipe.
+
+* `node[:nginx][:passenger][:version]` - passenger gem version
+* `node[:nginx][:passenger][:max_pool_size]` - maximum passenger pool size (default=10)
+
+## echo.rb
+
+These attributes are used in the `nginx::http_echo_module` recipe.
+
+* `node['nginx']['echo]['version']` - The version of http_echo you want (default: 0.40)
+* `node['nginx']['echo]['url']` - URL for the tarball.
+* `node['nginx']['echo']['checksum']` - Checksum of the tarball.
+
 Recipes
 =======
 
@@ -144,6 +160,7 @@ The nginx service will be set up according to `node['nginx']['init_style']`. Ava
 
 The following recipes are used to build module support into Nginx:
 
+* `http_echo_module.rb` - downloads the `http_echo_module` module and enables it as a module when compiling nginx.
 * `http_geoip_module.rb` - installs the GeoIP libraries and data files and enables the module for compilation.
 * `http_gzip_static_module.rb` - enables the module for compilation.
 * `http_realip_module.rb` - enables the module for compilation and creates the configuration.

@@ -20,7 +20,11 @@
 # limitations under the License.
 #
 
-default['nginx']['version'] = "1.0.14"
+# In order to update the version, the checksum attribute should be
+# changed too. It is in the source.rb file, though we recommend
+# overriding attributes by modifying a role, or the node itself.
+# default['nginx']['source']['checksum']
+default['nginx']['version'] = "1.2.3"
 default['nginx']['dir'] = "/etc/nginx"
 default['nginx']['log_dir'] = "/var/log/nginx"
 default['nginx']['binary'] = "/usr/sbin/nginx"
@@ -45,7 +49,6 @@ default['nginx']['gzip_comp_level']   = "2"
 default['nginx']['gzip_proxied']      = "any"
 default['nginx']['gzip_types']        = [
   "text/plain",
-  "text/html",
   "text/css",
   "application/x-javascript",
   "text/xml",
@@ -64,3 +67,4 @@ default['nginx']['server_names_hash_bucket_size'] = 64
 
 default['nginx']['disable_access_log'] = false
 default['nginx']['install_method'] = 'package'
+default['nginx']['default_site_enabled'] = true

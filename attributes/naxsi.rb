@@ -1,10 +1,10 @@
 #
 # Cookbook Name:: nginx
-# Recipe:: http_stub_status_module
+# Attributes:: naxsi
 #
-# Author:: Jamie Winsor (<jamie@vialstudios.com>)
+# Author:: Artiom Lunev (<artiom.lunev@gmail.com>)
 #
-# Copyright 2012, Riot Games
+# Copyright 2012, Artiom Lunev
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,18 +19,6 @@
 # limitations under the License.
 #
 
-include_recipe "ljandrew_nginx::authorized_ips"
-
-template "nginx_status" do
-  path "#{node['nginx']['dir']}/sites-available/nginx_status"
-  source "modules/nginx_status.erb"
-  owner "root"
-  group "root"
-  mode "0644"
-  notifies :reload, resources(:service => "nginx")
-end
-
-nginx_site "nginx_status"
-
-node.run_state['nginx_configure_flags'] =
-  node.run_state['nginx_configure_flags'] | ["--with-http_stub_status_module"]
+default['nginx']['naxsi']['version']  = "0.46-1"
+default['nginx']['naxsi']['url']      = "http://naxsi.googlecode.com/files/naxsi-#{node['nginx']['naxsi']['version']}.tgz"
+default['nginx']['naxsi']['checksum'] = "3f0cc75b9dcf79aec8d440f0452c960d"

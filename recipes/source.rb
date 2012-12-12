@@ -22,28 +22,46 @@
 #
 
 
-nginx_url = node['nginx']['source']['url'] ||
-  "http://nginx.org/download/nginx-#{node['nginx']['version']}.tar.gz"
-
-unless(node['nginx']['source']['prefix'])
-  node.set['nginx']['source']['prefix'] = "/opt/nginx-#{node['nginx']['version']}"
+if !node.override_attrs.has_key?('nginx')
+  node.override_attrs['nginx'] = Hash.new()
 end
-unless(node['nginx']['source']['conf_path'])
+
+if !node.override_attrs['nginx'].has_key?('source')
+  node.override_attrs['nginx']['source'] = Hash.new()
+end
+
+if node.override_attrs['nginx']['source'].has_key?('version')
+  node.set['nginx']['source']['version'] = node.override_attrs['nginx']['source']['version']
+end
+
+if node.override_attrs['nginx']['source'].has_key?('url')
+  nginx_url = node.override_attrs['nginx']['source']['url']
+else
+  nginx_url = "http://nginx.org/download/nginx-#{node['nginx']['source']['version']}.tar.gz"
+end
+
+unless node.override_attrs['nginx']['source'].has_key?('prefix')
+  node.set['nginx']['source']['prefix'] = "/opt/nginx-#{node['nginx']['source']['version']}"
+end
+
+unless node.override_attrs['nginx']['source'].has_key?('conf_path')
   node.set['nginx']['source']['conf_path'] = "#{node['nginx']['dir']}/nginx.conf"
 end
-unless(node['nginx']['source']['default_configure_flags'])
+
+unless node.override_attrs['nginx']['source'].has_key?('default_configure_flags')
   node.set['nginx']['source']['default_configure_flags'] = [
     "--prefix=#{node['nginx']['source']['prefix']}",
     "--conf-path=#{node['nginx']['dir']}/nginx.conf"
   ]
 end
+
 node.set['nginx']['binary']          = "#{node['nginx']['source']['prefix']}/sbin/nginx"
 node.set['nginx']['daemon_disable']  = true
 
-include_recipe "nginx::ohai_plugin"
+include_recipe "ljandrew_nginx::ohai_plugin"
 include_recipe "build-essential"
 
-src_filepath  = "#{Chef::Config['file_cache_path'] || '/tmp'}/nginx-#{node['nginx']['version']}.tar.gz"
+src_filepath  = "#{Chef::Config['file_cache_path'] || '/tmp'}/nginx-#{node['nginx']['source']['version']}.tar.gz"
 packages = value_for_platform(
     ["centos","redhat","fedora"] => {'default' => ['pcre-devel', 'openssl-devel']},
     "default" => ['libpcre3', 'libpcre3-dev', 'libssl-dev']
@@ -55,6 +73,7 @@ end
 
 remote_file nginx_url do
   source nginx_url
+  checksum node['nginx']['source']['checksum']
   path src_filepath
   backup false
 end
@@ -66,11 +85,11 @@ user node['nginx']['user'] do
 end
 
 node.run_state['nginx_force_recompile'] = false
-node.run_state['nginx_configure_flags'] = 
+node.run_state['nginx_configure_flags'] =
   node['nginx']['source']['default_configure_flags'] | node['nginx']['configure_flags']
 
 node['nginx']['source']['modules'].each do |ngx_module|
-  include_recipe "nginx::#{ngx_module}"
+  include_recipe "ljandrew_nginx::#{ngx_module}"
 end
 
 configure_flags = node.run_state['nginx_configure_flags']
@@ -80,14 +99,15 @@ bash "compile_nginx_source" do
   cwd ::File.dirname(src_filepath)
   code <<-EOH
     tar zxf #{::File.basename(src_filepath)} -C #{::File.dirname(src_filepath)}
-    cd nginx-#{node['nginx']['version']} && ./configure #{node.run_state['nginx_configure_flags'].join(" ")}
+    cd nginx-#{node['nginx']['source']['version']} && ./configure #{node.run_state['nginx_configure_flags'].join(" ")}
     make && make install
     rm -f #{node['nginx']['dir']}/nginx.conf
   EOH
-  
+
   not_if do
     nginx_force_recompile == false &&
-      node.automatic_attrs['nginx']['version'] == node['nginx']['version'] &&
+      node.automatic_attrs['nginx'] &&
+      node.automatic_attrs['nginx']['version'] == node['nginx']['source']['version'] &&
       node.automatic_attrs['nginx']['configure_arguments'].sort == configure_flags.sort
   end
 end
@@ -132,7 +152,7 @@ when "bluepill"
   end
 else
   node.set['nginx']['daemon_disable'] = false
-  
+
   template "/etc/init.d/nginx" do
     source "nginx.init.erb"
     owner "root"
@@ -147,7 +167,14 @@ else
     )
   end
 
-  template "/etc/sysconfig/nginx" do
+  defaults_path = case node['platform']
+    when 'debian', 'ubuntu'
+      '/etc/default/nginx'
+    else
+      '/etc/sysconfig/nginx'
+  end
+
+  template defaults_path do
     source "nginx.sysconfig.erb"
     owner "root"
     group "root"
@@ -169,7 +196,7 @@ end
   end
 end
 
-include_recipe 'nginx::commons'
+include_recipe 'ljandrew_nginx::commons'
 
 cookbook_file "#{node['nginx']['dir']}/mime.types" do
   source "mime.types"
