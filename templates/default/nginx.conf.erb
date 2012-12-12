@@ -45,6 +45,10 @@ http {
   gzip_http_version <%= node['nginx']['gzip_http_version'] %>;
   gzip_comp_level <%= node['nginx']['gzip_comp_level'] %>;
   gzip_proxied <%= node['nginx']['gzip_proxied'] %>;
+  gzip_vary <%= node['nginx']['gzip_vary'] %>;
+  <% if node['nginx']['gzip_buffers'] -%>
+  gzip_buffers <%= node['nginx']['gzip_buffers'] %>;
+  <% end -%>
   gzip_types <%= node['nginx']['gzip_types'].join(' ') %>;
   gzip_min_length  1000;
   gzip_disable     "MSIE [1-6]\.";
