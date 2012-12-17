@@ -19,8 +19,8 @@
 
 case node['platform']
 when "centos"
-  default['yum']['nginx']['url'] = "http://nginx.org/packages/centos/#{node['platform_version'].to_i}/$basearch/"
+  default['nginx']['yum']['url'] = "http://nginx.org/packages/centos/#{node['platform_version'].to_i}/$basearch/"
 else
-  default['yum']['nginx']['url'] = "http://nginx.org/packages/rhel/#{node['platform_version'].to_i}/$basearch/"
+  default['nginx']['yum']['url'] = "http://nginx.org/packages/rhel/#{node['platform_version'].to_i}/$basearch/"
 end
 
