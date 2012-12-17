@@ -18,6 +18,6 @@
 
 yum_repository "nginx" do
   description "Nginx.org Repository"
-  mirrorlist node['nginx']['yum']['url']
+  url node['nginx']['yum']['url']
 end
 
