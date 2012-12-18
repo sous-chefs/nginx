@@ -172,17 +172,8 @@ bash "compile_nginx_source" do
       node.automatic_attrs['nginx']['version'] == node['nginx']['version'] &&
       node.automatic_attrs['nginx']['configure_arguments'].sort == configure_flags.sort
   end
-end
 
-file "#{node['nginx']['dir']}/nginx.conf" do
-  action :delete
-
-  not_if do
-    nginx_force_recompile == false &&
-      node.automatic_attrs['nginx'] &&
-      node.automatic_attrs['nginx']['version'] == node['nginx']['version'] &&
-      node.automatic_attrs['nginx']['configure_arguments'].sort == configure_flags.sort
-  end
+  notifies :restart, "service[nginx]"
 end
 
 node.run_state.delete('nginx_configure_flags')
