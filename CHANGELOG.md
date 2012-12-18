@@ -1,3 +1,15 @@
+## v1.1.2:
+
+* [COOK-1766] - Nginx Source Recipe Rebuilding Source at Every Run
+* [COOK-1910] - Add IPv6 module
+* [COOK-1966] - nginx cookbook should let you set `gzip_vary` and `gzip_buffers` in  nginx.conf
+* [COOK-1969]- - nginx::passenger module not included due to use of symbolized `:nginx_configure_flags`
+* [COOK-1971] - Template passenger.conf.erb configures key `passenger_max_pool_size` 2 times
+* [COOK-1972] - nginx::source compile_nginx_source reports success in spite of failed compilation
+* [COOK-1975] - nginx::passenger requires rake gem
+* [COOK-1979] - Passenger module requires curl-dev(el)
+* [COOK-2080] - Restart nginx on source compilation
+
 ## v1.1.0:
 
 * [COOK-1263] - Nginx log (and possibly other) directory creations should be recursive
