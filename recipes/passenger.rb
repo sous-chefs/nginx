@@ -27,6 +27,7 @@ node.default["nginx"]["passenger"]["min_instances"] = 1
 node.default["nginx"]["passenger"]["max_instances_per_app"] = 0
 node.default["nginx"]["passenger"]["pool_idle_time"] = 300
 node.default["nginx"]["passenger"]["max_requests"] = 0
+node.default["nginx"]["passenger"]["gem_binary"] = nil
 
 packages = value_for_platform( ["redhat", "centos", "scientific", "amazon", "oracle"] => {
                                  "default" => %w(ruby-devel curl-devel) },
@@ -42,6 +43,7 @@ gem_package 'rake'
 gem_package 'passenger' do
   action :install
   version node["nginx"]["passenger"]["version"]
+  gem_binary node["nginx"]["passenger"]["gem_binary"] if node["nginx"]["passenger"]["gem_binary"]
 end
 
 template "#{node["nginx"]["dir"]}/conf.d/passenger.conf" do
