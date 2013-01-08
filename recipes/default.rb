@@ -28,7 +28,7 @@ when 'package'
   when 'redhat','centos','scientific','amazon','oracle'
     include_recipe 'yum::epel'
   end
-  package 'nginx'
+  package node['nginx']['package_name']
   service 'nginx' do
     supports :status => true, :restart => true, :reload => true
     action :enable
