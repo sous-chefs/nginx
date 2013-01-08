@@ -1,3 +1,7 @@
+## v1.1.4:
+
+* [COOK-2168] - specify package name as an attribute
+
 ## v1.1.2:
 
 * [COOK-1766] - Nginx Source Recipe Rebuilding Source at Every Run
