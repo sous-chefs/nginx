@@ -182,7 +182,7 @@ your node location.
 These attributes are used in the `nginx::upload_progress_module`
 recipe.
 
-* `node['nginx']['upload_progress]['url']` - URL for the tarball.
+* `node['nginx']['upload_progress']['url']` - URL for the tarball.
 * `node['nginx']['upload_progress']['checksum']` - Checksum of the
   tarball.
 
@@ -217,8 +217,9 @@ These attributes are used in the `nginx::passenger` recipe.
 
 These attributes are used in the `nginx::http_echo_module` recipe.
 
-* `node['nginx']['echo]['version']` - The version of `http_echo` you want (default: 0.40)
-* `node['nginx']['echo]['url']` - URL for the tarball.
+* `node['nginx']['echo']['version']` - The version of `http_echo` you
+  want (default: 0.40)
+* `node['nginx']['echo']['url']` - URL for the tarball.
 * `node['nginx']['echo']['checksum']` - Checksum of the tarball.
 
 Recipes
