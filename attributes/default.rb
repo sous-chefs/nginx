@@ -37,6 +37,7 @@ when "debian","ubuntu"
 when "redhat","centos","scientific","amazon","oracle","fedora"
   default['nginx']['user']       = "nginx"
   default['nginx']['init_style'] = "init"
+  default['nginx']['repo_source'] = "epel"
 else
   default['nginx']['user']       = "www-data"
   default['nginx']['init_style'] = "init"
