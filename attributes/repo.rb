@@ -1,4 +1,3 @@
-
 # Cookbook Name:: nginx
 # Recipe:: repo
 # Author:: Nick Rycar <nrycar@bluebox.net>
@@ -17,10 +16,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-case node['platform']
-when "centos"
-  default['nginx']['yum']['url'] = "http://nginx.org/packages/centos/#{node['platform_version'].to_i}/$basearch/"
-else
-  default['nginx']['yum']['url'] = "http://nginx.org/packages/rhel/#{node['platform_version'].to_i}/$basearch/"
+case node['platform_family']
+when 'rhel','fedora'
+  case node['platform']
+  when "centos"
+    # See http://wiki.nginx.org/Install
+    default['nginx']['upstream_repository'] = "http://nginx.org/packages/centos/#{node['platform_version'].to_i}/$basearch/"
+  else
+    default['nginx']['upstream_repository'] = "http://nginx.org/packages/rhel/#{node['platform_version'].to_i}/$basearch/"
+  end
+when 'debian'
+  default['nginx']['upstream_repository'] = "http://nginx.org/packages/#{node['platform']}"
 end
-

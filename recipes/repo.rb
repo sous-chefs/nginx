@@ -16,8 +16,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-yum_repository "nginx" do
-  description "Nginx.org Repository"
-  url node['nginx']['yum']['url']
+case node['platform_family']
+when "rhel","fedora"
+  yum_repository "nginx" do
+    description "Nginx.org Repository"
+    url node['nginx']['upstream_repository']
+  end
+when "debian"
+  apt_repository "nginx" do
+    description "Nginx.org Repository"
+    uri node['nginx']['upstream_repository']
+    distribution node['lsb']['codename']
+    components ["nginx"]
+    deb_src true
+  end
 end
-
