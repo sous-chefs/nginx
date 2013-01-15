@@ -91,7 +91,9 @@ config file.
 * `node['nginx']['types_hash_bucket_size']` - Used for the
   `types_hash_bucket_size` configuration directive.
 * `node['nginx']['proxy_read_timeout']` - defines a timeout (between two
-   successive read operations) for reading a response from the proxied server.
+  successive read operations) for reading a response from the proxied server.
+* `node['nginx']['client_max_body_size']` - specifies the maximum accepted body
+  size of a client request, as indicated by the request header Content-Length.
 
 ### Attributes for configuring the gzip module
 

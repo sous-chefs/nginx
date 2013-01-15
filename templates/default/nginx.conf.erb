@@ -60,6 +60,9 @@ http {
   <% if node['nginx']['proxy_read_timeout'] -%>
   proxy_read_timeout <%= node['nginx']['proxy_read_timeout'] %>;
   <% end -%>
+  <% if node['nginx']['client_max_body_size'] -%>
+  client_max_body_size <%= node['nginx']['client_max_body_size'] %>;
+  <% end -%>
 
   include <%= node['nginx']['dir'] %>/conf.d/*.conf;
   include <%= node['nginx']['dir'] %>/sites-enabled/*;
