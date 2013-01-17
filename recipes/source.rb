@@ -123,19 +123,24 @@ else
     )
   end
 
-  defaults_path = case node['platform']
-    when 'debian', 'ubuntu'
-      '/etc/default/nginx'
-    when 'gentoo'
-      '/dev/null'
-    else
-      '/etc/sysconfig/nginx'
+  case node['platform']
+  when 'gentoo'
+    genrate_template = false
+  when 'debian', 'ubuntu'
+    genrate_template = true
+    defaults_path = '/etc/default/nginx'
+  else
+    genrate_template = true
+    defaults_path = '/etc/sysconfig/nginx'
   end
-  template defaults_path do
-    source "nginx.sysconfig.erb"
-    owner "root"
-    group "root"
-    mode 00644
+
+  if genrate_template
+    template defaults_path do
+      source "nginx.sysconfig.erb"
+      owner "root"
+      group "root"
+      mode 00644
+    end
   end
 
   service "nginx" do
