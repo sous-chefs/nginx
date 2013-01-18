@@ -1,9 +1,9 @@
 #
 # Cookbook Name:: nginx
-# Definition:: nginx_site
+# Recipe:: common/conf
 # Author:: AJ Christensen <aj@junglist.gen.nz>
 #
-# Copyright 2008-2009, Opscode, Inc.
+# Copyright 2008-2012, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,18 +18,23 @@
 # limitations under the License.
 #
 
-define :nginx_site, :enable => true do
-  if params[:enable]
-    execute "nxensite #{params[:name]}" do
-      command "/usr/sbin/nxensite #{params[:name]}"
-      notifies :reload, "service[nginx]"
-      not_if do ::File.symlink?("#{node['nginx']['dir']}/sites-enabled/#{params[:name]}") end
-    end
-  else
-    execute "nxdissite #{params[:name]}" do
-      command "/usr/sbin/nxdissite #{params[:name]}"
-      notifies :reload, "service[nginx]"
-      only_if do ::File.symlink?("#{node['nginx']['dir']}/sites-enabled/#{params[:name]}") end
-    end
-  end
+template "nginx.conf" do
+  path "#{node['nginx']['dir']}/nginx.conf"
+  source "nginx.conf.erb"
+  owner "root"
+  group "root"
+  mode 00644
+  notifies :reload, 'service[nginx]'
+end
+
+template "#{node['nginx']['dir']}/sites-available/default" do
+  source "default-site.erb"
+  owner "root"
+  group "root"
+  mode 00644
+  notifies :reload, 'service[nginx]'
+end
+
+nginx_site 'default' do
+  enable node['nginx']['default_site_enabled']
 end

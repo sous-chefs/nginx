@@ -1,9 +1,9 @@
 #
 # Cookbook Name:: nginx
-# Definition:: nginx_site
+# Recipe:: common/dir
 # Author:: AJ Christensen <aj@junglist.gen.nz>
 #
-# Copyright 2008-2009, Opscode, Inc.
+# Copyright 2008-2012, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,18 +18,24 @@
 # limitations under the License.
 #
 
-define :nginx_site, :enable => true do
-  if params[:enable]
-    execute "nxensite #{params[:name]}" do
-      command "/usr/sbin/nxensite #{params[:name]}"
-      notifies :reload, "service[nginx]"
-      not_if do ::File.symlink?("#{node['nginx']['dir']}/sites-enabled/#{params[:name]}") end
-    end
-  else
-    execute "nxdissite #{params[:name]}" do
-      command "/usr/sbin/nxdissite #{params[:name]}"
-      notifies :reload, "service[nginx]"
-      only_if do ::File.symlink?("#{node['nginx']['dir']}/sites-enabled/#{params[:name]}") end
-    end
+directory node['nginx']['dir'] do
+  owner "root"
+  group "root"
+  mode 00755
+  recursive true
+end
+
+directory node['nginx']['log_dir'] do
+  mode 00755
+  owner node['nginx']['user']
+  action :create
+  recursive true
+end
+
+%w(sites-available sites-enabled conf.d).each do |leaf|
+  directory File.join(node['nginx']['dir'], leaf) do
+    owner "root"
+    group "root"
+    mode 00755
   end
 end

@@ -1,10 +1,10 @@
 #
 # Cookbook Name:: nginx
-# Recipe:: authorized_ips
+# Attributes:: naxsi
 #
-# Author:: Jamie Winsor (<jamie@vialstudios.com>)
+# Author:: Artiom Lunev (<artiom.lunev@gmail.com>)
 #
-# Copyright 2012, Riot Games
+# Copyright 2012, Artiom Lunev
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,19 +19,6 @@
 # limitations under the License.
 #
 
-node.default['nginx']['remote_ip_var']  = "remote_addr"
-node.default['nginx']['authorized_ips'] = ["127.0.0.1/32"]
-
-template "authorized_ip" do
-  path "#{node['nginx']['dir']}/authorized_ip"
-  source "modules/authorized_ip.erb"
-  owner "root"
-  group "root"
-  mode 00644
-  variables(
-    :remote_ip_var => node['nginx']['remote_ip_var'],
-    :authorized_ips => node['nginx']['authorized_ips']
-  )
-
-  notifies :reload, "service[nginx]"
-end
+default['nginx']['naxsi']['version']  = "0.49"
+default['nginx']['naxsi']['url']      = "http://naxsi.googlecode.com/files/naxsi-core-#{node['nginx']['naxsi']['version']}.tgz"
+default['nginx']['naxsi']['checksum'] = "bb0b63713d5a9446401d5acd1ef0882b9c2a0fc506502bbd88bc4663d273e9c7"

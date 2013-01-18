@@ -1,0 +1,15 @@
+cookbook "nginx" do
+  configuration "ohai_plugin"
+  configuration "default"
+  configuration "ohai_plugin"
+  configuration "source"
+  configuration "authorized_ips"
+  configuration "http_echo_module"
+  # configuration "http_geoip_module" - COOK-1952
+  configuration "http_gzip_static_module"
+  configuration "http_realip_module"
+  configuration "http_ssl_module"
+  configuration "http_stub_status_module"
+  configuration "naxsi_module"
+  configuration "upload_progress_module"
+end
