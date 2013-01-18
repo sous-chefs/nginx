@@ -40,6 +40,12 @@ end
 node.set['nginx']['binary']          = "#{node['nginx']['source']['prefix']}/sbin/nginx"
 node.set['nginx']['daemon_disable']  = true
 
+user node['nginx']['user'] do
+  system true
+  shell "/bin/false"
+  home "/var/www"
+end
+
 include_recipe "nginx::ohai_plugin"
 include_recipe "nginx::commons_dir"
 include_recipe "nginx::commons_script"
@@ -60,12 +66,6 @@ remote_file nginx_url do
   checksum node['nginx']['source']['checksum']
   path src_filepath
   backup false
-end
-
-user node['nginx']['user'] do
-  system true
-  shell "/bin/false"
-  home "/var/www"
 end
 
 node.run_state['nginx_force_recompile'] = false
