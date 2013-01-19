@@ -19,7 +19,7 @@
 # limitations under the License.
 
 tar_location = "#{Chef::Config['file_cache_path']}/headers_more.tar.gz"
-module_location = "#{node['nginx']['source']['module_path']}/headers_more"
+module_location = "#{Chef::Config['file_cache_path']}/headers_more/#{node['nginx']['headers_more']['source_checksum']}"
 
 remote_file tar_location do
   source node['nginx']['headers_more']['source_url']
@@ -39,11 +39,15 @@ end
 
 bash "extract_headers_more" do
   cwd ::File.dirname(tar_location)
+  user 'root'
   code <<-EOH
-    tar -zxvf #{tar_location} -C #{module_location}
+    tar -zxf #{tar_location} -C #{module_location}
     mv -f #{module_location}/agentz*/* #{module_location}
     rm -rf #{module_location}/agentz*
   EOH
+
+  not_if { ::File.exists?("#{module_location}/config") }
+
 end
 
 node.run_state['nginx_configure_flags'] =
