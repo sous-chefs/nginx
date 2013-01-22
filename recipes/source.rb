@@ -54,6 +54,7 @@ include_recipe "build-essential"
 src_filepath  = "#{Chef::Config['file_cache_path'] || '/tmp'}/nginx-#{node['nginx']['version']}.tar.gz"
 packages = value_for_platform(
     ["centos","redhat","fedora","amazon","scientific"] => {'default' => ['pcre-devel', 'openssl-devel']},
+    "gentoo" => {"default" => []},
     "default" => ['libpcre3', 'libpcre3-dev', 'libssl-dev']
   )
 
@@ -117,21 +118,29 @@ else
     mode 00755
     variables(
       :src_binary => node['nginx']['binary'],
-      :pid => node['nginx']['pid']
+      :pid => node['nginx']['pid'],
+      :conf_dir => node['nginx']['source']['conf_path']
     )
   end
 
-  defaults_path = case node['platform']
-    when 'debian', 'ubuntu'
-      '/etc/default/nginx'
-    else
-      '/etc/sysconfig/nginx'
+  case node['platform']
+  when 'gentoo'
+    genrate_template = false
+  when 'debian', 'ubuntu'
+    genrate_template = true
+    defaults_path = '/etc/default/nginx'
+  else
+    genrate_template = true
+    defaults_path = '/etc/sysconfig/nginx'
   end
-  template defaults_path do
-    source "nginx.sysconfig.erb"
-    owner "root"
-    group "root"
-    mode 00644
+
+  if genrate_template
+    template defaults_path do
+      source "nginx.sysconfig.erb"
+      owner "root"
+      group "root"
+      mode 00644
+    end
   end
 
   service "nginx" do
