@@ -18,9 +18,11 @@ end
 
 depends 'ohai', '>= 1.1.4'
 
-%w{ runit bluepill yum }.each do |cb|
+%w{ bluepill yum }.each do |cb|
   recommends cb
 end
+
+recommends "runit", "<= 0.16.2"
 
 attribute "nginx/dir",
   :display_name => "Nginx Directory",
