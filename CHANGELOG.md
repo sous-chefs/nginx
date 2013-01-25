@@ -1,3 +1,11 @@
+## v1.2.0:
+
+* [COOK-1752] - Add headers more module to the nginx cookbook
+* [COOK-2209] - nginx source recipe should create web user before
+  creating directories
+* [COOK-2221] - make nginx::source compatible with gentoo
+* [COOK-2267] - add version for runit recommends
+
 ## v1.1.4:
 
 * [COOK-2168] - specify package name as an attribute
