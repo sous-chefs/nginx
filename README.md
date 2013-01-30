@@ -7,6 +7,11 @@ handling similar to Debian's Apache2 scripts.
 Requirements
 ============
 
+Chef
+----
+
+Chef version 0.10.10+ and Ohai 0.6.12+ are required.
+
 Cookbooks
 ---------
 
