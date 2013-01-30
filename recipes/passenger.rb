@@ -29,17 +29,10 @@ node.default["nginx"]["passenger"]["pool_idle_time"] = 300
 node.default["nginx"]["passenger"]["max_requests"] = 0
 node.default["nginx"]["passenger"]["gem_binary"] = nil
 
-<<<<<<< HEAD
 packages = value_for_platform_family(
     ["rhel", "fedora"] => %w(ruby-devel curl-devel),
     "debian" => %w(ruby-dev libcurl4-gnutls-dev)
     )
-=======
-packages = value_for_platform( ["redhat", "centos", "scientific", "amazon", "oracle"] => {
-                                 "default" => %w(ruby-devel curl-devel) },
-                               ["ubuntu", "debian"] => {
-                                 "default" => %w(ruby-dev libcurl4-gnutls-dev) } )
->>>>>>> [COOK-1979] - curl-dev doesn't exist in ubuntu 10.04 - 12.04
 
 packages.each do |devpkg|
   package devpkg
