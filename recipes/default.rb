@@ -24,8 +24,7 @@ case node['nginx']['install_method']
 when 'source'
   include_recipe 'nginx::source'
 when 'package'
-  case node['platform']
-  when 'redhat','centos','scientific','amazon','oracle'
+  if platform_family?('rhel')
     include_recipe 'yum::epel'
   end
   package node['nginx']['package_name']
