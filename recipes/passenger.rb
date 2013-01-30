@@ -29,9 +29,9 @@ node.default["nginx"]["passenger"]["pool_idle_time"] = 300
 node.default["nginx"]["passenger"]["max_requests"] = 0
 node.default["nginx"]["passenger"]["gem_binary"] = nil
 
-packages = value_for_platform( ["redhat", "centos", "scientific", "amazon", "oracle"] => {
+packages = value_for_platform_family( ["rhel", "fedora"] => {
                                  "default" => %w(ruby-devel curl-devel) },
-                               ["ubuntu", "debian"] => {
+                               "debian" => {
                                  "default" => %w(ruby-dev curl-dev) } )
 
 packages.each do |devpkg|

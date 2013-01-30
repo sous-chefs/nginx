@@ -52,8 +52,8 @@ include_recipe "nginx::commons_script"
 include_recipe "build-essential"
 
 src_filepath  = "#{Chef::Config['file_cache_path'] || '/tmp'}/nginx-#{node['nginx']['version']}.tar.gz"
-packages = value_for_platform(
-    ["centos","redhat","fedora","amazon","scientific"] => {'default' => ['pcre-devel', 'openssl-devel']},
+packages = value_for_platform_family(
+    ["rhel","fedora"] => {'default' => ['pcre-devel', 'openssl-devel']},
     "gentoo" => {"default" => []},
     "default" => ['libpcre3', 'libpcre3-dev', 'libssl-dev']
   )
@@ -123,10 +123,10 @@ else
     )
   end
 
-  case node['platform']
+  case node['platform_family']
   when 'gentoo'
     genrate_template = false
-  when 'debian', 'ubuntu'
+  when 'debian'
     genrate_template = true
     defaults_path = '/etc/default/nginx'
   else
