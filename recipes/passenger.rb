@@ -17,7 +17,7 @@
 
 node.default["nginx"]["passenger"]["version"] = "3.0.19"
 node.default["nginx"]["passenger"]["root"] = "/usr/lib/ruby/gems/1.8/gems/passenger-3.0.19"
-node.default["nginx"]["passenger"]["ruby"] = %x{which ruby}.chomp
+node.default["nginx"]["passenger"]["ruby"] = node['languages']['ruby']['ruby_bin']
 node.default["nginx"]["passenger"]["max_pool_size"] = 10
 node.default["nginx"]["passenger"]["spawn_method"] = "smart-lv2"
 node.default["nginx"]["passenger"]["use_global_queue"] = "on"
