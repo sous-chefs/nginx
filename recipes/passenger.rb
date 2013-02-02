@@ -32,7 +32,7 @@ node.default["nginx"]["passenger"]["gem_binary"] = nil
 packages = value_for_platform( ["redhat", "centos", "scientific", "amazon", "oracle"] => {
                                  "default" => %w(ruby-devel curl-devel) },
                                ["ubuntu", "debian"] => {
-                                 "default" => %w(ruby-dev curl-dev) } )
+                                 "default" => %w(ruby-dev libcurl4-gnutls-dev) } )
 
 packages.each do |devpkg|
   package devpkg
