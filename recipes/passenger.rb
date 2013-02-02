@@ -15,8 +15,8 @@
 # limitations under the License.
 #
 
-node.default["nginx"]["passenger"]["version"] = "3.0.12"
-node.default["nginx"]["passenger"]["root"] = "/usr/lib/ruby/gems/1.8/gems/passenger-3.0.12"
+node.default["nginx"]["passenger"]["version"] = "3.0.19"
+node.default["nginx"]["passenger"]["root"] = "/usr/lib/ruby/gems/1.8/gems/passenger-3.0.19"
 node.default["nginx"]["passenger"]["ruby"] = %x{which ruby}.chomp
 node.default["nginx"]["passenger"]["max_pool_size"] = 10
 node.default["nginx"]["passenger"]["spawn_method"] = "smart-lv2"
