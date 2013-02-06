@@ -118,8 +118,7 @@ else
     mode 00755
     variables(
       :src_binary => node['nginx']['binary'],
-      :pid => node['nginx']['pid'],
-      :conf_dir => node['nginx']['source']['conf_path']
+      :pid => node['nginx']['pid']
     )
   end
 
