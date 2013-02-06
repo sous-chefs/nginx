@@ -1,3 +1,21 @@
+## v1.3.0:
+
+* [COOK-1979] - Passenger module requires curl-dev(el)
+* [COOK-2219] - Support `proxy_read_timeout` (in nginx.conf)
+* [COOK-2220] - Support `client_max_body_size` (in nginx.conf)
+* [COOK-2280] - Allow custom timing of nginx_site's reload
+  notification
+* [COOK-2304] - nginx cookbook should install 1.2.6 not 1.2.3 for
+  source installs
+* [COOK-2309] - checksums for geoip files need to be updated in nginx
+* [COOK-2310] - Checksum in the `nginx::upload_progress` recipe is not
+  correct
+* [COOK-2314] - nginx::passenger: Install the latest version of
+  passenger
+* [COOK-2327] - nginx: passenger recipe should find ruby via Ohai
+* [COOK-2328] - nginx: Update mime.types file to the latest
+* [COOK-2329] - nginx: Update naxsi rules to the current
+
 ## v1.2.0:
 
 * [COOK-1752] - Add headers more module to the nginx cookbook
