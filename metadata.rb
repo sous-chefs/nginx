@@ -108,3 +108,8 @@ attribute "nginx/disable_access_log",
 attribute "nginx/default_site_enabled",
   :display_name => "Default site enabled",
   :default => "true"
+
+attribute "nginx/sendfile",
+  :display_name => "Nginx sendfile",
+  :description => "Whether to enable sendfile",
+  :default => "on"

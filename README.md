@@ -84,6 +84,7 @@ config file.
 * `node['nginx']['disable_access_log']` - set to true to disable the
   general access log, may be useful on high traffic sites.
 * `node['nginx']['default_site_enabled']` - enable the default site
+* `node['nginx']['sendfile']` - Whether to use `sendfile`. Defaults to "on".
 * `node['nginx']['install_method']` - Whether nginx is installed from
   packages or from source.
 * `node['nginx']['types_hash_max_size']` - Used for the
