@@ -23,6 +23,9 @@ be controlled by an attribute, so it may not be a common "default."
 
 On RHEL family distros, the "yum" cookbook is required for "`recipe[yum::epel]`".
 
+On Ubuntu, when using Nginx.org's stable package, "`recipe[apt]`"
+is required.
+
 Platform
 --------
 
@@ -229,10 +232,13 @@ These attributes are used in the `nginx::http_echo_module` recipe.
 Recipes
 =======
 
-This cookbook provides two main recipes for installing Nginx.
+This cookbook provides three main recipes for installing Nginx.
 
 * default.rb: *Use this recipe* if you have a native package for
   Nginx.
+* nginx-org-package.rb: The developer of Nginx also maintain
+  [stable packages](http://nginx.org/en/download.html) for several
+  platforms. (Only Ubuntu support implemented presently)
 * source.rb: *Use this recipe* if you do not have a native package for
   Nginx, or if you want to install a newer version than is available,
   or if you have custom module compilation needs.
