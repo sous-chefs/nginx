@@ -1,3 +1,6 @@
+## v1.3.1:
+ * [COOK-2447] - Add redis2 module
+
 ## v1.3.0:
 
 * [COOK-1979] - Passenger module requires curl-dev(el)
