@@ -18,16 +18,22 @@
 
 case node['platform_family']
 when "rhel","fedora"
+  include_recipe "yum"
+
   yum_repository "nginx" do
     description "Nginx.org Repository"
     url node['nginx']['upstream_repository']
+    key 'http://nginx.org/keys/nginx_signing.key'
   end
 when "debian"
+  include_recipe "apt"
+
   apt_repository "nginx" do
     description "Nginx.org Repository"
     uri node['nginx']['upstream_repository']
     distribution node['lsb']['codename']
     components ["nginx"]
     deb_src true
+    key 'http://nginx.org/keys/nginx_signing.key'
   end
 end

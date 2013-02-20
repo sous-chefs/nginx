@@ -236,9 +236,9 @@ This cookbook provides three main recipes for installing Nginx.
 
 * default.rb: *Use this recipe* if you have a native package for
   Nginx.
-* nginx-org-package.rb: The developer of Nginx also maintain
+* repo.rb: The developer of Nginx also maintain
   [stable packages](http://nginx.org/en/download.html) for several
-  platforms. (Only Ubuntu support implemented presently)
+  platforms.
 * source.rb: *Use this recipe* if you do not have a native package for
   Nginx, or if you want to install a newer version than is available,
   or if you have custom module compilation needs.
