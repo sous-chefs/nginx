@@ -1,8 +1,8 @@
 #
 # Cookbook Name:: nginx
-# Recipe:: ohai_plugin
+# Attributes:: headers_more
 #
-# Author:: Jamie Winsor (<jamie@vialstudios.com>)
+# Author:: Lucas Jandrew (<ljandrew@riotgames.com>)
 #
 # Copyright 2012, Riot Games
 #
@@ -17,23 +17,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
-ohai "reload_nginx" do
-  action :nothing
-  plugin "nginx"
-end
-
-template "#{node['ohai']['plugin_path']}/nginx.rb" do
-  source "plugins/nginx.rb.erb"
-  owner "root"
-  group "root"
-  mode 00755
-  variables(
-    :nginx_prefix => node['nginx']['source']['prefix'],
-    :nginx_bin => 'sbin/nginx'
-  )
-  notifies :reload, 'ohai[reload_nginx]', :immediately
-end
-
-include_recipe "ohai"
+default['nginx']['headers_more']['source_url'] = 'https://github.com/agentzh/headers-more-nginx-module/tarball/v0.17'
+default['nginx']['headers_more']['source_checksum'] = '5c556903763c58db0dd01606fdbba5f8'

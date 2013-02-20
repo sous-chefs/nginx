@@ -5,19 +5,25 @@
 #big_body : 2
 #no_content_type : 3
 
-#MainRule "str:123FREETEXT" "msg:learning test pattern"  "mz:BODY|URL|ARGS|$HEADERS_VAR:Cookie" "s:BLOCK" id:0;
+#@MainRule "msg:weird/incorrect request" id:1;
+#@MainRule "msg:big request, unparsed" id:2;
+#@MainRule "msg:uncommon hex encoding (%00 etc.)" id:10;
+#@MainRule "msg:uncommon/empty content-type in POST" id:11;
+#@MainRule "msg:uncommon/malformed URL" id:12;
+
+#MainRule "str:123FREETEXT" "msg:exemple learning test pattern"  "mz:BODY|URL|ARGS|$HEADERS_VAR:Cookie" "s:BLOCK" id:0;
 
 ##################################
 ## SQL Injections IDs:1000-1099 ##
 ##################################
-MainRule "rx:select|union|update|delete|insert|table|from|ascii|hex|unhex" "msg:sql keywords" "mz:BODY|URL|ARGS|$HEADERS_VAR:Cookie" "s:$SQL:4" id:1000;
+MainRule "rx:select|union|update|delete|insert|table|from|ascii|hex|unhex|drop" "msg:sql keywords" "mz:BODY|URL|ARGS|$HEADERS_VAR:Cookie" "s:$SQL:4" id:1000;
 MainRule "str:\"" "msg:double quote" "mz:BODY|URL|ARGS|$HEADERS_VAR:Cookie" "s:$SQL:8,$XSS:8" id:1001;
 MainRule "str:0x" "msg:0x, possible hex encoding" "mz:BODY|URL|ARGS|$HEADERS_VAR:Cookie" "s:$SQL:2" id:1002;
 ## Hardcore rules
 MainRule "str:/*" "msg:mysql comment (/*)" "mz:BODY|URL|ARGS|$HEADERS_VAR:Cookie" "s:$SQL:8" id:1003;
 MainRule "str:*/" "msg:mysql comment (*/)" "mz:BODY|URL|ARGS|$HEADERS_VAR:Cookie" "s:$SQL:8" id:1004;
 MainRule "str:|" "msg:mysql keyword (|)"  "mz:BODY|URL|ARGS|$HEADERS_VAR:Cookie" "s:$SQL:8" id:1005;
-MainRule "rx:&&" "msg:mysql keyword (&&)" "mz:BODY|URL|ARGS|$HEADERS_VAR:Cookie" "s:$SQL:8" id:1006;
+MainRule "str:&&" "msg:mysql keyword (&&)" "mz:BODY|URL|ARGS|$HEADERS_VAR:Cookie" "s:$SQL:8" id:1006;
 ## end of hardcore rules
 MainRule "str:--" "msg:mysql comment (--)" "mz:BODY|URL|ARGS|$HEADERS_VAR:Cookie" "s:$SQL:4" id:1007;
 MainRule "str:;" "msg:; in stuff" "mz:BODY|URL|ARGS" "s:$SQL:4,$XSS:8" id:1008;
@@ -35,10 +41,16 @@ MainRule "str:http://" "msg:http:// scheme" "mz:ARGS|BODY|$HEADERS_VAR:Cookie" "
 MainRule "str:https://" "msg:https:// scheme" "mz:ARGS|BODY|$HEADERS_VAR:Cookie" "s:$RFI:8" id:1101;
 MainRule "str:ftp://" "msg:ftp:// scheme" "mz:ARGS|BODY|$HEADERS_VAR:Cookie" "s:$RFI:8" id:1102;
 MainRule "str:php://" "msg:php:// scheme" "mz:ARGS|BODY|$HEADERS_VAR:Cookie" "s:$RFI:8" id:1103;
+MainRule "str:sftp://" "msg:sftp:// scheme" "mz:ARGS|BODY|$HEADERS_VAR:Cookie" "s:$RFI:8" id:1104;
+MainRule "str:zlib://" "msg:zlib:// scheme" "mz:ARGS|BODY|$HEADERS_VAR:Cookie" "s:$RFI:8" id:1105;
+MainRule "str:data://" "msg:data:// scheme" "mz:ARGS|BODY|$HEADERS_VAR:Cookie" "s:$RFI:8" id:1106;
+MainRule "str:glob://" "msg:glob:// scheme" "mz:ARGS|BODY|$HEADERS_VAR:Cookie" "s:$RFI:8" id:1107;
+MainRule "str:phar://" "msg:phar:// scheme" "mz:ARGS|BODY|$HEADERS_VAR:Cookie" "s:$RFI:8" id:1108;
+MainRule "str:file://" "msg:file:// scheme" "mz:ARGS|BODY|$HEADERS_VAR:Cookie" "s:$RFI:8" id:1109;
 
 #######################################
 ## Directory traversal IDs:1200-1299 ##
-#######################################                                          
+#######################################
 MainRule "str:.." "msg:double dot" "mz:ARGS|URL|BODY|$HEADERS_VAR:Cookie" "s:$TRAVERSAL:4" id:1200;
 MainRule "str:/etc/passwd" "msg:obvious probe" "mz:ARGS|URL|BODY|$HEADERS_VAR:Cookie" "s:$TRAVERSAL:4" id:1202;
 MainRule "str:c:\\" "msg:obvious windows path" "mz:ARGS|URL|BODY|$HEADERS_VAR:Cookie" "s:$TRAVERSAL:4" id:1203;
@@ -67,4 +79,4 @@ MainRule negative "rx:multipart/form-data|application/x-www-form-urlencoded" "ms
 #############################
 ## File uploads: 1500-1600 ##
 #############################
-MainRule "rx:.ph*|.asp*" "msg:asp/php file upload!" "mz:FILE_EXT" "s:$UPLOAD:8" id:1500;
+MainRule "rx:.ph|.asp|.ht" "msg:asp/php file upload!" "mz:FILE_EXT" "s:$UPLOAD:8" id:1500;

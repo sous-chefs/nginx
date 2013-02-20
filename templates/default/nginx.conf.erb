@@ -45,6 +45,10 @@ http {
   gzip_http_version <%= node['nginx']['gzip_http_version'] %>;
   gzip_comp_level <%= node['nginx']['gzip_comp_level'] %>;
   gzip_proxied <%= node['nginx']['gzip_proxied'] %>;
+  gzip_vary <%= node['nginx']['gzip_vary'] %>;
+  <% if node['nginx']['gzip_buffers'] -%>
+  gzip_buffers <%= node['nginx']['gzip_buffers'] %>;
+  <% end -%>
   gzip_types <%= node['nginx']['gzip_types'].join(' ') %>;
   gzip_min_length  1000;
   gzip_disable     "MSIE [1-6]\.";
@@ -53,6 +57,12 @@ http {
   server_names_hash_bucket_size <%= node['nginx']['server_names_hash_bucket_size'] %>;
   types_hash_max_size <%= node['nginx']['types_hash_max_size'] %>;
   types_hash_bucket_size <%= node['nginx']['types_hash_bucket_size'] %>;
+  <% if node['nginx']['proxy_read_timeout'] -%>
+  proxy_read_timeout <%= node['nginx']['proxy_read_timeout'] %>;
+  <% end -%>
+  <% if node['nginx']['client_max_body_size'] -%>
+  client_max_body_size <%= node['nginx']['client_max_body_size'] %>;
+  <% end -%>
 
   include <%= node['nginx']['dir'] %>/conf.d/*.conf;
   include <%= node['nginx']['dir'] %>/sites-enabled/*;

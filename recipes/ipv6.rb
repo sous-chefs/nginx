@@ -1,10 +1,9 @@
 #
 # Cookbook Name:: nginx
-# Recipe:: ohai_plugin
+# Recipe:: ipv6
 #
-# Author:: Jamie Winsor (<jamie@vialstudios.com>)
+# Author:: Alan Harper (alan@sct.com.au)
 #
-# Copyright 2012, Riot Games
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,21 +18,5 @@
 # limitations under the License.
 #
 
-ohai "reload_nginx" do
-  action :nothing
-  plugin "nginx"
-end
-
-template "#{node['ohai']['plugin_path']}/nginx.rb" do
-  source "plugins/nginx.rb.erb"
-  owner "root"
-  group "root"
-  mode 00755
-  variables(
-    :nginx_prefix => node['nginx']['source']['prefix'],
-    :nginx_bin => 'sbin/nginx'
-  )
-  notifies :reload, 'ohai[reload_nginx]', :immediately
-end
-
-include_recipe "ohai"
+node.run_state['nginx_configure_flags'] =
+  node.run_state['nginx_configure_flags'] | ["--with-ipv6"]
