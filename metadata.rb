@@ -12,13 +12,13 @@ recipe "nginx::source", "Installs nginx from source and sets up configuration wi
   supports os
 end
 
-%w{ build-essential }.each do |cb|
+%w{ build-essential yum apt }.each do |cb|
   depends cb
 end
 
 depends 'ohai', '>= 1.1.4'
 
-%w{ bluepill yum }.each do |cb|
+%w{ bluepill }.each do |cb|
   recommends cb
 end
 
