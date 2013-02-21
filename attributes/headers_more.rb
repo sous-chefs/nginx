@@ -18,5 +18,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-default['nginx']['headers_more']['source_url'] = 'https://github.com/agentzh/headers-more-nginx-module/tarball/v0.17'
-default['nginx']['headers_more']['source_checksum'] = '5c556903763c58db0dd01606fdbba5f8'
+default['nginx']['headers_more']['source_url'] = 'https://github.com/agentzh/headers-more-nginx-module/tarball/v0.19'
+default['nginx']['headers_more']['source_checksum'] = '7e45d5cbe4ed6865b3bce4fcb6c05f13a52a315702335bcedf68691ad41d8294'
