@@ -32,7 +32,7 @@ http {
   access_log	<%= node['nginx']['log_dir'] %>/access.log;
   <% end %>
 
-  sendfile on;
+  sendfile <%= node['nginx']['sendfile'] %>;
   tcp_nopush on;
   tcp_nodelay on;
 

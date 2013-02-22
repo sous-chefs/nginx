@@ -73,6 +73,7 @@ default['nginx']['worker_rlimit_nofile'] = nil
 default['nginx']['multi_accept']       = false
 default['nginx']['event']              = nil
 default['nginx']['server_names_hash_bucket_size'] = 64
+default['nginx']['sendfile'] = 'on'
 
 default['nginx']['disable_access_log'] = false
 default['nginx']['install_method'] = 'package'
