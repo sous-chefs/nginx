@@ -20,10 +20,14 @@ case node['platform_family']
 when "rhel","fedora"
   include_recipe "yum"
 
+  yum_key "nginx" do
+    url 'http://nginx.org/keys/nginx_signing.key'
+    action :add
+  end
+
   yum_repository "nginx" do
     description "Nginx.org Repository"
     url node['nginx']['upstream_repository']
-    key 'http://nginx.org/keys/nginx_signing.key'
   end
 when "debian"
   include_recipe "apt"
