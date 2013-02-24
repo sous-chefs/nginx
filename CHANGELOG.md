@@ -1,3 +1,9 @@
+## v1.4.0:
+
+* [COOK-2183] - Install nginx package from nginxyum repo
+* [COOK-2311] - headers-more should be updated to the latest version
+* [COOK-2455] - Support sendfile option (nginx.conf)
+
 ## v1.3.0:
 
 * [COOK-1979] - Passenger module requires curl-dev(el)
