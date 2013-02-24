@@ -3,3 +3,4 @@
 .kitchen
 bin
 .Vagrantfile
+Gemfile.lock
