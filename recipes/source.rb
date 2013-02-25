@@ -21,7 +21,7 @@
 # limitations under the License.
 #
 
-node.load_attribute_by_short_filename('source', 'nginx')
+node.load_attribute_by_short_filename('source', 'nginx') if node.respond_to?(:load_attribute_by_short_filename)
 
 nginx_url = node['nginx']['source']['url'] ||
   "http://nginx.org/download/nginx-#{node['nginx']['version']}.tar.gz"
