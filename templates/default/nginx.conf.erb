@@ -58,12 +58,12 @@ http {
   types_hash_max_size <%= node['nginx']['types_hash_max_size'] %>;
   types_hash_bucket_size <%= node['nginx']['types_hash_bucket_size'] %>;
 
-<% if node['nginx']['proxy_read_timeout'] -%>
+  <% if node['nginx']['proxy_read_timeout'] -%>
     proxy_read_timeout <%= node['nginx']['proxy_read_timeout'] %>;
-<% end -%>
-<% if node['nginx']['proxy_cache_path'] -%>
+  <% end -%>
+  <% if node['nginx']['proxy_cache_path'] -%>
     proxy_cache_path <%= node['nginx']['proxy_cache_path'] %>;
-<% end -%>
+  <% end -%>
 
 
   <% if node['nginx']['client_max_body_size'] -%>
