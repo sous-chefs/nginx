@@ -63,6 +63,12 @@ http {
   <% if node['nginx']['client_max_body_size'] -%>
   client_max_body_size <%= node['nginx']['client_max_body_size'] %>;
   <% end -%>
+  <% if node['nginx']['client_body_buffer_size'] -%>
+    client_body_buffer_size <%= node['nginx']['client_body_buffer_size'] %>;
+  <% end -%>
+  <% if node['nginx']['client_header_buffer_size'] -%>
+    client_header_buffer_size <%= node['nginx']['client_header_buffer_size'] %>;
+  <% end -%>
 
   include <%= node['nginx']['dir'] %>/conf.d/*.conf;
   include <%= node['nginx']['dir'] %>/sites-enabled/*;
