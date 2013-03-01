@@ -4,3 +4,4 @@
 bin
 .Vagrantfile
 Gemfile.lock
+.idea

@@ -28,6 +28,8 @@ http {
   include       <%= node['nginx']['dir'] %>/mime.types;
   default_type  application/octet-stream;
 
+  log_format <%= node['nginx']['log_format_name']%> '<%= node['nginx']['log_format'] %>';
+
   <% unless node['nginx']['disable_access_log'] -%>
   access_log	<%= node['nginx']['log_dir'] %>/access.log;
   <% end %>
@@ -46,6 +48,9 @@ http {
   gzip_comp_level <%= node['nginx']['gzip_comp_level'] %>;
   gzip_proxied <%= node['nginx']['gzip_proxied'] %>;
   gzip_vary <%= node['nginx']['gzip_vary'] %>;
+  <% if node['nginx']['gzip_min_length'] -%>
+  gzip_buffers <%= node['nginx']['gzip_min_length'] %>;
+  <% end -%>
   <% if node['nginx']['gzip_buffers'] -%>
   gzip_buffers <%= node['nginx']['gzip_buffers'] %>;
   <% end -%>
@@ -57,13 +62,35 @@ http {
   server_names_hash_bucket_size <%= node['nginx']['server_names_hash_bucket_size'] %>;
   types_hash_max_size <%= node['nginx']['types_hash_max_size'] %>;
   types_hash_bucket_size <%= node['nginx']['types_hash_bucket_size'] %>;
+
   <% if node['nginx']['proxy_read_timeout'] -%>
   proxy_read_timeout <%= node['nginx']['proxy_read_timeout'] %>;
   <% end -%>
+  <% if node['nginx']['proxy_cache_path'] -%>
+  proxy_cache_path <%= node['nginx']['proxy_cache_path'] %>;
+  <% end -%>
+  <% if node['nginx']['uwsgi_cache_path'] -%>
+  uwsgi_cache_path <%= node['nginx']['uwsgi_cache_path'] %>;
+  <% end -%>
+
   <% if node['nginx']['client_max_body_size'] -%>
   client_max_body_size <%= node['nginx']['client_max_body_size'] %>;
   <% end -%>
+  <% if node['nginx']['client_body_buffer_size'] -%>
+  client_body_buffer_size <%= node['nginx']['client_body_buffer_size'] %>;
+  <% end -%>
+  <% if node['nginx']['client_header_buffer_size'] -%>
+  client_header_buffer_size <%= node['nginx']['client_header_buffer_size'] %>;
+  <% end -%>
+
+  <% if node['nginx']['upstream'] == "on" %>
+  upstream {
+    server <%= node['nginx']['upstream']['server'] %>;
+  }
+  <% end %>
+
 
   include <%= node['nginx']['dir'] %>/conf.d/*.conf;
   include <%= node['nginx']['dir'] %>/sites-enabled/*;
+
 }
