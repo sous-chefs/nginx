@@ -83,6 +83,7 @@ default['nginx']['types_hash_max_size'] = 2048
 default['nginx']['types_hash_bucket_size'] = 64
 
 default['nginx']['proxy_read_timeout'] = nil
+default['nginx']['proxy_cache_path'] = nil
 
 default['nginx']['client_max_body_size'] = nil
 default['nginx']['client_body_buffer_size'] = nil
