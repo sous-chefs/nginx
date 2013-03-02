@@ -52,6 +52,7 @@ config file.
   `node['nginx']['source']['url']` as the URL was only used when
   retrieving the source to build Nginx.
 
+* `node['nginx']['port']` - Port for the default site (default: 8080)
 * `node['nginx']['dir']` - Location for Nginx configuration.
 * `node['nginx']['log_dir']` - Location for Nginx logs.
 * `node['nginx']['user']` - User that Nginx will run as.
