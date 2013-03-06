@@ -21,23 +21,12 @@
 # limitations under the License.
 #
 
+node.load_attribute_by_short_filename('source', 'nginx') if node.respond_to?(:load_attribute_by_short_filename)
 
 nginx_url = node['nginx']['source']['url'] ||
   "http://nginx.org/download/nginx-#{node['nginx']['version']}.tar.gz"
 
-unless(node['nginx']['source']['prefix'])
-  node.set['nginx']['source']['prefix'] = "/opt/nginx-#{node['nginx']['version']}"
-end
-unless(node['nginx']['source']['conf_path'])
-  node.set['nginx']['source']['conf_path'] = "#{node['nginx']['dir']}/nginx.conf"
-end
-unless(node['nginx']['source']['default_configure_flags'])
-  node.set['nginx']['source']['default_configure_flags'] = [
-    "--prefix=#{node['nginx']['source']['prefix']}",
-    "--conf-path=#{node['nginx']['dir']}/nginx.conf"
-  ]
-end
-node.set['nginx']['binary']          = "#{node['nginx']['source']['prefix']}/sbin/nginx"
+node.set['nginx']['binary']          = node['nginx']['source']['sbin_path']
 node.set['nginx']['daemon_disable']  = true
 
 user node['nginx']['user'] do
