@@ -26,7 +26,7 @@
 node.load_attribute_by_short_filename('source', 'nginx') if node.respond_to?(:load_attribute_by_short_filename)
 
 nginx_url = node['nginx']['source']['url'] ||
-  "http://nginx.org/download/nginx-#{node['nginx']['version']}.tar.gz"
+  "http://nginx.org/download/nginx-#{node['nginx']['source']['version']}.tar.gz"
 
 node.set['nginx']['binary']          = node['nginx']['source']['sbin_path']
 node.set['nginx']['daemon_disable']  = true
@@ -42,7 +42,7 @@ include_recipe "nginx::commons_dir"
 include_recipe "nginx::commons_script"
 include_recipe "build-essential"
 
-src_filepath  = "#{Chef::Config['file_cache_path'] || '/tmp'}/nginx-#{node['nginx']['version']}.tar.gz"
+src_filepath  = "#{Chef::Config['file_cache_path'] || '/tmp'}/nginx-#{node['nginx']['source']['version']}.tar.gz"
 packages = value_for_platform(
     ["centos","redhat","fedora","amazon","scientific"] => {'default' => ['pcre-devel', 'openssl-devel']},
     "gentoo" => {"default" => []},
@@ -160,7 +160,7 @@ bash "compile_nginx_source" do
   cwd ::File.dirname(src_filepath)
   code <<-EOH
     tar zxf #{::File.basename(src_filepath)} -C #{::File.dirname(src_filepath)} &&
-    cd nginx-#{node['nginx']['version']} &&
+    cd nginx-#{node['nginx']['source']['version']} &&
     ./configure #{node.run_state['nginx_configure_flags'].join(" ")} &&
     make && make install
   EOH
@@ -168,7 +168,7 @@ bash "compile_nginx_source" do
   not_if do
     nginx_force_recompile == false &&
       node.automatic_attrs['nginx'] &&
-      node.automatic_attrs['nginx']['version'] == node['nginx']['version'] &&
+      node.automatic_attrs['nginx']['version'] == node['nginx']['source']['version'] &&
       node.automatic_attrs['nginx']['configure_arguments'].sort == configure_flags.sort
   end
 
