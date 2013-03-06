@@ -28,6 +28,9 @@ default['nginx']['version'] = "1.2.6"
 default['nginx']['package_name'] = "nginx"
 default['nginx']['dir'] = "/etc/nginx"
 default['nginx']['log_dir'] = "/var/log/nginx"
+default['nginx']['log_format_name'] = "main"
+default['nginx']['log_format'] =
+  "[$time_local] \"$request\" status:$status bytes:$body_bytes_sent"
 default['nginx']['binary'] = "/usr/sbin/nginx"
 
 case node['platform']
@@ -50,6 +53,7 @@ default['nginx']['pid'] = "/var/run/nginx.pid"
 default['nginx']['gzip']              = "on"
 default['nginx']['gzip_http_version'] = "1.0"
 default['nginx']['gzip_comp_level']   = "2"
+default['nginx']['gzip_min_length']   = nil
 default['nginx']['gzip_proxied']      = "any"
 default['nginx']['gzip_vary']         = "off"
 default['nginx']['gzip_buffers']      = nil
@@ -67,7 +71,8 @@ default['nginx']['gzip_types']        = [
 
 default['nginx']['keepalive']          = "on"
 default['nginx']['keepalive_timeout']  = 65
-default['nginx']['worker_processes']   = node['cpu'] && node['cpu']['total'] ? node['cpu']['total'] : 1
+default['nginx']['worker_processes']   =
+  node['cpu'] && node['cpu']['total'] ? node['cpu']['total'] : 1
 default['nginx']['worker_connections'] = 1024
 default['nginx']['worker_rlimit_nofile'] = nil
 default['nginx']['multi_accept']       = false
@@ -82,4 +87,12 @@ default['nginx']['types_hash_max_size'] = 2048
 default['nginx']['types_hash_bucket_size'] = 64
 
 default['nginx']['proxy_read_timeout'] = nil
+default['nginx']['proxy_cache_path'] = nil
+default['nginx']['uwsgi_cache_path'] = nil
+
 default['nginx']['client_max_body_size'] = nil
+default['nginx']['client_body_buffer_size'] = nil
+default['nginx']['client_header_buffer_size'] = nil
+
+default['nginx']['upstream'] = "off"
+default['nginx']['upstream'['server'] = nil

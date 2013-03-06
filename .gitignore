@@ -5,3 +5,4 @@ bin
 *.sw*
 .Vagrantfile
 Gemfile.lock
+.idea
