@@ -82,7 +82,6 @@ http {
   <% if node['nginx']['client_header_buffer_size'] -%>
   client_header_buffer_size <%= node['nginx']['client_header_buffer_size'] %>;
   <% end -%>
-
   <% if node['nginx']['upstream'] == "on" %>
   upstream {
     server <%= node['nginx']['upstream']['server'] %>;
