@@ -11,7 +11,7 @@ env CONFIG=<%= @config %>
 
 respawn
 <% unless @respawn_limit.nil? %>
-  respawn limit <%= @respawn_limit %>
+respawn limit <%= @respawn_limit %>
 <% end %>
 
 pre-start script
