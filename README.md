@@ -68,6 +68,9 @@ config file.
   a default as this represents a change in behavior, if you are running
   ubuntu or el6 and want to use upstart, please set this attribute in
   a role or similar.
+* `node['nginx']['upstart']['foreground']` - Set this to true if you
+  want upstart to run nginx in the foreground, set to false if you
+  want upstart to detach and track the process via pid.
 * `node['nginx']['upstart']['runlevels']` - String of runlevels in the
   format '2345' which determines which runlevels nginx will start at
   when entering and stop at when leaving.

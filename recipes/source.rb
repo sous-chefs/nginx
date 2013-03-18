@@ -100,6 +100,10 @@ when "bluepill"
     action :nothing
   end
 when 'upstart'
+  # we rely on this to set up nginx.conf with daemon disable instead of doing
+  # it in the upstart init script.
+  node.set['nginx']['daemon_disable']  = node['nginx']['upstart']['foreground']
+
   template '/etc/init/nginx.conf' do
     source 'nginx-upstart.conf.erb'
     owner 'root'
@@ -109,7 +113,7 @@ when 'upstart'
       :src_binary => node['nginx']['binary'],
       :pid => node['nginx']['pid'],
       :config => node['nginx']['source']['conf_path'],
-      :foreground => node['nginx']['daemon_disable'],
+      :foreground => node['nginx']['upstart']['foreground'],
       :respawn_limit => node['nginx']['upstart']['respawn_limit'] || nil,
       :runlevels => node['nginx']['upstart']['runlevels'] || '2345'
     )
