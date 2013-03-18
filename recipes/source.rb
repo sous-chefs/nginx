@@ -104,7 +104,7 @@ when 'upstart'
     source 'nginx-upstart.conf.erb'
     owner 'root'
     group 'root'
-    mode 00755
+    mode 00644
     variables(
       :src_binary => node['nginx']['binary'],
       :pid => node['nginx']['pid'],

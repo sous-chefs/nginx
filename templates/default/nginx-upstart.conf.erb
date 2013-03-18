@@ -23,16 +23,16 @@ end script
 
 <% unless @foreground %>
 expect fork
-exec ${DAEMON} -c "${CONFIG}"
 <% else %>
 console output
-exec ${DAEMON} -c "${CONFIG}" -g "daemon off;"
 <% end %>
 
+exec ${DAEMON} -c "${CONFIG}"
+
+<% if node.recipe?('nginx::passenger') and not @foreground %>
 # classic example of why pidfiles should have gone away
 # with the advent of fork().  we missed that bus a long
 # time ago so hack around it.
-<% if node.recipe?('nginx::passenger') and not @foreground %>
 post-stop script
   start-stop-daemon --stop --pidfile ${PID} --name nginx --exec ${DAEMON} --signal QUIT
 end script
