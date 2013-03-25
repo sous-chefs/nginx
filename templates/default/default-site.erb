@@ -5,7 +5,7 @@ server {
   access_log  <%= node['nginx']['log_dir'] %>/localhost.access.log;
 
   location / {
-    root   /usr/share/nginx/www;
+    root   <%= node['nginx']['default_site_root']%>;
     index  index.html index.htm;
   }
 }
