@@ -33,7 +33,6 @@ when "debian"
   include_recipe "apt"
 
   apt_repository "nginx" do
-    description "Nginx.org Repository"
     uri node['nginx']['upstream_repository']
     distribution node['lsb']['codename']
     components ["nginx"]
