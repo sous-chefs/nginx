@@ -21,7 +21,8 @@
 
 include_attribute 'nginx'
 
-default['nginx']['source']['prefix']                  = "/opt/nginx-#{node['nginx']['version']}"
+default['nginx']['source']['version']                 = node['nginx']['version']
+default['nginx']['source']['prefix']                  = "/opt/nginx-#{node['nginx']['source']['version']}"
 default['nginx']['source']['conf_path']               = "#{node['nginx']['dir']}/nginx.conf"
 default['nginx']['source']['sbin_path']               = "#{node['nginx']['source']['prefix']}/sbin/nginx"
 default['nginx']['source']['default_configure_flags'] = [
@@ -31,7 +32,8 @@ default['nginx']['source']['default_configure_flags'] = [
 ]
 
 default['nginx']['configure_flags']  = Array.new
-default['nginx']['source']['url']     = "http://nginx.org/download/nginx-#{node['nginx']['version']}.tar.gz"
+default['nginx']['source']['version']  = node['nginx']['version']
+default['nginx']['source']['url']      = "http://nginx.org/download/nginx-#{node['nginx']['source']['version']}.tar.gz"
 default['nginx']['source']['checksum'] = "0510af71adac4b90484ac8caf3b8bd519a0f7126250c2799554d7a751a2db388"
 default['nginx']['source']['modules'] = [
   "http_ssl_module",
