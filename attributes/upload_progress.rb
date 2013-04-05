@@ -19,5 +19,7 @@
 # limitations under the License.
 #
 
-default['nginx']['upload_progress']['url']      = "https://github.com/masterzen/nginx-upload-progress-module/tarball/v0.8.4"
-default['nginx']['upload_progress']['checksum'] = "7b3f81d30cd3e8af2c343b73d8518d2373b95aeb3d0243790991873a3d91d0c5"
+default['nginx']['upload_progress']['url']      = "https://github.com/masterzen/nginx-upload-progress-module/tarball/v0.9.0"
+default['nginx']['upload_progress']['checksum'] = "9dd5dc90990dbaea68881a14d4b6d9f3"
+default['nginx']['upload_progress']['zone_name'] = "proxied"
+default['nginx']['upload_progress']['zone_size'] = "1m"
