@@ -63,7 +63,7 @@ config file.
   included as well and are dependencies of this cookbook.  Recipes
   are not included for upstart, it is assumed that upstart is built
   into the platform you are using (ubuntu or el6).  This attribute is
-  not used in the `nginx recipe because the package manager's init
+  not used in the `nginx` recipe because the package manager's init
   script style for the platform is assumed.  Upstart is never set as
   a default as this represents a change in behavior, if you are running
   ubuntu or el6 and want to use upstart, please set this attribute in

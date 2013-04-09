@@ -114,8 +114,8 @@ when 'upstart'
       :pid => node['nginx']['pid'],
       :config => node['nginx']['source']['conf_path'],
       :foreground => node['nginx']['upstart']['foreground'],
-      :respawn_limit => node['nginx']['upstart']['respawn_limit'] || nil,
-      :runlevels => node['nginx']['upstart']['runlevels'] || '2345'
+      :respawn_limit => node['nginx']['upstart']['respawn_limit'],
+      :runlevels => node['nginx']['upstart']['runlevels']
     )
   end
 

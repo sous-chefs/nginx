@@ -10,7 +10,7 @@ env PID=<%= @pid %>
 env CONFIG=<%= @config %>
 
 respawn
-<% unless @respawn_limit.nil? %>
+<% if @respawn_limit %>
 respawn limit <%= @respawn_limit %>
 <% end %>
 
