@@ -1,10 +1,10 @@
 # nginx
-  
+
 description "nginx http daemon"
- 
+
 start on (local-filesystems and net-device-up IFACE=lo and runlevel [<%= @runlevels %>])
 stop on runlevel [!<%= @runlevels %>]
-  
+
 env DAEMON=<%= @src_binary %>
 env PID=<%= @pid %>
 env CONFIG=<%= @config %>
