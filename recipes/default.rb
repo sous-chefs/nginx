@@ -40,6 +40,13 @@ when 'package'
   include_recipe 'nginx::commons'
 end
 
+directory File.dirname(node['nginx']['pid']) do
+  owner "root"
+  group "root"
+  mode  "0755"
+  recursive true
+end
+
 service 'nginx' do
   supports :status => true, :restart => true, :reload => true
   action :start
