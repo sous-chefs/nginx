@@ -30,6 +30,9 @@ default['nginx']['dir'] = "/etc/nginx"
 default['nginx']['log_dir'] = "/var/log/nginx"
 default['nginx']['binary'] = "/usr/sbin/nginx"
 
+# can change service_name only when default['nginx']['install_method']=='source'
+default['nginx']['service_name'] = 'nginx'
+
 case node['platform']
 when "debian","ubuntu"
   default['nginx']['user']       = "www-data"
