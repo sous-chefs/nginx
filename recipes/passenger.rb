@@ -28,7 +28,6 @@ else
   node.default["nginx"]["passenger"]["ruby"] = "/usr/bin/ruby"
 end
 
-node.default["nginx"]["passenger"]["max_pool_size"] = 10
 node.default["nginx"]["passenger"]["spawn_method"] = "smart-lv2"
 node.default["nginx"]["passenger"]["use_global_queue"] = "on"
 node.default["nginx"]["passenger"]["buffer_response"] = "on"
@@ -64,7 +63,6 @@ template "#{node["nginx"]["dir"]}/conf.d/passenger.conf" do
   variables(
     :passenger_root => node["nginx"]["passenger"]["root"],
     :passenger_ruby => node["nginx"]["passenger"]["ruby"],
-    :passenger_max_pool_size => node["nginx"]["passenger"]["max_pool_size"],
     :passenger_spawn_method => node["nginx"]["passenger"]["spawn_method"],
     :passenger_use_global_queue => node["nginx"]["passenger"]["use_global_queue"],
     :passenger_buffer_response => node["nginx"]["passenger"]["buffer_response"],
