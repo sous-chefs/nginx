@@ -31,7 +31,7 @@ template "#{node['ohai']['plugin_path']}/nginx.rb" do
   mode 00755
   variables(
     :nginx_prefix => node['nginx']['source']['prefix'],
-    :nginx_bin => 'sbin/nginx'
+    :nginx_bin => node['nginx']['binary']
   )
   notifies :reload, 'ohai[reload_nginx]', :immediately
 end
