@@ -36,11 +36,11 @@ template "#{node['nginx']['dir']}/conf.d/upload_progress.conf" do
   owner "root"
   group "root"
   variables(
+    :javascript_output => node['nginx']['upload_progress']['javascript_output'],
     :zone_name => node['nginx']['upload_progress']['zone_name'],
     :zone_size => node['nginx']['upload_progress']['zone_size']
   )
   mode 00644
-
   notifies :reload, "service[nginx]"
 end
 
