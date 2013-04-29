@@ -69,16 +69,16 @@ when "runit"
   node.set['nginx']['src_binary'] = node['nginx']['binary']
   include_recipe "runit"
 
-  runit_service "nginx"
+  runit_service node['nginx']['service_name']
 
-  service "nginx" do
+  service node['nginx']['service_name'] do
     supports :status => true, :restart => true, :reload => true
     reload_command "#{node['runit']['sv_bin']} hup #{node['runit']['service_dir']}/nginx"
   end
 when "bluepill"
   include_recipe "bluepill"
 
-  template "#{node['bluepill']['conf_dir']}/nginx.pill" do
+  template "#{node['bluepill']['conf_dir']}/#{node['nginx']['service_name']}.pill" do
     source "nginx.pill.erb"
     mode 00644
     variables(
@@ -90,11 +90,11 @@ when "bluepill"
     )
   end
 
-  bluepill_service "nginx" do
+  bluepill_service node['nginx']['service_name'] do
     action [ :enable, :load ]
   end
 
-  service "nginx" do
+  service node['nginx']['service_name'] do
     supports :status => true, :restart => true, :reload => true
     reload_command "[[ -f #{node['nginx']['pid']} ]] && kill -HUP `cat #{node['nginx']['pid']}` || true"
     action :nothing
@@ -102,7 +102,7 @@ when "bluepill"
 else
   node.set['nginx']['daemon_disable'] = false
 
-  template "/etc/init.d/nginx" do
+  template "/etc/init.d/#{node['nginx']['service_name']}" do
     source "nginx.init.erb"
     owner "root"
     group "root"
@@ -118,10 +118,10 @@ else
     genrate_template = false
   when 'debian', 'ubuntu'
     genrate_template = true
-    defaults_path = '/etc/default/nginx'
+    defaults_path = "/etc/default/#{node['nginx']['service_name']}"
   else
     genrate_template = true
-    defaults_path = '/etc/sysconfig/nginx'
+    defaults_path = "/etc/sysconfig/#{node['nginx']['service_name']}"
   end
 
   if genrate_template
@@ -133,7 +133,7 @@ else
     end
   end
 
-  service "nginx" do
+  service node['nginx']['service_name'] do
     supports :status => true, :restart => true, :reload => true
     action :enable
   end
@@ -146,7 +146,7 @@ cookbook_file "#{node['nginx']['dir']}/mime.types" do
   owner "root"
   group "root"
   mode 00644
-  notifies :reload, 'service[nginx]'
+  notifies :reload, "service[#{node['nginx']['service_name']}]"
 end
 
 node['nginx']['source']['modules'].each do |ngx_module|
@@ -172,7 +172,7 @@ bash "compile_nginx_source" do
       node.automatic_attrs['nginx']['configure_arguments'].sort == configure_flags.sort
   end
 
-  notifies :restart, "service[nginx]"
+  notifies :restart, "service[#{node['nginx']['service_name']}]"
 end
 
 node.run_state.delete('nginx_configure_flags')
