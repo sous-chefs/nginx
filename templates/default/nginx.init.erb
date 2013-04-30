@@ -64,6 +64,22 @@ reload() {
 	return $retval
 }
 
+configtest() {
+    if [ "$#" -ne 0 ] ; then
+        case "$1" in
+            -q)
+                FLAG=$1
+                ;;
+            *)
+                ;;
+        esac
+        shift
+    fi
+    ${exec} -t $FLAG
+    RETVAL=$?
+    return $RETVAL
+}
+
 # See how we were called.
 case "$1" in 
   start)
@@ -84,8 +100,11 @@ case "$1" in
   condrestart)
         [ -f $lockfile ] && restart || :
         ;;
+  configtest)
+        configtest
+        ;;
   *)
-        echo $"Usage: $0 {start|stop|status|restart|reload|force-reload|condrestart}"
+        echo $"Usage: $0 {start|stop|status|restart|reload|force-reload|condrestart|configtest}"
         exit 1 
 esac
 
