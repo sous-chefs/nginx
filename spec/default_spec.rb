@@ -5,14 +5,14 @@ describe 'nginx::default' do
 
   it "builds from source when specified"
 
-  context "install method is by package" do
-    context "when the platform is redhat-based" do
+  context "configured to install by package" do
+    context "in a redhat-based platform" do
       it "includes the yum::epel recipe if the source is epel"
       it "includes the nginx::repo recipe if the source is not epel"
     end
     it "installs the package"
     it "enables the service"
-    it "includes common configurations"
+    it "executes common nginx configuration"
   end
 
   it "starts the service"
