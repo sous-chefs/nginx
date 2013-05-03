@@ -110,6 +110,7 @@ when "runit"
   service "nginx" do
     supports :status => true, :restart => true, :reload => true
     reload_command "#{node['runit']['sv_bin']} hup #{node['runit']['service_dir']}/nginx"
+    action :nothing
   end
 when "bluepill"
   include_recipe "bluepill"
