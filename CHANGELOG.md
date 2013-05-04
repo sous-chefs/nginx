@@ -1,3 +1,26 @@
+## v1.6.0:
+
+### Task
+
+- [COOK-2409]: update nginx::source recipe for new `runit_service`
+  resource
+- [COOK-2877]: update nginx cookbook test-kitchen support to 1.0 (alpha)
+
+### Improvement
+
+- [COOK-1976]: nginx source should be able to configure binary path
+- [COOK-2622]: nginx: add upstart support
+- [COOK-2725]: add "configtest" subcommand in initscript
+
+### Bug
+
+- [COOK-2398]: nginx_site definition cannot be used to manage the default site
+- [COOK-2493]: Resources in nginx::source recipe always use 1.2.6
+  version, even overriding version attribute
+- [COOK-2531]: Remove usage of non-existant attribute "description"
+  for `apt_repository`
+- [COOK-2665]: nginx::source install with custom sbin_path breaks ohai data
+
 ## v1.4.0:
 
 * [COOK-2183] - Install nginx package from nginxyum repo
