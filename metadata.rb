@@ -12,17 +12,15 @@ recipe "nginx::source", "Installs nginx from source and sets up configuration wi
   supports os
 end
 
-%w{ build-essential yum apt }.each do |cb|
+%w{ build-essential yum apt runit }.each do |cb|
   depends cb
 end
 
 depends 'ohai', '>= 1.1.4'
 
 %w{ bluepill }.each do |cb|
-  recommends cb
+  suggests cb
 end
-
-recommends "runit", "<= 0.16.2"
 
 attribute "nginx/dir",
   :display_name => "Nginx Directory",
