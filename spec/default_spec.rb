@@ -1,5 +1,18 @@
 require 'chefspec'
 
+class ChefSpec::ChefRunner
+  def append(recipe)
+    runner = Chef::Runner.new(recipe.run_context)
+    runner.converge
+    self
+  end
+end
+
+def fake_recipe(run, &block)
+  recipe = Chef::Recipe.new("nginx_spec", "default", run.run_context)
+  recipe.instance_eval(&block)
+end
+
 describe 'nginx::default' do
   before do
     # stub out ohai
@@ -17,8 +30,6 @@ describe 'nginx::default' do
   end
 
   it "builds from source when specified" do
-    # needed to converge nginx::source
-    runner.node.set[:nginx][:init_style] = 'none'
     runner.node.set[:nginx][:install_method] = 'source'
     expect(chef_run).to include_recipe 'nginx::source'
   end
@@ -58,5 +69,41 @@ describe 'nginx::default' do
 
   it "starts the service" do
     expect(chef_run).to start_service 'nginx'
+  end
+
+  context "#nginx_site (definition)" do
+    context "#enable => true (default)" do
+      let(:run) do
+        recipe = fake_recipe(chef_run) do
+          nginx_site "foo"
+        end
+        chef_run.append(recipe)
+      end
+
+      it { expect(run).to execute_command "/usr/sbin/nxensite foo" }
+
+      it do
+        expect(run.execute("nxensite foo"))
+            .to notify("service[nginx]", "reload")
+      end
+    end
+
+    context "#enable => false" do
+      let(:run) do
+        recipe = fake_recipe(chef_run) do
+          nginx_site "foo" do
+            enable false
+          end
+        end
+        chef_run.append(recipe)
+      end
+
+      it { expect(run).to execute_command "/usr/sbin/nxdissite foo" }
+
+      it do
+        expect(run.execute("nxdissite foo"))
+            .to notify("service[nginx]", "reload")
+      end
+    end
   end
 end
