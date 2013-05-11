@@ -24,6 +24,7 @@
 # Currently only accepts X-Forwarded-For or X-Real-IP
 node.default['nginx']['realip']['header']    = "X-Forwarded-For"
 node.default['nginx']['realip']['addresses'] = ["127.0.0.1"]
+node.default['nginx']['realip']['real_ip_recursive'] = "off"
 
 template "#{node['nginx']['dir']}/conf.d/http_realip.conf" do
   source "modules/http_realip.conf.erb"
@@ -32,7 +33,8 @@ template "#{node['nginx']['dir']}/conf.d/http_realip.conf" do
   mode 00644
   variables(
     :addresses => node['nginx']['realip']['addresses'],
-    :header => node['nginx']['realip']['header']
+    :header => node['nginx']['realip']['header'],
+    :real_ip_recursive => node['nginx']['realip']['real_ip_recursive']
   )
 
   notifies :reload, "service[nginx]"
