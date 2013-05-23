@@ -28,6 +28,10 @@ when 'package'
   when 'redhat','centos','scientific','amazon','oracle'
     if node['nginx']['repo_source'] == 'epel'
       include_recipe 'yum::epel'
+    elsif node['nginx']['repo_source'] == 'none'
+      log "repo_source was set to 'none' - no additional yum repositories will be installed." do
+        level :info
+      end
     else
       include_recipe 'nginx::repo'
     end
