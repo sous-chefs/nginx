@@ -39,7 +39,7 @@ remote_file ngx_pagespeed_src_filepath do
   owner "root"
   group "root"
   mode 00644
-  not_if { node['nginx']['ngx_pagespeed']['src']['file'].nil? }
+  not_if { node['nginx']['ngx_pagespeed']['src']['file'] }
 end
 
 cookbook_file ngx_pagespeed_src_filepath do
@@ -47,7 +47,7 @@ cookbook_file ngx_pagespeed_src_filepath do
   owner "root"
   group "root"
   mode 00644
-  only_if { node['nginx']['ngx_pagespeed']['src']['file'].nil? }
+  only_if { node['nginx']['ngx_pagespeed']['src']['file'] }
 end
 
 bash "extract_ngx_pagespeed" do
@@ -67,7 +67,7 @@ remote_file ngx_psol_src_filepath do
   owner "root"
   group "root"
   mode 00644
-  not_if { node['nginx']['ngx_pagespeed']['psol']['src']['file'].nil? }
+  not_if { node['nginx']['ngx_pagespeed']['psol']['src']['file'] }
 end
 
 cookbook_file ngx_psol_src_filepath do
@@ -75,7 +75,7 @@ cookbook_file ngx_psol_src_filepath do
   owner "root"
   group "root"
   mode 00644
-  only_if { node['nginx']['ngx_pagespeed']['psol']['src']['file'].nil? }
+  only_if { node['nginx']['ngx_pagespeed']['psol']['src']['file'] }
 end
 
 bash "extract_psol" do
