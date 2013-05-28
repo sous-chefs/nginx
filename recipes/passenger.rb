@@ -26,6 +26,10 @@ else
   Chef::Log.warn("Using default values that may or may not work for this system.")
   node.default["nginx"]["passenger"]["root"] = "/usr/lib/ruby/gems/1.8/gems/passenger-#{node['nginx']['passenger']['version']}"
   node.default["nginx"]["passenger"]["ruby"] = "/usr/bin/ruby"
+  packages = value_for_platform( ["redhat", "centos", "scientific", "amazon", "oracle"] => {
+                                 "default" => %w(ruby-devel curl-devel) },
+                               ["ubuntu", "debian"] => {
+                                 "default" => %w(ruby-dev libcurl4-gnutls-dev) } )
 end
 
 node.default["nginx"]["passenger"]["max_pool_size"] = 10
@@ -39,14 +43,9 @@ node.default["nginx"]["passenger"]["pool_idle_time"] = 300
 node.default["nginx"]["passenger"]["max_requests"] = 0
 node.default["nginx"]["passenger"]["gem_binary"] = nil
 
-packages = value_for_platform( ["redhat", "centos", "scientific", "amazon", "oracle"] => {
-                                 "default" => %w(ruby-devel curl-devel) },
-                               ["ubuntu", "debian"] => {
-                                 "default" => %w(ruby-dev libcurl4-gnutls-dev) } )
-
 packages.each do |devpkg|
   package devpkg
-end
+end unless packages.nil?
 
 gem_package 'rake'
 
