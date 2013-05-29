@@ -82,6 +82,15 @@ node['nginx']['source']['additional_modules'].each do |ngx_module|
   directory "/tmp/#{ngx_module[0]}" do
     action :delete
     recursive true
+  end
+  git "/tmp/#{ngx_module[0]}" do
+    repository "#{ngx_module[1]}"
+    revision "master"
+    action :checkout
+    revision "#{ngx_module[2]}"
+    action :sync
+  end
+  node.run_state['nginx_configure_flags'] << "--add-module=/tmp/#{ngx_module[0]}"
 end
 
 configure_flags = node.run_state['nginx_configure_flags']
