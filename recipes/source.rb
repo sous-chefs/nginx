@@ -78,6 +78,12 @@ node['nginx']['source']['modules'].each do |ngx_module|
   include_recipe "nginx::#{ngx_module}"
 end
 
+node['nginx']['source']['additional_modules'].each do |ngx_module|
+  directory "/tmp/#{ngx_module[0]}" do
+    action :delete
+    recursive true
+end
+
 configure_flags = node.run_state['nginx_configure_flags']
 nginx_force_recompile = node.run_state['nginx_force_recompile']
 
