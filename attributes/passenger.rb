@@ -4,7 +4,8 @@
 #
 # Author:: Alex Dergachev (<alex@evolvingweb.ca>)
 #
-# Copyright 2013, Alex Dergachev
+# Copyright 2013, Opscode, Inc.
+# Copyright 2012, Susan Potter
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
