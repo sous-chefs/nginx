@@ -1,0 +1,11 @@
+<%= nginx['log_dir'] %>/*log {
+    daily
+    rotate 10
+    missingok
+    notifempty
+    compress
+    sharedscripts
+    postrotate
+        [ ! -f <%= nginx['pid'] %> ] || kill -USR1 `cat <%= nginx['pid'] %>`
+    endscript
+}
