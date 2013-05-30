@@ -64,6 +64,16 @@ node.run_state['nginx_force_recompile'] = false
 node.run_state['nginx_configure_flags'] =
   node['nginx']['source']['default_configure_flags'] | node['nginx']['configure_flags']
 
+template "/etc/logrotate.d/nginx" do
+  source "logrotate.erb"
+  owner "root"
+  group "root"
+  mode "0644"
+  variables(
+    :nginx => node['nginx']
+  )
+end
+
 include_recipe "nginx::commons_conf"
 
 cookbook_file "#{node['nginx']['dir']}/mime.types" do
