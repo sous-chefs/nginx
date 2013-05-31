@@ -329,6 +329,11 @@ attribute `node['nginx']['source']['modules']`.
 * `upload_progress_module.rb` - builds the `upload_progress` module
   and enables it as a module when compiling nginx.
 
+## fail2ban.rb
+
+This recipe installs and configures fail2ban with several filters to
+automatically react to nginx tomfoolery.
+
 Adding New Modules
 ------------------
 
