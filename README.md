@@ -20,6 +20,7 @@ The following cookbook is not a strict dependency because its use can
 be controlled by an attribute, so it may not be a common "default."
 
 * runit (for nginx::source)
+* fail2ban
 
 On RHEL family distros, the "yum" cookbook is required for "`recipe[yum::epel]`".
 
