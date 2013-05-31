@@ -113,8 +113,8 @@ config file.
   size of a client request, as indicated by the request header Content-Length.
 * `node['nginx']['repo_source']` - when installed from a package this attribute affects
   which yum repositories, if any, will be added before installing the nginx package. The
-  default value of 'epel' will use the `yum::epel` recipe, a value of 'none' will not add
-  any additional repositories, and any other value will use the `nginx::repo` recipe.
+  default value of 'epel' will use the `yum::epel` recipe, 'nginx' will use the 
+  `nginx::repo` recipe, and setting no value will not add any additional repositories.
 
 ### Attributes for configuring the gzip module
 
