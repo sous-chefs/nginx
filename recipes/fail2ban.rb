@@ -1,5 +1,10 @@
 include_recipe 'fail2ban'
 
+template '/etc/fail2ban/jail.local' do
+  source 'fail2ban/jail.local.erb'
+  notifies :restart, 'service[fail2ban]'
+end
+
 template '/etc/fail2ban/filter.d/nginx-auth.conf' do
   source 'fail2ban/nginx-auth.conf.erb'
   notifies :restart, 'service[fail2ban]'
