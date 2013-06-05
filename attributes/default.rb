@@ -63,7 +63,7 @@ default['nginx']['gzip_types']        = [
   "application/x-javascript",
   "text/xml",
   "application/xml",
-  "application/xml+rss",
+  "application/rss+xml",
   "text/javascript",
   "application/javascript",
   "application/json"
