@@ -36,7 +36,6 @@ platforms:
   driver_config:
     box: opscode-centos-5.9
     box_url: https://opscode-vm.s3.amazonaws.com/vagrant/opscode_centos-5.9_provisionerless.box
-    require_chef_omnibus: 11.4.4
 
 suites:
 - name: default
