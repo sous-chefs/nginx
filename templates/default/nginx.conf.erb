@@ -21,6 +21,8 @@ events {
 }
 
 http {
+  server_tokens "<%= node['nginx']['server_tokens'] %>";
+
   <% if node.recipe?('nginx::naxsi_module') %>
   include       <%= node['nginx']['dir'] %>/naxsi_core.rules;
   <% end %>
