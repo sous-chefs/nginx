@@ -21,8 +21,6 @@ events {
 }
 
 http {
-  server_tokens "<%= node['nginx']['server_tokens'] %>";
-
   <% if node.recipe?('nginx::naxsi_module') %>
   include       <%= node['nginx']['dir'] %>/naxsi_core.rules;
   <% end %>
@@ -33,6 +31,8 @@ http {
   <% unless node['nginx']['disable_access_log'] -%>
   access_log	<%= node['nginx']['log_dir'] %>/access.log;
   <% end %>
+
+  server_tokens "<%= node['nginx']['server_tokens'] %>";
 
   sendfile <%= node['nginx']['sendfile'] %>;
   tcp_nopush on;
