@@ -1,40 +1,41 @@
 ---
 driver_plugin: vagrant
+driver_config:
+  require_chef_omnibus: true
 
 platforms:
 - name: ubuntu-12.10
   driver_config:
-    box: canonical-ubuntu-12.10
-    box_url: http://cloud-images.ubuntu.com/vagrant/quantal/current/quantal-server-cloudimg-amd64-vagrant-disk1.box
-    require_chef_omnibus: 11.4.4
+    box: opscode-ubuntu-12.10
+    box_url: https://opscode-vm.s3.amazonaws.com/vagrant/opscode_ubuntu-12.10_provisionerless.box
   run_list: ["recipe[apt]"]
 - name: ubuntu-12.04
   driver_config:
-    box: canonical-ubuntu-12.04
-    box_url: http://cloud-images.ubuntu.com/vagrant/precise/current/precise-server-cloudimg-amd64-vagrant-disk1.box
-    require_chef_omnibus: 11.4.4
+    box: opscode-ubuntu-12.04
+    box_url: https://opscode-vm.s3.amazonaws.com/vagrant/opscode_ubuntu-12.04_provisionerless.box
   run_list: ["recipe[apt]"]
+
 - name: ubuntu-10.04
   driver_config:
     box: opscode-ubuntu-10.04
-    box_url: http://opscode-vm.s3.amazonaws.com/vagrant/opscode_ubuntu-10.04_chef-11.2.0.box
-    require_chef_omnibus: 11.4.4
+    box_url: https://opscode-vm.s3.amazonaws.com/vagrant/opscode_ubuntu-10.04_provisionerless.box
   run_list: ["recipe[apt]"]
+
 - name: debian-6
   driver_config:
     box: opscode-debian-6
     box_url: http://opscode-vm.s3.amazonaws.com/vagrant/opscode_debian-6.0.7_chef-11.2.0.box
-    require_chef_omnibus: 11.4.4
   run_list: ["recipe[apt]"]
-- name: centos-6.3
+
+- name: centos-6.4
   driver_config:
-    box: opscode-centos-6.3
-    box_url: http://opscode-vm.s3.amazonaws.com/vagrant/opscode_centos-6.3_chef-11.2.0.box
-    require_chef_omnibus: 11.4.4
-- name: centos-5.8
+    box: opscode-centos-6.4
+    box_url: https://opscode-vm.s3.amazonaws.com/vagrant/opscode_centos-6.4_provisionerless.box
+
+- name: centos-5.9
   driver_config:
-    box: opscode-centos-5.8
-    box_url: http://opscode-vm.s3.amazonaws.com/vagrant/opscode_centos-5.8_chef-11.2.0.box
+    box: opscode-centos-5.9
+    box_url: https://opscode-vm.s3.amazonaws.com/vagrant/opscode_centos-5.9_provisionerless.box
     require_chef_omnibus: 11.4.4
 
 suites:
@@ -43,17 +44,20 @@ suites:
   - recipe[minitest-handler]
   - recipe[nginx]
   attributes: {}
+
 - name: source
   run_list:
   - recipe[minitest-handler]
   - recipe[nginx::source]
   attributes: { nginx: { install_method: "source" } }
+
 - name: upstream_repo
   run_list:
   - recipe[minitest-handler]
   - recipe[nginx::repo]
   - recipe[nginx]
-  attributes: { nginx: { repo_source: "upstream"} }
+  attributes: { nginx: { repo_source: "nginx"} }
+
 - name: ssl_module
   run_list:
   - recipe[minitest-handler]
