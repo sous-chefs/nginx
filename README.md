@@ -126,6 +126,7 @@ config file.
 * `node['nginx']['gzip_buffers']` - used for config value of `gzip_buffers`.
 * `node['nginx']['gzip_types']` - used for config value of `gzip_types` - must be an Array.
 * `node['nginx']['gzip_min_length']` - used for config value of `gzip_min_length`.
+* `node['nginx']['gzip_disable']` - used for config value of `gzip_disable`.
 
 ### Attributes set in recipes
 

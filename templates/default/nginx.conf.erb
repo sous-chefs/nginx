@@ -51,7 +51,7 @@ http {
   <% end -%>
   gzip_types <%= node['nginx']['gzip_types'].join(' ') %>;
   gzip_min_length  <%= node['nginx']['gzip_min_length'] %>;
-  gzip_disable     "MSIE [1-6]\.";
+  gzip_disable "<%= node['nginx']['gzip_disable'] %>";
   <% end %>
 
   server_names_hash_bucket_size <%= node['nginx']['server_names_hash_bucket_size'] %>;
