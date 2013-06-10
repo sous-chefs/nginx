@@ -1,3 +1,15 @@
+## v1.7.0
+
+### Improvement
+
+- [COOK-3030]: The repo_source attribute should allow you to not add
+  any additional repositories to your node
+
+### Sub-task
+
+- [COOK-2738]: move nginx::passenger attributes to
+  nginx/attributes/passenger.rb
+
 ## v1.6.0:
 
 ### Task
