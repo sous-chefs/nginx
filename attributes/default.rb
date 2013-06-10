@@ -68,6 +68,7 @@ default['nginx']['gzip_types']        = [
   "application/javascript",
   "application/json"
 ]
+default['nginx']['gzip_min_length']   = "1000"
 
 default['nginx']['keepalive']          = "on"
 default['nginx']['keepalive_timeout']  = 65
