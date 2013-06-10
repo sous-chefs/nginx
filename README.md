@@ -122,6 +122,7 @@ config file.
 * `node['nginx']['gzip_http_version']` - used for config value of `gzip_http_version`.
 * `node['nginx']['gzip_comp_level']` - used for config value of `gzip_comp_level`.
 * `node['nginx']['gzip_proxied']` - used for config value of `gzip_proxied`.
+* `node['nginx']['gzip_vary']` - used for config value of `gzip_vary`.
 * `node['nginx']['gzip_types']` - used for config value of `gzip_types` - must be an Array.
 * `node['nginx']['gzip_min_length']` - used for config value of `gzip_min_length`.
 
