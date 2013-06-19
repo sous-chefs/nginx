@@ -115,6 +115,9 @@ config file.
   which yum repositories, if any, will be added before installing the nginx package. The
   default value of 'epel' will use the `yum::epel` recipe, 'nginx' will use the 
   `nginx::repo` recipe, and setting no value will not add any additional repositories.
+* `node['nginx']['repo_mainline_enabled']` - Set to `true` to enable
+  'mainline' (i.e. 'beta' release). Works in concert with
+  `nginx::repo` recipe. Defaults to `false`.
 
 ### Attributes for configuring the gzip module
 
