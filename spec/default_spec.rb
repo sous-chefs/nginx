@@ -39,7 +39,10 @@ describe 'nginx::default' do
     Chef::Config[:config_file] = '/dev/null'
   end
   let(:runner) do
-    ChefSpec::ChefRunner.new(platform: 'debian')
+    ChefSpec::ChefRunner.new(
+      'platform' => 'debian',
+      'platform_version' => '7.0'
+    )
   end
   let(:chef_run) do
     runner.converge 'nginx::default'
@@ -50,31 +53,34 @@ describe 'nginx::default' do
   end
 
   it "builds from source when specified" do
-    runner.node.set[:nginx][:install_method] = 'source'
+    runner.node.set['nginx']['install_method'] = 'source'
     expect(chef_run).to include_recipe 'nginx::source'
   end
 
   context "configured to install by package" do
     context "in a redhat-based platform" do
       let(:redhat) do
-        ChefSpec::ChefRunner.new(platform: 'redhat')
+        ChefSpec::ChefRunner.new(
+          'platform' => 'redhat',
+          'platform_version' => '6.4'
+        )
       end
       let(:redhat_run) do
         redhat.converge 'nginx::default'
       end
       it "includes the yum::epel recipe if the source is epel" do
-        redhat.node.set[:nginx][:repo_source] = 'epel'
+        redhat.node.set['nginx']['repo_source'] = 'epel'
         expect(redhat_run).to include_recipe 'yum::epel'
       end
-        
+
       it "includes the nginx::repo recipe if the source is not epel" do
-        redhat.node.set[:nginx][:repo_source] = 'notepel'
+        redhat.node.set['nginx']['repo_source'] = 'nginx'
         expect(redhat_run).to include_recipe 'nginx::repo'
       end
     end
 
     it "installs the package" do
-      package_name = chef_run.node[:nginx][:package_name]
+      package_name = chef_run.node['nginx']['package_name']
       expect(chef_run).to install_package package_name
     end
 
