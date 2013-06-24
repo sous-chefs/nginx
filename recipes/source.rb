@@ -78,6 +78,10 @@ node['nginx']['source']['modules'].each do |ngx_module|
   include_recipe "nginx::#{ngx_module}"
 end
 
+node['nginx']['source']['extra_modules'].each do |ngx_module|
+  include_recipe ngx_module
+end
+
 configure_flags = node.run_state['nginx_configure_flags']
 nginx_force_recompile = node.run_state['nginx_force_recompile']
 
