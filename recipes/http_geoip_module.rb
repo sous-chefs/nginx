@@ -49,7 +49,7 @@ bash "extract_geolib" do
   EOH
 
   creates "/usr/local/lib/libGeoIP.so.#{node['nginx']['geoip']['lib_version']}"
-  subscribes :run, resources(:remote_file => geolib_filepath)
+  subscribes :run, "remote_file[#{geolib_filepath}]"
 end
 
 directory node['nginx']['geoip']['path'] do
