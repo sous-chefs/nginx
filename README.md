@@ -142,12 +142,13 @@ config file.
 
 *nginx::http_realip_module*
 
-From: http://wiki.nginx.org/HttpRealIpModule
+From: http://nginx.org/en/docs/http/ngx_http_realip_module.html
 
 * `node['nginx']['realip']['header']` - Header to use for the RealIp
   Module; only accepts "X-Forwarded-For" or "X-Real-IP"
 * `node['nginx']['realip']['addresses']` - Addresses to use for the
   `http_realip` configuration.
+* `node['nginx']['realip']['real_ip_recursive']` - If recursive search is enabled, the original client address that matches one of the trusted addresses is replaced by the last non-trusted address sent in the request header field. Can be on "on" or "off" (default).
 
 ## source.rb
 
