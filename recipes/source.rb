@@ -74,11 +74,19 @@ cookbook_file "#{node['nginx']['dir']}/mime.types" do
   notifies :reload, 'service[nginx]'
 end
 
-node['nginx']['source']['modules'].each do |ngx_module|
-  include_recipe "nginx::#{ngx_module}"
+# Unpack downloaded source so we could apply nginx patches
+# in custom modules - example http://yaoweibin.github.io/nginx_tcp_proxy_module/
+# patch -p1 < /path/to/nginx_tcp_proxy_module/tcp.patch
+bash "unarchive_source" do
+  cwd ::File.dirname(src_filepath)
+  code <<-EOH
+    tar zxf #{::File.basename(src_filepath)} -C #{::File.dirname(src_filepath)}
+  EOH
+
+  not_if { ::File.directory?(::File.filename(src_filepath)) }
 end
 
-node['nginx']['source']['extra_modules'].each do |ngx_module|
+node['nginx']['source']['modules'].each do |ngx_module|
   include_recipe ngx_module
 end
 
@@ -88,7 +96,6 @@ nginx_force_recompile = node.run_state['nginx_force_recompile']
 bash "compile_nginx_source" do
   cwd ::File.dirname(src_filepath)
   code <<-EOH
-    tar zxf #{::File.basename(src_filepath)} -C #{::File.dirname(src_filepath)} &&
     cd nginx-#{node['nginx']['source']['version']} &&
     ./configure #{node.run_state['nginx_configure_flags'].join(" ")} &&
     make && make install
