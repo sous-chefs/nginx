@@ -18,7 +18,7 @@ end
 
 depends 'ohai', '>= 1.1.4'
 
-%w{ bluepill }.each do |cb|
+%w{ bluepill fail2ban }.each do |cb|
   suggests cb
 end
 

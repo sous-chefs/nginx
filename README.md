@@ -20,6 +20,7 @@ The following cookbook is not a strict dependency because its use can
 be controlled by an attribute, so it may not be a common "default."
 
 * runit (for nginx::source)
+* fail2ban
 
 On RHEL family distros, the "yum" cookbook is required for "`recipe[yum::epel]`".
 
@@ -332,6 +333,11 @@ attribute `node['nginx']['source']['modules']`.
   "`mod_passenger`".
 * `upload_progress_module.rb` - builds the `upload_progress` module
   and enables it as a module when compiling nginx.
+
+## fail2ban.rb
+
+This recipe installs and configures fail2ban with several filters to
+automatically react to nginx tomfoolery.
 
 Adding New Modules
 ------------------
