@@ -16,15 +16,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+default['nginx']['repo_mainline_enabled'] = false
+if node['nginx']['repo_mainline_enabled']
+  mainline = '/mainline'
+end
+
 case node['platform_family']
 when 'rhel','fedora'
   case node['platform']
   when "centos"
     # See http://wiki.nginx.org/Install
-    default['nginx']['upstream_repository'] = "http://nginx.org/packages/centos/#{node['platform_version'].to_i}/$basearch/"
+    default['nginx']['upstream_repository'] = "http://nginx.org/packages#{mainline}/centos/#{node['platform_version'].to_i}/$basearch/"
   else
-    default['nginx']['upstream_repository'] = "http://nginx.org/packages/rhel/#{node['platform_version'].to_i}/$basearch/"
+    default['nginx']['upstream_repository'] = "http://nginx.org/packages#{mainline}/rhel/#{node['platform_version'].to_i}/$basearch/"
   end
 when 'debian'
-  default['nginx']['upstream_repository'] = "http://nginx.org/packages/#{node['platform']}"
+  default['nginx']['upstream_repository'] = "http://nginx.org/packages#{mainline}/#{node['platform']}"
 end
