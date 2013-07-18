@@ -31,8 +31,9 @@ http {
   <% unless node['nginx']['disable_access_log'] -%>
   access_log	<%= node['nginx']['log_dir'] %>/access.log;
   <% end %>
-
-  server_tokens "<%= node['nginx']['server_tokens'] %>";
+  <% if node['nginx']['server_tokens'] -%>
+  server_tokens <%= node['nginx']['server_tokens'] %>;
+  <% end -%>
 
   sendfile <%= node['nginx']['sendfile'] %>;
   tcp_nopush on;
