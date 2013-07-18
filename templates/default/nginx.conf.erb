@@ -1,5 +1,5 @@
 user <%= node['nginx']['user'] %><% if node['nginx']['user'] != node['nginx']['group'] %> <%= node['nginx']['group'] %><% end %>;
-worker_processes <%= node['nginx']['worker_processes'] %>;
+worker_processes  <%= node['nginx']['worker_processes'] %>;
 <% if node['nginx']['daemon_disable'] -%>
 daemon off;
 <% end -%>
@@ -7,11 +7,11 @@ daemon off;
 worker_rlimit_nofile <%= node['nginx']['worker_rlimit_nofile'] %>;
 <% end -%>
 
-error_log <%= node['nginx']['log_dir'] %>/error.log;
-pid       <%= node['nginx']['pid'] %>;
+error_log  <%= node['nginx']['log_dir'] %>/error.log;
+pid        <%= node['nginx']['pid'] %>;
 
 events {
-  worker_connections <%= node['nginx']['worker_connections'] %>;
+  worker_connections  <%= node['nginx']['worker_connections'] %>;
 <% if node['nginx']['multi_accept'] -%>
   multi_accept on;
 <% end -%>
@@ -22,14 +22,14 @@ events {
 
 http {
   <% if node.recipe?('nginx::naxsi_module') %>
-  include      <%= node['nginx']['dir'] %>/naxsi_core.rules;
+  include       <%= node['nginx']['dir'] %>/naxsi_core.rules;
   <% end %>
 
-  include      <%= node['nginx']['dir'] %>/mime.types;
-  default_type application/octet-stream;
+  include       <%= node['nginx']['dir'] %>/mime.types;
+  default_type  application/octet-stream;
 
   <% unless node['nginx']['disable_access_log'] -%>
-  access_log   <%= node['nginx']['log_dir'] %>/access.log;
+  access_log	<%= node['nginx']['log_dir'] %>/access.log;
   <% end %>
 
   sendfile <%= node['nginx']['sendfile'] %>;
@@ -37,10 +37,10 @@ http {
   tcp_nodelay on;
 
   <% if node['nginx']['keepalive'] == "on" %>
-  keepalive_timeout <%= node['nginx']['keepalive_timeout'] %>;
+  keepalive_timeout  <%= node['nginx']['keepalive_timeout'] %>;
   <% end %>
 
-  gzip <%= node['nginx']['gzip'] %>;
+  gzip  <%= node['nginx']['gzip'] %>;
   <% if node['nginx']['gzip'] == "on" %>
   gzip_http_version <%= node['nginx']['gzip_http_version'] %>;
   gzip_comp_level <%= node['nginx']['gzip_comp_level'] %>;
@@ -50,7 +50,7 @@ http {
   gzip_buffers <%= node['nginx']['gzip_buffers'] %>;
   <% end -%>
   gzip_types <%= node['nginx']['gzip_types'].join(' ') %>;
-  gzip_min_length <%= node['nginx']['gzip_min_length'] %>;
+  gzip_min_length  <%= node['nginx']['gzip_min_length'] %>;
   gzip_disable "<%= node['nginx']['gzip_disable'] %>";
   <% end %>
 
