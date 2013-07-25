@@ -113,8 +113,19 @@ config file.
   size of a client request, as indicated by the request header Content-Length.
 * `node['nginx']['repo_source']` - when installed from a package this attribute affects
   which yum repositories, if any, will be added before installing the nginx package. The
-  default value of 'epel' will use the `yum::epel` recipe, 'nginx' will use the 
+  default value of 'epel' will use the `yum::epel` recipe, 'nginx' will use the
   `nginx::repo` recipe, and setting no value will not add any additional repositories.
+
+Rate Limiting attributes:
+
+* `node['nginx']['enable_rate_limiting']` - set to true to enable rate
+  limiting (`limit_req_zone` in nginx.conf)
+* `node['nginx']['rate_limiting_zone_name']` - sets the zone in
+  `limit_req_zone`.
+* `node['nginx']['rate_limiting_backoff']` - sets the backoff time for
+  `limit_req_zone`.
+* `node['nginx']['rate_limit']` - set the rate limit amount for
+  `limit_req_zone`.
 
 ### Attributes for configuring the gzip module
 
