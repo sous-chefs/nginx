@@ -1,0 +1,61 @@
+ server {
+
+    <% if node['nginx']['sts_max_age'] -%>
+    add_header Strict-Transport-Security "max-age=<%= node['nginx']['sts_max_age'] %>";
+    <% end -%>
+    
+    listen <%= node['nginx']['port'] %> default;
+
+    access_log <%= node['nginx']['log_dir'] %>/<%= node['nginx']['socketproxy']['logname'] %>.access.log main;
+    error_log <%= node['nginx']['log_dir'] %>/<%= node['nginx']['socketproxy']['logname'] %>.error.log debug;
+
+    <% if node['nginx']['server_name'] -%>
+    server_name ~^<%= node['nginx']['server_name'] %>\..*$;
+    <% end -%>
+
+    client_max_body_size 4G;
+    keepalive_timeout 5;
+
+    set $app_home <%= node['nginx']['socketproxy']['root'] %>;
+
+    root $app_home/<%= node['nginx']['socketproxy']['default_app'] %>/<%= node['nginx']['socketproxy']['apps'][node['nginx']['socketproxy']['default_app']]['subdir'] %>/public;
+
+    proxy_set_header Host $http_host;
+
+    <% node['nginx']['socketproxy']['apps'].each do |app,app_conf| -%>
+
+    location ^~ /<%= app_conf['context_name'] %> {
+
+      if ($request_method = OPTIONS) {
+
+        add_header Content-Length 0;
+        add_header Content-Type text/plain;
+        return 200;
+
+      }
+
+      proxy_read_timeout 600;
+
+      alias $app_home/<%= app %>/<%= app_conf['subdir'] %>/public;
+      if (!-f $request_filename) {
+        proxy_pass http://unix:$app_home/<%= app %>/<%= app_conf['socket_path'] %><% if app_conf['prepend_slash'] %>:/<% end %>;
+        break;
+      }
+
+      break;
+
+    }
+
+    <% end -%>
+
+    # set Expire header on assets: see http://developer.yahoo.com/performance/rules.html#expires
+    location ~ ^/(images|javascripts|stylesheets)/ {
+      expires 10y;
+    }
+
+    error_page 500 502 504 /50x.html;
+    location = /50x.html {
+      root html;
+    }
+        
+}
