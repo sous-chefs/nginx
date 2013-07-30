@@ -169,7 +169,7 @@ for default values.
 
 - `node['nginx']['source']['url']` - (versioned) URL for the Nginx
   source code. By default this will use the version specified as
-  `node['nginx']['version'].
+  `node['nginx']['version']`.
 - `node['nginx']['source']['prefix']` - (versioned) prefix for
   installing nginx from source
 - `node['nginx']['source']['conf_path']` - location of the main config
@@ -320,6 +320,7 @@ include this recipe directly.  Instead, add it to the
 `node['nginx']['default']['modules']` array (see below).
 
 ### ohai_plugin
+
 This recipe provides an Ohai plugin as a template. It is included by
 both the `default` and `source` recipes.
 
