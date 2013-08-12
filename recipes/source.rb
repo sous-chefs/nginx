@@ -102,6 +102,7 @@ bash "compile_nginx_source" do
   EOH
 
   not_if do
+    ::File.directory?("#{Chef::Config['file_cache_path'] || '/tmp'}/nginx-#{node['nginx']['source']['version']}") &&
     nginx_force_recompile == false &&
       node.automatic_attrs['nginx'] &&
       node.automatic_attrs['nginx']['version'] == node['nginx']['source']['version'] &&
