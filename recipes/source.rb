@@ -60,8 +60,8 @@ remote_file nginx_url do
   backup false
 end
 
-node.run_state['nginx_force_recompile'] = false
-node.run_state['nginx_configure_flags'] =
+run_context.node.run_state['nginx_force_recompile'] = false
+run_context.node.run_state['nginx_configure_flags'] =
   node['nginx']['source']['default_configure_flags'] | node['nginx']['configure_flags']
 
 include_recipe "nginx::commons_conf"
@@ -90,22 +90,19 @@ node['nginx']['source']['modules'].each do |ngx_module|
   include_recipe ngx_module
 end
 
-configure_flags = node.run_state['nginx_configure_flags']
-nginx_force_recompile = node.run_state['nginx_force_recompile']
-
 bash "compile_nginx_source" do
   cwd ::File.dirname(src_filepath)
   code <<-EOH
     cd nginx-#{node['nginx']['source']['version']} &&
-    ./configure #{node.run_state['nginx_configure_flags'].join(" ")} &&
+    ./configure #{run_context.node.run_state['nginx_configure_flags'].join(" ")} &&
     make && make install
   EOH
 
   not_if do
-    nginx_force_recompile == false &&
+    run_context.node.run_state['nginx_force_recompile'] == false &&
       node.automatic_attrs['nginx'] &&
       node.automatic_attrs['nginx']['version'] == node['nginx']['source']['version'] &&
-      node.automatic_attrs['nginx']['configure_arguments'].sort == configure_flags.sort
+      node.automatic_attrs['nginx']['configure_arguments'].sort == run_context.node.run_state['nginx_configure_flags'].sort
   end
 
   notifies :restart, "service[nginx]"
@@ -211,5 +208,5 @@ else
   end
 end
 
-node.run_state.delete('nginx_configure_flags')
-node.run_state.delete('nginx_force_recompile')
+run_context.node.run_state.delete('nginx_configure_flags')
+run_context.node.run_state.delete('nginx_force_recompile')
