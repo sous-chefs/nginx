@@ -83,7 +83,7 @@ bash "unarchive_source" do
     tar zxf #{::File.basename(src_filepath)} -C #{::File.dirname(src_filepath)}
   EOH
 
-  not_if { ::File.directory?("#{Chef::Config['file_cache_path'] || '/tmp'}/nginx-#{node['nginx']['source']['version']}") }
+  not_if { ::File.directory?(::File.filename(src_filepath)) }
 end
 
 node['nginx']['source']['modules'].each do |ngx_module|
