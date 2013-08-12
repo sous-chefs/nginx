@@ -90,6 +90,9 @@ node['nginx']['source']['modules'].each do |ngx_module|
   include_recipe ngx_module
 end
 
+configure_flags = node.run_state['nginx_configure_flags']
+nginx_force_recompile = node.run_state['nginx_force_recompile']
+
 bash "compile_nginx_source" do
   cwd ::File.dirname(src_filepath)
   code <<-EOH
@@ -99,10 +102,10 @@ bash "compile_nginx_source" do
   EOH
 
   not_if do
-    node.run_state['nginx_force_recompile'] == false &&
+    nginx_force_recompile == false &&
       node.automatic_attrs['nginx'] &&
       node.automatic_attrs['nginx']['version'] == node['nginx']['source']['version'] &&
-      node.automatic_attrs['nginx']['configure_arguments'].sort == node.run_state['nginx_configure_flags'].sort
+      node.automatic_attrs['nginx']['configure_arguments'].sort == configure_flags.sort
   end
 
   notifies :restart, "service[nginx]"
