@@ -41,7 +41,6 @@ template "#{node["nginx"]["dir"]}/conf.d/passenger.conf" do
     :passenger_root => node["nginx"]["passenger"]["root"],
     :passenger_ruby => node["nginx"]["passenger"]["ruby"],
     :passenger_spawn_method => node["nginx"]["passenger"]["spawn_method"],
-    :passenger_use_global_queue => node["nginx"]["passenger"]["use_global_queue"],
     :passenger_buffer_response => node["nginx"]["passenger"]["buffer_response"],
     :passenger_max_pool_size => node["nginx"]["passenger"]["max_pool_size"],
     :passenger_min_instances => node["nginx"]["passenger"]["min_instances"],
