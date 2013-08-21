@@ -54,6 +54,7 @@ http {
   gzip_disable     "MSIE [1-6]\.";
   <% end %>
 
+  server_tokens <%= node['nginx']['server_tokens'] %>;
   server_names_hash_bucket_size <%= node['nginx']['server_names_hash_bucket_size'] %>;
   types_hash_max_size <%= node['nginx']['types_hash_max_size'] %>;
   types_hash_bucket_size <%= node['nginx']['types_hash_bucket_size'] %>;
