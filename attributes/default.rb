@@ -24,7 +24,7 @@
 # changed too. It is in the source.rb file, though we recommend
 # overriding attributes by modifying a role, or the node itself.
 # default['nginx']['source']['checksum']
-default['nginx']['version'] = "1.2.6"
+default['nginx']['version'] = "1.2.9"
 default['nginx']['package_name'] = "nginx"
 default['nginx']['dir'] = "/etc/nginx"
 default['nginx']['log_dir'] = "/var/log/nginx"
