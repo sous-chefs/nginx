@@ -95,6 +95,8 @@ config file.
 * `node['nginx']['event']` - used for config value of `events { use
   }`. Set the event-model. By default nginx looks for the most
   suitable method for your OS.
+* `node['nginx']['server_tokens']` - used for config value of
+  `server_tokens`.
 * `node['nginx']['server_names_hash_bucket_size']` - used for config
   value of `server_names_hash_bucket_size`.
 * `node['nginx']['disable_access_log']` - set to true to disable the
@@ -109,6 +111,8 @@ config file.
   `types_hash_bucket_size` configuration directive.
 * `node['nginx']['proxy_read_timeout']` - defines a timeout (between two
   successive read operations) for reading a response from the proxied server.
+* `node['nginx']['client_body_buffer_size']` - used for config value of
+  `client_body_buffer_size`.
 * `node['nginx']['client_max_body_size']` - specifies the maximum accepted body
   size of a client request, as indicated by the request header Content-Length.
 * `node['nginx']['repo_source']` - when installed from a package this attribute affects

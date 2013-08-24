@@ -31,6 +31,9 @@ http {
   <% unless node['nginx']['disable_access_log'] -%>
   access_log	<%= node['nginx']['log_dir'] %>/access.log;
   <% end %>
+  <% if node['nginx']['server_tokens'] -%>
+  server_tokens <%= node['nginx']['server_tokens'] %>;
+  <% end -%>
 
   sendfile <%= node['nginx']['sendfile'] %>;
   tcp_nopush on;
@@ -59,6 +62,9 @@ http {
   types_hash_bucket_size <%= node['nginx']['types_hash_bucket_size'] %>;
   <% if node['nginx']['proxy_read_timeout'] -%>
   proxy_read_timeout <%= node['nginx']['proxy_read_timeout'] %>;
+  <% end -%>
+  <% if node['nginx']['client_body_buffer_size'] -%>
+  client_body_buffer_size <%= node['nginx']['client_body_buffer_size'] %>;
   <% end -%>
   <% if node['nginx']['client_max_body_size'] -%>
   client_max_body_size <%= node['nginx']['client_max_body_size'] %>;
