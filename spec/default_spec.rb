@@ -40,8 +40,8 @@ describe 'nginx::default' do
   end
   let(:runner) do
     ChefSpec::ChefRunner.new(
-      'platform' => 'debian',
-      'platform_version' => '7.0'
+      :platform => 'debian',
+      :version  => '7.0'
     )
   end
   let(:chef_run) do
@@ -61,8 +61,8 @@ describe 'nginx::default' do
     context "in a redhat-based platform" do
       let(:redhat) do
         ChefSpec::ChefRunner.new(
-          'platform' => 'redhat',
-          'platform_version' => '6.4'
+          :platform => 'redhat',
+          :version  => '6.3'
         )
       end
       let(:redhat_run) do
