@@ -66,10 +66,12 @@ default['nginx']['gzip_types']        = [
   "application/x-javascript",
   "text/xml",
   "application/xml",
-  "application/xml+rss",
+  "application/rss+xml",
+  "application/atom+xml",
   "text/javascript",
   "application/javascript",
-  "application/json"
+  "application/json",
+  "text/mathml"
 ]
 
 default['nginx']['keepalive']          = "on"
