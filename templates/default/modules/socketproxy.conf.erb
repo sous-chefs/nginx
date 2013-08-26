@@ -1,9 +1,11 @@
  server {
 
+    set $app_home <%= node['nginx']['socketproxy']['root'] %>;
+
     <% if node['nginx']['sts_max_age'] -%>
     add_header Strict-Transport-Security "max-age=<%= node['nginx']['sts_max_age'] %>";
     <% end -%>
-    
+
     listen <%= node['nginx']['port'] %> default;
 
     access_log <%= node['nginx']['log_dir'] %>/<%= node['nginx']['socketproxy']['logname'] %>.access.log main;
@@ -16,46 +18,49 @@
     client_max_body_size 4G;
     keepalive_timeout 5;
 
-    set $app_home <%= node['nginx']['socketproxy']['root'] %>;
-
     root $app_home/<%= node['nginx']['socketproxy']['default_app'] %>/<%= node['nginx']['socketproxy']['apps'][node['nginx']['socketproxy']['default_app']]['subdir'] %>/public;
 
     proxy_set_header Host $http_host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto;
+
+    if ($request_method !~ ^(GET|HEAD|PUT|POST|DELETE|OPTIONS)$ ) {
+      return 405;
+    }
 
     <% node['nginx']['socketproxy']['apps'].each do |app,app_conf| -%>
 
+    location ~ "^/<%= app_conf['context_name'] %>/assets/(.*/)*.*-[0-9a-f]{32}.*" {
+      gzip_static on;
+      expires     max;
+      add_header  Cache-Control public;
+    }
+
     location ^~ /<%= app_conf['context_name'] %> {
 
-      if ($request_method = OPTIONS) {
+      alias $app_home/<%= app %>/<%= app_conf['subdir'] %>/public;
 
-        add_header Content-Length 0;
-        add_header Content-Type text/plain;
-        return 200;
+      try_files $uri/index.html $uri.html $uri @app_<%= app %>;
+      error_page 404              /404.html;
+      error_page 422              /422.html;
+      error_page 500 502 503 504  /500.html;
+      error_page 403              /403.html;
 
-      }
+    }
+
+    location @app_<%= app %> {
 
       proxy_read_timeout 600;
-
-      alias $app_home/<%= app %>/<%= app_conf['subdir'] %>/public;
-      if (!-f $request_filename) {
-        proxy_pass http://unix:$app_home/<%= app %>/<%= app_conf['socket_path'] %><% if app_conf['prepend_slash'] %>:/<% end %>;
-        break;
-      }
-
-      break;
+      proxy_pass http://unix:$app_home/<%= app %>/<%= app_conf['socket_path'] %><% if app_conf['prepend_slash'] %>:/<% end %>;
 
     }
 
-    <% end -%>
-
-    # set Expire header on assets: see http://developer.yahoo.com/performance/rules.html#expires
-    location ~ ^/(images|javascripts|stylesheets)/ {
-      expires 10y;
-    }
+    <% end # node['nginx']['socketproxy']['apps'].each -%>
 
     error_page 500 502 504 /50x.html;
     location = /50x.html {
       root html;
     }
-        
+
 }
