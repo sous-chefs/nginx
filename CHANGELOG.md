@@ -3,6 +3,25 @@ nginx Cookbook CHANGELOG
 This file is used to list changes made in each version of the nginx cookbook.
 
 
+v1.8.0
+------
+### Bug
+- **[COOK-3397](https://tickets.opscode.com/browse/COOK-3397)** - Fix user from nginx package on Gentoo
+- **[COOK-2968](https://tickets.opscode.com/browse/COOK-2968)** - Fix foodcritic failure
+- **[COOK-2723](https://tickets.opscode.com/browse/COOK-2723)** - Remove duplicate  passenger `max_pool_size`
+
+### Improvement
+- **[COOK-3186](https://tickets.opscode.com/browse/COOK-3186)** - Add `client_body_buffer_size` and `server_tokens attributes`
+- **[COOK-3080](https://tickets.opscode.com/browse/COOK-3080)** - Add rate-limiting support
+- **[COOK-2927](https://tickets.opscode.com/browse/COOK-2927)** - Add support for `real_ip_recursive` directive
+- **[COOK-2925](https://tickets.opscode.com/browse/COOK-2925)** - Fix ChefSpec converge
+- **[COOK-2724](https://tickets.opscode.com/browse/COOK-2724)** - Automatically create directory for PID file
+- **[COOK-2472](https://tickets.opscode.com/browse/COOK-2472)** - Bump nginx version to 1.2.9
+- **[COOK-2312](https://tickets.opscode.com/browse/COOK-2312)** - Add additional `mine_types` to the `gzip_types` value
+
+### New Feature
+- **[COOK-3183](https://tickets.opscode.com/browse/COOK-3183)** - Allow inclusion in extra-cookbook modules
+
 v1.7.0
 ------
 ### Improvement
