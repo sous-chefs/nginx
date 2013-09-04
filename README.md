@@ -99,6 +99,10 @@ config file.
   value of `server_names_hash_bucket_size`.
 * `node['nginx']['disable_access_log']` - set to true to disable the
   general access log, may be useful on high traffic sites.
+* `node['nginx']['access_log_options']` - Set to a string of additional options
+  to be appended to the access log directive
+* `node['nginx']['error_log_options']` - Set to a string of additional options
+  to be appended to the error log directive
 * `node['nginx']['default_site_enabled']` - enable the default site
 * `node['nginx']['sendfile']` - Whether to use `sendfile`. Defaults to "on".
 * `node['nginx']['install_method']` - Whether nginx is installed from
