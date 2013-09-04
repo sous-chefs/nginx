@@ -30,6 +30,9 @@ default['nginx']['dir'] = "/etc/nginx"
 default['nginx']['log_dir'] = "/var/log/nginx"
 default['nginx']['binary'] = "/usr/sbin/nginx"
 
+default['nginx']['port'] = 8080
+default['nginx']['default_site_root'] = "/usr/share/nginx/www"
+
 case node['platform']
 when "debian","ubuntu"
   default['nginx']['user']       = "www-data"
