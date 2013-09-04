@@ -45,21 +45,21 @@ case "$1" in
 			# Set the ulimits
 			ulimit $ULIMIT
 		fi
-		start-stop-daemon --start --quiet --pidfile $PID \
+		start-stop-daemon --start --quiet --oknodo --pidfile $PID \
 		    --exec $DAEMON -- $DAEMON_OPTS || true
 		echo "$NAME."
 		;;
 
 	stop)
 		echo -n "Stopping $DESC: "
-		start-stop-daemon --stop --quiet --pidfile $PID \
+		start-stop-daemon --stop --quiet --oknodo --pidfile $PID \
 		    --exec $DAEMON || true
 		echo "$NAME."
 		;;
 
 	restart|force-reload)
 		echo -n "Restarting $DESC: "
-		start-stop-daemon --stop --quiet --pidfile \
+		start-stop-daemon --stop --quiet --oknodo --pidfile \
 		    $PID --exec $DAEMON || true
 		sleep 1
 		test_nginx_config

@@ -52,14 +52,14 @@ case "$1" in
 
 	stop)
 		echo -n "Stopping $DESC: "
-		start-stop-daemon --stop --quiet --pidfile $PID \
+		start-stop-daemon --stop --quiet --oknodo --pidfile $PID \
 		    --exec $DAEMON || true
 		echo "$NAME."
 		;;
 
 	restart|force-reload)
 		echo -n "Restarting $DESC: "
-		start-stop-daemon --stop --quiet --pidfile \
+		start-stop-daemon --stop --quiet --oknodo --pidfile \
 		    $PID --exec $DAEMON || true
 		sleep 1
 		test_nginx_config
