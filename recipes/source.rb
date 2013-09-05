@@ -102,6 +102,7 @@ bash "compile_nginx_source" do
   end
 
   notifies :restart, "service[nginx]"
+  notifies :reload, 'ohai[reload_nginx]', :immediately
 end
 
 case node['nginx']['init_style']
