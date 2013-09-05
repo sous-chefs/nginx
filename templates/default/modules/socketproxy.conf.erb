@@ -52,7 +52,24 @@
     location @app_<%= app %> {
 
       proxy_read_timeout 600;
+      <%
+        if app_conf['socket']['type']
+          case app_conf['socket']['type']
+          when 'unix'
+      -%>
+      proxy_pass http://unix:$app_home/<%= app %>/<%= app_conf['socket']['path'] %><% if app_conf['prepend_slash'] %>:/<% end %>;
+      <%
+          when 'tcp'
+      -%>
+      proxy_pass http://localhost:<%= app_conf['socket']['port'] -%>;
+      <%
+          end
+        else
+      -%>
       proxy_pass http://unix:$app_home/<%= app %>/<%= app_conf['socket_path'] %><% if app_conf['prepend_slash'] %>:/<% end %>;
+      <%
+        end
+      -%>
 
     }
 
