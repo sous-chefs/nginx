@@ -73,6 +73,8 @@ default['nginx']['gzip_types']        = [
   "application/json",
   "text/mathml"
 ]
+default['nginx']['gzip_min_length']   = 1000
+default['nginx']['gzip_disable']      = "MSIE [1-6]\."
 
 default['nginx']['keepalive']          = "on"
 default['nginx']['keepalive_timeout']  = 65
