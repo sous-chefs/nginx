@@ -31,6 +31,19 @@ remote_file upm_src_filepath do
   mode 00644
 end
 
+template "#{node['nginx']['dir']}/conf.d/upload_progress.conf" do
+  source "modules/upload_progress.erb"
+  owner "root"
+  group "root"
+  variables(
+    :javascript_output => node['nginx']['upload_progress']['javascript_output'],
+    :zone_name => node['nginx']['upload_progress']['zone_name'],
+    :zone_size => node['nginx']['upload_progress']['zone_size']
+  )
+  mode 00644
+  notifies :reload, "service[nginx]"
+end
+
 bash "extract_upload_progress_module" do
   cwd ::File.dirname(upm_src_filepath)
   code <<-EOH
