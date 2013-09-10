@@ -18,12 +18,12 @@
 # limitations under the License.
 #
 
-include_recipe 'nginx::ohai_plugin'
-
 case node['nginx']['install_method']
 when 'source'
   include_recipe 'nginx::source'
+  include_recipe 'nginx::ohai_plugin'
 when 'package'
+  include_recipe 'nginx::ohai_plugin'
   case node['platform']
   when 'redhat','centos','scientific','amazon','oracle'
     if node['nginx']['repo_source'] == 'epel'
