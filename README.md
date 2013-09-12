@@ -285,6 +285,14 @@ These attributes are used in the `nginx::http_stub_status_module` recipe.
 * `node['nginx']['status']['port']` - The port on which nginx will
   serve the status info (default: 8090)
 
+## openssl_source.rb
+
+These attributes are used in the `nginx::openssl_source` recipe.
+
+* `node['nginx']['openssl_source']['version']` - The version of OpenSSL
+  you want to download and use (default: 1.0.1e)
+* `node['nginx']['openssl_source']['url']` - The url for the OpenSSL source
+
 Recipes
 =======
 
@@ -369,6 +377,8 @@ attribute `node['nginx']['source']['modules']`.
   "`mod_passenger`".
 * `upload_progress_module.rb` - builds the `upload_progress` module
   and enables it as a module when compiling nginx.
+* `openssl_source.rb` - downloads and uses custom OpenSSL source
+  when compiling nginx
 
 Adding New Modules
 ------------------
