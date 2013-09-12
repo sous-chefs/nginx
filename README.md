@@ -234,6 +234,13 @@ recipe.
 * `node['nginx']['upload_progress']['url']` - URL for the tarball.
 * `node['nginx']['upload_progress']['checksum']` - Checksum of the
   tarball.
+* `node['nginx']['upload_progress']['javascript_output']` - Output in javascript.
+  Default is `true` for backwards compatibility.
+* `node['nginx']['upload_progress']['zone_name']` - Zone name which will
+  be used to store the per-connection tracking information.
+  Default is `proxied`.
+* `node['nginx']['upload_progress']['zone_size']` - Zone size in bytes.
+  Default is `1m` (1 megabyte).
 
 ## passenger.rb
 
