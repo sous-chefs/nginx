@@ -278,6 +278,13 @@ These attributes are used in the `nginx::http_echo_module` recipe.
 * `node['nginx']['echo']['url']` - URL for the tarball.
 * `node['nginx']['echo']['checksum']` - Checksum of the tarball.
 
+## status.rb
+
+These attributes are used in the `nginx::http_stub_status_module` recipe.
+
+* `node['nginx']['status']['port']` - The port on which nginx will
+  serve the status info (default: 8090)
+
 Recipes
 =======
 
