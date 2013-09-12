@@ -23,7 +23,7 @@ bash 'extract_luajit' do
   not_if { ::File.exists?(luajit_extract_path) }
 end
 
-yum_package "lua-devel" do
+package "lua-devel" do
   action :install
 end
 
