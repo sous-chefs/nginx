@@ -38,7 +38,9 @@ when 'package'
       raise ArgumentError, "Unknown value '#{node['nginx']['repo_source']}' was passed to the nginx cookbook."
     end
   end
-  package node['nginx']['package_name']
+  package node['nginx']['package_name'] do
+    notifies :reload, 'ohai[reload_nginx]', :immediately
+  end
   service 'nginx' do
     supports :status => true, :restart => true, :reload => true
     action :enable
