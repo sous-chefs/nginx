@@ -30,7 +30,7 @@ when 'package'
       include_recipe 'yum::epel'
     elsif node['nginx']['repo_source'] == 'nginx'
       include_recipe 'nginx::repo'
-    elsif node['nginx']['repo_source'].nil?
+    elsif node['nginx']['repo_source'].nil? || node['nginx']['repo_source'].empty?
       log "node['nginx']['repo_source'] was not set, no additional yum repositories will be installed." do
         level :debug
       end
