@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: nginx
-# Recipe:: default
+# Recipe:: package
 # Author:: AJ Christensen <aj@junglist.gen.nz>
 #
 # Copyright 2008-2012, Opscode, Inc.
@@ -18,14 +18,30 @@
 # limitations under the License.
 #
 
-case node['nginx']['install_method']
-when 'source'
-  include_recipe 'nginx::source'
-when 'package'
-  include_recipe 'nginx::package'
+include_recipe 'nginx::ohai_plugin'
+
+case node['platform']
+when 'redhat','centos','scientific','amazon','oracle'
+  if node['nginx']['repo_source'] == 'epel'
+    include_recipe 'yum::epel'
+  elsif node['nginx']['repo_source'] == 'nginx'
+    include_recipe 'nginx::repo'
+  elsif node['nginx']['repo_source'].nil?
+    log "node['nginx']['repo_source'] was not set, no additional yum repositories will be installed." do
+      level :debug
+    end
+  else
+    raise ArgumentError, "Unknown value '#{node['nginx']['repo_source']}' was passed to the nginx cookbook."
+  end
+end
+
+package node['nginx']['package_name'] do
+  notifies :reload, 'ohai[reload_nginx]', :immediately
 end
 
 service 'nginx' do
   supports :status => true, :restart => true, :reload => true
-  action :start
+  action :enable
 end
+
+include_recipe 'nginx::commons'
