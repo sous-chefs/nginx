@@ -22,7 +22,7 @@ case node['nginx']['install_method']
 when 'source'
   include_recipe 'nginx::source'
 when 'package'
-  include_Recipe 'nginx::package'
+  include_recipe 'nginx::package'
 end
 
 service 'nginx' do
