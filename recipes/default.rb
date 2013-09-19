@@ -18,8 +18,6 @@
 # limitations under the License.
 #
 
-include_recipe 'nginx::ohai_plugin'
-
 case node['nginx']['install_method']
 when 'source'
   include_recipe 'nginx::source'
