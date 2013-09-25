@@ -25,6 +25,6 @@ when 'rhel','fedora'
   else
     default['nginx']['upstream_repository'] = "http://nginx.org/packages/rhel/#{node['platform_version'].to_i}/$basearch/"
   end
-when 'debian'
+when 'debian','ubuntu'
   default['nginx']['upstream_repository'] = "http://nginx.org/packages/#{node['platform']}"
 end
