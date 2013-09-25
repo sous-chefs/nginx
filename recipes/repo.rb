@@ -29,7 +29,7 @@ when "rhel","fedora"
     description "Nginx.org Repository"
     url node['nginx']['upstream_repository']
   end
-when "debian"
+when "debian",'ubuntu'
   include_recipe "apt"
 
   apt_repository "nginx" do
