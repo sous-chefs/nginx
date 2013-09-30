@@ -1,9 +1,10 @@
 #
 # Cookbook Name:: nginx
-# Recipe:: default
-# Author:: AJ Christensen <aj@junglist.gen.nz>
+# Attributes:: status
 #
-# Copyright 2008-2012, Opscode, Inc.
+# Author:: David Radcliffe (<radcliffe.david@gmail.com>)
+#
+# Copyright 2013, David Radcliffe
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,14 +19,4 @@
 # limitations under the License.
 #
 
-case node['nginx']['install_method']
-when 'source'
-  include_recipe 'nginx::source'
-when 'package'
-  include_recipe 'nginx::package'
-end
-
-service 'nginx' do
-  supports :status => true, :restart => true, :reload => true
-  action :start
-end
+default['nginx']['status']['port'] = "8090"

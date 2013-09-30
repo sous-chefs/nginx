@@ -7,7 +7,7 @@ daemon off;
 worker_rlimit_nofile <%= node['nginx']['worker_rlimit_nofile'] %>;
 <% end -%>
 
-error_log  <%= node['nginx']['log_dir'] %>/error.log;
+error_log  <%= node['nginx']['log_dir'] %>/error.log<% if node['nginx']['error_log_options'] %> <%= node['nginx']['error_log_options'] %><% end %>;
 pid        <%= node['nginx']['pid'] %>;
 
 events {
@@ -28,9 +28,14 @@ http {
   include       <%= node['nginx']['dir'] %>/mime.types;
   default_type  application/octet-stream;
 
-  <% unless node['nginx']['disable_access_log'] -%>
-  access_log	<%= node['nginx']['log_dir'] %>/access.log;
+  <% if node['nginx']['disable_access_log'] -%>
+  access_log    off;
+  <% else -%>
+  access_log	<%= node['nginx']['log_dir'] %>/access.log<% if node['nginx']['access_log_options'] %> <%= node['nginx']['access_log_options'] %><% end %>;
   <% end %>
+  <% if node['nginx']['server_tokens'] -%>
+  server_tokens <%= node['nginx']['server_tokens'] %>;
+  <% end -%>
 
   sendfile <%= node['nginx']['sendfile'] %>;
   tcp_nopush on;
@@ -50,8 +55,8 @@ http {
   gzip_buffers <%= node['nginx']['gzip_buffers'] %>;
   <% end -%>
   gzip_types <%= node['nginx']['gzip_types'].join(' ') %>;
-  gzip_min_length  1000;
-  gzip_disable     "MSIE [1-6]\.";
+  gzip_min_length  <%= node['nginx']['gzip_min_length'] %>;
+  gzip_disable     "<%= node['nginx']['gzip_disable'] %>";
   <% end %>
 
   server_names_hash_bucket_size <%= node['nginx']['server_names_hash_bucket_size'] %>;
@@ -59,6 +64,9 @@ http {
   types_hash_bucket_size <%= node['nginx']['types_hash_bucket_size'] %>;
   <% if node['nginx']['proxy_read_timeout'] -%>
   proxy_read_timeout <%= node['nginx']['proxy_read_timeout'] %>;
+  <% end -%>
+  <% if node['nginx']['client_body_buffer_size'] -%>
+  client_body_buffer_size <%= node['nginx']['client_body_buffer_size'] %>;
   <% end -%>
   <% if node['nginx']['client_max_body_size'] -%>
   client_max_body_size <%= node['nginx']['client_max_body_size'] %>;

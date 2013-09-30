@@ -95,10 +95,16 @@ config file.
 * `node['nginx']['event']` - used for config value of `events { use
   }`. Set the event-model. By default nginx looks for the most
   suitable method for your OS.
+* `node['nginx']['server_tokens']` - used for config value of
+  `server_tokens`.
 * `node['nginx']['server_names_hash_bucket_size']` - used for config
   value of `server_names_hash_bucket_size`.
 * `node['nginx']['disable_access_log']` - set to true to disable the
   general access log, may be useful on high traffic sites.
+* `node['nginx']['access_log_options']` - Set to a string of additional options
+  to be appended to the access log directive
+* `node['nginx']['error_log_options']` - Set to a string of additional options
+  to be appended to the error log directive
 * `node['nginx']['default_site_enabled']` - enable the default site
 * `node['nginx']['sendfile']` - Whether to use `sendfile`. Defaults to "on".
 * `node['nginx']['install_method']` - Whether nginx is installed from
@@ -109,6 +115,8 @@ config file.
   `types_hash_bucket_size` configuration directive.
 * `node['nginx']['proxy_read_timeout']` - defines a timeout (between two
   successive read operations) for reading a response from the proxied server.
+* `node['nginx']['client_body_buffer_size']` - used for config value of
+  `client_body_buffer_size`.
 * `node['nginx']['client_max_body_size']` - specifies the maximum accepted body
   size of a client request, as indicated by the request header Content-Length.
 * `node['nginx']['repo_source']` - when installed from a package this attribute affects
@@ -133,7 +141,11 @@ Rate Limiting attributes:
 * `node['nginx']['gzip_http_version']` - used for config value of `gzip_http_version`.
 * `node['nginx']['gzip_comp_level']` - used for config value of `gzip_comp_level`.
 * `node['nginx']['gzip_proxied']` - used for config value of `gzip_proxied`.
+* `node['nginx']['gzip_vary']` - used for config value of `gzip_vary`.
+* `node['nginx']['gzip_buffers']` - used for config value of `gzip_buffers`.
 * `node['nginx']['gzip_types']` - used for config value of `gzip_types` - must be an Array.
+* `node['nginx']['gzip_min_length']` - used for config value of `gzip_min_length`.
+* `node['nginx']['gzip_disable']` - used for config value of `gzip_disable`.
 
 ### Attributes set in recipes
 
@@ -222,6 +234,13 @@ recipe.
 * `node['nginx']['upload_progress']['url']` - URL for the tarball.
 * `node['nginx']['upload_progress']['checksum']` - Checksum of the
   tarball.
+* `node['nginx']['upload_progress']['javascript_output']` - Output in javascript.
+  Default is `true` for backwards compatibility.
+* `node['nginx']['upload_progress']['zone_name']` - Zone name which will
+  be used to store the per-connection tracking information.
+  Default is `proxied`.
+* `node['nginx']['upload_progress']['zone_size']` - Zone size in bytes.
+  Default is `1m` (1 megabyte).
 
 ## passenger.rb
 
@@ -258,6 +277,13 @@ These attributes are used in the `nginx::http_echo_module` recipe.
   want (default: 0.40)
 * `node['nginx']['echo']['url']` - URL for the tarball.
 * `node['nginx']['echo']['checksum']` - Checksum of the tarball.
+
+## status.rb
+
+These attributes are used in the `nginx::http_stub_status_module` recipe.
+
+* `node['nginx']['status']['port']` - The port on which nginx will
+  serve the status info (default: 8090)
 
 Recipes
 =======

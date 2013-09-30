@@ -1,0 +1,4 @@
+upload_progress <%= node['nginx']['upload_progress']['zone_name'] -%> <%= node['nginx']['upload_progress']['zone_size'] -%>;
+<% if node['nginx']['upload_progress']['javascript_output'] -%>
+upload_progress_java_output;
+<% end -%>

@@ -1,9 +1,9 @@
 include authorized_ip;
 
 server {
-  listen 8090;
+  listen <%= node['nginx']['status']['port'] %>;
   server_name _;
-  
+
   location /nginx_status {
     if ($authorized_ip = no) {
       return 404;
