@@ -64,6 +64,16 @@ node.run_state['nginx_force_recompile'] = false
 node.run_state['nginx_configure_flags'] =
   node['nginx']['source']['default_configure_flags'] | node['nginx']['configure_flags']
 
+template "/etc/logrotate.d/nginx" do
+  source "logrotate.erb"
+  owner "root"
+  group "root"
+  mode "0644"
+  variables(
+    :nginx => node['nginx']
+  )
+end
+
 include_recipe "nginx::commons_conf"
 
 cookbook_file "#{node['nginx']['dir']}/mime.types" do
@@ -88,6 +98,21 @@ end
 
 node['nginx']['source']['modules'].each do |ngx_module|
   include_recipe ngx_module
+end
+
+node['nginx']['source']['additional_modules'].each do |ngx_module|
+  directory "/tmp/#{ngx_module[0]}" do
+    action :delete
+    recursive true
+  end
+  git "/tmp/#{ngx_module[0]}" do
+    repository "#{ngx_module[1]}"
+    revision "master"
+    action :checkout
+    revision "#{ngx_module[2]}"
+    action :sync
+  end
+  node.run_state['nginx_configure_flags'] << "--add-module=/tmp/#{ngx_module[0]}"
 end
 
 configure_flags = node.run_state['nginx_configure_flags']
