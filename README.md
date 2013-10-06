@@ -231,8 +231,6 @@ These attributes are used in the `nginx::passenger` recipe.
   use (default=`$(which ruby)`)
 - `node['nginx']['passenger']['spawn_method']` - passenger spawn
   method to use (default=`smart-lv2`)
-- `node['nginx']['passenger']['use_global_queue']` - turns on or off
-  global queuing (default=`on`)
 - `node['nginx']['passenger']['buffer_response']` - turns on or off
   response buffering (default=`on`)
 - `node['nginx']['passenger']['max_pool_size']` - passenger maximum
