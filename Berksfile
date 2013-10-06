@@ -1,7 +1,7 @@
 site :opscode
-
 metadata
 
 group :integration do
-  cookbook "minitest-handler"
+  cookbook 'apt', '~> 2.0'
+  cookbook 'minitest-handler'
 end

@@ -4,6 +4,7 @@
 #
 # Author:: Alan Harper (alan@sct.com.au)
 #
+# Copyright 2013 Alan Harper
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,4 +20,4 @@
 #
 
 node.run_state['nginx_configure_flags'] =
-  node.run_state['nginx_configure_flags'] | ["--with-ipv6"]
+  node.run_state['nginx_configure_flags'] | ['--with-ipv6']

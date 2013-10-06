@@ -19,4 +19,4 @@
 # limitations under the License.
 #
 
-default['nginx']['status']['port'] = "8090"
+default['nginx']['status']['port'] = '8090'

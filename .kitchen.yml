@@ -1,65 +1,59 @@
----
 driver_plugin: vagrant
 driver_config:
   require_chef_omnibus: true
+  customize:
+    memory: 512
 
 platforms:
-- name: ubuntu-12.10
-  driver_config:
-    box: opscode-ubuntu-12.10
-    box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_ubuntu-12.10_provisionerless.box
-  run_list: ["recipe[apt]"]
-- name: ubuntu-12.04
-  driver_config:
-    box: opscode-ubuntu-12.04
-    box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_ubuntu-12.04_provisionerless.box
-  run_list: ["recipe[apt]"]
-
-- name: ubuntu-10.04
-  driver_config:
-    box: opscode-ubuntu-10.04
-    box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_ubuntu-10.04_provisionerless.box
-  run_list: ["recipe[apt]"]
-
-- name: debian-6
-  driver_config:
-    box: opscode-debian-6
-    box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_debian-6.0.7_provisionerless.box
-  run_list: ["recipe[apt]"]
-
-- name: centos-6.4
-  driver_config:
-    box: opscode-centos-6.4
-    box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_centos-6.4_provisionerless.box
-
-- name: centos-5.9
-  driver_config:
-    box: opscode-centos-5.9
-    box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_centos-5.9_provisionerless.box
+  - name: ubuntu-12.10
+    run_list:
+      - recipe[apt::default]
+  - name: ubuntu-12.04
+    run_list:
+      - recipe[apt::default]
+  - name: ubuntu-10.04
+    run_list:
+      - recipe[apt::default]
+  - name: debian-7.1.0
+    run_list:
+      - recipe[apt::default]
+  - name: centos-6.4
+  - name: centos-5.9
 
 suites:
-- name: default
-  run_list:
-  - recipe[minitest-handler]
-  - recipe[nginx]
-  attributes: {}
-
-- name: source
-  run_list:
-  - recipe[minitest-handler]
-  - recipe[nginx::source]
-  attributes: { nginx: { install_method: "source" } }
-
-- name: upstream_repo
-  run_list:
-  - recipe[minitest-handler]
-  - recipe[nginx::repo]
-  - recipe[nginx]
-  attributes: { nginx: { repo_source: "nginx"} }
-
-- name: ssl_module
-  run_list:
-  - recipe[minitest-handler]
-  - recipe[nginx::http_ssl_module]
-  - recipe[nginx::source]
-  attributes: {}
+  - name: default
+    run_list:
+      - recipe[nginx::default]
+  - name: source
+    run_list:
+      - recipe[nginx::default]
+    attributes:
+      nginx:
+        install_method: source
+  - name: upstream_repo
+    run_list:
+      - recipe[nginx::repo]
+      - recipe[nginx::default]
+    attributes:
+      nginx:
+        repo_source: nginx
+  - name: modules
+    run_list:
+      - recipe[nginx::source]
+    attributes:
+      nginx:
+        modules:
+          - nginx::headers_more_module
+          - nginx::http_auth_request_module
+          - nginx::http_echo_module
+          - nginx::http_geoip_module
+          - nginx::http_gzip_static_module
+          - nginx::http_realip_module
+          - nginx::http_spdy_module
+          - nginx::http_ssl_module
+          - nginx::http_stub_status_module
+          - nginx::naxsi_module
+          - nginx::ngx_devel_module
+          - nginx::ngx_lua_module
+          - nginx::openssl_source
+          - nginx::upload_progress_module

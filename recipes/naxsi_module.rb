@@ -4,7 +4,7 @@
 #
 # Author:: Artiom Lunev (<artiom.lunev@gmail.com>)
 #
-# Copyright 2012, Artiom Lunev
+# Copyright 2012-2013, Artiom Lunev
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,10 +20,10 @@
 #
 
 cookbook_file "#{node['nginx']['dir']}/naxsi_core.rules" do
-  source "naxsi_core.rules"
-  owner "root"
-  group "root"
-  mode 00644
+  source 'naxsi_core.rules'
+  owner  'root'
+  group  'root'
+  mode   '0644'
   notifies :reload, 'service[nginx]'
 end
 
@@ -32,22 +32,21 @@ naxsi_src_filepath = "#{Chef::Config['file_cache_path']}/#{naxsi_src_filename}"
 naxsi_extract_path = "#{Chef::Config['file_cache_path']}/nginx-naxsi-#{node['nginx']['naxsi']['version']}"
 
 remote_file naxsi_src_filepath do
-  source node['nginx']['naxsi']['url']
+  source   node['nginx']['naxsi']['url']
   checksum node['nginx']['naxsi']['checksum']
-  owner "root"
-  group "root"
-  mode 00644
+  owner    'root'
+  group    'root'
+  mode     '0644'
 end
 
-bash "extract_naxsi_module" do
-  cwd ::File.dirname(naxsi_src_filepath)
+bash 'extract_naxsi_module' do
+  cwd  ::File.dirname(naxsi_src_filepath)
   code <<-EOH
     mkdir -p #{naxsi_extract_path}
     tar xzf #{naxsi_src_filename} -C #{naxsi_extract_path}
   EOH
-
   not_if { ::File.exists?(naxsi_extract_path) }
 end
 
 node.run_state['nginx_configure_flags'] =
-  ["--add-module=#{naxsi_extract_path}/naxsi-core-#{node['nginx']['naxsi']['version']}/naxsi_src"] | node.run_state['nginx_configure_flags']
+  node.run_state['nginx_configure_flags'] | ["--add-module=#{naxsi_extract_path}/naxsi-core-#{node['nginx']['naxsi']['version']}/naxsi_src"]

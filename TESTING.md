@@ -1,25 +1,53 @@
-This cookbook includes support for running tests via Test Kitchen (1.0). This has some requirements.
+This cookbook uses a variety of testing components:
 
-1. You must be using the Git repository, rather than the downloaded cookbook from the Chef Community Site.
-2. You must have Vagrant 1.1 installed.
-3. You must have a "sane" Ruby 1.9.3 environment.
+- Unit tests: [ChefSpec](https://github.com/acrmp/chefspec)
+- Integration tests: [Test Kitchen](https://github.com/opscode/test-kitchen)
+- Chef Style lints: [Foodcritic](https://github.com/acrmp/foodcritic)
+- Ruby Style lints: [Rubocop](https://github.com/bbatsov/rubocop)
 
-Once the above requirements are met, install the additional requirements:
 
-Install the berkshelf plugin for vagrant, and berkshelf to your local Ruby environment.
+Prerequisites
+-------------
+To develop on this cookbook, you must have a sane Ruby 1.9+ environment. Given the nature of this installation process (and it's variance across multiple operating systems), we will leave this installation process to the user.
 
-    vagrant plugin install vagrant-berkshelf
-    gem install berkshelf
+You must also have `bundler` installed:
 
-Install Test Kitchen 1.0 (unreleased yet, use the alpha / prerelease version).
+    $ gem install bundler
 
-    gem install test-kitchen --pre
+You must also have Vagrant and VirtualBox installed:
 
-Install the Vagrant driver for Test Kitchen.
+- [Vagrant](https://vagrantup.com)
+- [VirtualBox](https://virtualbox.org)
 
-    gem install kitchen-vagrant
+Once installed, you must install the `vagrant-berkshelf` plugin:
 
-Once the above are installed, you should be able to run Test Kitchen:
+    $ vagrant plugin install vagrant-berkshelf
 
-    kitchen list
-    kitchen test
+
+Development
+-----------
+1. Clone the git repository from GitHub:
+
+        $ git clone git@github.com:opscode-cookbooks/COOKBOOK.git
+
+2. Install the dependencies using bundler:
+
+        $ bundle install
+
+3. Create a branch for your changes:
+
+        $ git checkout -b my_bug_fix
+
+4. Make any changes
+5. Write tests to support those changes. It is highly recommended you write both unit and integration tests.
+6. Run the tests:
+    - `bundle exec rspec`
+    - `bundle exec foodcritic .`
+    - `bundle exec rubocop`
+    - `bundle exec kitchen test`
+
+7. Assuming the tests pass, open a Pull Request on GitHub
+8. Open a JIRA ticket for this compontent, linking the JIRA ticket to the Pull Request and visa versa.
+9. Mark the JIRA ticket as "Fix Provided"
+
+For more information, see [Opscode's Contribution Guidelines](https://wiki.opscode.com/display/chef/How+to+Contribute).

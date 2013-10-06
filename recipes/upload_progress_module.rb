@@ -4,7 +4,7 @@
 #
 # Author:: Jamie Winsor (<jamie@vialstudios.com>)
 #
-# Copyright 2012, Riot Games
+# Copyright 2012-2013, Riot Games
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -24,29 +24,28 @@ upm_src_filepath = "#{Chef::Config['file_cache_path']}/#{upm_src_filename}"
 upm_extract_path = "#{Chef::Config['file_cache_path']}/nginx_upload_progress/#{node['nginx']['upload_progress']['checksum']}"
 
 remote_file upm_src_filepath do
-  source node['nginx']['upload_progress']['url']
+  source   node['nginx']['upload_progress']['url']
   checksum node['nginx']['upload_progress']['checksum']
-  owner "root"
-  group "root"
-  mode 00644
+  owner    'root'
+  group    'root'
+  mode     '0644'
 end
 
 template "#{node['nginx']['dir']}/conf.d/upload_progress.conf" do
-  source "modules/upload_progress.erb"
-  owner "root"
-  group "root"
-  mode 00644
-  notifies :reload, "service[nginx]"
+  source 'modules/upload_progress.erb'
+  owner  'root'
+  group  'root'
+  mode   '0644'
+  notifies :reload, 'service[nginx]'
 end
 
-bash "extract_upload_progress_module" do
-  cwd ::File.dirname(upm_src_filepath)
+bash 'extract_upload_progress_module' do
+  cwd  ::File.dirname(upm_src_filepath)
   code <<-EOH
     mkdir -p #{upm_extract_path}
     tar xzf #{upm_src_filename} -C #{upm_extract_path}
     mv #{upm_extract_path}/*/* #{upm_extract_path}/
   EOH
-
   not_if { ::File.exists?(upm_extract_path) }
 end
 

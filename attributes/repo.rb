@@ -1,8 +1,10 @@
+#
 # Cookbook Name:: nginx
 # Recipe:: repo
+#
 # Author:: Nick Rycar <nrycar@bluebox.net>
 #
-# Copyright 2008-2012, Opscode, Inc.
+# Copyright 2008-2013, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,11 +17,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
 
 case node['platform_family']
-when 'rhel','fedora'
+when 'rhel', 'fedora'
   case node['platform']
-  when "centos"
+  when 'centos'
     # See http://wiki.nginx.org/Install
     default['nginx']['upstream_repository'] = "http://nginx.org/packages/centos/#{node['platform_version'].to_i}/$basearch/"
   else
