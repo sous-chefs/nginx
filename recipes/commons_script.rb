@@ -20,7 +20,7 @@
 #
 
 %w[nxensite nxdissite].each do |nxscript|
-  template "/usr/sbin/#{nxscript}" do
+  template "#{node['nginx']['script_dir']}/#{nxscript}" do
     source "#{nxscript}.erb"
     mode   '0755'
     owner  'root'
