@@ -4,7 +4,7 @@
 #
 # Author:: Jamie Winsor (<jamie@vialstudios.com>)
 #
-# Copyright 2012, Riot Games
+# Copyright 2012-2013, Riot Games
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -31,15 +31,15 @@ geolib_filename      = ::File.basename(node['nginx']['geoip']['lib_url'])
 geolib_filepath      = "#{Chef::Config['file_cache_path']}/#{geolib_filename}"
 
 remote_file geolib_filepath do
-  source node['nginx']['geoip']['lib_url']
+  source   node['nginx']['geoip']['lib_url']
   checksum node['nginx']['geoip']['lib_checksum']
-  owner "root"
-  group "root"
-  mode 00644
+  owner    'root'
+  group    'root'
+  mode     '0644'
 end
 
-bash "extract_geolib" do
-  cwd ::File.dirname(geolib_filepath)
+bash 'extract_geolib' do
+  cwd  ::File.dirname(geolib_filepath)
   code <<-EOH
     tar xzvf #{geolib_filepath} -C #{::File.dirname(geolib_filepath)}
     cd GeoIP-#{node['nginx']['geoip']['lib_version']}
@@ -47,31 +47,30 @@ bash "extract_geolib" do
     ./configure
     make && make install
   EOH
-
-  creates "/usr/local/lib/libGeoIP.so.#{node['nginx']['geoip']['lib_version']}"
+  creates    "/usr/local/lib/libGeoIP.so.#{node['nginx']['geoip']['lib_version']}"
   subscribes :run, "remote_file[#{geolib_filepath}]"
 end
 
 directory node['nginx']['geoip']['path'] do
-  owner "root"
-  group "root"
-  mode 00755
+  owner     'root'
+  group     'root'
+  mode      '0755'
   recursive true
 end
 
 remote_file country_src_filepath do
   not_if do
     File.exists?(country_src_filepath) &&
-    File.mtime(country_src_filepath) > Time.now - 86400
+    File.mtime(country_src_filepath) > Time.now - 86_400
   end
-  source node['nginx']['geoip']['country_dat_url']
+  source   node['nginx']['geoip']['country_dat_url']
   checksum node['nginx']['geoip']['country_dat_checksum']
-  owner "root"
-  group "root"
-  mode 00644
+  owner    'root'
+  group    'root'
+  mode     '0644'
 end
 
-bash "gunzip_geo_lite_country_dat" do
+bash 'gunzip_geo_lite_country_dat' do
   code <<-EOH
     gunzip -c #{country_src_filepath} > #{country_dat}
   EOH
@@ -84,16 +83,16 @@ if node['nginx']['geoip']['enable_city']
   remote_file city_src_filepath do
     not_if do
       File.exists?(city_src_filepath) &&
-      File.mtime(city_src_filepath) > Time.now - 86400
+      File.mtime(city_src_filepath) > Time.now - 86_400
     end
-    source node['nginx']['geoip']['city_dat_url']
+    source   node['nginx']['geoip']['city_dat_url']
     checksum node['nginx']['geoip']['city_dat_checksum']
-    owner "root"
-    group "root"
-    mode 00644
+    owner    'root'
+    group    'root'
+    mode     '0644'
   end
 
-  bash "gunzip_geo_lite_city_dat" do
+  bash 'gunzip_geo_lite_city_dat' do
     code <<-EOH
       gunzip -c #{city_src_filepath} > #{city_dat}
     EOH
@@ -102,10 +101,10 @@ if node['nginx']['geoip']['enable_city']
 end
 
 template "#{node['nginx']['dir']}/conf.d/http_geoip.conf" do
-  source "modules/http_geoip.conf.erb"
-  owner "root"
-  group "root"
-  mode 00644
+  source 'modules/http_geoip.conf.erb'
+  owner  'root'
+  group  'root'
+  mode   '0644'
   variables(
     :country_dat => country_dat,
     :city_dat => city_dat
@@ -113,4 +112,4 @@ template "#{node['nginx']['dir']}/conf.d/http_geoip.conf" do
 end
 
 node.run_state['nginx_configure_flags'] =
-  node.run_state['nginx_configure_flags'] | ["--with-http_geoip_module", "--with-ld-opt='-Wl,-R,/usr/local/lib -L /usr/local/lib'"]
+  node.run_state['nginx_configure_flags'] | ['--with-http_geoip_module', "--with-ld-opt='-Wl,-R,/usr/local/lib -L /usr/local/lib'"]

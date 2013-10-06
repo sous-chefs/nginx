@@ -4,7 +4,7 @@
 #
 # Author:: Jamie Winsor (<jamie@vialstudios.com>)
 #
-# Copyright 2012, Riot Games
+# Copyright 2012-2013, Riot Games
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,18 +19,18 @@
 # limitations under the License.
 #
 
-include_recipe "nginx::authorized_ips"
+include_recipe 'nginx::authorized_ips'
 
-template "nginx_status" do
+template 'nginx_status' do
   path "#{node['nginx']['dir']}/sites-available/nginx_status"
-  source "modules/nginx_status.erb"
-  owner "root"
-  group "root"
-  mode 00644
-  notifies :reload, "service[nginx]"
+  source 'modules/nginx_status.erb'
+  owner  'root'
+  group  'root'
+  mode   '0644'
+  notifies :reload, 'service[nginx]'
 end
 
-nginx_site "nginx_status"
+nginx_site 'nginx_status'
 
 node.run_state['nginx_configure_flags'] =
-  node.run_state['nginx_configure_flags'] | ["--with-http_stub_status_module"]
+  node.run_state['nginx_configure_flags'] | ['--with-http_stub_status_module']

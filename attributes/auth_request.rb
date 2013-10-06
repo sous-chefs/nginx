@@ -19,5 +19,5 @@
 # limitations under the License.
 #
 
-default['nginx']['auth_request']['url']      = "http://mdounin.ru/hg/ngx_http_auth_request_module/archive/ee8ff54f9b66.tar.gz"
-default['nginx']['auth_request']['checksum'] = "7ab85e1c350c5a9c60ed1319c45fed144cc3c3e1"
+default['nginx']['auth_request']['url']      = 'http://mdounin.ru/hg/ngx_http_auth_request_module/archive/ee8ff54f9b66.tar.gz'
+default['nginx']['auth_request']['checksum'] = '7ab85e1c350c5a9c60ed1319c45fed144cc3c3e1'

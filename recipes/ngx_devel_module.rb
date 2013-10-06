@@ -17,27 +17,26 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+#
 
 devel_src_filename = ::File.basename(node['nginx']['devel']['url'])
 devel_src_filepath = "#{Chef::Config['file_cache_path']}/#{devel_src_filename}"
 devel_extract_path = "#{Chef::Config['file_cache_path']}/nginx-devel-#{node['nginx']['devel']['version']}"
 
 remote_file devel_src_filepath do
-  source node['nginx']['devel']['url']
+  source   node['nginx']['devel']['url']
   checksum node['nginx']['devel']['checksum']
-  owner "root"
-  group "root"
-  mode 00644
+  owner    'root'
+  group    'root'
+  mode     '0644'
 end
 
-bash "extract_devel_module" do
-  cwd ::File.dirname(devel_src_filepath)
+bash 'extract_devel_module' do
+  cwd  ::File.dirname(devel_src_filepath)
   code <<-EOH
     mkdir -p #{devel_extract_path}
     tar xzf #{devel_src_filename} -C #{devel_extract_path}
   EOH
-
   not_if { ::File.exists?(devel_extract_path) }
 end
 

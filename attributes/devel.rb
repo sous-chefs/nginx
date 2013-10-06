@@ -19,6 +19,6 @@
 # limitations under the License.
 #
 
-default['nginx']['devel']['version']  = "0.2.18"
+default['nginx']['devel']['version']  = '0.2.18'
 default['nginx']['devel']['url']      = "https://github.com/simpl/ngx_devel_kit/archive/v#{node['nginx']['devel']['version']}.tar.gz"
-default['nginx']['devel']['checksum'] = "c9c9f0a1b068d38c6c45b15d9605f1b2344dbcd45abf0764cd8e2ba92d6a3d2c"
+default['nginx']['devel']['checksum'] = 'c9c9f0a1b068d38c6c45b15d9605f1b2344dbcd45abf0764cd8e2ba92d6a3d2c'

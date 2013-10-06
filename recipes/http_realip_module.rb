@@ -4,7 +4,7 @@
 #
 # Author:: Jamie Winsor (<jamie@vialstudios.com>)
 #
-# Copyright 2012, Riot Games
+# Copyright 2012-2013, Riot Games
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,17 +22,17 @@
 # Documentation: http://wiki.nginx.org/HttpRealIpModule
 
 # Currently only accepts X-Forwarded-For or X-Real-IP
-node.default['nginx']['realip']['header']    = "X-Forwarded-For"
-node.default['nginx']['realip']['addresses'] = ["127.0.0.1"]
-node.default['nginx']['realip']['real_ip_recursive'] = "off"
+node.default['nginx']['realip']['header']            = 'X-Forwarded-For'
+node.default['nginx']['realip']['addresses']         = ['127.0.0.1']
+node.default['nginx']['realip']['real_ip_recursive'] = 'off'
 
 template "#{node['nginx']['dir']}/conf.d/http_realip.conf" do
-  source "modules/http_realip.conf.erb"
-  owner "root"
-  group "root"
-  mode 00644
-  notifies :reload, "service[nginx]"
+  source 'modules/http_realip.conf.erb'
+  owner  'root'
+  group  'root'
+  mode   '0644'
+  notifies :reload, 'service[nginx]'
 end
 
 node.run_state['nginx_configure_flags'] =
-  node.run_state['nginx_configure_flags'] | ["--with-http_realip_module"]
+  node.run_state['nginx_configure_flags'] | ['--with-http_realip_module']

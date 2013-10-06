@@ -2,6 +2,8 @@
 # Cookbook Name:: nginx
 # Recipe:: Passenger
 #
+# Copyright 2013, Opscode, Inc.
+#
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -15,29 +17,29 @@
 # limitations under the License.
 #
 
-packages = value_for_platform( ["redhat", "centos", "scientific", "amazon", "oracle"] => {
-                                 "default" => %w(ruby-devel curl-devel) },
-                               ["ubuntu", "debian"] => {
-                                 "default" => %w(ruby-dev libcurl4-gnutls-dev) } )
+packages = value_for_platform_family(
+  %w[rhel]   => { 'default' => %w[ruby-devel curl-devel] },
+  %w[debian] => { 'default' => %w[ruby-dev libcurl4-gnutls-dev] }
+)
 
-packages.each do |devpkg|
-  package devpkg
+packages.each do |name|
+  package name
 end
 
 gem_package 'rake'
 
 gem_package 'passenger' do
-  action :install
-  version node["nginx"]["passenger"]["version"]
-  gem_binary node["nginx"]["passenger"]["gem_binary"] if node["nginx"]["passenger"]["gem_binary"]
+  action     :install
+  version    node['nginx']['passenger']['version']
+  gem_binary node['nginx']['passenger']['gem_binary'] if node['nginx']['passenger']['gem_binary']
 end
 
 template "#{node["nginx"]["dir"]}/conf.d/passenger.conf" do
-  source "modules/passenger.conf.erb"
-  owner "root"
-  group "root"
-  mode 00644
-  notifies :reload, "service[nginx]"
+  source 'modules/passenger.conf.erb'
+  owner  'root'
+  group  'root'
+  mode   '0644'
+  notifies :reload, 'service[nginx]'
 end
 
 node.run_state['nginx_configure_flags'] =
