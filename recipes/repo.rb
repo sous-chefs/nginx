@@ -21,11 +21,13 @@ when "rhel","fedora"
   include_recipe "yum"
 
   yum_key "nginx" do
+    key "RPM-GPG-KEY-Nginx"
     url 'http://nginx.org/keys/nginx_signing.key'
     action :add
   end
 
   yum_repository "nginx" do
+    key "RPM-GPG-KEY-Nginx"
     description "Nginx.org Repository"
     url node['nginx']['upstream_repository']
   end
