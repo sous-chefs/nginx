@@ -31,12 +31,6 @@ template "#{node['nginx']['dir']}/conf.d/http_realip.conf" do
   owner "root"
   group "root"
   mode 00644
-  variables(
-    :addresses => node['nginx']['realip']['addresses'],
-    :header => node['nginx']['realip']['header'],
-    :real_ip_recursive => node['nginx']['realip']['real_ip_recursive']
-  )
-
   notifies :reload, "service[nginx]"
 end
 

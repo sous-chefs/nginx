@@ -129,13 +129,6 @@ when "bluepill"
   template "#{node['bluepill']['conf_dir']}/nginx.pill" do
     source "nginx.pill.erb"
     mode 00644
-    variables(
-      :working_dir => node['nginx']['source']['prefix'],
-      :src_binary => node['nginx']['binary'],
-      :nginx_dir => node['nginx']['dir'],
-      :log_dir => node['nginx']['log_dir'],
-      :pid => node['nginx']['pid']
-    )
   end
 
   bluepill_service "nginx" do
@@ -157,14 +150,6 @@ when 'upstart'
     owner 'root'
     group 'root'
     mode 00644
-    variables(
-      :src_binary => node['nginx']['binary'],
-      :pid => node['nginx']['pid'],
-      :config => node['nginx']['source']['conf_path'],
-      :foreground => node['nginx']['upstart']['foreground'],
-      :respawn_limit => node['nginx']['upstart']['respawn_limit'],
-      :runlevels => node['nginx']['upstart']['runlevels']
-    )
   end
 
   service "nginx" do
@@ -180,10 +165,6 @@ else
     owner "root"
     group "root"
     mode 00755
-    variables(
-      :src_binary => node['nginx']['binary'],
-      :pid => node['nginx']['pid']
-    )
   end
 
   case node['platform']

@@ -37,18 +37,6 @@ template "#{node["nginx"]["dir"]}/conf.d/passenger.conf" do
   owner "root"
   group "root"
   mode 00644
-  variables(
-    :passenger_root => node["nginx"]["passenger"]["root"],
-    :passenger_ruby => node["nginx"]["passenger"]["ruby"],
-    :passenger_spawn_method => node["nginx"]["passenger"]["spawn_method"],
-    :passenger_use_global_queue => node["nginx"]["passenger"]["use_global_queue"],
-    :passenger_buffer_response => node["nginx"]["passenger"]["buffer_response"],
-    :passenger_max_pool_size => node["nginx"]["passenger"]["max_pool_size"],
-    :passenger_min_instances => node["nginx"]["passenger"]["min_instances"],
-    :passenger_max_instances_per_app => node["nginx"]["passenger"]["max_instances_per_app"],
-    :passenger_pool_idle_time => node["nginx"]["passenger"]["pool_idle_time"],
-    :passenger_max_requests => node["nginx"]["passenger"]["max_requests"]
-  )
   notifies :reload, "service[nginx]"
 end
 

@@ -11,11 +11,11 @@ description_configtest="Run nginx' internal config check."
 description_upgrade="Upgrade the nginx binary without losing connections."
 description_reload="Reload the nginx configuration without losing connections."
 
-nginx_config=<%= @conf_dir %>
+nginx_config=<%= node['nginx']['source']['conf_path'] %>
 
-command=<%= @src_binary %>
+command=<%= node['nginx']['binary'] %>
 command_args="-c ${nginx_config}"
-pidfile=<%= @pid %>
+pidfile=<%= node['nginx']['pid'] %>
 
 depend() {
 	need net

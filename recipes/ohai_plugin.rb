@@ -29,9 +29,6 @@ template "#{node['ohai']['plugin_path']}/nginx.rb" do
   owner "root"
   group "root"
   mode 00755
-  variables(
-    :nginx_bin => node['nginx']['binary']
-  )
   notifies :reload, 'ohai[reload_nginx]', :immediately
 end
 
