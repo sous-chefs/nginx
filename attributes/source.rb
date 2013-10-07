@@ -30,7 +30,6 @@ default['nginx']['source']['default_configure_flags'] = %W[
                                                           --conf-path=#{node['nginx']['dir']}/nginx.conf
                                                           --sbin-path=#{node['nginx']['source']['sbin_path']}
                                                         ]
-
 default['nginx']['configure_flags']    = []
 default['nginx']['source']['version']  = node['nginx']['version']
 default['nginx']['source']['url']      = "http://nginx.org/download/nginx-#{node['nginx']['source']['version']}.tar.gz"
