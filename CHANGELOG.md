@@ -3,6 +3,31 @@ nginx Cookbook CHANGELOG
 This file is used to list changes made in each version of the nginx cookbook.
 
 
+v2.0.0
+------
+### Improvement
+- **[COOK-3733](https://tickets.opscode.com/browse/COOK-3733)** - Add RPM key names and GPG checking
+- **[COOK-3687](https://tickets.opscode.com/browse/COOK-3687)** - Add support for `http_perl`
+- **[COOK-3603](https://tickets.opscode.com/browse/COOK-3603)** - Add a recipe for using custom openssl
+- **[COOK-3602](https://tickets.opscode.com/browse/COOK-3602)** - Use an attribute for the status module port
+- **[COOK-3549](https://tickets.opscode.com/browse/COOK-3549)** - Refactor custom modules support
+- **[COOK-3521](https://tickets.opscode.com/browse/COOK-3521)** - Add support for `http_auth_request`
+- **[COOK-3520](https://tickets.opscode.com/browse/COOK-3520)** - Add support for `spdy`
+- **[COOK-3185](https://tickets.opscode.com/browse/COOK-3185)** - Add `gzip_*` attributes
+- **[COOK-2712](https://tickets.opscode.com/browse/COOK-2712)** - Update `upload_progress` version to 0.9.0
+
+### Bug
+- **[COOK-3686](https://tickets.opscode.com/browse/COOK-3686)** - Remove deprecated 'passenger_use_global_queue' directive
+- **[COOK-3626](https://tickets.opscode.com/browse/COOK-3626)** - Parameterize hardcoded path to helper scripts
+- **[COOK-3571](https://tickets.opscode.com/browse/COOK-3571)** - Reloda ohai plugin after installation
+- **[COOK-3428](https://tickets.opscode.com/browse/COOK-3428)** - Fix an issue where access logs are not disabled when the `disable_access_log` attribute is set to `true`
+- **[COOK-3322](https://tickets.opscode.com/browse/COOK-3322)** - Fix an issue where `nginx::ohai_plugin` fails when using source recipe
+- **[COOK-3241](https://tickets.opscode.com/browse/COOK-3241)** - Fix an issue where`nginx::ohai_plugin` fails unless using source recipe
+
+### New Feature
+- **[COOK-3605](https://tickets.opscode.com/browse/COOK-3605)** - Add Lua module
+
+
 v1.8.0
 ------
 ### Bug
