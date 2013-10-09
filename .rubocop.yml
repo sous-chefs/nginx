@@ -1,6 +1,7 @@
 AllCops:
   Excludes:
     - vendor/**
+    - bin/**
 
 AlignParameters:
   Enabled: false
