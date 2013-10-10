@@ -30,7 +30,7 @@ if platform_family?('rhel')
       level :debug
     end
   else
-    raise ArgumentError, "Unknown value '#{node['nginx']['repo_source']}' was passed to the nginx cookbook."
+    fail ArgumentError, "Unknown value '#{node['nginx']['repo_source']}' was passed to the nginx cookbook."
   end
 end
 
