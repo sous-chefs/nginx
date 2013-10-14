@@ -18,8 +18,8 @@
 #
 
 packages = value_for_platform_family(
-  %w[rhel]   => { 'default' => %w[ruby-devel curl-devel] },
-  %w[debian] => { 'default' => %w[ruby-dev libcurl4-gnutls-dev] }
+  %w[rhel]   => %w[ruby-devel curl-devel],
+  %w[debian] => %w[ruby-dev libcurl4-gnutls-dev]
 )
 
 packages.each do |name|
