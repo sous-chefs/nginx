@@ -29,13 +29,13 @@ default['nginx']['disable_snivvii']        = true
 default['nginx']['snivvable_log_format']   = nil
 default['nginx']['snivvable_log_dir']      = '/var/log/snivvii'
 
-# Nginx attributes
-default['nginx']['version']           = '1.2.9'
-default['nginx']['package_name']      = 'nginx'
-default['nginx']['dir']               = '/etc/nginx'
-default['nginx']['script_dir']        = '/usr/sbin'
-default['nginx']['log_dir']           = '/var/log/nginx'
-default['nginx']['binary']            = '/usr/sbin/nginx'
+default['nginx']['version']      = '1.2.9'
+default['nginx']['package_name'] = 'nginx'
+default['nginx']['dir']          = '/etc/nginx'
+default['nginx']['script_dir']   = '/usr/sbin'
+default['nginx']['log_dir']      = '/var/log/nginx'
+default['nginx']['binary']       = '/usr/sbin/nginx'
+default['nginx']['default_root'] = '/var/www/nginx-default'
 
 case node['platform_family']
 when 'debian'
@@ -94,7 +94,6 @@ default['nginx']['server_tokens']        = nil
 default['nginx']['server_names_hash_bucket_size'] = 64
 default['nginx']['sendfile'] = 'on'
 
-default['nginx']['log_format']             = nil
 default['nginx']['access_log_options']     = nil
 default['nginx']['error_log_options']      = nil
 default['nginx']['disable_access_log']     = false
