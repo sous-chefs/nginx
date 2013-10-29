@@ -78,7 +78,7 @@ http {
   <% end -%>
   include <%= node['nginx']['dir'] %>/conf.d/*.conf;
   include <%= node['nginx']['dir'] %>/sites-enabled/*;
-  <% if node['nginx']['include_path'] -%>
-  include <%= node['nginx']['include_path'] -%>;
+  <% node['nginx']['include_path'].each do |path| -%>
+  include <%= path %>;
   <% end -%>
 }
