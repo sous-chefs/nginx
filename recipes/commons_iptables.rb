@@ -2,7 +2,7 @@
 # Cookbook Name:: nginx
 # Recipe:: common/iptables
 #
-# Author:: AJ Christensen <aj@junglist.gen.nz>
+# Author:: Alexander Merkulov <sasha@merqlove.ru>
 #
 # Copyright 2008-2013, Opscode, Inc.
 #
