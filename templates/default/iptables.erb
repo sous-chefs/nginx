@@ -11,6 +11,7 @@
 -A INPUT -m tcp -p tcp --dport 80 -j ACCEPT
 -A INPUT -m tcp -p tcp --dport 443 -j ACCEPT
 -A INPUT -m tcp -p tcp --dport 3000 -j ACCEPT
+-A INPUT -m tcp -p tcp --dport 27017 -j ACCEPT
 -A INPUT -j REJECT --reject-with icmp-host-prohibited
 -A FORWARD -j REJECT --reject-with icmp-host-prohibited
 COMMIT
