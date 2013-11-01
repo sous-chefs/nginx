@@ -308,7 +308,7 @@ that the required packages to build Nginx are installed (pcre,
 openssl, compile tools). The source will be downloaded from the
 `node['nginx']['source']['url']`. The `node['nginx']['user']` will be
 created as a system user. If you want to use existing user set
-`noge['nginx']['source']['use_existing_user']` to `true`. The appropriate
+`node['nginx']['source']['use_existing_user']` to `true`. The appropriate
 configuration and log directories and config files will be created
 as well according to the attributes `node['nginx']['dir']` and
 `node['nginx']['log_dir']`.
