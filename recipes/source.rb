@@ -31,10 +31,12 @@ nginx_url = node['nginx']['source']['url'] ||
 node.set['nginx']['binary']          = node['nginx']['source']['sbin_path']
 node.set['nginx']['daemon_disable']  = true
 
-user node['nginx']['user'] do
-  system true
-  shell  '/bin/false'
-  home   '/var/www'
+unless node['nginx']['source']['use_existing_user']
+  user node['nginx']['user'] do
+    system true
+    shell  '/bin/false'
+    home   '/var/www'
+  end
 end
 
 include_recipe 'nginx::ohai_plugin'

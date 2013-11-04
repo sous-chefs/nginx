@@ -175,6 +175,9 @@ for default values.
   dynamically generated from the
   `node['nginx']['source']['default_configure_flags']` in the
   `nginx::source` recipe.
+* `node['nginx']['source']['use_existing_user']` - set to `true` if you
+  do not want `nginx::source` recipe to create system user with name
+  `node['nginx']['user']`.
 
 ### geoip
 These attributes are used in the `nginx::http_geoip_module` recipe.
@@ -304,9 +307,11 @@ This recipe is responsible for building Nginx from source. It ensures
 that the required packages to build Nginx are installed (pcre,
 openssl, compile tools). The source will be downloaded from the
 `node['nginx']['source']['url']`. The `node['nginx']['user']` will be
-created as a system user. The appropriate configuration and log
-directories and config files will be created as well according to the
-attributes `node['nginx']['dir']` and 'node['nginx']['log_dir']`.
+created as a system user. If you want to use existing user set
+`node['nginx']['source']['use_existing_user']` to `true`. The appropriate
+configuration and log directories and config files will be created
+as well according to the attributes `node['nginx']['dir']` and
+`node['nginx']['log_dir']`.
 
 The recipe attempts to detect whether additional modules should be
 added to the configure command through recipe inclusion (see below),
