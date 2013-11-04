@@ -3,6 +3,20 @@ nginx Cookbook CHANGELOG
 This file is used to list changes made in each version of the nginx cookbook.
 
 
+v2.0.4
+------
+### Bug
+- **[COOK-3808](https://tickets.opscode.com/browse/COOK-3808)** - nginx::passenger run fails because of broken installation of package dependencies
+- **[COOK-3779](https://tickets.opscode.com/browse/COOK-3779)** - Build in master fails due to rubocop error
+
+
+v2.0.2
+------
+### Bug
+- **[COOK-3808](https://tickets.opscode.com/browse/COOK-3808)** - nginx::passenger run fails because of broken installation of package dependencies
+- **[COOK-3779](https://tickets.opscode.com/browse/COOK-3779)** - Build in master fails due to rubocop error
+
+
 v2.0.0
 ------
 ### Improvement

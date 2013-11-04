@@ -39,3 +39,4 @@ default['nginx']['source']['modules']  = %w[
                                            nginx::http_ssl_module
                                            nginx::http_gzip_static_module
                                          ]
+default['nginx']['source']['use_existing_user'] = false
