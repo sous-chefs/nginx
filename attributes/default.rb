@@ -78,6 +78,7 @@ default['nginx']['gzip_disable']      = 'MSIE [1-6]\.'
 
 default['nginx']['keepalive']            = 'on'
 default['nginx']['keepalive_timeout']    = 65
+default['nginx']['ulimit']               = 1_024
 default['nginx']['worker_processes']     = node['cpu'] && node['cpu']['total'] ? node['cpu']['total'] : 1
 default['nginx']['worker_connections']   = 1_024
 default['nginx']['worker_rlimit_nofile'] = nil
