@@ -39,3 +39,23 @@ end
 nginx_site 'default' do
   enable node['nginx']['default_site_enabled']
 end
+
+case node['platform']
+when 'gentoo'
+  genrate_template = false
+when 'debian', 'ubuntu'
+  genrate_template = true
+  defaults_path = '/etc/default/nginx'
+else
+  genrate_template = true
+  defaults_path = '/etc/sysconfig/nginx'
+end
+
+if genrate_template
+  template defaults_path do
+    source 'nginx.sysconfig.erb'
+    owner 'root'
+    group 'root'
+    mode '0644'
+  end
+end
