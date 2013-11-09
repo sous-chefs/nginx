@@ -22,7 +22,7 @@ packages = value_for_platform_family(
   %w[debian] => node['nginx']['passenger']['packages']['debian']
 )
 
-if !packages.empty?
+unless packages.empty?
   packages.each do |name|
     package name
   end
