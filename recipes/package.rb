@@ -47,4 +47,6 @@ service 'nginx' do
   action   :enable
 end
 
-include_recipe 'nginx::commons'
+if node['nginx']['include_commons']
+  include_recipe 'nginx::commons'
+end
