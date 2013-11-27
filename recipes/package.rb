@@ -33,9 +33,7 @@ if platform_family?('rhel')
     fail ArgumentError, "Unknown value '#{node['nginx']['repo_source']}' was passed to the nginx cookbook."
   end
 elsif platform_family?('debian')
-  if node['nginx']['repo_source'] == 'nginx'
-    include_recipe 'nginx::repo'
-  end
+  include_recipe 'nginx::repo' if node['nginx']['repo_source'] == 'nginx'
 end
 
 package node['nginx']['package_name'] do
