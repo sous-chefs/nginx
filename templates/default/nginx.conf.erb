@@ -59,6 +59,9 @@ http {
   gzip_disable     "<%= node['nginx']['gzip_disable'] %>";
   <% end %>
 
+
+  variables_hash_max_size <%= node['nginx']['variables_hash_max_size'] %>;
+  variables_hash_bucket_size <%= node['nginx']['variables_hash_bucket_size'] %>;
   server_names_hash_bucket_size <%= node['nginx']['server_names_hash_bucket_size'] %>;
   types_hash_max_size <%= node['nginx']['types_hash_max_size'] %>;
   types_hash_bucket_size <%= node['nginx']['types_hash_bucket_size'] %>;
