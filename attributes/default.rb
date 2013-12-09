@@ -29,6 +29,7 @@ default['nginx']['dir']          = '/etc/nginx'
 default['nginx']['script_dir']   = '/usr/sbin'
 default['nginx']['log_dir']      = '/var/log/nginx'
 default['nginx']['binary']       = '/usr/sbin/nginx'
+default['nginx']['ulimit']       = '1024'
 
 case node['platform_family']
 when 'debian'
