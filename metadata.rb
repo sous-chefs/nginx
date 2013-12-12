@@ -13,7 +13,7 @@ depends 'bluepill',        '~> 2.3'
 depends 'build-essential', '~> 1.4'
 depends 'ohai',            '~> 1.1'
 depends 'runit',           '~> 1.2'
-depends 'yum',             '< 3'
+depends 'yum',             '< 3.0'
 
 supports 'amazon'
 supports 'centos'
