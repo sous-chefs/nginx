@@ -38,8 +38,15 @@ elsif platform_family?('debian')
   end
 end
 
+ruby_block "debug nginx version" do
+  block do
+  `echo "Nginx Version: #{node['nginx']['version']}" >> /tmp/debug_chef`  
+  puts "Nginx Version: #{node['nginx']['version']}"
+  end
+end
+
 package node['nginx']['package_name'] do
-  version node['nginx']['version']
+  version node['nginx']['pkg_version']
   notifies :reload, 'ohai[reload_nginx]', :immediately
 end
 
