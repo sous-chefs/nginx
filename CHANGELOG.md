@@ -3,6 +3,11 @@ nginx Cookbook CHANGELOG
 This file is used to list changes made in each version of the nginx cookbook.
 
 
+v2.2.0
+------
+No changes. Version bump for toolchain
+
+
 v2.1.0
 ------
 [COOK-3923] - Enable the list of packages installed by nginx::passenger to be configurable
