@@ -52,7 +52,8 @@ default['nginx']['upstart']['foreground']    = true
 
 default['nginx']['group'] = node['nginx']['user']
 
-default['nginx']['pid'] = '/var/run/nginx.pid'
+default['nginx']['pid']         = '/var/run/nginx.pid'
+default['nginx']['default_dir'] = '/var/www/nginx-default'
 
 default['nginx']['gzip']              = 'on'
 default['nginx']['gzip_http_version'] = '1.0'
@@ -72,6 +73,7 @@ default['nginx']['gzip_types']        = %w[
                                           application/javascript
                                           application/json
                                           text/mathml
+                                          image/svg+xml
                                         ]
 default['nginx']['gzip_min_length']   = 1_000
 default['nginx']['gzip_disable']      = 'MSIE [1-6]\.'
