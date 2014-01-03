@@ -37,6 +37,8 @@ Node attributes for this cookbook are logically separated into different files. 
 Generally used attributes. Some have platform specific values. See `attributes/default.rb`. "The Config" refers to "nginx.conf" the main config file.
 
 - `node['nginx']['dir']` - Location for Nginx configuration.
+- `node['nginx']['conf_template']` - The `source` template to use when creating the `nginx.conf`.
+- `node['nginx']['conf_cookbook']` - The cookbook where `node['nginx']['conf_template']` resides.
 - `node['nginx']['log_dir']` - Location for Nginx logs.
 - `node['nginx']['user']` - User that Nginx will run as.
 - `node['nginx']['group]` - Group for Nginx.
