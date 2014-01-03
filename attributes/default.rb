@@ -23,12 +23,14 @@
 # In order to update the version, the checksum attribute must be changed too.
 # This attribute is in the source.rb file, though we recommend overriding
 # attributes by modifying a role, or the node itself.
-default['nginx']['version']      = '1.2.9'
-default['nginx']['package_name'] = 'nginx'
-default['nginx']['dir']          = '/etc/nginx'
-default['nginx']['script_dir']   = '/usr/sbin'
-default['nginx']['log_dir']      = '/var/log/nginx'
-default['nginx']['binary']       = '/usr/sbin/nginx'
+default['nginx']['version']       = '1.2.9'
+default['nginx']['package_name']  = 'nginx'
+default['nginx']['dir']           = '/etc/nginx'
+default['nginx']['conf_template'] = 'nginx.conf.erb'
+default['nginx']['conf_cookbook'] = 'nginx'
+default['nginx']['script_dir']    = '/usr/sbin'
+default['nginx']['log_dir']       = '/var/log/nginx'
+default['nginx']['binary']        = '/usr/sbin/nginx'
 
 case node['platform_family']
 when 'debian'
