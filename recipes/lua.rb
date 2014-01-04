@@ -36,11 +36,12 @@ bash 'extract_luajit' do
     tar xzf #{luajit_src_filename} -C #{luajit_extract_path}
     cd luajit-#{node['nginx']['luajit']['version']}/LuaJIT-#{node['nginx']['luajit']['version']}
     make && make install
-    EXPORT LUAJIT_INC="/usr/local/include/luajit-2.0"
-    EXPORT LUAJIT_LIB="usr/local/lib"
   EOH
   not_if { ::File.exists?(luajit_extract_path) }
 end
+
+ENV['LUAJIT_INC'] = "/usr/local/include/luajit-2.0"
+ENV['LUAJIT_LIB'] = "/usr/local/lib"
 
 package 'lua-devel' do
   action :install
