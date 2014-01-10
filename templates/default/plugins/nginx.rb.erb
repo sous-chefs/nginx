@@ -61,6 +61,8 @@ if status == 0
       nginx[:conf_path] = conf_path
     when /^nginx version: nginx\/(.+)/
       nginx[:version] = $1
+    when /Tengine version: Tengine\/(.+) \(/
+      nginx[:version] = $1
     end
   end
 end
