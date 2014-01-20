@@ -3,25 +3,6 @@ nginx Cookbook CHANGELOG
 This file is used to list changes made in each version of the nginx cookbook.
 
 
-v2.1.0
-------
-[COOK-3923] - Enable the list of packages installed by nginx::passenger to be configurable
-[COOK-3672] - Nginx should support the gzip_static option
-Updating for yum ~> 3.0
-Fixing up style for rubocop
-Updating test-kitchen harness
-
-
-v2.0.8
-------
-fixing metadata version error. locking to 3.0
-
-
-v2.0.6
-------
-Locking yum dependency to '< 3'
-
-
 v2.0.4
 ------
 ### Bug

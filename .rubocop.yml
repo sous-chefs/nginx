@@ -1,11 +1,14 @@
-Encoding:
-  Enabled: false
+AllCops:
+  Excludes:
+    - vendor/**
 
 AlignParameters:
   Enabled: false
-
-LineLength:
-  Max: 200
-
+Encoding:
+  Enabled: false
 HashSyntax:
-  EnforcedStyle: hash_rockets
+  Enabled: false
+LineLength:
+  Enabled: false
+MethodLength:
+  Max: 30

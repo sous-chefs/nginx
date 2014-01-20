@@ -18,14 +18,12 @@
 #
 
 packages = value_for_platform_family(
-  %w[rhel]   => node['nginx']['passenger']['packages']['rhel'],
-  %w[debian] => node['nginx']['passenger']['packages']['debian']
+  %w[rhel]   => %w[ruby-devel curl-devel],
+  %w[debian] => %w[ruby-dev libcurl4-gnutls-dev]
 )
 
-unless packages.empty?
-  packages.each do |name|
-    package name
-  end
+packages.each do |name|
+  package name
 end
 
 gem_package 'rake'
