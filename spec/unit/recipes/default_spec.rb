@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'nginx::default' do
-  let(:chef_run) { ChefSpec::ChefRunner.new(:platform => 'debian', :version  => '7.0').converge(described_recipe) }
+  let(:chef_run) { ChefSpec::Runner.new(:platform => 'debian', :version  => '7.0').converge(described_recipe) }
 
   it 'loads the ohai plugin' do
     expect(chef_run).to include_recipe('nginx::ohai_plugin')
@@ -15,12 +15,12 @@ describe 'nginx::default' do
 
   context 'configured to install by package' do
     context 'in a redhat-based platform' do
-      let(:chef_run) { ChefSpec::ChefRunner.new(:platform => 'redhat', :version  => '6.3').converge(described_recipe) }
+      let(:chef_run) { ChefSpec::Runner.new(:platform => 'redhat', :version  => '6.3').converge(described_recipe) }
 
-      it 'includes the yum::epel recipe if the source is epel' do
+      it 'includes the yum-epel recipe if the source is epel' do
         chef_run.node.set['nginx']['repo_source'] = 'epel'
         chef_run.converge(described_recipe)
-        expect(chef_run).to include_recipe('yum::epel')
+        expect(chef_run).to include_recipe('yum-epel')
       end
 
       it 'includes the nginx::repo recipe if the source is not epel' do
