@@ -3,6 +3,11 @@ nginx Cookbook CHANGELOG
 This file is used to list changes made in each version of the nginx cookbook.
 
 
+v2.2.2 (2014-01-23)
+-------------------
+[COOK-3672] - Add gzip_static option
+
+
 v2.2.0
 ------
 No changes. Version bump for toolchain
