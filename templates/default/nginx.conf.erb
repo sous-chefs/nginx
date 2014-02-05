@@ -28,6 +28,10 @@ http {
   include       <%= node['nginx']['dir'] %>/mime.types;
   default_type  application/octet-stream;
 
+  <% if node['nginx']['log_format'] -%>
+  log_format <%= node['nginx']['log_format'] %>;
+  <% end -%>
+
   <% if node['nginx']['disable_access_log'] -%>
   access_log    off;
   <% else -%>
