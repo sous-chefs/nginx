@@ -31,5 +31,5 @@ when 'rhel', 'fedora'
   default['nginx']['passenger_repository'] = "http://passenger.stealthymonkeys.com/rhel/#{node['platform_version'].to_i}/$basearch/"
 when 'debian'
   default['nginx']['upstream_repository'] = "http://nginx.org/packages/#{node['platform']}"
-  default['nginx']['passenger_repository'] = "https://oss-binaries.phusionpassenger.com/apt/passenger"
+  default['nginx']['passenger_repository'] = 'https://oss-binaries.phusionpassenger.com/apt/passenger'
 end

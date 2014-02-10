@@ -25,7 +25,7 @@ if respond_to?(:run_context) && run_context.loaded_recipe?('nginx::package')
       if name == 'passenger'
         version_string = value_for_platform_family(
           %w[debian] => "1:#{node['nginx']['passenger']['version']}-1~#{node['lsb']['codename']}1",
-          'default'  => node['nginx']['passenger']['version'],
+          'default'  => node['nginx']['passenger']['version']
         )
         package name do
           version version_string
@@ -40,21 +40,21 @@ else
     %w[rhel]   => node['nginx']['passenger']['packages']['rhel'],
     %w[debian] => node['nginx']['passenger']['packages']['debian']
   )
-  
+
   unless packages.empty?
     packages.each do |name|
       package name
     end
   end
-  
+
   gem_package 'rake'
-  
+
   gem_package 'passenger' do
     action     :install
     version    node['nginx']['passenger']['version']
     gem_binary node['nginx']['passenger']['gem_binary'] if node['nginx']['passenger']['gem_binary']
   end
-  
+
   node.run_state['nginx_configure_flags'] =
     node.run_state['nginx_configure_flags'] | ["--add-module=#{node["nginx"]["passenger"]["root"]}/ext/nginx"]
 end

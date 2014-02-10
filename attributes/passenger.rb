@@ -40,10 +40,10 @@ case node['platform_family']
 when 'rhel', 'fedora'
   node.default['nginx']['passenger']['prebuilt_packages'] = %w[nginx-passenger]
 when 'debian'
-  node.default['nginx']['passenger']['prebuilt_packages'] = %w[nginx-extras passenger]
+  node.default['nginx']['passenger']['prebuilt_packages'] = %w[passenger]
 end
 
-node.default['nginx']['passenger']['location_ini'] = "/usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini"
+node.default['nginx']['passenger']['location_ini'] = '/usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini'
 node.default['nginx']['passenger']['spawn_method'] = 'smart-lv2'
 node.default['nginx']['passenger']['buffer_response'] = 'on'
 node.default['nginx']['passenger']['max_pool_size'] = 6
