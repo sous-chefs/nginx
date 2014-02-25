@@ -29,6 +29,7 @@ default['nginx']['dir']          = '/etc/nginx'
 default['nginx']['script_dir']   = '/usr/sbin'
 default['nginx']['log_dir']      = '/var/log/nginx'
 default['nginx']['binary']       = '/usr/sbin/nginx'
+default['nginx']['default_root'] = '/var/www/nginx-default'
 
 case node['platform_family']
 when 'debian'
@@ -56,6 +57,7 @@ default['nginx']['pid']         = '/var/run/nginx.pid'
 default['nginx']['default_dir'] = '/var/www/nginx-default'
 
 default['nginx']['gzip']              = 'on'
+default['nginx']['gzip_static']       = 'off'
 default['nginx']['gzip_http_version'] = '1.0'
 default['nginx']['gzip_comp_level']   = '2'
 default['nginx']['gzip_proxied']      = 'any'

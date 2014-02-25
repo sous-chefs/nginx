@@ -6,6 +6,7 @@ server {
 
   location / {
     root   <%= node['nginx']['default_dir'] %>;
+    root   <%= node['nginx']['default_root'] %>;
     index  index.html index.htm;
   }
 }
