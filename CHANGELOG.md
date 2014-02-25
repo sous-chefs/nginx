@@ -3,6 +3,13 @@ nginx Cookbook CHANGELOG
 This file is used to list changes made in each version of the nginx cookbook.
 
 
+v2.3.0 (2014-02-25)
+-------------------
+- **[COOK-4293](https://tickets.opscode.com/browse/COOK-4293)** - Update testing Gems in nginx and fix a rubocop warnings
+- **[COOK-4237] - Nginx version incorrectly parsed on Ubuntu 13
+- **[COOK-3866] - Nginx default site folder
+
+
 v2.2.2 (2014-01-23)
 -------------------
 [COOK-3672] - Add gzip_static option
