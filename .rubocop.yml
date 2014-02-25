@@ -1,7 +1,7 @@
-Encoding:
+AlignParameters:
   Enabled: false
 
-AlignParameters:
+Encoding:
   Enabled: false
 
 LineLength:
