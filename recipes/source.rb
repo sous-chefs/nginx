@@ -44,15 +44,23 @@ include_recipe 'nginx::commons_dir'
 include_recipe 'nginx::commons_script'
 include_recipe 'build-essential::default'
 
-src_filepath  = "#{Chef::Config['file_cache_path'] || '/tmp'}/nginx-#{node['nginx']['source']['version']}.tar.gz"
-packages = value_for_platform_family(
-  %w[rhel fedora] => %w[pcre-devel openssl-devel],
-  %w[gentoo]      => [],
-  %w[default]     => %w[libpcre3 libpcre3-dev libssl-dev]
-)
+src_filepath  = "#{Chef::Config['file_cache_path'] || '/tmp'}/nginx-#{node['nginx']['source']['version']}/nginx-#{node['nginx']['source']['version']}.tar.gz"
+packages = case node['platform_family']
+           when 'rhel', 'fedora'
+             %w[pcre-devel openssl-devel]
+           when 'gentoo'
+             []
+           else
+             %w[libpcre3 libpcre3-dev libssl-dev wget]
+           end
 
 packages.each do |name|
   package name
+end
+
+directory ::File.dirname(src_filepath) do
+  owner 'root'
+  recursive true
 end
 
 remote_file nginx_url do
@@ -84,7 +92,7 @@ bash 'unarchive_source' do
   code <<-EOH
     tar zxf #{::File.basename(src_filepath)} -C #{::File.dirname(src_filepath)}
   EOH
-  not_if { ::File.directory?("#{Chef::Config['file_cache_path'] || '/tmp'}/nginx-#{node['nginx']['source']['version']}") }
+  not_if { ::File.directory?("#{::File.dirname(src_filepath)}/#{node['nginx']['source']['name']}") }
 end
 
 node['nginx']['source']['modules'].each do |ngx_module|
@@ -97,8 +105,8 @@ nginx_force_recompile = node.run_state['nginx_force_recompile']
 bash 'compile_nginx_source' do
   cwd  ::File.dirname(src_filepath)
   code <<-EOH
-    cd nginx-#{node['nginx']['source']['version']} &&
-    ./configure #{node.run_state['nginx_configure_flags'].join(' ')} &&
+    cd #{node['nginx']['source']['name']} &&
+    ./configure #{node.run_state['nginx_configure_flags'].join(" ")} &&
     make && make install
   EOH
 
