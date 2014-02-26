@@ -25,6 +25,7 @@
 # attributes by modifying a role, or the node itself.
 default['nginx']['version']      = '1.4.4'
 default['nginx']['package_name'] = 'nginx'
+default['nginx']['port']         = '8080'
 default['nginx']['dir']          = '/etc/nginx'
 default['nginx']['script_dir']   = '/usr/sbin'
 default['nginx']['log_dir']      = '/var/log/nginx'
