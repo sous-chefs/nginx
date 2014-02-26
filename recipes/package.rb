@@ -37,6 +37,8 @@ elsif platform_family?('debian')
 end
 
 package node['nginx']['package_name'] do
+  version node['nginx']['version']
+  action :upgrade
   notifies :reload, 'ohai[reload_nginx]', :immediately
 end
 
