@@ -3,6 +3,11 @@ nginx Cookbook CHANGELOG
 This file is used to list changes made in each version of the nginx cookbook.
 
 
+v2.4.2 (2014-02-28)
+-------------------
+Fixing bad commit from COOK-4330
+
+
 v2.4.1 (2014-02-27)
 -------------------
 - [COOK-4345] - nginx default recipe include install type recipe directly
