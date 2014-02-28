@@ -3,6 +3,12 @@ nginx Cookbook CHANGELOG
 This file is used to list changes made in each version of the nginx cookbook.
 
 
+v2.4.0 (2014-02-27)
+-------------------
+- [COOK-4380] - kitchen.yml platform listings for ubuntu-10.04 and ubuntu-12.04 are missing the dot
+- [COOK-4330] - Bump nginx version for security issues (CVE-2013-0337, CVE-2013-4547)
+
+
 v2.3.0 (2014-02-25)
 -------------------
 - **[COOK-4293](https://tickets.opscode.com/browse/COOK-4293)** - Update testing Gems in nginx and fix a rubocop warnings
