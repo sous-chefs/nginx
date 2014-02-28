@@ -29,7 +29,7 @@ default['nginx']['disable_snivvii']        = true
 default['nginx']['snivvable_log_format']   = nil
 default['nginx']['snivvable_log_dir']      = '/var/log/snivvii'
 
-default['nginx']['version']      = '1.2.9'
+default['nginx']['version']      = '1.4.4'
 default['nginx']['package_name'] = 'nginx'
 default['nginx']['dir']          = '/etc/nginx'
 default['nginx']['script_dir']   = '/usr/sbin'
