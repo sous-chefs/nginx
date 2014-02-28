@@ -3,6 +3,11 @@ nginx Cookbook CHANGELOG
 This file is used to list changes made in each version of the nginx cookbook.
 
 
+v2.4.1 (2014-02-27)
+-------------------
+- [COOK-4345] - nginx default recipe include install type recipe directly
+
+
 v2.4.0 (2014-02-27)
 -------------------
 - [COOK-4380] - kitchen.yml platform listings for ubuntu-10.04 and ubuntu-12.04 are missing the dot
