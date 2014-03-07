@@ -1,0 +1,14 @@
+server {
+  listen   80;
+  server_name <%= @params[:server_name] %>;
+
+  access_log <%= node['nginx']['log_dir'] %>/<%= @params[:name] %>-access.log;
+  error_log  <%= node['nginx']['log_dir'] %>/<%= @params[:name] %>-error.log;
+
+  location / {
+    root <%= @params[:docroot] %>;
+    <% if @params[:directory_index] -%>
+    index <%= [@params[:directory_index]].flatten.join " " %>
+    <% end -%>
+  }
+}
