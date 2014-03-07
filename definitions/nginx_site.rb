@@ -19,13 +19,17 @@
 # limitations under the License.
 #
 
-define :nginx_site, :enable => true, :timing => :delayed do
+define :nginx_site, :template => 'nginx-site.erb', :enable => true, :timing => :delayed do
   if params[:enable]
 
     if params[:template]
       template "#{node['nginx']['dir']}/sites-available/#{params[:name]}" do
         source params[:template]
-        variables(params[:variables])
+        owner 'root'
+        group node['nginx']['root_group']
+        mode '0644'
+        cookbook params[:cookbook] if params[:cookbook]
+        variables( :params => params )
       end
     end
 
