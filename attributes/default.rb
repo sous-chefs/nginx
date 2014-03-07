@@ -29,6 +29,7 @@ default['nginx']['dir']          = '/etc/nginx'
 default['nginx']['script_dir']   = '/usr/sbin'
 default['nginx']['log_dir']      = '/var/log/nginx'
 default['nginx']['binary']       = '/usr/sbin/nginx'
+default['nginx']['root_group']   = 'root'
 
 case node['platform_family']
 when 'debian'
@@ -41,6 +42,10 @@ when 'rhel', 'fedora'
 when 'gentoo'
   default['nginx']['user']       = 'nginx'
   default['nginx']['init_style'] = 'init'
+when 'freebsd'
+  default['nginx']['user']       = 'www'
+  default['nginx']['init_style'] = 'init'
+  default['nginx']['root_group'] = 'wheel'
 else
   default['nginx']['user']       = 'www-data'
   default['nginx']['init_style'] = 'init'
