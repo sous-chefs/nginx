@@ -80,6 +80,10 @@ suites:
     attributes:
       nginx:
         repo_source: nginx
+  - name: lwrps
+    run_list:
+      - recipe[nginx::default]
+      - recipe[nginx_test::lwrps]
   - name: modules
     run_list:
       - recipe[nginx::source]
