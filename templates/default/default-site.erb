@@ -1,5 +1,5 @@
 server {
-  listen   <%= @params[:port].nil? ? '80' : @params[:port] %><%= @params[:default_server] ? ' default_server' : '' %>;
+  listen   <%= @params[:port] %><%= @params[:default_server] ? ' default_server' : '' %>;
   server_name <%= @params[:server_name].nil? ? node['hostname'] : @params[:server_name] %>;
 
   access_log <%= node['nginx']['log_dir'] %>/<%= @params[:name] %>-access.log;
