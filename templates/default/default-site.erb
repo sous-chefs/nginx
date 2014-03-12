@@ -1,11 +1,16 @@
 server {
-  listen   80;
-  server_name  <%= node['hostname'] %>;
+  listen   <%= @params[:port].nil? ? '80' : @params[:port] %><%= @params[:default_server] ? ' default_server' : '' %>;
+  server_name <%= @params[:server_name].nil? ? node['hostname'] : @params[:server_name] %>;
 
-  access_log  <%= node['nginx']['log_dir'] %>/localhost.access.log;
+  access_log <%= node['nginx']['log_dir'] %>/<%= @params[:name] %>-access.log;
+  error_log  <%= node['nginx']['log_dir'] %>/<%= @params[:name] %>-error.log;
 
   location / {
-    root   /var/www/nginx-default;
-    index  index.html index.htm;
+    root <%= @params[:docroot].nil? ? '/var/www/nginx-default' : @params[:docroot] %>;
+    <% if @params[:directory_index] -%>
+    index <%= [@params[:directory_index]].flatten.join " " %>;
+    <% else -%>
+    index index.html index.htm;
+    <% end -%>
   }
 }

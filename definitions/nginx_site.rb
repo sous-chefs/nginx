@@ -19,7 +19,7 @@
 # limitations under the License.
 #
 
-define :nginx_site, :template => 'nginx-site.erb', :enable => true, :timing => :delayed do
+define :nginx_site, :template => 'default-site.erb', :enable => true, :timing => :delayed do
   if params[:enable]
 
     if params[:template]
@@ -30,6 +30,9 @@ define :nginx_site, :template => 'nginx-site.erb', :enable => true, :timing => :
         mode '0644'
         cookbook params[:cookbook] if params[:cookbook]
         variables( :params => params )
+        if ::File.exists?("#{node['nginx']['dir']}/sites-enabled/#{params[:name]}")
+          notifies :reload, 'service[nginx]', params[:timing]
+        end
       end
     end
 
