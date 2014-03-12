@@ -98,7 +98,7 @@ bash 'compile_nginx_source' do
   cwd  ::File.dirname(src_filepath)
   code <<-EOH
     cd nginx-#{node['nginx']['source']['version']} &&
-    ./configure #{node.run_state['nginx_configure_flags'].join(" ")} &&
+    ./configure #{node.run_state['nginx_configure_flags'].join(' ')} &&
     make && make install
   EOH
 

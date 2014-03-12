@@ -59,7 +59,7 @@ if status == 0
 
       nginx[:prefix] = prefix
       nginx[:conf_path] = conf_path
-    when /^nginx version: nginx\/(.+)/
+    when /^nginx version: nginx\/(\d+\.\d+\.\d+)/
       nginx[:version] = $1
     end
   end
