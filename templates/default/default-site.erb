@@ -1,12 +1,12 @@
 server {
-  listen   <%= @params[:port].nil? ? '80' : @params[:port] %><%= @params[:default_server] ? ' default_server' : '' %>;
+  listen   <%= @params[:port] %><%= @params[:default_server] ? ' default_server' : '' %>;
   server_name <%= @params[:server_name].nil? ? node['hostname'] : @params[:server_name] %>;
 
   access_log <%= node['nginx']['log_dir'] %>/<%= @params[:name] %>-access.log;
   error_log  <%= node['nginx']['log_dir'] %>/<%= @params[:name] %>-error.log;
 
   location / {
-    root <%= @params[:docroot].nil? ? '/var/www/nginx-default' : @params[:docroot] %>;
+    root <%= @params[:docroot] %>;
     <% if @params[:directory_index] -%>
     index <%= [@params[:directory_index]].flatten.join " " %>;
     <% else -%>
