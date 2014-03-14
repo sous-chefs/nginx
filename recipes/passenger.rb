@@ -18,8 +18,8 @@
 #
 
 packages = value_for_platform_family(
-  %w[rhel]   => node['nginx']['passenger']['packages']['rhel'],
-  %w[debian] => node['nginx']['passenger']['packages']['debian']
+  %w(rhel)   => node['nginx']['passenger']['packages']['rhel'],
+  %w(debian) => node['nginx']['passenger']['packages']['debian']
 )
 
 unless packages.empty?
