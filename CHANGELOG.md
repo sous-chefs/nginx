@@ -3,6 +3,11 @@ nginx Cookbook CHANGELOG
 This file is used to list changes made in each version of the nginx cookbook.
 
 
+v2.4.4 (2014-03-13)
+-------------------
+- Updating for build-essential 2.0
+
+
 v2.4.2 (2014-02-28)
 -------------------
 Fixing bad commit from COOK-4330
