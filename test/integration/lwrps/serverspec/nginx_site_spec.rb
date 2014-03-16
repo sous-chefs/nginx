@@ -8,6 +8,6 @@ end
 # This was setup by the test fixture cookbook: nginx_test::lwrps
 # Site defined in test/fixtures/cookbooks/nginx_test/files/default/index.html
 describe command('wget -O- http://127.0.0.1/') do
-  it { should return_stdout /Nginx Works!/ }
-  it { should return_stderr /200 OK/ }
+  it { should return_stdout(/Nginx Works!/) }
+  it { should return_stderr(/200 OK/) }
 end
