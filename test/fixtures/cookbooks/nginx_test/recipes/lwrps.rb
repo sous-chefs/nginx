@@ -18,6 +18,16 @@
 #
 include_recipe 'nginx::default'
 
+# Need wget to test that the site works in serverspec
+package 'wget'
+
+# Need netstat from net-tools package on fedora
+case node['platform']
+when 'fedora'
+  package 'net-tools'
+end
+
+
 directory '/var/www/' do
   owner 'root'
   action :create
