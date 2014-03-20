@@ -30,9 +30,7 @@ define :nginx_site, :template => 'default-site.erb', :port => 80, :docroot => '/
         mode '0644'
         cookbook params[:cookbook] if params[:cookbook]
         variables(:params => params)
-        if ::File.exists?("#{node['nginx']['dir']}/sites-enabled/#{params[:name]}")
-          notifies :reload, 'service[nginx]', params[:timing]
-        end
+        notifies :reload, 'service[nginx]', params[:timing] if ::File.exists?("#{node['nginx']['dir']}/sites-enabled/#{params[:name]}")
       end
     end
 

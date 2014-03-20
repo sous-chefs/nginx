@@ -27,7 +27,6 @@ when 'fedora'
   package 'net-tools'
 end
 
-
 directory '/var/www/' do
   owner 'root'
   action :create
