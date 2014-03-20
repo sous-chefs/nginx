@@ -354,6 +354,75 @@ attribute `node['nginx']['source']['modules']`.
 - `openssl_source.rb` - downloads and uses custom OpenSSL source
   when compiling nginx
 
+Definitions
+===========
+
+The cookbook provides a definition. At some point in the future
+these definitions may be refactored into lightweight resources and
+providers as suggested by
+[foodcritic rule FC015](http://acrmp.github.com/foodcritic/#FC015).
+
+nginx\_site
+--------
+
+Manage a template resource for a Server Block (VirtualHost) site, and enable it with
+`nxensite` script. This is commonly done for managing web applications
+such as Ruby on Rails, PHP or Django, and the default behavior
+reflects that. However it is flexible.
+
+
+It will then configure the template (see __Parameters__ and
+__Examples__ below), and enable or disable the site per the `enable`
+parameter.
+
+### Parameters:
+
+Current parameters used by the definition:
+
+* `name` - The name of the site. The template will be written to
+  `#{node['nginx']['dir']}/sites-available/#{params['name']}`
+* `cookbook` - Optional. Cookbook where the source template is. If
+  this is not defined, Chef will use the named template in the
+  cookbook where the definition is used.
+* `template` - Default `default-site.erb`, source template file.
+* `enable` - Default true. Uses `nxensite` or `nxdissite` script as appropriate.
+
+Additional parameters can be defined when the definition is called in
+a recipe, see __Examples__.
+
+### Examples:
+
+All parameters are passed into the template. You can use whatever you
+like. The nginx cookbook comes with a `default-site.erb` template as
+an example. The following parameters are used in the template:
+
+* `server_name` - Default `node['hostname']`, Sets `server_name` directive. 
+* `port` - Default 80, Used to set the port for the `listen` directive.
+* `default_server` - Used in `listen` directive. Will set `default_server` option on nginx >= `0.8.21` and `default` on nginx < `0.8.21`.
+* `docroot` - Default `node['nginx']['default_root']`, root directive for default `location /` block.
+* `directory_index` - Allow overriding the default `index` setting, optional
+
+To use the default nginx_site, for example:
+
+    nginx_site 'test-site' do
+      cookbook 'nginx'
+      server_name 'example.com'
+      default_server true
+      docroot '/var/www/test-site'
+      directory_index 'index.html index.htm'
+    end
+
+The parameters specified will be used as:
+
+* `@params[:server_name]`
+* `@params[:default_server]`
+* `@params[:docroot]`
+* `@params[:directory_index]`
+
+In the template. When you write your own, the `@` is significant.
+
+For more information about Definitions and parameters, see the
+[Chef Wiki](http://wiki.opscode.com/display/chef/Definitions)
 
 Adding New Modules
 ------------------
