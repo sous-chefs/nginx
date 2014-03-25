@@ -60,7 +60,7 @@ end
 
 remote_file country_src_filepath do
   not_if do
-    File.exists?(country_src_filepath) &&
+    File.exist?(country_src_filepath) &&
     File.mtime(country_src_filepath) > Time.now - 86_400
   end
   source   node['nginx']['geoip']['country_dat_url']
@@ -82,7 +82,7 @@ if node['nginx']['geoip']['enable_city']
 
   remote_file city_src_filepath do
     not_if do
-      File.exists?(city_src_filepath) &&
+      File.exist?(city_src_filepath) &&
       File.mtime(city_src_filepath) > Time.now - 86_400
     end
     source   node['nginx']['geoip']['city_dat_url']

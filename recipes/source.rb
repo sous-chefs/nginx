@@ -46,9 +46,9 @@ include_recipe 'build-essential::default'
 
 src_filepath  = "#{Chef::Config['file_cache_path'] || '/tmp'}/nginx-#{node['nginx']['source']['version']}.tar.gz"
 packages = value_for_platform_family(
-  %w[rhel fedora] => %w[pcre-devel openssl-devel],
-  %w[gentoo]      => [],
-  %w[default]     => %w[libpcre3 libpcre3-dev libssl-dev]
+  %w(rhel fedora) => %w(pcre-devel openssl-devel),
+  %w(gentoo)      => [],
+  %w(default)     => %w(libpcre3 libpcre3-dev libssl-dev)
 )
 
 packages.each do |name|

@@ -1,3 +1,3 @@
-@test "check memcache service" {
+@test "check nginx service" {
       ps -ef | grep nginx
 }

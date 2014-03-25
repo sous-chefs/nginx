@@ -23,12 +23,13 @@
 # In order to update the version, the checksum attribute must be changed too.
 # This attribute is in the source.rb file, though we recommend overriding
 # attributes by modifying a role, or the node itself.
-default['nginx']['version']      = '1.2.9'
+default['nginx']['version']      = '1.4.4'
 default['nginx']['package_name'] = 'nginx'
 default['nginx']['dir']          = '/etc/nginx'
 default['nginx']['script_dir']   = '/usr/sbin'
 default['nginx']['log_dir']      = '/var/log/nginx'
 default['nginx']['binary']       = '/usr/sbin/nginx'
+default['nginx']['default_root'] = '/var/www/nginx-default'
 
 case node['platform_family']
 when 'debian'
@@ -61,19 +62,19 @@ default['nginx']['gzip_comp_level']   = '2'
 default['nginx']['gzip_proxied']      = 'any'
 default['nginx']['gzip_vary']         = 'off'
 default['nginx']['gzip_buffers']      = nil
-default['nginx']['gzip_types']        = %w[
-                                          text/plain
-                                          text/css
-                                          application/x-javascript
-                                          text/xml
-                                          application/xml
-                                          application/rss+xml
-                                          application/atom+xml
-                                          text/javascript
-                                          application/javascript
-                                          application/json
-                                          text/mathml
-                                        ]
+default['nginx']['gzip_types'] = %w(
+  text/plain
+  text/css
+  application/x-javascript
+  text/xml
+  application/xml
+  application/rss+xml
+  application/atom+xml
+  text/javascript
+  application/javascript
+  application/json
+  text/mathml
+)
 default['nginx']['gzip_min_length']   = 1_000
 default['nginx']['gzip_disable']      = 'MSIE [1-6]\.'
 
