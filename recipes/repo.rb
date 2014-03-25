@@ -20,22 +20,43 @@
 
 case node['platform_family']
 when 'rhel', 'fedora'
-
-  yum_repository 'nginx' do
-    description 'Nginx.org Repository'
-    baseurl         node['nginx']['upstream_repository']
-    gpgkey      'http://nginx.org/keys/nginx_signing.key'
-    action :create
+  case node['nginx']['repo_source']
+  when 'nginx'
+    yum_repository 'nginx' do
+      description 'Nginx.org Repository'
+      baseurl         node['nginx']['upstream_repository']
+      gpgkey      'http://nginx.org/keys/nginx_signing.key'
+      action :create
+    end
+  when 'phusionpassenger'
+    yum_repository 'passenger' do
+      description 'Phusion Passenger'
+      baseurl         node['nginx']['passenger_repository']
+      gpgkey      'http://passenger.stealthymonkeys.com/RPM-GPG-KEY-stealthymonkeys.asc'
+      gpgkey      'http://nginx.org/keys/nginx_signing.key'
+      action :create
+    end
   end
-
 when 'debian'
   include_recipe 'apt::default'
 
-  apt_repository 'nginx' do
-    uri          node['nginx']['upstream_repository']
-    distribution node['lsb']['codename']
-    components   %w(nginx)
-    deb_src      true
-    key          'http://nginx.org/keys/nginx_signing.key'
+  case node['nginx']['repo_source']
+  when 'nginx'
+    apt_repository 'nginx' do
+      uri          node['nginx']['upstream_repository']
+      distribution node['lsb']['codename']
+      components   %w(nginx)
+      deb_src      true
+      key          'http://nginx.org/keys/nginx_signing.key'
+    end
+  when 'phusionpassenger'
+    apt_repository 'passenger' do
+      uri          node['nginx']['passenger_repository']
+      distribution node['lsb']['codename']
+      components   %w(main)
+      deb_src      true
+      keyserver    'keyserver.ubuntu.com'
+      key          '561F9B9CAC40B2F7'
+    end
   end
 end
