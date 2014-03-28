@@ -3,6 +3,11 @@ nginx Cookbook CHANGELOG
 This file is used to list changes made in each version of the nginx cookbook.
 
 
+v2.5.0 (2014-03-27)
+-------------------
+- [COOK-4323] - Need a resource to easily configure available sites (vhosts)
+
+
 v2.4.4 (2014-03-13)
 -------------------
 - Updating for build-essential 2.0
