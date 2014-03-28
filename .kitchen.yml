@@ -6,10 +6,15 @@ provisioner:
 
 platforms:
   - name: centos-5.10
+    run_list: recipe[yum::default]
   - name: centos-6.5
+    run_list: recipe[yum::default]
   - name: fedora-19
+    run_list: recipe[yum::default]
   - name: ubuntu-10.04
+    run_list: recipe[apt::default]
   - name: ubuntu-12.04
+    run_list: recipe[apt::default]
 
 suites:
   - name: default
@@ -28,6 +33,10 @@ suites:
     attributes:
       nginx:
         repo_source: nginx
+  - name: lwrps
+    run_list:
+      - recipe[nginx::default]
+      - recipe[nginx_test::lwrps]
   - name: modules
     run_list:
       - recipe[nginx::source]
