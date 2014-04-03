@@ -30,7 +30,9 @@ template 'nginx_status' do
   notifies :reload, 'service[nginx]'
 end
 
-nginx_site 'nginx_status'
+nginx_site "nginx_status" do
+  template "modules/nginx_status.erb"
+end
 
 node.run_state['nginx_configure_flags'] =
   node.run_state['nginx_configure_flags'] | ['--with-http_stub_status_module']
