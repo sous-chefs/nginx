@@ -29,5 +29,6 @@ template 'nginx.conf' do
 end
 
 nginx_site 'default' do
+  template 'default-site.rb'
   enable node['nginx']['default_site_enabled']
 end
