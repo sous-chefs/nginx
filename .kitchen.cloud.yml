@@ -1,0 +1,106 @@
+---
+driver_config:
+  digitalocean_client_id: <%= ENV['DIGITAL_OCEAN_CLIENT_ID'] %>
+  digitalocean_api_key: <%= ENV['DIGITAL_OCEAN_API_KEY'] %>
+  aws_access_key_id: <%= ENV['AWS_ACCESS_KEY_ID'] %> 
+  aws_secret_access_key: <%= ENV['AWS_SECRET_ACCESS_KEY'] %>
+  aws_ssh_key_id: <%= ENV['AWS_KEYPAIR_NAME'] %>
+
+provisioner:
+  name: chef_zero
+  require_chef_omnibus: latest
+
+platforms:
+- name: centos-5.8
+  driver_plugin: digitalocean
+  driver_config:
+    image_id: 1601
+    flavor_id: 63
+    region_id: 4
+    ssh_key_ids: <%= ENV['DIGITAL_OCEAN_SSH_KEY_IDS'] %>
+    ssh_key: <%= ENV['DIGITAL_OCEAN_SSH_KEY_PATH'] %>
+
+- name: centos-6.4
+  driver_plugin: digitalocean
+  driver_config:
+    image_id: 562354
+    flavor_id: 63
+    region_id: 4
+    ssh_key_ids: <%= ENV['DIGITAL_OCEAN_SSH_KEY_IDS'] %>
+    ssh_key: <%= ENV['DIGITAL_OCEAN_SSH_KEY_PATH'] %>
+
+- name: amazon-2013.09
+  driver_plugin: ec2
+  driver_config:
+    image_id: ami-3be4bc52
+    username: ec2-user
+    ssh_key: <%= ENV['EC2_SSH_KEY_PATH'] %>
+
+- name: fedora-19
+  driver_plugin: digitalocean
+  driver_config:
+    image_id: 696598
+    flavor_id: 63
+    region_id: 4
+    ssh_key_ids: <%= ENV['DIGITAL_OCEAN_SSH_KEY_IDS'] %>
+    ssh_key: <%= ENV['DIGITAL_OCEAN_SSH_KEY_PATH'] %>
+
+- name: ubuntu-1004
+  driver_plugin: digitalocean
+  driver_config:
+    image_id: 14097
+    flavor_id: 63
+    region_id: 4
+    ssh_key_ids: <%= ENV['DIGITAL_OCEAN_SSH_KEY_IDS'] %>
+    ssh_key: <%= ENV['DIGITAL_OCEAN_SSH_KEY_PATH'] %>
+  run_list:
+  - recipe[apt]
+
+- name: ubuntu-1204
+  driver_plugin: digitalocean
+  driver_config:
+    image_id: 1505447
+    flavor_id: 63
+    region_id: 4
+    ssh_key_ids: <%= ENV['DIGITAL_OCEAN_SSH_KEY_IDS'] %>
+    ssh_key: <%= ENV['DIGITAL_OCEAN_SSH_KEY_PATH'] %>
+  run_list:
+  - recipe[apt]
+
+suites:
+  - name: default
+    run_list:
+      - recipe[nginx::default]
+  - name: source
+    run_list:
+      - recipe[nginx::default]
+    attributes:
+      nginx:
+        install_method: source
+  - name: upstream_repo
+    run_list:
+      - recipe[nginx::repo]
+      - recipe[nginx::default]
+    attributes:
+      nginx:
+        repo_source: nginx
+  - name: modules
+    run_list:
+      - recipe[nginx::source]
+    attributes:
+      nginx:
+        modules:
+          - nginx::headers_more_module
+          - nginx::http_auth_request_module
+          - nginx::http_echo_module
+          - nginx::http_geoip_module
+          - nginx::http_gzip_static_module
+          - nginx::http_realip_module
+          - nginx::http_spdy_module
+          - nginx::http_ssl_module
+          - nginx::http_stub_status_module
+          - nginx::naxsi_module
+          - nginx::ngx_devel_module
+          - nginx::ngx_lua_module
+          - nginx::openssl_source
+          - nginx::upload_progress_module

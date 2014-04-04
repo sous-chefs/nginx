@@ -3,6 +3,44 @@ nginx Cookbook CHANGELOG
 This file is used to list changes made in each version of the nginx cookbook.
 
 
+v2.5.0 (2014-03-27)
+-------------------
+- [COOK-4323] - Need a resource to easily configure available sites (vhosts)
+
+
+v2.4.4 (2014-03-13)
+-------------------
+- Updating for build-essential 2.0
+
+
+v2.4.2 (2014-02-28)
+-------------------
+Fixing bad commit from COOK-4330
+
+
+v2.4.1 (2014-02-27)
+-------------------
+- [COOK-4345] - nginx default recipe include install type recipe directly
+
+
+v2.4.0 (2014-02-27)
+-------------------
+- [COOK-4380] - kitchen.yml platform listings for ubuntu-10.04 and ubuntu-12.04 are missing the dot
+- [COOK-4330] - Bump nginx version for security issues (CVE-2013-0337, CVE-2013-4547)
+
+
+v2.3.0 (2014-02-25)
+-------------------
+- **[COOK-4293](https://tickets.opscode.com/browse/COOK-4293)** - Update testing Gems in nginx and fix a rubocop warnings
+- **[COOK-4237] - Nginx version incorrectly parsed on Ubuntu 13
+- **[COOK-3866] - Nginx default site folder
+
+
+v2.2.2 (2014-01-23)
+-------------------
+[COOK-3672] - Add gzip_static option
+
+
 v2.2.0
 ------
 No changes. Version bump for toolchain
