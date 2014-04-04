@@ -19,10 +19,9 @@
 # limitations under the License.
 #
 
-define :nginx_site, :template => 'default-site.erb', :port => 80, :docroot => '/var/www/nginx-default', :enable => true, :timing => :delayed do
+define :nginx_site, :template => nil, :port => 80, :docroot => '/var/www/nginx-default', :enable => true, :timing => :delayed do
   if params[:enable]
-
-    if params[:template]
+    if !params[:template].nil?
       template "#{node['nginx']['dir']}/sites-available/#{params[:name]}" do
         source params[:template]
         owner 'root'
