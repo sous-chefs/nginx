@@ -19,21 +19,8 @@
 # limitations under the License.
 #
 
-define :nginx_site, :template => 'default-site.erb', :port => 80, :docroot => '/var/www/nginx-default', :enable => true, :timing => :delayed do
+define :nginx_site, :enable => true, :timing => :delayed do
   if params[:enable]
-
-    if params[:template]
-      template "#{node['nginx']['dir']}/sites-available/#{params[:name]}" do
-        source params[:template]
-        owner 'root'
-        group node['nginx']['root_group']
-        mode '0644'
-        cookbook params[:cookbook] if params[:cookbook]
-        variables(:params => params)
-        notifies :reload, 'service[nginx]', params[:timing] if ::File.exists?("#{node['nginx']['dir']}/sites-enabled/#{params[:name]}")
-      end
-    end
-
     execute "nxensite #{params[:name]}" do
       command "#{node['nginx']['script_dir']}/nxensite #{params[:name]}"
       notifies :reload, 'service[nginx]', params[:timing]
