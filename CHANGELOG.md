@@ -3,6 +3,11 @@ nginx Cookbook CHANGELOG
 This file is used to list changes made in each version of the nginx cookbook.
 
 
+v2.6.0 (2014-04-08)
+-------------------
+- Reverting COOK-4323
+
+
 v2.5.0 (2014-03-27)
 -------------------
 - [COOK-4323] - Need a resource to easily configure available sites (vhosts)
