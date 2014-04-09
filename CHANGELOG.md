@@ -3,6 +3,11 @@ nginx Cookbook CHANGELOG
 This file is used to list changes made in each version of the nginx cookbook.
 
 
+v2.6.2 (2014-04-09)
+-------------------
+[COOK-4527] - set default openssl source version to 1.0.1g to address CVE-2014-0160 aka Heartbleed
+
+
 v2.6.0 (2014-04-08)
 -------------------
 - Reverting COOK-4323
