@@ -30,7 +30,7 @@ end
 
 gem_package 'rake'
 
-if node['nginx']['passenger']['install_method'] == 'packages'
+if node['nginx']['passenger']['install_method'] == 'package'
   package 'nginx-extras'
   package 'passenger'
 elsif node['nginx']['passenger']['install_method'] == 'source'
