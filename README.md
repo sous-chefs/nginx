@@ -106,7 +106,8 @@ Generally used attributes. Some have platform specific values. See `attributes/d
 - `node['nginx']['repo_source']` - when installed from a package this attribute affects
   which yum repositories, if any, will be added before installing the nginx package. The
   default value of 'epel' will use the `yum::epel` recipe, 'nginx' will use the
-  `nginx::repo` recipe, and setting no value will not add any additional repositories.
+  `nginx::repo` recipe, 'phusionpassenger' will use the 'nginx::repo-phusionpassenger' recipe
+  and setting no value will not add any additional repositories.
 
 Rate Limiting
 
@@ -246,6 +247,14 @@ These attributes are used in the `nginx::passenger` recipe.
   time (default=`300`)
 - `node['nginx']['passenger']['max_requests']` - maximum requests
   (default=`0`)
+
+### Phusion Passenger
+Basic configuration to use the official Phusion Passenger repo:
+
+- `node['nginx']['install_method']`: 'package'
+- `node['nginx']['repo_source']`: 'phusionpassenger'
+- `node['nginx']['package_name']`: 'nginx-extras'
+- `node['nginx']['passenger']['install_method']`: 'package
 
 ### echo
 These attributes are used in the `nginx::http_echo_module` recipe.
