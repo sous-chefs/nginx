@@ -33,7 +33,15 @@ if platform_family?('rhel')
     fail ArgumentError, "Unknown value '#{node['nginx']['repo_source']}' was passed to the nginx cookbook."
   end
 elsif platform_family?('debian')
-  include_recipe 'nginx::repo' if node['nginx']['repo_source'] == 'nginx'
+  if node['nginx']['repo_source'] == 'phusionpassenger'
+    include_recipe 'nginx::repo-phusionpassenger'
+  elsif node['nginx']['repo_source'] == 'nginx'
+    include_recipe 'nginx::repo'
+  else
+    log "node['nginx']['repo_source'] was not set, no additional yum repositories will be installed." do
+      level :debug
+    end
+  end
 end
 
 package node['nginx']['package_name'] do

@@ -20,7 +20,7 @@
 # limitations under the License.
 #
 
-node.default['nginx']['passenger']['version'] = '3.0.19'
+node.default['nginx']['passenger']['version'] = '4.0.41'
 
 if node['languages'].attribute?('ruby')
   node.default['nginx']['passenger']['root'] = "#{node['languages']['ruby']['gems_dir']}/gems/passenger-#{node['nginx']['passenger']['version']}"
