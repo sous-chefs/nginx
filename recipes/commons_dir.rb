@@ -40,7 +40,7 @@ directory File.dirname(node['nginx']['pid']) do
   recursive true
 end
 
-%w[sites-available sites-enabled conf.d].each do |leaf|
+%w(sites-available sites-enabled conf.d).each do |leaf|
   directory File.join(node['nginx']['dir'], leaf) do
     owner 'root'
     group 'root'
