@@ -19,6 +19,15 @@
 # limitations under the License.
 #
 
+# Ensure snivvable log directory actually exists
+directory node['nginx']['snivvable_log_dir'] do
+  user 'root'
+  group 'root'
+  mode 0655
+  action :create
+end
+
+
 case node['nginx']['install_method']
 when 'source'
   include_recipe 'nginx::source'
