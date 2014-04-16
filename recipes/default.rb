@@ -19,7 +19,21 @@
 # limitations under the License.
 #
 
-include_recipe "nginx::#{node['nginx']['install_method']}"
+# Ensure snivvable log directory actually exists
+directory node['nginx']['snivvable_log_dir'] do
+  user 'root'
+  group 'root'
+  mode 0655
+  action :create
+end
+
+
+case node['nginx']['install_method']
+when 'source'
+  include_recipe 'nginx::source'
+when 'package'
+  include_recipe 'nginx::package'
+end
 
 service 'nginx' do
   supports :status => true, :restart => true, :reload => true
