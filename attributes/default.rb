@@ -28,7 +28,7 @@ default['nginx']['package_name']      = 'nginx'
 default['nginx']['dir']               = '/etc/nginx'
 default['nginx']['script_dir']        = '/usr/sbin'
 default['nginx']['log_dir']           = '/var/log/nginx'
-default['nginx']['snivvable_log_dir'] = '/var/log/nginx'
+default['nginx']['snivvable_log_dir'] = '/var/log/nginx/snivvable'
 default['nginx']['binary']            = '/usr/sbin/nginx'
 
 case node['platform_family']
