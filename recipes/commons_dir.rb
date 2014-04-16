@@ -42,6 +42,15 @@ directory node['nginx']['snivvable_log_dir'] do
   recursive true
 end
 
+# Ensure snivvable log directory actually exists
+directory node['nginx']['snivvable_log_dir'] do
+  user      'root'
+  group     'root'
+  mode      '0755'
+  action    :create
+  recursive true
+end
+
 directory File.dirname(node['nginx']['pid']) do
   owner     'root'
   group     node['root_group']
