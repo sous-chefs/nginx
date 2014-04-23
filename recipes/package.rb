@@ -20,6 +20,8 @@
 
 include_recipe 'nginx::ohai_plugin'
 
+my_version = node['nginx']['version']
+
 if platform_family?('rhel')
   if node['nginx']['repo_source'] == 'epel'
     include_recipe 'yum-epel'
