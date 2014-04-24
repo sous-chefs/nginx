@@ -28,15 +28,32 @@ http {
   include       <%= node['nginx']['dir'] %>/mime.types;
   default_type  application/octet-stream;
 
+  # Log format 
+
   <% if node['nginx']['log_format'] -%>
   log_format <%= node['nginx']['log_format'] %>;
   <% end -%>
+
+  # Snivvii log_format
+  <% unless node['nginx']['disable_snivvii'] -%>
+  log_format <%= node['nginx']['snivvable_log_format'] -%>
+  <% end -%>
+
+  # Access log
 
   <% if node['nginx']['disable_access_log'] -%>
   access_log    off;
   <% else -%>
   access_log	<%= node['nginx']['log_dir'] %>/access.log<% if node['nginx']['access_log_options'] %> <%= node['nginx']['access_log_options'] %><% end %>;
+
+  # Snivvii global access log (should be specified per site, as per-site configurations will override this global access log)
+  <% unless node['nginx']['disable_snivvii'] -%>
+  access_log <%= node['nginx']['snivvable_log_dir'] %>/snivvable.access.log snivvable;
+  <% end -%>
+
   <% end %>
+
+
   <% if node['nginx']['server_tokens'] -%>
   server_tokens <%= node['nginx']['server_tokens'] %>;
   <% end -%>
