@@ -71,7 +71,7 @@ include_recipe 'nginx::commons_conf'
 cookbook_file "#{node['nginx']['dir']}/mime.types" do
   source 'mime.types'
   owner  'root'
-  group  'root'
+  group  node['root_group']
   mode   '0644'
   notifies :reload, 'service[nginx]'
 end
@@ -149,7 +149,7 @@ when 'upstart'
   template '/etc/init/nginx.conf' do
     source 'nginx-upstart.conf.erb'
     owner  'root'
-    group  'root'
+    group  node['root_group']
     mode   '0644'
   end
 
@@ -187,7 +187,7 @@ else
     template defaults_path do
       source 'nginx.sysconfig.erb'
       owner  'root'
-      group  'root'
+      group  node['root_group']
       mode   '0644'
     end
   end

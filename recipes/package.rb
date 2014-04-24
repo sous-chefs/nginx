@@ -38,6 +38,7 @@ end
 
 package node['nginx']['package_name'] do
   notifies :reload, 'ohai[reload_nginx]', :immediately
+  not_if 'which nginx'
 end
 
 service 'nginx' do
