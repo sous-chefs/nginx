@@ -22,7 +22,7 @@
 cookbook_file "#{node['nginx']['dir']}/naxsi_core.rules" do
   source 'naxsi_core.rules'
   owner  'root'
-  group  'root'
+  group  node['root_group']
   mode   '0644'
   notifies :reload, 'service[nginx]'
 end
@@ -35,7 +35,7 @@ remote_file naxsi_src_filepath do
   source   node['nginx']['naxsi']['url']
   checksum node['nginx']['naxsi']['checksum']
   owner    'root'
-  group    'root'
+  group    node['root_group']
   mode     '0644'
 end
 

@@ -27,7 +27,7 @@ remote_file devel_src_filepath do
   source   node['nginx']['devel']['url']
   checksum node['nginx']['devel']['checksum']
   owner    'root'
-  group    'root'
+  group    node['root_group']
   mode     '0644'
 end
 
