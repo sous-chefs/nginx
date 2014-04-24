@@ -83,6 +83,8 @@ Generally used attributes. Some have platform specific values. See `attributes/d
   `server_tokens`.
 - `node['nginx']['server_names_hash_bucket_size']` - used for config
   value of `server_names_hash_bucket_size`.
+- `node['nginx']['disable_snivvii'] ` - set to true to disable support for
+  snivvii
 - `node['nginx']['log_format']` - Set a string to define or override the
   `log_format` directive
 - `node['nginx']['disable_access_log']` - set to true to disable the
