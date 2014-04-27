@@ -1,7 +1,9 @@
 #
 # Author:: Jamie Winsor (<jamie@vialstudios.com>)
+# Author:: Alexander Merkulov (<sasha@merqlove.ru>)
 #
 # Copyright 2012, Riot Games
+# Copyright 2014, Alexander Merkulov
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -35,6 +37,7 @@ Ohai.plugin(:Nginx) do
 
     [ prefix, conf_path ]
   end
+
   collect_data do
     nginx Mash.new unless nginx
     nginx[:version]             = nil unless nginx[:version]
