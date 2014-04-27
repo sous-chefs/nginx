@@ -16,13 +16,9 @@
 # limitations under the License.
 #
 
-Ohai.plugin(:nginx) do
-
-  provides "nginx"
-  provides "nginx/version"
-  provides "nginx/configure_arguments"
-  provides "nginx/prefix"
-  provides "nginx/conf_path"
+Ohai.plugin(:Nginx) do
+  
+  provides "nginx", "nginx/version", "nginx/configure_arguments", "nginx/prefix", "nginx/conf_path"
 
   def parse_flags(flags)
     prefix = nil
@@ -39,36 +35,29 @@ Ohai.plugin(:nginx) do
 
     [ prefix, conf_path ]
   end
-  
   collect_data do
     nginx Mash.new unless nginx
     nginx[:version]             = nil unless nginx[:version]
     nginx[:configure_arguments] = Array.new unless nginx[:configure_arguments]
     nginx[:prefix]              = nil unless nginx[:prefix]
     nginx[:conf_path]           = nil unless nginx[:conf_path]
-  end
 
-  status, stdout, stderr = run_command(:no_status_check => true, :command => "<%= node['nginx']['binary'] %> -V")
+    status, stdout, stderr = run_command(:no_status_check => true, :command => "<%= node['nginx']['binary'] %> -V")
 
-  if status == 0
-    stderr.split("\n").each do |line|
-      case line
-      when /^configure arguments:(.+)/
-        # This could be better: I'm splitting on configure arguments which removes them and also
-        # adds a blank string at index 0 of the array. This is why we drop index 0 and map to
-        # add the '--' prefix back to the configure argument.
-        collect_data do
+    if status == 0
+      stderr.split("\n").each do |line|
+        case line
+        when /^configure arguments:(.+)/
+          # This could be better: I'm splitting on configure arguments which removes them and also
+          # adds a blank string at index 0 of the array. This is why we drop index 0 and map to
+          # add the '--' prefix back to the configure argument.
           nginx[:configure_arguments] = $1.split(/\s--/).drop(1).map { |ca| "--#{ca}" }
-        end
 
-        prefix, conf_path = parse_flags(nginx[:configure_arguments])
+          prefix, conf_path = parse_flags(nginx[:configure_arguments])
         
-        collect_data do
           nginx[:prefix] = prefix
           nginx[:conf_path] = conf_path
-        end
-      when /^nginx version: nginx\/(\d+\.\d+\.\d+)/
-        collect_data do
+        when /^nginx version: nginx\/(\d+\.\d+\.\d+)/
           nginx[:version] = $1
         end
       end
