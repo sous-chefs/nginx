@@ -43,7 +43,11 @@ http {
 
   <% if node['nginx']['custom_options'] %>
   <% node['nginx']['custom_options'].keys.sort.each do |key| %>
+  <% if key.include? "one_line_" %>
+  <%= node['nginx']['custom_options'][key]%>
+  <% else -%>
   <%= key %> <%= node['nginx']['custom_options'][key]%>;
+  <% end -%>
   <% end -%>
   <% end -%>
 
