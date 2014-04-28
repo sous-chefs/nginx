@@ -42,10 +42,10 @@ http {
   tcp_nodelay on;
 
   <% if node['nginx']['custom_options'] %>
-  <% node['nginx']['custom_options'].keys.sort.each |key| do %>
+  <% node['nginx']['custom_options'].keys.sort.each do |key| %>
   <%= key %> <%= node['nginx']['custom_options'][key]%>;
-  <% end %>
-  <% end %>
+  <% end -%>
+  <% end -%>
 
   <% if node['nginx']['keepalive'] == 'on' %>
   keepalive_timeout  <%= node['nginx']['keepalive_timeout'] %>;
