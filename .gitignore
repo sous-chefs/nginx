@@ -1,15 +1,17 @@
 .vagrant
-Berksfile.lock
-Gemfile.lock
 *~
 *#
 .#*
 \#*#
 .*.sw[a-z]
 *.un~
-.bundle
-.cache
-.kitchen
-bin
+/cookbooks
+Berksfile.lock
+*.tar.gz
+
+# Bundler
+bin/*
+.bundle/*
+
+.kitchen/
 .kitchen.local.yml
-.coverage

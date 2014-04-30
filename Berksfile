@@ -1,7 +1,4 @@
-site :opscode
-metadata
+source "http://berked.crowdflower.com"
+source "http://api.berkshelf.com"
 
-group :integration do
-  cookbook 'apt', '~> 2.0'
-  cookbook 'minitest-handler'
-end
+metadata
