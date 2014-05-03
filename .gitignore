@@ -5,8 +5,10 @@
 \#*#
 .*.sw[a-z]
 *.un~
+
+# Berkshelf
 /cookbooks
-Berksfile.lock
+berkflow_out
 *.tar.gz
 
 # Bundler

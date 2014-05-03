@@ -10,10 +10,6 @@ nohup.out
 ehthumbs.db
 Thumbs.db
 
-# SASS #
-########
-.sass-cache
-
 # EDITORS #
 ###########
 \#*
@@ -30,18 +26,6 @@ tmtags
 .project
 .settings
 mkmf.log
-
-## COMPILED ##
-##############
-a.out
-*.o
-*.pyc
-*.so
-*.com
-*.class
-*.dll
-*.exe
-*/rdoc/
 
 # Testing #
 ###########
@@ -62,35 +46,15 @@ Procfile
 .gitmodules
 .gitconfig
 .gitattributes
-.svn
-*/.bzr/*
-*/.hg/*
-*/.svn/*
 
 # Berkshelf #
 #############
-Berksfile
-Berksfile.lock
+cookbooks-*.tar.gz
+berkflow_out/*
 cookbooks/*
 tmp
-
-# Cookbooks #
-#############
-CONTRIBUTING
-CHANGELOG*
-
-# Strainer #
-############
-Colanderfile
-Strainerfile
-.colander
-.strainer
 
 # Vagrant #
 ###########
 .vagrant
 Vagrantfile
-
-# Travis #
-##########
-.travis.yml

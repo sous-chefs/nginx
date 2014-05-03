@@ -1,0 +1,27 @@
+DEPENDENCIES
+  nginx
+    path: .
+    metadata: true
+
+GRAPH
+  apt (2.3.10)
+  bluepill (2.3.2)
+    rsyslog (>= 0.0.0)
+  build-essential (1.4.4)
+  nginx (2.3.1)
+    apt (~> 2.2)
+    bluepill (~> 2.3)
+    build-essential (~> 1.4)
+    ohai (~> 1.1)
+    runit (~> 1.2)
+    yum (~> 3.0)
+    yum-epel (>= 0.0.0)
+  ohai (1.1.13)
+  rsyslog (1.12.2)
+  runit (1.5.10)
+    build-essential (>= 0.0.0)
+    yum (~> 3.0)
+    yum-epel (>= 0.0.0)
+  yum (3.2.0)
+  yum-epel (0.3.6)
+    yum (~> 3.0)
