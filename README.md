@@ -261,6 +261,14 @@ These attributes are used in the `nginx::http_stub_status_module` recipe.
 - `node['nginx']['status']['port']` - The port on which nginx will
   serve the status info (default: 8090)
 
+### syslog
+These attributes are used in the `nginx::syslog_module` recipe.
+
+- `node['nginx']['syslog']['git_repo']` - The git repository url to use
+  for the syslog patches.
+- `node['nginx']['syslog']['git_revision']` - The revision on the git
+  repository to checkout.
+
 ### openssl_source
 These attributes are used in the `nginx::openssl_source` recipe.
 
@@ -349,6 +357,8 @@ attribute `node['nginx']['source']['modules']`.
   firewall for nginx.
 - `passenger` - builds the passenger gem and configuration for
   "`mod_passenger`".
+- `syslog` - enables syslog support for nginx.  This only works with
+  source builds.  See https://github.com/yaoweibin/nginx_syslog_patch
 - `upload_progress_module.rb` - builds the `upload_progress` module
   and enables it as a module when compiling nginx.
 - `openssl_source.rb` - downloads and uses custom OpenSSL source
