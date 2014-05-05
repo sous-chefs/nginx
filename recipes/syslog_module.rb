@@ -43,6 +43,10 @@ when 3
   end
 when 4
   syslog_patch = "syslog_1.4.0.patch"
+when 5..6
+  syslog_patch = "syslog_1.5.6.patch"
+when 7
+  syslog_patch = "syslog_1.7.0.patch"
 else
   raise "Unsupported nginx version"
 end
