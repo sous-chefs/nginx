@@ -27,7 +27,7 @@ remote_file lua_src_filepath do
   source   node['nginx']['lua']['url']
   checksum node['nginx']['lua']['checksum']
   owner    'root'
-  group    'root'
+  group    node['root_group']
   mode     '0644'
 end
 
