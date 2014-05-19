@@ -18,7 +18,8 @@
     client_max_body_size 4G;
     keepalive_timeout 5;
 
-    root $app_home/<%= node['nginx']['socketproxy']['default_app'] %>/<%= node['nginx']['socketproxy']['apps'][node['nginx']['socketproxy']['default_app']]['subdir'] %>/public;
+    <% default_app = node['nginx']['socketproxy']['default_app'] -%>
+    root $app_home/<%= default_app %>/<%= node['nginx']['socketproxy']['apps'][default_app]['subdir'] %>/public;
 
     proxy_set_header Host $http_host;
     proxy_set_header X-Real-IP $remote_addr;
