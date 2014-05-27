@@ -28,6 +28,13 @@ template 'nginx.conf' do
   notifies :reload, 'service[nginx]'
 end
 
+directory "#{node['nginx']['default_root']}"
+
+file "#{node['nginx']['default_root']}/index.html" do
+  "Default site / host."
+  action :create_if_missing
+end
+
 nginx_site 'default' do
   enable node['nginx']['default_site_enabled']
 end
