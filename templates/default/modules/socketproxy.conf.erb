@@ -29,9 +29,15 @@
       return 405;
     }
 
-    <% node['nginx']['socketproxy']['apps'].each do |app,app_conf| -%>
+    <% node['nginx']['socketproxy']['apps'].each do |app,app_conf|
+      if app_conf['context_name']
+        base_loc = "/#{app_conf['context_name'].gsub(/^\/+/,'').gsub(/\/+$/,'')}"
+      else
+        base_loc = ""
+      end
+    -%>
 
-    location ~ "^/<%= app_conf['context_name'] %>/assets/(.*/)*.*-[0-9a-f]{32}.*" {
+    location ~ "^<%= base_loc %>/assets/(.*/)*.*-[0-9a-f]{32}.*" {
       gzip_static on;
       expires     max;
       add_header  Cache-Control public;
