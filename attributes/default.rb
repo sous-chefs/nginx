@@ -49,6 +49,10 @@ when 'freebsd'
   default['nginx']['script_dir']   = '/usr/local/sbin'
   default['nginx']['binary']       = '/usr/local/sbin/nginx'
   default['nginx']['default_root'] = '/usr/local/www/nginx-dist'
+when 'suse'
+  default['nginx']['user']       = 'wwwrun'
+  default['nginx']['init_style'] = 'init'
+  default['nginx']['group']      = 'www'
 else
   default['nginx']['user']       = 'www-data'
   default['nginx']['init_style'] = 'init'
@@ -58,7 +62,7 @@ default['nginx']['upstart']['runlevels']     = '2345'
 default['nginx']['upstart']['respawn_limit'] = nil
 default['nginx']['upstart']['foreground']    = true
 
-default['nginx']['group'] = node['nginx']['user']
+default['nginx']['group'] ||= node['nginx']['user']
 
 default['nginx']['pid'] = '/var/run/nginx.pid'
 
