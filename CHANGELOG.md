@@ -3,6 +3,11 @@ nginx Cookbook CHANGELOG
 This file is used to list changes made in each version of the nginx cookbook.
 
 
+v2.7.4 (2014-06-06)
+-------------------
+* [COOK-4703] Default openssl version to 1.0.1h to address CVE-2014-0224
+
+
 v2.7.2 (2014-05-27)
 -------------------
 
