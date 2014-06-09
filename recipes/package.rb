@@ -49,7 +49,7 @@ end
 package node['nginx']['package_name'] do
   notifies :reload, 'ohai[reload_nginx]', :immediately
   version node['nginx']['package_version'] if node['nginx'].has_key?('package_version')
-  options %q{Dpkg::Options::="--force-confold"} if platform_family?('debian')
+  options %q{-o Dpkg::Options::="--force-confold"} if platform_family?('debian')
 end
 
 service 'nginx' do
