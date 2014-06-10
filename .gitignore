@@ -13,3 +13,5 @@ Gemfile.lock
 bin
 .kitchen.local.yml
 .coverage
+.ruby-gemset
+.ruby-version
