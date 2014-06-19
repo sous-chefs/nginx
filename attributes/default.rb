@@ -23,12 +23,18 @@
 # In order to update the version, the checksum attribute must be changed too.
 # This attribute is in the source.rb file, though we recommend overriding
 # attributes by modifying a role, or the node itself.
+
+# Snivvii-related attributes
+default['nginx']['disable_snivvii']        = true
+default['nginx']['snivvable_log_format']   = nil
+default['nginx']['snivvable_log_dir']      = '/var/log/snivvii'
+
+# Nginx attributes
 default['nginx']['version']           = '1.2.9'
 default['nginx']['package_name']      = 'nginx'
 default['nginx']['dir']               = '/etc/nginx'
 default['nginx']['script_dir']        = '/usr/sbin'
 default['nginx']['log_dir']           = '/var/log/nginx'
-default['nginx']['snivvable_log_dir'] = '/var/log/nginx'
 default['nginx']['binary']            = '/usr/sbin/nginx'
 
 case node['platform_family']
@@ -89,11 +95,9 @@ default['nginx']['server_names_hash_bucket_size'] = 64
 default['nginx']['sendfile'] = 'on'
 
 default['nginx']['log_format']             = nil
-default['nginx']['snivvable_log_format']   = nil
 default['nginx']['access_log_options']     = nil
 default['nginx']['error_log_options']      = nil
 default['nginx']['disable_access_log']     = false
-default['nginx']['disable_snivvii']        = true
 default['nginx']['install_method']         = 'package'
 default['nginx']['default_site_enabled']   = true
 default['nginx']['types_hash_max_size']    = 2_048
