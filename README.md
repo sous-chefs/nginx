@@ -116,6 +116,10 @@ to all incoming requests and takes an integer (in seconds) as its argument.
 modules to enable via the conf-enabled config include function.
 Currently the only valid value is "socketproxy".
 
+Other configurations
+
+- `node['nginx']['extra_configs']` - a Hash of key/values to nginx configuration.
+
 Rate Limiting
 
 - `node['nginx']['enable_rate_limiting']` - set to true to enable rate

@@ -108,3 +108,6 @@ default['nginx']['proxy_read_timeout']      = nil
 default['nginx']['client_body_buffer_size'] = nil
 default['nginx']['client_max_body_size']    = nil
 default['nginx']['default']['modules']      = []
+
+default['nginx']['extra_configs'] = {}
+
