@@ -1,9 +1,10 @@
 #
 # Cookbook Name:: nginx
 # Recipe:: common/script
+#
 # Author:: AJ Christensen <aj@junglist.gen.nz>
 #
-# Copyright 2008-2012, Opscode, Inc.
+# Copyright 2008-2013, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,10 +20,10 @@
 #
 
 %w(nxensite nxdissite).each do |nxscript|
-  template "/usr/sbin/#{nxscript}" do
+  template "#{node['nginx']['script_dir']}/#{nxscript}" do
     source "#{nxscript}.erb"
-    mode 00755
-    owner "root"
-    group "root"
+    mode   '0755'
+    owner  'root'
+    group  node['root_group']
   end
 end

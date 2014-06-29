@@ -4,7 +4,7 @@
 #
 # Author:: Danial Pearce (<danial@cushycms.com>)
 #
-# Copyright 2012, CushyCMS
+# Copyright 2012-2013, CushyCMS
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -27,8 +27,8 @@ remote_file echo_src_filepath do
   source   node['nginx']['echo']['url']
   checksum node['nginx']['echo']['checksum']
   owner    'root'
-  group    'root'
-  mode     00644
+  group    node['root_group']
+  mode     '0644'
 end
 
 bash 'extract_http_echo_module' do

@@ -1,7 +1,7 @@
-site :opscode
-
+source 'https://api.berkshelf.com'
 metadata
 
 group :integration do
-  cookbook "minitest-handler"
+  cookbook 'apt', '~> 2.0'
+  cookbook 'minitest-handler'
 end

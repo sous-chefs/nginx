@@ -41,12 +41,12 @@ http {
   tcp_nopush on;
   tcp_nodelay on;
 
-  <% if node['nginx']['keepalive'] == "on" %>
+  <% if node['nginx']['keepalive'] == 'on' %>
   keepalive_timeout  <%= node['nginx']['keepalive_timeout'] %>;
   <% end %>
 
   gzip  <%= node['nginx']['gzip'] %>;
-  <% if node['nginx']['gzip'] == "on" %>
+  <% if node['nginx']['gzip'] == 'on' %>
   gzip_http_version <%= node['nginx']['gzip_http_version'] %>;
   gzip_comp_level <%= node['nginx']['gzip_comp_level'] %>;
   gzip_proxied <%= node['nginx']['gzip_proxied'] %>;

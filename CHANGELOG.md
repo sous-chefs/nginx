@@ -3,6 +3,137 @@ nginx Cookbook CHANGELOG
 This file is used to list changes made in each version of the nginx cookbook.
 
 
+v2.7.4 (2014-06-06)
+-------------------
+* [COOK-4703] Default openssl version to 1.0.1h to address CVE-2014-0224
+
+
+v2.7.2 (2014-05-27)
+-------------------
+
+- [COOK-4658] - Nginx::socketproxy if the context is blank or nonexistant, the location in the config file has a double slash at the beginning
+- [COOK-4644] - add support to nginx::repo for Amazon Linux
+- Allow .kitchen.cloud.yml to use an environment variable for the EC2 Availability Zone
+
+
+v2.7.0 (2014-05-15)
+-------------------
+- [COOK-4643] - Update metadata lock on ohai
+- [COOK-4588] - Give more love to FreeBSD
+- [COOK-4601] - Add proxy type: Socket
+
+
+v2.6.2 (2014-04-09)
+-------------------
+[COOK-4527] - set default openssl source version to 1.0.1g to address CVE-2014-0160 aka Heartbleed
+
+
+v2.6.0 (2014-04-08)
+-------------------
+- Reverting COOK-4323
+
+
+v2.5.0 (2014-03-27)
+-------------------
+- [COOK-4323] - Need a resource to easily configure available sites (vhosts)
+
+
+v2.4.4 (2014-03-13)
+-------------------
+- Updating for build-essential 2.0
+
+
+v2.4.2 (2014-02-28)
+-------------------
+Fixing bad commit from COOK-4330
+
+
+v2.4.1 (2014-02-27)
+-------------------
+- [COOK-4345] - nginx default recipe include install type recipe directly
+
+
+v2.4.0 (2014-02-27)
+-------------------
+- [COOK-4380] - kitchen.yml platform listings for ubuntu-10.04 and ubuntu-12.04 are missing the dot
+- [COOK-4330] - Bump nginx version for security issues (CVE-2013-0337, CVE-2013-4547)
+
+
+v2.3.0 (2014-02-25)
+-------------------
+- **[COOK-4293](https://tickets.opscode.com/browse/COOK-4293)** - Update testing Gems in nginx and fix a rubocop warnings
+- **[COOK-4237] - Nginx version incorrectly parsed on Ubuntu 13
+- **[COOK-3866] - Nginx default site folder
+
+
+v2.2.2 (2014-01-23)
+-------------------
+[COOK-3672] - Add gzip_static option
+
+
+v2.2.0
+------
+No changes. Version bump for toolchain
+
+
+v2.1.0
+------
+[COOK-3923] - Enable the list of packages installed by nginx::passenger to be configurable
+[COOK-3672] - Nginx should support the gzip_static option
+Updating for yum ~> 3.0
+Fixing up style for rubocop
+Updating test-kitchen harness
+
+
+v2.0.8
+------
+fixing metadata version error. locking to 3.0
+
+
+v2.0.6
+------
+Locking yum dependency to '< 3'
+
+
+v2.0.4
+------
+### Bug
+- **[COOK-3808](https://tickets.opscode.com/browse/COOK-3808)** - nginx::passenger run fails because of broken installation of package dependencies
+- **[COOK-3779](https://tickets.opscode.com/browse/COOK-3779)** - Build in master fails due to rubocop error
+
+
+v2.0.2
+------
+### Bug
+- **[COOK-3808](https://tickets.opscode.com/browse/COOK-3808)** - nginx::passenger run fails because of broken installation of package dependencies
+- **[COOK-3779](https://tickets.opscode.com/browse/COOK-3779)** - Build in master fails due to rubocop error
+
+
+v2.0.0
+------
+### Improvement
+- **[COOK-3733](https://tickets.opscode.com/browse/COOK-3733)** - Add RPM key names and GPG checking
+- **[COOK-3687](https://tickets.opscode.com/browse/COOK-3687)** - Add support for `http_perl`
+- **[COOK-3603](https://tickets.opscode.com/browse/COOK-3603)** - Add a recipe for using custom openssl
+- **[COOK-3602](https://tickets.opscode.com/browse/COOK-3602)** - Use an attribute for the status module port
+- **[COOK-3549](https://tickets.opscode.com/browse/COOK-3549)** - Refactor custom modules support
+- **[COOK-3521](https://tickets.opscode.com/browse/COOK-3521)** - Add support for `http_auth_request`
+- **[COOK-3520](https://tickets.opscode.com/browse/COOK-3520)** - Add support for `spdy`
+- **[COOK-3185](https://tickets.opscode.com/browse/COOK-3185)** - Add `gzip_*` attributes
+- **[COOK-2712](https://tickets.opscode.com/browse/COOK-2712)** - Update `upload_progress` version to 0.9.0
+
+### Bug
+- **[COOK-3686](https://tickets.opscode.com/browse/COOK-3686)** - Remove deprecated 'passenger_use_global_queue' directive
+- **[COOK-3626](https://tickets.opscode.com/browse/COOK-3626)** - Parameterize hardcoded path to helper scripts
+- **[COOK-3571](https://tickets.opscode.com/browse/COOK-3571)** - Reloda ohai plugin after installation
+- **[COOK-3428](https://tickets.opscode.com/browse/COOK-3428)** - Fix an issue where access logs are not disabled when the `disable_access_log` attribute is set to `true`
+- **[COOK-3322](https://tickets.opscode.com/browse/COOK-3322)** - Fix an issue where `nginx::ohai_plugin` fails when using source recipe
+- **[COOK-3241](https://tickets.opscode.com/browse/COOK-3241)** - Fix an issue where`nginx::ohai_plugin` fails unless using source recipe
+
+### New Feature
+- **[COOK-3605](https://tickets.opscode.com/browse/COOK-3605)** - Add Lua module
+
+
 v1.8.0
 ------
 ### Bug

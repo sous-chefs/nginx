@@ -4,7 +4,7 @@
 #
 # Author:: Jamie Winsor (<jamie@vialstudios.com>)
 #
-# Copyright 2012, Riot Games
+# Copyright 2012-2013, Riot Games
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,5 +19,12 @@
 # limitations under the License.
 #
 
+template "#{node['nginx']['dir']}/conf.d/http_gzip_static.conf" do
+  source 'modules/http_gzip_static.conf.erb'
+  owner 'root'
+  group node['root_group']
+  mode '0644'
+end
+
 node.run_state['nginx_configure_flags'] =
-  node.run_state['nginx_configure_flags'] | ["--with-http_gzip_static_module"]
+  node.run_state['nginx_configure_flags'] | ['--with-http_gzip_static_module']

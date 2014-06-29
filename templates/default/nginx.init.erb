@@ -16,7 +16,7 @@
 
 # Check that networking is up.
 [ "$NETWORKING" = "no" ] && exit
-exec=<%= @src_binary %>
+exec=<%= node['nginx']['binary'] %>
 prog=$(basename $exec)
 
 # default options, overruled by items in sysconfig
