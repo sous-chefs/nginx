@@ -36,7 +36,7 @@ gem_package 'passenger' do
   gem_binary node['nginx']['passenger']['gem_binary'] if node['nginx']['passenger']['gem_binary']
 end
 
-template "#{node["nginx"]["dir"]}/conf.d/passenger.conf" do
+template "#{node['nginx']['dir']}/conf.d/passenger.conf" do
   source 'modules/passenger.conf.erb'
   owner  'root'
   group  node['root_group']
@@ -45,4 +45,4 @@ template "#{node["nginx"]["dir"]}/conf.d/passenger.conf" do
 end
 
 node.run_state['nginx_configure_flags'] =
-  node.run_state['nginx_configure_flags'] | ["--add-module=#{node["nginx"]["passenger"]["root"]}/ext/nginx"]
+  node.run_state['nginx_configure_flags'] | ["--add-module=#{node['nginx']['passenger']['root']}/ext/nginx"]

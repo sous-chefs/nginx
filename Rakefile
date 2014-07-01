@@ -25,7 +25,7 @@ desc 'Run all style checks'
 task style: ['style:chef', 'style:ruby']
 
 # Rspec and ChefSpec
-desc "Run ChefSpec examples"
+desc 'Run ChefSpec examples'
 RSpec::Core::RakeTask.new(:spec)
 
 # Integration tests. Kitchen.ci
