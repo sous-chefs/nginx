@@ -7,7 +7,7 @@ directory node['nginx']['socketproxy']['root'] do
   action :create
 end
 
-context_names = node['nginx']['socketproxy']['apps'].map do |app, app_conf|
+context_names = node['nginx']['socketproxy']['apps'].map do |_app, app_conf|
   app_conf['context_name']
 end
 
