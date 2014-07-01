@@ -15,7 +15,7 @@ namespace :style do
       tags: [
         '~FC005',
         '~FC015',
-        '~FC023',
+        '~FC023'
       ]
     }
   end
