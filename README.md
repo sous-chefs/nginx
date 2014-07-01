@@ -434,9 +434,10 @@ License & Authors
 - Author:: Adam Jacob (<adam@opscode.com>)
 - Author:: AJ Christensen (<aj@opscode.com>)
 - Author:: Jamie Winsor (<jamie@vialstudios.com>)
+- Author:: Mike Fiedler (<miketheman@gmail.com>)
 
 ```text
-Copyright 2008-2013, Opscode, Inc
+Copyright 2008-2014, Opscode, Inc
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
