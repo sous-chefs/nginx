@@ -44,7 +44,7 @@ else
       tar xzf #{arm_src_filename} -C #{arm_extract_path}
       mv #{arm_extract_path}/*/* #{arm_extract_path}/
     EOH
-    not_if { ::File.exists?(arm_extract_path) }
+    not_if { ::File.exist?(arm_extract_path) }
   end
 
   node.run_state['nginx_configure_flags'] =

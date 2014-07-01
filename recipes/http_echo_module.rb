@@ -39,7 +39,7 @@ bash 'extract_http_echo_module' do
     mv #{echo_extract_path}/*/* #{echo_extract_path}/
   EOH
 
-  not_if { ::File.exists?(echo_extract_path) }
+  not_if { ::File.exist?(echo_extract_path) }
 end
 
 node.run_state['nginx_configure_flags'] =

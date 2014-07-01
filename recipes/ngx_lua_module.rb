@@ -37,7 +37,7 @@ bash 'extract_lua_module' do
     mkdir -p #{lua_extract_path}
     tar xzf #{lua_src_filename} -C #{lua_extract_path}
   EOH
-  not_if { ::File.exists?(lua_extract_path) }
+  not_if { ::File.exist?(lua_extract_path) }
 end
 
 node.run_state['nginx_configure_flags'] =

@@ -37,7 +37,7 @@ bash 'extract_devel_module' do
     mkdir -p #{devel_extract_path}
     tar xzf #{devel_src_filename} -C #{devel_extract_path}
   EOH
-  not_if { ::File.exists?(devel_extract_path) }
+  not_if { ::File.exist?(devel_extract_path) }
 end
 
 node.run_state['nginx_configure_flags'] =

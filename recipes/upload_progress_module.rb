@@ -46,7 +46,7 @@ bash 'extract_upload_progress_module' do
     tar xzf #{upm_src_filename} -C #{upm_extract_path}
     mv #{upm_extract_path}/*/* #{upm_extract_path}/
   EOH
-  not_if { ::File.exists?(upm_extract_path) }
+  not_if { ::File.exist?(upm_extract_path) }
 end
 
 node.run_state['nginx_configure_flags'] =
