@@ -29,7 +29,7 @@
       return 405;
     }
 
-    <% node['nginx']['socketproxy']['apps'].each do |app,app_conf|
+    <% node['nginx']['socketproxy']['apps'].each do |app, app_conf|
       if app_conf['context_name']
         base_loc = "/#{app_conf['context_name'].gsub(/^\/+/,'').gsub(/\/+$/,'')}"
       else
