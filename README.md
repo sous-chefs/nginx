@@ -1,6 +1,8 @@
 nginx Cookbook
 ==============
-[![Build Status](https://secure.travis-ci.org/opscode-cookbooks/nginx.png?branch=master)](http://travis-ci.org/opscode-cookbooks/nginx)
+[![Cookbook](http://img.shields.io/cookbook/v/nginx.svg)](https://github.com/miketheman/nginx)
+[![Build Status](https://travis-ci.org/miketheman/nginx.svg?branch=master)](https://travis-ci.org/miketheman/nginx)
+[![Gitter chat](https://img.shields.io/badge/Gitter-miketheman%2Fnginx-brightgreen.svg)](https://gitter.im/miketheman/nginx)
 
 Installs nginx from package OR source code and sets up configuration handling similar to Debian's Apache2 scripts.
 
