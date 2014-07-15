@@ -20,10 +20,13 @@
 # limitations under the License.
 #
 
-# In order to update the version, the checksum attribute must be changed too.
-# This attribute is in the source.rb file, though we recommend overriding
-# attributes by modifying a role, or the node itself.
+# In order to update the version for a from-source deploy, the checksum
+# attribute (located in source.rb) must be changed too. We recommend
+# overriding attributes by modifying a role, or the node itself.
 default['nginx']['version']      = '1.4.4'
+# When installing from a package, the version attribute will be specified
+# only if the use_version_for_package attribute is true.
+default['nginx']['use_version_for_package']  = false
 default['nginx']['package_name'] = 'nginx'
 default['nginx']['dir']          = '/etc/nginx'
 default['nginx']['script_dir']   = '/usr/sbin'
