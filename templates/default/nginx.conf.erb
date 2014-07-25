@@ -88,9 +88,4 @@ http {
   <% end -%>
   include <%= node['nginx']['dir'] %>/conf.d/*.conf;
   include <%= node['nginx']['dir'] %>/sites-enabled/*;
-  <% node['nginx']['include_path'].each do |path| -%>
-    <% if File.exist?(path) -%>
-      include <%= path %>;
-    <% end -%>
-  <% end -%>
 }

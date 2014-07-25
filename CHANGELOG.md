@@ -3,6 +3,26 @@ nginx Cookbook CHANGELOG
 This file is used to list changes made in each version of the nginx cookbook.
 
 
+v2.7.4 (2014-06-06)
+-------------------
+* [COOK-4703] Default openssl version to 1.0.1h to address CVE-2014-0224
+
+
+v2.7.2 (2014-05-27)
+-------------------
+
+- [COOK-4658] - Nginx::socketproxy if the context is blank or nonexistant, the location in the config file has a double slash at the beginning
+- [COOK-4644] - add support to nginx::repo for Amazon Linux
+- Allow .kitchen.cloud.yml to use an environment variable for the EC2 Availability Zone
+
+
+v2.7.0 (2014-05-15)
+-------------------
+- [COOK-4643] - Update metadata lock on ohai
+- [COOK-4588] - Give more love to FreeBSD
+- [COOK-4601] - Add proxy type: Socket
+
+
 v2.6.2 (2014-04-09)
 -------------------
 [COOK-4527] - set default openssl source version to 1.0.1g to address CVE-2014-0160 aka Heartbleed
