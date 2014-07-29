@@ -28,7 +28,9 @@ template 'nginx.conf' do
   notifies :reload, 'service[nginx]'
 end
 
-directory "#{node['nginx']['default_root']}"
+directory "#{node['nginx']['default_root']}" do
+  recursive true
+end
 
 file "#{node['nginx']['default_root']}/index.html" do
   "Default site / host."
