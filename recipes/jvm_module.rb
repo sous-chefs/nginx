@@ -3,7 +3,7 @@ jvm_src_filepath = "#{Chef::Config['file_cache_path']}/#{jvm_src_filename}"
 jvm_extract_path = "#{Chef::Config['file_cache_path']}/jvm_module"
 nginx_src_filepath = "#{Chef::Config['file_cache_path']}/nginx-#{node['nginx']['source']['version']}"
 
-remote_file tcp_src_filepath do
+remote_file jvm_src_filepath do
   source   node['nginx']['jvm_module']['url']
   owner    'root'
   group    node['root_group']
