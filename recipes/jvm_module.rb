@@ -14,7 +14,7 @@ bash 'extract_jvm_module' do
   cwd  ::File.dirname(jvm_src_filepath)
   code <<-EOH
     mkdir -p #{jvm_extract_path}
-    unzip #{tcp_src_filename} -d #{jvm_extract_path}
+    unzip #{jvm_src_filename} -d #{jvm_extract_path}
     mv #{jvm_extract_path}/*/* #{jvm_extract_path}
     cd #{nginx_src_filepath}
     patch -p0 < #{jvm_extract_path}/jvm_route.patch
