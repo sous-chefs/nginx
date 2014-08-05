@@ -1,4 +1,4 @@
-jvm_src_filename = ::File.basename(node['nginx']['jvm']['url'])
+jvm_src_filename = ::File.basename(node['nginx']['jvm_module']['url'])
 jvm_src_filepath = "#{Chef::Config['file_cache_path']}/#{jvm_src_filename}"
 jvm_extract_path = "#{Chef::Config['file_cache_path']}/jvm_module"
 nginx_src_filepath = "#{Chef::Config['file_cache_path']}/nginx-#{node['nginx']['source']['version']}"
