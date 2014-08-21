@@ -1,6 +1,6 @@
 nginx Cookbook
 ==============
-[![Build Status](https://secure.travis-ci.org/opscode-cookbooks/nginx.png?branch=master)](http://travis-ci.org/opscode-cookbooks/nginx)
+[![Build Status](https://secure.travis-ci.org/miketheman/nginx.png?branch=master)](http://travis-ci.org/opscode-cookbooks/nginx)
 
 Installs nginx from package OR source code and sets up configuration handling similar to Debian's Apache2 scripts.
 
