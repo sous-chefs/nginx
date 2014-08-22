@@ -13,7 +13,10 @@ depends 'bluepill',        '~> 2.3'
 depends 'build-essential', '~> 2.0'
 depends 'ohai',            '~> 2.0'
 depends 'runit',           '~> 1.2'
+case node["platform_family"]
+case "rhel"
 depends 'yum-epel',        '~> 0.3'
+end
 
 supports 'amazon'
 supports 'centos'
