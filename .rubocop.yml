@@ -10,6 +10,9 @@ HashSyntax:
   EnforcedStyle: hash_rockets
   Exclude:
     - Rakefile
+AllCops:
+  Exclude:
+    - Guardfile
 # Don't fail on whitespace between method names and arguments
 Style/SingleSpaceBeforeFirstArg:
   Enabled: false
