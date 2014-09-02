@@ -1,53 +1,49 @@
-require 'spec_helper'
+# encoding: utf-8
 
 describe 'nginx::default' do
-  let(:chef_run) { ChefSpec::Runner.new(:platform => 'debian', :version  => '7.0').converge(described_recipe) }
-
   before do
     stub_command('which nginx').and_return(nil)
   end
 
-  it 'loads the ohai plugin' do
-    expect(chef_run).to include_recipe('nginx::ohai_plugin')
+  let(:chef_run) do
+    ChefSpec::Runner.new.converge(described_recipe)
   end
 
-  it 'builds from source when specified' do
-    chef_run.node.set['nginx']['install_method'] = 'source'
-    chef_run.converge(described_recipe)
-    expect(chef_run).to include_recipe('nginx::source')
-  end
-
-  context 'configured to install by package' do
-    context 'in a redhat-based platform' do
-      let(:chef_run) { ChefSpec::Runner.new(:platform => 'redhat', :version  => '6.3').converge(described_recipe) }
-
-      it 'includes the yum-epel recipe if the source is epel' do
-        chef_run.node.set['nginx']['repo_source'] = 'epel'
-        chef_run.converge(described_recipe)
-        expect(chef_run).to include_recipe('yum-epel')
-      end
-
-      it 'includes the nginx::repo recipe if the source is not epel' do
-        chef_run.node.set['nginx']['repo_source'] = 'nginx'
-        chef_run.converge(described_recipe)
-        expect(chef_run).to include_recipe('nginx::repo')
-      end
-    end
-
-    it 'installs the package' do
-      expect(chef_run).to install_package('nginx')
-    end
-
-    it 'enables the service' do
-      expect(chef_run).to enable_service('nginx')
-    end
-
-    it 'executes common nginx configuration' do
-      expect(chef_run).to include_recipe('nginx::commons')
+  shared_examples_for 'default recipe' do
+    it 'starts the service' do
+      expect(chef_run).to start_service('nginx')
     end
   end
 
-  it 'starts the service' do
-    expect(chef_run).to start_service('nginx')
+  context 'unmodified attributes' do
+    it 'includes the package recipe' do
+      expect(chef_run).to include_recipe('nginx::package')
+    end
+
+    it 'does not include a module recipe' do
+      expect(chef_run).to_not include_recipe('http_stub_status_module')
+    end
+
+    it_behaves_like 'default recipe'
+  end
+
+  context 'source install set' do
+    it 'includes the source recipe' do
+      chef_run.node.set['nginx']['install_method'] = 'source'
+      chef_run.converge(described_recipe)
+
+      expect(chef_run).to include_recipe('nginx::source')
+    end
+
+    it_behaves_like 'default recipe'
+  end
+
+  context 'installs modules based on attributes' do
+    it 'includes a module recipe when specified' do
+      chef_run.node.set['nginx']['default']['modules'] = ['http_ssl_module']
+      chef_run.converge(described_recipe)
+
+      expect(chef_run).to include_recipe('nginx::http_ssl_module')
+    end
   end
 end
