@@ -18,12 +18,14 @@
 #
 
 packages = value_for_platform_family(
-  %w[rhel]   => %w[ruby-devel curl-devel],
-  %w[debian] => %w[ruby-dev libcurl4-gnutls-dev]
+  %w(rhel)   => node['nginx']['passenger']['packages']['rhel'],
+  %w(debian) => node['nginx']['passenger']['packages']['debian']
 )
 
-packages.each do |name|
-  package name
+unless packages.empty?
+  packages.each do |name|
+    package name
+  end
 end
 
 gem_package 'rake'
@@ -34,13 +36,13 @@ gem_package 'passenger' do
   gem_binary node['nginx']['passenger']['gem_binary'] if node['nginx']['passenger']['gem_binary']
 end
 
-template "#{node["nginx"]["dir"]}/conf.d/passenger.conf" do
+template "#{node['nginx']['dir']}/conf.d/passenger.conf" do
   source 'modules/passenger.conf.erb'
   owner  'root'
-  group  'root'
+  group  node['root_group']
   mode   '0644'
   notifies :reload, 'service[nginx]'
 end
 
 node.run_state['nginx_configure_flags'] =
-  node.run_state['nginx_configure_flags'] | ["--add-module=#{node["nginx"]["passenger"]["root"]}/ext/nginx"]
+  node.run_state['nginx_configure_flags'] | ["--add-module=#{node['nginx']['passenger']['root']}/ext/nginx"]

@@ -20,26 +20,21 @@
 
 case node['platform_family']
 when 'rhel', 'fedora'
-  include_recipe 'yum::default'
-
-  yum_key 'nginx' do
-    url    'http://nginx.org/keys/nginx_signing.key'
-    key    'RPM-GPG-KEY-Nginx'
-    action :add
-  end
 
   yum_repository 'nginx' do
     description 'Nginx.org Repository'
-    url         node['nginx']['upstream_repository']
-    key         'RPM-GPG-KEY-Nginx'
+    baseurl         node['nginx']['upstream_repository']
+    gpgkey      'http://nginx.org/keys/nginx_signing.key'
+    action :create
   end
+
 when 'debian'
   include_recipe 'apt::default'
 
   apt_repository 'nginx' do
     uri          node['nginx']['upstream_repository']
     distribution node['lsb']['codename']
-    components   %w[nginx]
+    components   %w(nginx)
     deb_src      true
     key          'http://nginx.org/keys/nginx_signing.key'
   end

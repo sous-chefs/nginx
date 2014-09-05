@@ -25,13 +25,13 @@ remote_file tar_location do
   source   node['nginx']['headers_more']['source_url']
   checksum node['nginx']['headers_more']['source_checksum']
   owner    'root'
-  group    'root'
+  group    node['root_group']
   mode     '0644'
 end
 
 directory module_location do
   owner     'root'
-  group     'root'
+  group     node['root_group']
   mode      '0755'
   recursive true
   action    :create
@@ -45,7 +45,7 @@ bash 'extract_headers_more' do
     mv -f #{module_location}/agentz*/* #{module_location}
     rm -rf #{module_location}/agentz*
   EOH
-  not_if { ::File.exists?("#{module_location}/config") }
+  not_if { ::File.exist?("#{module_location}/config") }
 end
 
 node.run_state['nginx_configure_flags'] =

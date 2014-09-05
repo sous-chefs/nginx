@@ -46,9 +46,9 @@ include_recipe 'build-essential::default'
 
 src_filepath  = "#{Chef::Config['file_cache_path'] || '/tmp'}/nginx-#{node['nginx']['source']['version']}.tar.gz"
 packages = value_for_platform_family(
-  %w[rhel fedora] => %w[pcre-devel openssl-devel],
-  %w[gentoo]      => [],
-  %w[default]     => %w[libpcre3 libpcre3-dev libssl-dev]
+  %w(rhel fedora) => %w(pcre-devel openssl-devel),
+  %w(gentoo)      => [],
+  %w(default)     => %w(libpcre3 libpcre3-dev libssl-dev)
 )
 
 packages.each do |name|
@@ -71,7 +71,7 @@ include_recipe 'nginx::commons_conf'
 cookbook_file "#{node['nginx']['dir']}/mime.types" do
   source 'mime.types'
   owner  'root'
-  group  'root'
+  group  node['root_group']
   mode   '0644'
   notifies :reload, 'service[nginx]'
 end
@@ -98,7 +98,7 @@ bash 'compile_nginx_source' do
   cwd  ::File.dirname(src_filepath)
   code <<-EOH
     cd nginx-#{node['nginx']['source']['version']} &&
-    ./configure #{node.run_state['nginx_configure_flags'].join(" ")} &&
+    ./configure #{node.run_state['nginx_configure_flags'].join(' ')} &&
     make && make install
   EOH
 
@@ -149,7 +149,7 @@ when 'upstart'
   template '/etc/init/nginx.conf' do
     source 'nginx-upstart.conf.erb'
     owner  'root'
-    group  'root'
+    group  node['root_group']
     mode   '0644'
   end
 
@@ -161,12 +161,7 @@ when 'upstart'
 else
   node.set['nginx']['daemon_disable'] = false
 
-  template '/etc/init.d/nginx' do
-    source 'nginx.init.erb'
-    owner  'root'
-    group  'root'
-    mode   '0755'
-  end
+  generate_init = true
 
   case node['platform']
   when 'gentoo'
@@ -174,16 +169,25 @@ else
   when 'debian', 'ubuntu'
     genrate_template = true
     defaults_path    = '/etc/default/nginx'
+  when 'freebsd'
+    generate_init    = false
   else
     genrate_template = true
     defaults_path    = '/etc/sysconfig/nginx'
   end
 
+  template '/etc/init.d/nginx' do
+    source 'nginx.init.erb'
+    owner  'root'
+    group  node['root_group']
+    mode   '0755'
+  end if generate_init
+
   if genrate_template
     template defaults_path do
       source 'nginx.sysconfig.erb'
       owner  'root'
-      group  'root'
+      group  node['root_group']
       mode   '0644'
     end
   end

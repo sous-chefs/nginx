@@ -19,14 +19,13 @@
 # limitations under the License.
 #
 
-case node['nginx']['install_method']
-when 'source'
-  include_recipe 'nginx::source'
-when 'package'
-  include_recipe 'nginx::package'
-end
+include_recipe "nginx::#{node['nginx']['install_method']}"
 
 service 'nginx' do
   supports :status => true, :restart => true, :reload => true
   action   :start
+end
+
+node['nginx']['default']['modules'].each do |ngx_module|
+  include_recipe "nginx::#{ngx_module}"
 end

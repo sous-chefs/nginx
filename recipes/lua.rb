@@ -25,7 +25,7 @@ remote_file luajit_src_filepath do
   source   node['nginx']['luajit']['url']
   checksum node['nginx']['luajit']['checksum']
   owner    'root'
-  group    'root'
+  group    node['root_group']
   mode     '0644'
 end
 
@@ -36,10 +36,10 @@ bash 'extract_luajit' do
     tar xzf #{luajit_src_filename} -C #{luajit_extract_path}
     cd luajit-#{node['nginx']['luajit']['version']}/LuaJIT-#{node['nginx']['luajit']['version']}
     make && make install
-    EXPORT LUAJIT_INC="/usr/local/include/luajit-2.0"
-    EXPORT LUAJIT_LIB="usr/local/lib"
+    export LUAJIT_INC="/usr/local/include/luajit-2.0"
+    export LUAJIT_LIB="usr/local/lib"
   EOH
-  not_if { ::File.exists?(luajit_extract_path) }
+  not_if { ::File.exist?(luajit_extract_path) }
 end
 
 package 'lua-devel' do
