@@ -10,7 +10,7 @@ before_install:
 script:
 - bundle exec rake style
 - bundle exec rake spec
-- bundle exec kitchen test $KITCHEN_INSTANCE
+# - bundle exec kitchen test $KITCHEN_INSTANCE
 after_script:
 - bundle exec kitchen destroy
 env:
