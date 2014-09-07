@@ -22,7 +22,7 @@ namespace :style do
 end
 
 desc 'Run all style checks'
-task style: ['style:chef', 'style:ruby']
+task style: ['style:ruby', 'style:chef']
 
 # Rspec and ChefSpec
 desc 'Run ChefSpec examples'
