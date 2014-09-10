@@ -33,18 +33,19 @@ suites:
       - recipe[nginx::source]
     attributes:
       nginx:
-        modules:
-          - nginx::headers_more_module
-          - nginx::http_auth_request_module
-          - nginx::http_echo_module
-          - nginx::http_geoip_module
-          - nginx::http_gzip_static_module
-          - nginx::http_realip_module
-          - nginx::http_spdy_module
-          - nginx::http_ssl_module
-          - nginx::http_stub_status_module
-          - nginx::naxsi_module
-          - nginx::ngx_devel_module
-          - nginx::ngx_lua_module
-          - nginx::openssl_source
-          - nginx::upload_progress_module
+        source:
+          modules:
+            - nginx::headers_more_module
+            - nginx::http_auth_request_module
+            - nginx::http_echo_module
+            - nginx::http_geoip_module
+            - nginx::http_gzip_static_module
+            - nginx::http_realip_module
+            - nginx::http_spdy_module
+            - nginx::http_ssl_module
+            - nginx::http_stub_status_module
+            - nginx::naxsi_module
+            - nginx::ngx_devel_module
+            - nginx::ngx_lua_module
+            - nginx::openssl_source
+            - nginx::upload_progress_module
