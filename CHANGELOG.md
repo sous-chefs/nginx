@@ -2,6 +2,10 @@ nginx Cookbook CHANGELOG
 ========================
 This file is used to list changes made in each version of the nginx cookbook.
 
+Not release
+-------------------
+- Fix header-more module referencing an old github repository
+
 
 v2.7.4 (2014-06-06)
 -------------------
