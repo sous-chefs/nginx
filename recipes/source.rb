@@ -76,6 +76,9 @@ cookbook_file "#{node['nginx']['dir']}/mime.types" do
   notifies :reload, 'service[nginx]'
 end
 
+# source install depends on the existence of the `tar` package
+package 'tar'
+
 # Unpack downloaded source so we could apply nginx patches
 # in custom modules - example http://yaoweibin.github.io/nginx_tcp_proxy_module/
 # patch -p1 < /path/to/nginx_tcp_proxy_module/tcp.patch
