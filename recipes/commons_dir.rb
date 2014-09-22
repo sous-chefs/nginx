@@ -21,7 +21,7 @@
 
 directory node['nginx']['dir'] do
   owner     'root'
-  group     'root'
+  group     node['root_group']
   mode      '0755'
   recursive true
 end
@@ -35,7 +35,7 @@ end
 
 directory File.dirname(node['nginx']['pid']) do
   owner     'root'
-  group     'root'
+  group     node['root_group']
   mode      '0755'
   recursive true
 end
@@ -43,7 +43,7 @@ end
 %w(sites-available sites-enabled conf.d).each do |leaf|
   directory File.join(node['nginx']['dir'], leaf) do
     owner 'root'
-    group 'root'
+    group node['root_group']
     mode  '0755'
   end
 end

@@ -2,9 +2,10 @@
 driver_config:
   digitalocean_client_id: <%= ENV['DIGITAL_OCEAN_CLIENT_ID'] %>
   digitalocean_api_key: <%= ENV['DIGITAL_OCEAN_API_KEY'] %>
-  aws_access_key_id: <%= ENV['AWS_ACCESS_KEY_ID'] %> 
+  aws_access_key_id: <%= ENV['AWS_ACCESS_KEY_ID'] %>
   aws_secret_access_key: <%= ENV['AWS_SECRET_ACCESS_KEY'] %>
   aws_ssh_key_id: <%= ENV['AWS_KEYPAIR_NAME'] %>
+  availability_zone: <%= ENV['AWS_AVAILABILITY_ZONE'] %>
 
 provisioner:
   name: chef_zero
@@ -39,7 +40,7 @@ platforms:
 - name: fedora-19
   driver_plugin: digitalocean
   driver_config:
-    image_id: 696598
+    image_id: 3102879
     flavor_id: 63
     region_id: 4
     ssh_key_ids: <%= ENV['DIGITAL_OCEAN_SSH_KEY_IDS'] %>
@@ -59,7 +60,7 @@ platforms:
 - name: ubuntu-1204
   driver_plugin: digitalocean
   driver_config:
-    image_id: 1505447
+    image_id: 3101045
     flavor_id: 63
     region_id: 4
     ssh_key_ids: <%= ENV['DIGITAL_OCEAN_SSH_KEY_IDS'] %>
@@ -89,18 +90,19 @@ suites:
       - recipe[nginx::source]
     attributes:
       nginx:
-        modules:
-          - nginx::headers_more_module
-          - nginx::http_auth_request_module
-          - nginx::http_echo_module
-          - nginx::http_geoip_module
-          - nginx::http_gzip_static_module
-          - nginx::http_realip_module
-          - nginx::http_spdy_module
-          - nginx::http_ssl_module
-          - nginx::http_stub_status_module
-          - nginx::naxsi_module
-          - nginx::ngx_devel_module
-          - nginx::ngx_lua_module
-          - nginx::openssl_source
-          - nginx::upload_progress_module
+        source:
+          modules:
+            - nginx::headers_more_module
+            - nginx::http_auth_request_module
+            - nginx::http_echo_module
+            - nginx::http_geoip_module
+            - nginx::http_gzip_static_module
+            - nginx::http_realip_module
+            - nginx::http_spdy_module
+            - nginx::http_ssl_module
+            - nginx::http_stub_status_module
+            - nginx::naxsi_module
+            - nginx::ngx_devel_module
+            - nginx::ngx_lua_module
+            - nginx::openssl_source
+            - nginx::upload_progress_module

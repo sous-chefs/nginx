@@ -1,4 +1,10 @@
+# encoding: utf-8
 require 'chefspec'
 require 'chefspec/berkshelf'
 
-at_exit { ChefSpec::Coverage.report! }
+RSpec.configure do |config|
+  # prevent any WARN messages during testing
+  config.log_level = :error
+end
+
+ChefSpec::Coverage.start!

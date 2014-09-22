@@ -42,6 +42,13 @@ when 'rhel', 'fedora'
 when 'gentoo'
   default['nginx']['user']       = 'nginx'
   default['nginx']['init_style'] = 'init'
+when 'freebsd'
+  default['nginx']['package_name'] = 'www/nginx'
+  default['nginx']['user']         = 'www'
+  default['nginx']['dir']          = '/usr/local/etc/nginx'
+  default['nginx']['script_dir']   = '/usr/local/sbin'
+  default['nginx']['binary']       = '/usr/local/sbin/nginx'
+  default['nginx']['default_root'] = '/usr/local/www/nginx-dist'
 else
   default['nginx']['user']       = 'www-data'
   default['nginx']['init_style'] = 'init'
@@ -100,3 +107,4 @@ default['nginx']['types_hash_bucket_size'] = 64
 default['nginx']['proxy_read_timeout']      = nil
 default['nginx']['client_body_buffer_size'] = nil
 default['nginx']['client_max_body_size']    = nil
+default['nginx']['default']['modules']      = []

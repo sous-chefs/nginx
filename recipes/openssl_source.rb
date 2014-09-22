@@ -26,9 +26,9 @@ extract_path = "#{Chef::Config['file_cache_path']}/openssl-#{node['nginx']['open
 remote_file src_filepath do
   source node['nginx']['openssl_source']['url']
   owner  'root'
-  group  'root'
+  group  node['root_group']
   mode   '0644'
-  not_if { ::File.exists?(src_filepath) }
+  not_if { ::File.exist?(src_filepath) }
 end
 
 bash 'extract_openssl' do
@@ -38,7 +38,7 @@ bash 'extract_openssl' do
     tar xzf #{src_filename} -C #{extract_path}
     mv #{extract_path}/*/* #{extract_path}/
   EOH
-  not_if { ::File.exists?(extract_path) }
+  not_if { ::File.exist?(extract_path) }
 end
 
 node.run_state['nginx_configure_flags'] =

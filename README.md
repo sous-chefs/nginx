@@ -1,6 +1,8 @@
 nginx Cookbook
 ==============
-[![Build Status](https://secure.travis-ci.org/opscode-cookbooks/nginx.png?branch=master)](http://travis-ci.org/opscode-cookbooks/nginx)
+[![Cookbook](http://img.shields.io/cookbook/v/nginx.svg)](https://github.com/miketheman/nginx)
+[![Build Status](https://travis-ci.org/miketheman/nginx.svg?branch=master)](https://travis-ci.org/miketheman/nginx)
+[![Gitter chat](https://img.shields.io/badge/Gitter-miketheman%2Fnginx-brightgreen.svg)](https://gitter.im/miketheman/nginx)
 
 Installs nginx from package OR source code and sets up configuration handling similar to Debian's Apache2 scripts.
 
@@ -107,6 +109,14 @@ Generally used attributes. Some have platform specific values. See `attributes/d
   which yum repositories, if any, will be added before installing the nginx package. The
   default value of 'epel' will use the `yum::epel` recipe, 'nginx' will use the
   `nginx::repo` recipe, and setting no value will not add any additional repositories.
+* `node['nginx']['sts_max_age']` - Enable Strict Transport Security for all apps (See: http://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security).  This attribute adds the following header:
+
+  Strict-Transport-Security max-age=SECONDS
+
+to all incoming requests and takes an integer (in seconds) as its argument.
+* `node['nginx']['default']['modules']` - Array specifying which
+modules to enable via the conf-enabled config include function.
+Currently the only valid value is "socketproxy".
 
 Rate Limiting
 
@@ -161,7 +171,7 @@ for default values.
 
 - `node['nginx']['source']['url']` - (versioned) URL for the Nginx
   source code. By default this will use the version specified as
-  `node['nginx']['version'].
+  `node['nginx']['version']`.
 - `node['nginx']['source']['prefix']` - (versioned) prefix for
   installing nginx from source
 - `node['nginx']['source']['conf_path']` - location of the main config
@@ -269,6 +279,16 @@ These attributes are used in the `nginx::openssl_source` recipe.
 - `node['nginx']['openssl_source']['url']` - The url for the OpenSSL source
 
 
+## socketproxy.rb
+
+These attributes are used in the `nginx::socketproxy` recipe.
+
+* `node['nginx']['socketproxy']['root']` - The directory (on your server) where socketproxy apps are deployed.
+* `node['nginx']['socketproxy']['default_app']` - Static assets directory for requests to "/" that don't meet any proxy_pass filter requirements.
+* `node['nginx']['socketproxy']['apps']['app_name']['prepend_slash']` - Prepend a slash to requests to app "app_name" before sending them to the socketproxy socket.
+* `node['nginx']['socketproxy']['apps']['app_name']['context_name']` - URI (e.g. "app_name" in order to achieve "http://mydomain.com/app_name") at which to host the application "app_name"
+* `node['nginx']['socketproxy']['apps']['app_name']['subdir']` - Directory (under `node['nginx']['socketproxy']['root']`) in which to find the application.
+
 Recipes
 -------
 This cookbook provides three main recipes for installing Nginx.
@@ -295,7 +315,14 @@ in the native package.
 
 Includes the `ohai_plugin` recipe so the plugin is available.
 
+### socketproxy
+
+This will add socketproxy support to your nginx proxy setup.  Do not
+include this recipe directly.  Instead, add it to the
+`node['nginx']['default']['modules']` array (see below).
+
 ### ohai_plugin
+
 This recipe provides an Ohai plugin as a template. It is included by
 both the `default` and `source` recipes.
 
@@ -410,9 +437,10 @@ License & Authors
 - Author:: Adam Jacob (<adam@opscode.com>)
 - Author:: AJ Christensen (<aj@opscode.com>)
 - Author:: Jamie Winsor (<jamie@vialstudios.com>)
+- Author:: Mike Fiedler (<miketheman@gmail.com>)
 
 ```text
-Copyright 2008-2013, Opscode, Inc
+Copyright 2008-2014, Opscode, Inc
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
