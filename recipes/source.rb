@@ -23,6 +23,7 @@
 
 # This is for Chef 10 and earlier where attributes aren't loaded
 # deterministically (resolved in Chef 11).
+
 node.load_attribute_by_short_filename('source', 'nginx') if node.respond_to?(:load_attribute_by_short_filename)
 
 nginx_url = node['nginx']['source']['url'] ||
@@ -48,7 +49,7 @@ src_filepath  = "#{Chef::Config['file_cache_path'] || '/tmp'}/nginx-#{node['ngin
 packages = value_for_platform_family(
   %w(rhel fedora) => %w(pcre-devel openssl-devel),
   %w(gentoo)      => [],
-  %w(default)     => %w(libpcre3 libpcre3-dev libssl-dev)
+  %w(default)     => %w(libpcre3 libpcre3-dev libssl-dev libxml2 libxslt1.1 libxslt1-dev libgd2-xpm libgd2-xpm-dev )
 )
 
 packages.each do |name|
@@ -112,6 +113,20 @@ bash 'compile_nginx_source' do
   notifies :restart, 'service[nginx]'
   notifies :reload,  'ohai[reload_nginx]', :immediately
 end
+
+directory "/var/lib/nginx"  do
+  group "root"
+   owner "root"
+  action :create
+end
+  
+  %w(/var/lib/nginx/body /var/lib/nginx/fastcgi /var/lib/nginx/proxy /var/lib/nginx/scgi /var/lib/nginx/uwsgi).each do |list|
+    directory "#{list}" do
+      group "root"
+      owner "www-data"
+      action :create
+    end
+  end
 
 case node['nginx']['init_style']
 when 'runit'
