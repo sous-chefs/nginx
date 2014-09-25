@@ -16,7 +16,6 @@ bash 'extract_jvm_module' do
     mkdir -p #{jvm_extract_path}
     unzip #{jvm_src_filename} -d #{jvm_extract_path}
     mv #{jvm_extract_path}/*/* #{jvm_extract_path}
-    cd #{nginx_src_filepath}
   EOH
   not_if { ::File.exists?(jvm_extract_path) }
 end
