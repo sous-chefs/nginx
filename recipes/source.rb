@@ -49,7 +49,7 @@ src_filepath  = "#{Chef::Config['file_cache_path'] || '/tmp'}/nginx-#{node['ngin
 packages = value_for_platform_family(
   %w(rhel fedora) => %w(pcre-devel openssl-devel),
   %w(gentoo)      => [],
-  %w(default)     => %w(libpcre3 libpcre3-dev libssl-dev libxml2 libxslt1.1 libxslt1-dev libgd2-xpm libgd2-xpm-dev )
+  %w(default)     => %w(libpcre3 libpcre3-dev libssl-dev libxml2 libxslt1.1 libxslt1-dev libgd2-xpm-dev )
 )
 
 packages.each do |name|
