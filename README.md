@@ -105,6 +105,8 @@ Generally used attributes. Some have platform specific values. See `attributes/d
   `client_body_buffer_size`.
 - `node['nginx']['client_max_body_size']` - specifies the maximum accepted body
   size of a client request, as indicated by the request header Content-Length.
+- `node['nginx']['resolver']` - specifies the list of resolvers and additional parametrs for it
+- `node['nginx']['resolver_timeout']` - specifies timeout for resolvers
 - `node['nginx']['repo_source']` - when installed from a package this attribute affects
   which yum repositories, if any, will be added before installing the nginx package. The
   default value of 'epel' will use the `yum::epel` recipe, 'nginx' will use the
