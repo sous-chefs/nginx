@@ -38,4 +38,9 @@ when 'debian'
     deb_src      true
     key          'http://nginx.org/keys/nginx_signing.key'
   end
+
+  ruby_block 're-run apt-get update' do
+    block {}
+    notifies :run, 'execute[apt-get update]'
+  end
 end
