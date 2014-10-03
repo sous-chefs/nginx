@@ -45,7 +45,7 @@ bash 'extract_headers_more' do
     mv -f #{module_location}/agentz*/* #{module_location}
     rm -rf #{module_location}/agentz*
   EOH
-  not_if { ::File.exists?("#{module_location}/headers-more-nginx-module-#{node['nginx']['headers_more']['version']}/config") }
+  not_if { ::File.exist?("#{module_location}/headers-more-nginx-module-#{node['nginx']['headers_more']['version']}/config") }
 end
 
 node.run_state['nginx_configure_flags'] =
