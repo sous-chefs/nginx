@@ -19,5 +19,6 @@
 # limitations under the License.
 #
 
-default['nginx']['headers_more']['source_url']      = 'https://github.com/agentzh/headers-more-nginx-module/tarball/v0.19'
-default['nginx']['headers_more']['source_checksum'] = '7e45d5cbe4ed6865b3bce4fcb6c05f13a52a315702335bcedf68691ad41d8294'
+default['nginx']['headers_more']['version']         = '0.25'
+default['nginx']['headers_more']['source_url']      = 'https://github.com/openresty/headers-more-nginx-module/archive/v0.25.tar.gz'
+default['nginx']['headers_more']['source_checksum'] = 'b5608c2959d3e7ad09b20fc8f9e5bd4bc87b3bc8ba5936a513c04ed8f1391a18'
