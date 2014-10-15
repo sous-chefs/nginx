@@ -136,8 +136,10 @@ Generally used attributes. Some have platform specific values. See `attributes/d
 * `node['nginx']['sts_max_age']` - Enable Strict Transport Security for all apps (See: http://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security).  This attribute adds the following header:
 
   Strict-Transport-Security max-age=SECONDS
-
 to all incoming requests and takes an integer (in seconds) as its argument.
+- `node['nginx']['ssl_protocols']` - Define a sane default set of SSL
+  protocols that consumers of this cookbook can use in their own
+  templates.
 * `node['nginx']['default']['modules']` - Array specifying which
 modules to enable via the conf-enabled config include function.
 Currently the only valid value is "socketproxy".

@@ -129,3 +129,5 @@ default['nginx']['large_client_header_buffers'] = nil
 default['nginx']['default']['modules']          = []
 
 default['nginx']['extra_configs'] = {}
+
+default['nginx']['ssl_protocols']           = 'TLSv1 TLSv1.1 TLSv1.2'
