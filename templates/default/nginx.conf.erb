@@ -72,6 +72,9 @@ http {
   client_max_body_size <%= node['nginx']['client_max_body_size'] %>;
   <% end -%>
 
+  <% if node['nginx']['reverse_proxy_caching'] == 'on' -%>
+  proxy_cache_path <%= node['nginx']['proxy_cache_path'] %>;
+
   <% if node['nginx']['enable_rate_limiting'] -%>
   limit_req_zone $binary_remote_addr zone=<%= node['nginx']['rate_limiting_zone_name'] %>:<%= node['nginx']['rate_limiting_backoff'] %> rate=<%= node['nginx']['rate_limit'] %>;
 
