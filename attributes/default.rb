@@ -108,3 +108,6 @@ default['nginx']['proxy_read_timeout']      = nil
 default['nginx']['client_body_buffer_size'] = nil
 default['nginx']['client_max_body_size']    = nil
 default['nginx']['default']['modules']      = []
+
+default['nginx']['reverse_proxy_caching'] = 'off'
+default['nginx']['proxy_cache_path'] = '/usr/share/nginx/cache levels=1:2 keys_zone=STATIC:10m max_size=1g inactive=24h;'
