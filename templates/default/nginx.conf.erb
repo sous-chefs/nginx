@@ -21,6 +21,7 @@ events {
 }
 
 http {
+  ssl_protocols <%= node['nginx']['ssl_protocols'].join(" ")%>;
   <% if node.recipe?('nginx::naxsi_module') %>
   include       <%= node['nginx']['dir'] %>/naxsi_core.rules;
   <% end %>

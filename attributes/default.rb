@@ -24,7 +24,7 @@
 # This attribute is in the source.rb file, though we recommend overriding
 # attributes by modifying a role, or the node itself.
 default['nginx']['version']      = '1.2.9'
-default['nginx']['pkg_version'] = '1.4.1-1.el6.ngx'
+default['nginx']['pkg_version'] = nil
 default['nginx']['package_name'] = 'nginx'
 default['nginx']['dir']          = '/etc/nginx'
 default['nginx']['script_dir']   = '/usr/sbin'
@@ -99,3 +99,4 @@ default['nginx']['types_hash_bucket_size'] = 64
 default['nginx']['proxy_read_timeout']      = nil
 default['nginx']['client_body_buffer_size'] = nil
 default['nginx']['client_max_body_size']    = nil
+default['nginx']['ssl_protocols'] = ["TLSv1" ,"TLSv1.1","TLSv1.2"]
