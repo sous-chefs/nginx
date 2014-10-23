@@ -128,4 +128,3 @@ attribute 'nginx/redirects_data_bag',
   :display_name => 'Nginx redirects_data_bag',
   :description => 'data bag to read redirect from',
   :default => 'nil'
-
