@@ -118,9 +118,9 @@ to all incoming requests and takes an integer (in seconds) as its argument.
 modules to enable via the conf-enabled config include function.
 Currently the only valid value is "socketproxy".
 
-- `node['nginx']['ssl_certifcate']` - SSL certificate  (ie /etc/pki/tls/certs/star_example_com.pem)
-- `node['nginx']['ssl_certifcate']` - SSL certificate key (ie /etc/pki/tls/private/star_example_com.key)
-* `node['nginx']['redirects_data_bag'] - name of the data bag containing redirects. (ie "redirects")
+- `node['nginx']['ssl_certifcate']` - SSL certificate  (ie `/etc/pki/tls/certs/star_example_com.pem`)
+- `node['nginx']['ssl_certifcate_key']` - SSL certificate key (ie `/etc/pki/tls/private/star_example_com.key`)
+* `node['nginx']['redirects_data_bag']` - name of the data bag containing redirects. (ie `"redirects"`)
 
 Sample Redirects data bag
 -------------------------
