@@ -118,8 +118,43 @@ to all incoming requests and takes an integer (in seconds) as its argument.
 modules to enable via the conf-enabled config include function.
 Currently the only valid value is "socketproxy".
 
-Rate Limiting
+- `node['nginx']['ssl_certificate']` - SSL certificate  (ie `/etc/pki/tls/certs/star_example_com.pem`)
+- `node['nginx']['ssl_certificate_key']` - SSL certificate key (ie `/etc/pki/tls/private/star_example_com.key`)
+* `node['nginx']['redirects_data_bag']` - name of the data bag containing redirects. (ie `"redirects"`)
 
+Redirects
+---------
+To enable redirects using nginx take the following steps:
+* Create a data bag (ie redirects)
+`knife data bag create redirects`
+* For each redirect create a separate file as below:
+`data_bags/redirects/sample-ssl.json`
+
+```json
+{
+  "id": "sample-ssl",
+  "enable": true,
+  "upstream": {
+    "name": "sample-ssl",
+    "servers": [ "10.1.1.1:443" ]
+  },
+  "ssl": "on",
+  "listen": "443",
+  "server_names": ["sample", "sample.example.com" ],
+  "location": {
+    "loc": "/",
+    "proxy_pass": "https://sample-ssl"
+  }
+}
+```
+`upstream` block above used for load balancing is optional, the rest are required.
+* Upload the data bag item into Chef
+`knife data bag from file redirects data_bags/redirects/sample-ssl.json`
+* Set the value of `node['nginx']['redirects_data_bag']` to the data bag name (ie `"redirects"`) you just created.
+* Include `recipe[nginx::redirects]` in your role/node config.
+
+Rate Limiting
+-------------
 - `node['nginx']['enable_rate_limiting']` - set to true to enable rate
   limiting (`limit_req_zone` in nginx.conf)
 - `node['nginx']['rate_limiting_zone_name']` - sets the zone in
