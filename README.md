@@ -126,7 +126,8 @@ Sample Redirects data bag
 -------------------------
 `data_bags/redirects/sample-ssl.json`
 
-```{
+```json
+{
   "id": "sample-ssl",
   "enable": true,
   "upstream": {
@@ -140,7 +141,8 @@ Sample Redirects data bag
     "loc": "/",
     "proxy_pass": "https://sample-ssl"
   }
-}```
+}
+```
 
 Rate Limiting
 
