@@ -147,6 +147,7 @@ To enable redirects using nginx take the following steps:
   }
 }
 ```
+upstream is optional
 * Upload the data bag item into Chef
 `knife data bag from file redirects data_bags/redirects/sample-ssl.json`
 * Set the value of `node['nginx']['redirects_data_bag']` to the data bag name (ie `"redirects"`) you just created.
