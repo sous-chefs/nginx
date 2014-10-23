@@ -3,7 +3,7 @@ maintainer        'Opscode, Inc.'
 maintainer_email  'cookbooks@opscode.com'
 license           'Apache 2.0'
 description       'Installs and configures nginx'
-version           '2.7.4'
+version           '2.7.5'
 
 recipe 'nginx',         'Installs nginx package and sets up configuration with Debian apache style with sites-enabled/sites-available'
 recipe 'nginx::source', 'Installs nginx from source and sets up configuration with Debian apache style with sites-enabled/sites-available'
@@ -113,3 +113,19 @@ attribute 'nginx/sendfile',
   :display_name => 'Nginx sendfile',
   :description => 'Whether to enable sendfile',
   :default => 'on'
+
+attribute 'nginx/ssl_certificate',
+  :display_name => 'Nginx sl_certificate',
+  :description => 'ssl cert',
+  :default => 'nil'
+
+attribute 'nginx/ssl_certificate_key',
+  :display_name => 'Nginx ssl_certificate_key',
+  :description => 'SSL cert key',
+  :default => 'nil'
+
+attribute 'nginx/redirects_data_bag',
+  :display_name => 'Nginx redirects_data_bag',
+  :description => 'data bag to read redirect from',
+  :default => 'nil'
+
