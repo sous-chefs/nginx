@@ -18,19 +18,19 @@
 redirects = node['nginx']['redirects_data_bag']
 
 redirects.each do |redirect|
-  r = data_bag_item("redirects", redirect)
+  r = data_bag_item('redirects', redirect)
   template "#{node['nginx']['dir']}/sites-available/#{r['id']}" do
-    source "redirect.erb"
-    owner "root"
-    group "root"
+    source 'redirect.erb'
+    owner 'root'
+    group 'root'
     mode 00644
-    variables( :r => r
-     )
+    variables(:r => r
+    )
     notifies :reload, 'service[nginx]'
   end
 
-  nginx_site r["id"] do
-    enable r["enable"]
+  nginx_site r['id'] do
+    enable r['enable']
   end
 end
 
