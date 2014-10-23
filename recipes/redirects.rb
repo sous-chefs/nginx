@@ -33,4 +33,3 @@ redirects.each do |redirect|
     enable r['enable']
   end
 end
-
