@@ -58,7 +58,10 @@ http {
   gzip_min_length  <%= node['nginx']['gzip_min_length'] %>;
   gzip_disable     "<%= node['nginx']['gzip_disable'] %>";
   <% end %>
-
+  <% if node['nginx']['ssl_certificate'] and node['nginx']['ssl_certificate_key'] -%>
+  ssl_certificate <%= node['nginx']['ssl_certificate'] %>;
+  ssl_certificate_key <%= node['nginx']['ssl_certificate_key'] %>;
+  <% end -%>
   server_names_hash_bucket_size <%= node['nginx']['server_names_hash_bucket_size'] %>;
   types_hash_max_size <%= node['nginx']['types_hash_max_size'] %>;
   types_hash_bucket_size <%= node['nginx']['types_hash_bucket_size'] %>;

@@ -1,0 +1,19 @@
+<% if @r["upstream"] %>
+upstream <%= @r["upstream"]["name"] %> {
+  <% @r["upstream"]["servers"].each do |server| %>
+  server <%= server %>;
+  <% end %>
+}
+<% end %>
+
+server {
+  ssl <%= @r["ssl"] %>;
+  listen  <%= @r["listen"] %>;
+  server_name  <%= @r["server_names"].join(" ") %>;
+  location <%= @r["location"]["loc"] %> {
+    proxy_pass <%= @r["location"]["proxy_pass"] %>;
+  }
+  error_log <%= node['nginx']['log_dir'] %>/<%= @r["id"] %>-error.log;
+  access_log  <%= node['nginx']['log_dir'] %>/<%= @r["id"] %>-access.log;
+
+}
