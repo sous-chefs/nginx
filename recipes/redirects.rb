@@ -15,10 +15,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-redirects = node['nginx']['redirects_data_bag']
+redirects = data_bag(node['nginx']['redirects_data_bag'])
 
 redirects.each do |redirect|
-  r = data_bag_item('redirects', redirect)
+  r = data_bag_item(node['nginx']['redirects_data_bag'], redirect)
   template "#{node['nginx']['dir']}/sites-available/#{r['id']}" do
     source 'redirect.erb'
     owner 'root'
