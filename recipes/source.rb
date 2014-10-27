@@ -127,6 +127,15 @@ r =  %w(/var/lib/nginx/body /var/lib/nginx/fastcgi /var/lib/nginx/proxy /var/lib
       action :create
     end
   end
+  
+template '/etc/nginx/include/error_pages.conf' do
+    source 'error_pages.erb'
+    owner  'root'
+    group  node['root_group']
+    mode   '0644'
+    action :nothing
+    subscribes :run, r
+end
 
 case node['nginx']['init_style']
 when 'runit'
@@ -168,14 +177,7 @@ when 'upstart'
     mode   '0644'
   end
   
-  template '/etc/nginx/include/error_pages.conf' do
-    source 'error_pages.erb'
-    owner  'root'
-    group  node['root_group']
-    mode   '0644'
-    action :nothing
-    subscribes :run, r
-  end
+  
 
 
   service 'nginx' do
