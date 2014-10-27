@@ -120,7 +120,7 @@ directory "/var/lib/nginx"  do
   action :create
 end
   
-  %w(/var/lib/nginx/body /var/lib/nginx/fastcgi /var/lib/nginx/proxy /var/lib/nginx/scgi /var/lib/nginx/uwsgi).each do |list|
+  %w(/var/lib/nginx/body /var/lib/nginx/fastcgi /var/lib/nginx/proxy /var/lib/nginx/scgi /var/lib/nginx/uwsgi /etc/nginx/include).each do |list|
     directory "#{list}" do
       group "root"
       owner "www-data"
@@ -167,6 +167,14 @@ when 'upstart'
     group  node['root_group']
     mode   '0644'
   end
+  
+  template '/etc/nginx/include/error_pages.conf' do
+    source 'error_pages.erb'
+    owner  'root'
+    group  node['root_group']
+    mode   '0644'
+  end
+
 
   service 'nginx' do
     provider Chef::Provider::Service::Upstart
