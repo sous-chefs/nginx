@@ -120,7 +120,7 @@ directory "/var/lib/nginx"  do
   action :create
 end
   
-  %w(/var/lib/nginx/body /var/lib/nginx/fastcgi /var/lib/nginx/proxy /var/lib/nginx/scgi /var/lib/nginx/uwsgi /etc/nginx/include).each do |list|
+r =  %w(/var/lib/nginx/body /var/lib/nginx/fastcgi /var/lib/nginx/proxy /var/lib/nginx/scgi /var/lib/nginx/uwsgi /etc/nginx/include).each do |list|
     directory "#{list}" do
       group "root"
       owner "www-data"
@@ -173,6 +173,8 @@ when 'upstart'
     owner  'root'
     group  node['root_group']
     mode   '0644'
+    action :nothing
+    subscribes :run, r
   end
 
 
