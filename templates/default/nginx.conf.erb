@@ -60,7 +60,10 @@ http {
   <% end %>
 
   geo $maintenance {
-    <%= node['nginx']['geo'] %> 
+    default     clo;
+    <% node['nginx']['geo'].each do |value| %>
+    <%= value %> opened;
+    <% end %>
   }
 
 
