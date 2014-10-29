@@ -166,9 +166,6 @@ when 'upstart'
     group  node['root_group']
     mode   '0644'
   end
-  
-  
-
 
   service 'nginx' do
     provider Chef::Provider::Service::Upstart
