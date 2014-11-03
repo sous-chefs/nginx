@@ -43,7 +43,7 @@ bash 'extract_geolib' do
   code <<-EOH
     tar xzvf #{geolib_filepath} -C #{::File.dirname(geolib_filepath)}
     cd GeoIP-#{node['nginx']['geoip']['lib_version']}
-    which libtoolize && libtoolize -f
+    rm aclocal.m4; aclocal; autoconf;
     ./configure
     make && make install
   EOH
