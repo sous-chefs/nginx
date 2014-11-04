@@ -23,7 +23,7 @@ node.run_state['nginx_configure_flags'] =
   node.run_state['nginx_configure_flags'] | ['--with-http_ssl_module']
 
 file "#{node['nginx']['dir']}/conf.d/poodle_vuln.conf" do
-  content "ssl_protocols #{node['nginx']['ssl_protocols'].join(' ')}"
+  content "ssl_protocols #{node['nginx']['ssl_protocols'].join(' ')};"
   owner  'root'
   group  node['root_group']
   mode   '0644'
