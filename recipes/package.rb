@@ -49,3 +49,6 @@ service 'nginx' do
 end
 
 include_recipe 'nginx::commons'
+
+# Ensure POODLE vulnerability is patched.
+include_recipe 'nginx::http_ssl_module'
