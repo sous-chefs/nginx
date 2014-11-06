@@ -66,5 +66,6 @@ default['nginx']['source']['modules']  = %w(
   nginx::jvm_module
   nginx::upstream_check_module
   nginx::upload_progress_module
+  nginx::sticky_module
 )
 default['nginx']['source']['use_existing_user'] = false

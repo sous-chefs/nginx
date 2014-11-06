@@ -20,4 +20,4 @@ bash 'extract_ajp_module' do
 end
 
 node.run_state['nginx_configure_flags'] =
-  node.run_state['nginx_configure_flags'] | ["--add-module=#{ajp_extract_path}"]
+node.run_state['nginx_configure_flags'] | ["--add-module=#{ajp_extract_path}"]
