@@ -115,6 +115,8 @@ Generally used attributes. Some have platform specific values. See `attributes/d
   to be appended to the error log directive
 - `node['nginx']['default_site_enabled']` - enable the default site
 - `node['nginx']['sendfile']` - Whether to use `sendfile`. Defaults to "on".
+- `node['nginx']['tcp_nopush']` - Whether to use `tcp_nopush`. Defaults to "on".
+- `node['nginx']['tcp_nodelay']` - Whether to use `tcp_nodelay`. Defaults to "on".
 - `node['nginx']['install_method']` - Whether nginx is installed from
   packages or from source.
 - `node['nginx']['types_hash_max_size']` - Used for the

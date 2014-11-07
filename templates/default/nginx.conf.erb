@@ -45,8 +45,8 @@ http {
   <% end -%>
 
   sendfile <%= node['nginx']['sendfile'] %>;
-  tcp_nopush on;
-  tcp_nodelay on;
+  tcp_nopush <%= node['nginx']['tcp_nopush'] %>;
+  tcp_nodelay <%= node['nginx']['tcp_nodelay'] %>;
 
   <% if node['nginx']['keepalive'] == 'on' %>
   keepalive_requests <%= node['nginx']['keepalive_requests'] %>;
