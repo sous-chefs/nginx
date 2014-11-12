@@ -31,7 +31,7 @@ http {
   <% if node['nginx']['disable_access_log'] -%>
   access_log    off;
   <% else -%>
-  access_log	<%= node['nginx']['log_dir'] %>/access.log<% if node['nginx']['access_log_options'] %> <%= node['nginx']['access_log_options'] %><% end %>;
+  access_log    <%= node['nginx']['log_dir'] %>/access.log<% if node['nginx']['access_log_options'] %> <%= node['nginx']['access_log_options'] %><% end %>;
   <% end %>
   <% if node['nginx']['server_tokens'] -%>
   server_tokens <%= node['nginx']['server_tokens'] %>;
