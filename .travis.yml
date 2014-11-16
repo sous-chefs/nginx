@@ -1,7 +1,7 @@
 language: ruby
 bundler_args: --without development kitchen_docker kitchen_vagrant
 rvm:
-- 2.1.0
+- 2.1.4
 before_install:
 - echo -n $DO_KEY_CHUNK_{0..30} >> ~/.ssh/id_do.base64
 - cat ~/.ssh/id_do.base64 | tr -d ' ' | base64 --decode > ~/.ssh/id_do.pem
@@ -75,32 +75,32 @@ env:
   - secure: in55d6LHMRpGJYDcFqbnm3c258pHpJlT2LJXrsQ6HQy1Gep+03q6WOeGickkirKv8UqpW7qZ7meLxbwjoRjskcDRyk4RxItGb42Uhrt7CM5Q70N5soG3LDVMwhrn53Qp99lL2WZ4GQTBQnPj3s2s6Q39ubPeOent1WCAA8kgssg=
   - secure: E2NgPTBseKWBtS6SMipGxSHmS5CeWzPWwSxWTEvgW2u16FDHk/IgOKnG9cqDXIJTssXsMwZe+3RyLGX4iw3eM5UHaqH8cc7UuOrw/TYpfXGuk/mqV+FJ+D0uoiGYScndXrsB7veuhUxF7J0pliGjUivc6tj2UqRwr5ZLg8Wt4NA=
   - secure: d394PNayvQxU08tWMCQFtHcFsHBuT9/mWQoiZ+n/CxRRpi7cqt5r8DzdLscWYETEEJabi254A+G5FcopP2tB+7/IjvxoTUXLXiQS+accJCj5u7r63m3AsDwa1spjbhpWdbBU6C34j10x7UkgrILmxZzNshBq53Jh0p2fSHg5sKM=
-  matrix:
-  - KITCHEN_INSTANCE='default-centos-58'
-  - KITCHEN_INSTANCE='default-centos-58'
-  - KITCHEN_INSTANCE='default-centos-64'
-  - KITCHEN_INSTANCE='default-amazon-201309'
-  - KITCHEN_INSTANCE='default-fedora-19'
-  - KITCHEN_INSTANCE='default-ubuntu-1004'
-  - KITCHEN_INSTANCE='default-ubuntu-1204'
-  - KITCHEN_INSTANCE='source-centos-58'
-  - KITCHEN_INSTANCE='source-centos-64'
-  - KITCHEN_INSTANCE='source-amazon-201309'
-  - KITCHEN_INSTANCE='source-fedora-19'
-  - KITCHEN_INSTANCE='source-ubuntu-1004'
-  - KITCHEN_INSTANCE='source-ubuntu-1204'
-  - KITCHEN_INSTANCE='upstream-repo-centos-58'
-  - KITCHEN_INSTANCE='upstream-repo-centos-64'
-  - KITCHEN_INSTANCE='upstream-repo-amazon-201309'
-  - KITCHEN_INSTANCE='upstream-repo-fedora-19'
-  - KITCHEN_INSTANCE='upstream-repo-ubuntu-1004'
-  - KITCHEN_INSTANCE='upstream-repo-ubuntu-1204'
-  - KITCHEN_INSTANCE='modules-centos-58'
-  - KITCHEN_INSTANCE='modules-centos-64'
-  - KITCHEN_INSTANCE='modules-amazon-201309'
-  - KITCHEN_INSTANCE='modules-fedora-19'
-  - KITCHEN_INSTANCE='modules-ubuntu-1004'
-  - KITCHEN_INSTANCE='modules-ubuntu-1204'
+  # matrix:
+  # - KITCHEN_INSTANCE='default-centos-58'
+  # - KITCHEN_INSTANCE='default-centos-58'
+  # - KITCHEN_INSTANCE='default-centos-64'
+  # - KITCHEN_INSTANCE='default-amazon-201309'
+  # - KITCHEN_INSTANCE='default-fedora-19'
+  # - KITCHEN_INSTANCE='default-ubuntu-1004'
+  # - KITCHEN_INSTANCE='default-ubuntu-1204'
+  # - KITCHEN_INSTANCE='source-centos-58'
+  # - KITCHEN_INSTANCE='source-centos-64'
+  # - KITCHEN_INSTANCE='source-amazon-201309'
+  # - KITCHEN_INSTANCE='source-fedora-19'
+  # - KITCHEN_INSTANCE='source-ubuntu-1004'
+  # - KITCHEN_INSTANCE='source-ubuntu-1204'
+  # - KITCHEN_INSTANCE='upstream-repo-centos-58'
+  # - KITCHEN_INSTANCE='upstream-repo-centos-64'
+  # - KITCHEN_INSTANCE='upstream-repo-amazon-201309'
+  # - KITCHEN_INSTANCE='upstream-repo-fedora-19'
+  # - KITCHEN_INSTANCE='upstream-repo-ubuntu-1004'
+  # - KITCHEN_INSTANCE='upstream-repo-ubuntu-1204'
+  # - KITCHEN_INSTANCE='modules-centos-58'
+  # - KITCHEN_INSTANCE='modules-centos-64'
+  # - KITCHEN_INSTANCE='modules-amazon-201309'
+  # - KITCHEN_INSTANCE='modules-fedora-19'
+  # - KITCHEN_INSTANCE='modules-ubuntu-1004'
+  # - KITCHEN_INSTANCE='modules-ubuntu-1204'
 notifications:
   webhooks:
     urls:
