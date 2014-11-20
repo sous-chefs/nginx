@@ -72,7 +72,7 @@ end
 
 bash 'gunzip_geo_lite_country_dat' do
   code <<-EOH
-    gunzip -c #{country_src_filepath} > #{country_dat}
+    gunzip -c "#{country_src_filepath}" > #{country_dat}
   EOH
   creates country_dat
 end
@@ -94,7 +94,7 @@ if node['nginx']['geoip']['enable_city']
 
   bash 'gunzip_geo_lite_city_dat' do
     code <<-EOH
-      gunzip -c #{city_src_filepath} > #{city_dat}
+      gunzip -c "#{city_src_filepath}" > #{city_dat}
     EOH
     creates city_dat
   end
