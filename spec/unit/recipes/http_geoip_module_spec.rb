@@ -8,10 +8,6 @@ describe 'nginx::http_geoip_module', :focus do
     end.converge(described_recipe)
   end
 
-  it 'installs libtool package' do
-    expect(chef_run).to install_package('libtool')
-  end
-
   # TODO: additional resources are cloned during ChefSpec runs,
   # leading to inaccurate counts.
   it 'retrieves remote files to cache' do
