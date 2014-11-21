@@ -19,6 +19,12 @@
 # limitations under the License.
 #
 
+if platform_family?('debian')
+  default['nginx']['lua']['devel-package'] = 'liblua5.2-dev'
+else
+  default['nginx']['lua']['devel-package'] = 'lua-devel'
+end
+
 default['nginx']['lua']['version']  = '0.8.7'
 default['nginx']['lua']['url']      = "https://github.com/chaoslawful/lua-nginx-module/archive/v#{node['nginx']['lua']['version']}.tar.gz"
 default['nginx']['lua']['checksum'] = '4b9be3c159b9c884a38e044e07aaf4d06bd2893977d0b0dae02c124d8e907f93'
