@@ -1,6 +1,7 @@
 AllCops:
   Exclude:
     - Guardfile
+    - 'vendor/**/*'
 AlignParameters:
   Enabled: false
 ClassAndModuleChildren:
