@@ -11,7 +11,7 @@ describe 'nginx::http_geoip_module', :focus do
   # TODO: additional resources are cloned during ChefSpec runs,
   # leading to inaccurate counts.
   it 'retrieves remote files to cache' do
-    expect(chef_run).to create_remote_file("#{Chef::Config['file_cache_path']}/GeoIP-1.4.8.tar.gz")
+    expect(chef_run).to create_remote_file("#{Chef::Config['file_cache_path']}/GeoIP-1.6.3.tar.gz")
     expect(chef_run).to create_remote_file("#{Chef::Config['file_cache_path']}/GeoIP.dat.gz")
     expect(chef_run).to create_remote_file("#{Chef::Config['file_cache_path']}/GeoLiteCity.dat.gz")
   end
