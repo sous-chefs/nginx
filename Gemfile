@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 group :lint do
   gem 'foodcritic', '~> 4.0'
-  gem 'rubocop',    '~> 0.25.0'
+  gem 'rubocop',    '~> 0.27.0'
 end
 
 group :unit do
