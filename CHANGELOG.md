@@ -4,6 +4,7 @@ This file is used to list changes made in each version of the nginx cookbook.
 
 v2.7.5 (Unreleased)
 -------------------
+* Remove `libtool` from `geoip` and update download paths & checksums, [@miketheman][]
 * Fix unquoted URL with params failing geoip module build (and tests!), [#294][] [@karsten-bruckmann][] & [@miketheman][]
 * Fix typo in `source.rb`, [#205][] [@gregkare][]
 * Test updates: ChefSpec, test-kitchen. Lots of help by [@jujugrrr][]
