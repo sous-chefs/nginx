@@ -1,7 +1,7 @@
-# A sample Guardfile
-# More info at https://github.com/guard/guard#readme
+# Guardfile for automated testing
 
-# guard 'kitchen' do
+# guard 'kitchen', cli: ['-c 2'] do
+#   watch(%r{.kitchen.*/.+})
 #   watch(%r{test/.+})
 #   watch(%r{^recipes/(.+)\.rb$})
 #   watch(%r{^attributes/(.+)\.rb$})
@@ -11,7 +11,7 @@
 #   watch(%r{^resources/(.+)\.rb})
 # end
 
-guard 'foodcritic', cookbook_paths: '.', all_on_start: false do
+guard :foodcritic, cookbook_paths: '.', cli: ['--epic-fail', 'any'] do
   watch(%r{attributes/.+\.rb$})
   watch(%r{providers/.+\.rb$})
   watch(%r{recipes/.+\.rb$})
@@ -19,17 +19,14 @@ guard 'foodcritic', cookbook_paths: '.', all_on_start: false do
   watch('metadata.rb')
 end
 
-guard 'rubocop', all_on_start: false do
-  watch(%r{attributes/.+\.rb$})
-  watch(%r{providers/.+\.rb$})
-  watch(%r{recipes/.+\.rb$})
-  watch(%r{resources/.+\.rb$})
-  watch('metadata.rb')
-end
-
-guard :rspec, cmd: 'bundle exec rspec', all_on_start: false, notification: false do
-  watch(%r{^libraries/(.+)\.rb$})
-  watch(%r{^spec/(.+)_spec\.rb$})
+# ChefSpec tests
+guard :rspec, cmd: 'bundle exec rspec', all_on_start: true do
+  watch(%r{^spec/.+_spec\.rb$})
   watch(%r{^(recipes)/(.+)\.rb$})   { |m| "spec/#{m[1]}_spec.rb" }
   watch('spec/spec_helper.rb')      { 'spec' }
+end
+
+guard :rubocop do
+  watch(%r{.+\.rb$})
+  watch(%r{(?:.+/)?\.rubocop\.yml$}) { |m| File.dirname(m[0]) }
 end
