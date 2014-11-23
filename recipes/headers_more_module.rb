@@ -42,8 +42,6 @@ bash 'extract_headers_more' do
   user 'root'
   code <<-EOH
     tar -zxf #{tar_location} -C #{module_location}
-    mv -f #{module_location}/agentz*/* #{module_location}
-    rm -rf #{module_location}/agentz*
   EOH
   not_if { ::File.exist?("#{module_location}/headers-more-nginx-module-#{node['nginx']['headers_more']['version']}/config") }
 end
