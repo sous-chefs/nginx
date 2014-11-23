@@ -1,17 +1,16 @@
-# Encoding: utf-8
-require 'spec_helper'
+# encoding: utf-8
 
-describe 'nginx::http_geoip_module', :focus do
-  let(:chef_run) do
+describe 'nginx::http_geoip_module' do
+  cached(:chef_run) do
     ChefSpec::ServerRunner.new do |node|
       node.set['nginx']['source']['modules'] = ['nginx::http_geoip_module']
     end.converge(described_recipe)
   end
 
-  # TODO: additional resources are cloned during ChefSpec runs,
-  # leading to inaccurate counts.
   it 'retrieves remote files to cache' do
-    expect(chef_run).to create_remote_file("#{Chef::Config['file_cache_path']}/GeoIP-1.6.3.tar.gz")
+    geoip_version = chef_run.node.attributes['nginx']['geoip']['lib_version']
+
+    expect(chef_run).to create_remote_file("#{Chef::Config['file_cache_path']}/GeoIP-#{geoip_version}.tar.gz")
     expect(chef_run).to create_remote_file("#{Chef::Config['file_cache_path']}/GeoIP.dat.gz")
     expect(chef_run).to create_remote_file("#{Chef::Config['file_cache_path']}/GeoLiteCity.dat.gz")
   end
