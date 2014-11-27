@@ -2,7 +2,7 @@
 
 describe 'nginx::http_geoip_module' do
   cached(:chef_run) do
-    ChefSpec::ServerRunner.new do |node|
+    ChefSpec::SoloRunner.new do |node|
       node.set['nginx']['source']['modules'] = ['nginx::http_geoip_module']
     end.converge(described_recipe)
   end

@@ -2,7 +2,7 @@
 
 describe 'nginx::source' do
   let(:chef_run) do
-    ChefSpec::Runner.new(:platform => 'debian', :version  => '7.0').converge(described_recipe)
+    ChefSpec::SoloRunner.new(:platform => 'debian', :version  => '7.0').converge(described_recipe)
   end
 
   before do
@@ -48,7 +48,7 @@ describe 'nginx::source' do
 
   context 'Rhel familly' do
     let(:chef_run) do
-      ChefSpec::Runner.new(:platform => 'centos', :version  => '6.5').converge(described_recipe)
+      ChefSpec::SoloRunner.new(:platform => 'centos', :version  => '6.5').converge(described_recipe)
     end
 
     describe 'installs packages dependencies' do
@@ -65,7 +65,7 @@ describe 'nginx::source' do
 
   context 'Gentoo familly' do
     let(:chef_run) do
-      ChefSpec::Runner.new(:platform => 'gentoo', :version  => '2.1').converge(described_recipe)
+      ChefSpec::SoloRunner.new(:platform => 'gentoo', :version  => '2.1').converge(described_recipe)
     end
 
     describe 'does not need packages dependencies' do
@@ -122,7 +122,7 @@ describe 'nginx::source' do
   context 'set up the init style' do
     context 'without runit/bluepill/upstart' do
       let(:chef_run) do
-        ChefSpec::Runner.new(:platform => 'debian', :version  => '7.0') do |node|
+        ChefSpec::SoloRunner.new(:platform => 'debian', :version  => '7.0') do |node|
           node.set['nginx']['init_style'] = 'other'
         end.converge(described_recipe)
       end
@@ -134,7 +134,7 @@ describe 'nginx::source' do
       end
       context 'Gentoo familly' do
         let(:chef_run) do
-          ChefSpec::Runner.new(:platform => 'gentoo', :version  => '2.1') do |node|
+          ChefSpec::SoloRunner.new(:platform => 'gentoo', :version  => '2.1') do |node|
             node.set['nginx']['init_style'] = 'other'
           end.converge(described_recipe)
         end
@@ -148,7 +148,7 @@ describe 'nginx::source' do
       end
       context 'Debian familly' do
         let(:chef_run) do
-          ChefSpec::Runner.new(:platform => 'debian', :version  => '7.0') do |node|
+          ChefSpec::SoloRunner.new(:platform => 'debian', :version  => '7.0') do |node|
             node.set['nginx']['init_style'] = 'other'
           end.converge(described_recipe)
         end
@@ -161,7 +161,7 @@ describe 'nginx::source' do
       end
       context 'Freebsd familly' do
         let(:chef_run) do
-          ChefSpec::Runner.new(:platform => 'freebsd', :version  => '10.0') do |node|
+          ChefSpec::SoloRunner.new(:platform => 'freebsd', :version  => '10.0') do |node|
             node.set['nginx']['init_style'] = 'other'
           end.converge(described_recipe)
         end
@@ -175,7 +175,7 @@ describe 'nginx::source' do
       end
       context 'Other OS familly(Rhel y example)' do
         let(:chef_run) do
-          ChefSpec::Runner.new(:platform => 'centos', :version  => '6.5') do |node|
+          ChefSpec::SoloRunner.new(:platform => 'centos', :version  => '6.5') do |node|
             node.set['nginx']['init_style'] = 'other'
           end.converge(described_recipe)
         end
@@ -190,7 +190,7 @@ describe 'nginx::source' do
   end
   context 'with runit' do
     let(:chef_run) do
-      ChefSpec::Runner.new(:platform => 'debian', :version  => '7.0') do |node|
+      ChefSpec::SoloRunner.new(:platform => 'debian', :version  => '7.0') do |node|
         node.set['nginx']['init_style'] = 'runit'
       end.converge(described_recipe)
     end
@@ -207,7 +207,7 @@ describe 'nginx::source' do
 
   context 'with bluepill' do
     let(:chef_run) do
-      ChefSpec::Runner.new(:platform => 'debian', :version  => '7.0') do |node|
+      ChefSpec::SoloRunner.new(:platform => 'debian', :version  => '7.0') do |node|
         node.set['nginx']['init_style'] = 'bluepill'
       end.converge(described_recipe)
     end
@@ -228,7 +228,7 @@ describe 'nginx::source' do
 
   context 'with upstart' do
     let(:chef_run) do
-      ChefSpec::Runner.new(:platform => 'debian', :version  => '7.0') do |node|
+      ChefSpec::SoloRunner.new(:platform => 'debian', :version  => '7.0') do |node|
         node.set['nginx']['init_style'] = 'upstart'
       end.converge(described_recipe)
     end
