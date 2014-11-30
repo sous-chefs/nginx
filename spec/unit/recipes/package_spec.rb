@@ -94,5 +94,25 @@ describe 'nginx::package' do
       it_behaves_like 'all platforms'
       it_behaves_like 'nginx repo'
     end
+
+    context 'no extra repos added when empty' do
+      before do
+        chef_run.node.set['nginx']['repo_source'] = ''
+        chef_run.converge(described_recipe)
+      end
+
+      it 'installs the nginx package with modifiers' do
+        expect(chef_run).to install_package('nginx')
+      end
+
+      it 'logs a message about repo_source' do
+        expect(chef_run).to write_log(
+          "node['nginx']['repo_source'] was not set, no additional yum repositories will be installed."
+        ).with(level: :debug)
+      end
+
+      it_behaves_like 'all platforms'
+      it_behaves_like 'package resource'
+    end
   end
 end
