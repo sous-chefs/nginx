@@ -41,6 +41,7 @@ if platform_family?('rhel') && node['platform_version'].to_i >= 6
 else
   node.default['nginx']['passenger']['packages']['rhel'] = %w(ruby-devel curl-devel)
 end
+node.default['nginx']['passenger']['packages']['fedora'] = %w(ruby-devel libcurl-devel)
 node.default['nginx']['passenger']['packages']['debian'] = %w(ruby-dev libcurl4-gnutls-dev)
 
 node.default['nginx']['passenger']['install_rake'] = true
