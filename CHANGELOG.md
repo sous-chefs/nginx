@@ -4,6 +4,7 @@ This file is used to list changes made in each version of the nginx cookbook.
 
 v2.7.5 (Unreleased)
 -------------------
+* Fix nginx 1.4.4 archive checksum to prevent redownload, [#305][] [@irontoby][]
 * Allow setting an empty string to prevent additional repos, [#243][] [@miketheman][]
 * Use correct `mime.types` for javascript, [#259][] [@dwradcliffe][]
 * Fix `headers_more` module for source installs, [#279][], [@josh-padnick][] & [@miketheman][]
@@ -319,8 +320,10 @@ v0.99.2
 [#259]: https://github.com/miketheman/nginx/issues/259
 [#279]: https://github.com/miketheman/nginx/issues/279
 [#294]: https://github.com/miketheman/nginx/issues/294
+[#305]: https://github.com/miketheman/nginx/issues/305
 [@dwradcliffe]: https://github.com/dwradcliffe
 [@gregkare]: https://github.com/gregkare
+[@irontoby]: https://github.com/irontoby
 [@josh-padnick]: https://github.com/josh-padnick
 [@jujugrrr]: https://github.com/jujugrrr
 [@karsten-bruckmann]: https://github.com/karsten-bruckmann
