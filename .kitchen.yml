@@ -10,6 +10,7 @@ platforms:
   - name: fedora-19
   - name: ubuntu-10.04
   - name: ubuntu-12.04
+  - name: ubuntu-14.04
 
 suites:
   - name: default

@@ -25,8 +25,9 @@
 # deterministically (resolved in Chef 11).
 node.load_attribute_by_short_filename('source', 'nginx') if node.respond_to?(:load_attribute_by_short_filename)
 
-nginx_url = node['nginx']['source']['url'] ||
-            "http://nginx.org/download/nginx-#{node['nginx']['source']['version']}.tar.gz"
+nginx_gpg_url = "http://nginx.org/download/nginx-1.6.2.tar.gz.asc"
+nginx_url     = node['nginx']['source']['url'] ||
+                "http://nginx.org/download/nginx-#{node['nginx']['source']['version']}.tar.gz"
 
 node.set['nginx']['binary']          = node['nginx']['source']['sbin_path']
 node.set['nginx']['daemon_disable']  = true
@@ -49,7 +50,9 @@ recipes = [
 
 recipes.each { |r| include_recipe r }
 
-src_filepath  = "#{Chef::Config['file_cache_path'] || '/tmp'}/nginx-#{node['nginx']['source']['version']}.tar.gz"
+src_filepath       = "#{Chef::Config['file_cache_path'] || '/tmp'}/nginx-#{node['nginx']['source']['version']}.tar.gz"
+nginx_gpg_filepath = "#{Chef::Config['file_cache_path'] || '/tmp'}/nginx-1.6.2.tar.gz.asc"
+
 packages = value_for_platform_family(
   %w(rhel fedora) => %w(pcre-devel openssl-devel),
   %w(gentoo)      => [],
@@ -60,12 +63,19 @@ packages.each do |name|
   package name
 end
 
-# remove checksum
 remote_file nginx_url do
   source   nginx_url
   path     src_filepath
   backup   false
 end
+
+remote_file nginx_gpg_url do
+  source nginx_gpg_url
+  path   nginx_gpg_filepath
+  backup false
+end
+
+# TODO gpg --verify /tmp folder
 
 node.run_state['nginx_force_recompile'] = false
 node.run_state['nginx_configure_flags'] =
