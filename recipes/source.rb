@@ -39,10 +39,15 @@ unless node['nginx']['source']['use_existing_user']
   end
 end
 
-include_recipe 'nginx::ohai_plugin'
-include_recipe 'nginx::commons_dir'
-include_recipe 'nginx::commons_script'
-include_recipe 'build-essential::default'
+recipes = [
+  'nginx::ohai_plugin',
+  'nginx::commons_dir',
+  'nginx::commons_script',
+  'build-essential::default'
+  'bsw_gpg'
+  ]
+
+recipes.each { |r| include_recipe r }
 
 src_filepath  = "#{Chef::Config['file_cache_path'] || '/tmp'}/nginx-#{node['nginx']['source']['version']}.tar.gz"
 packages = value_for_platform_family(
