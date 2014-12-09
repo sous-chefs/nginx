@@ -14,7 +14,7 @@ depends 'build-essential',  '~> 2.0'
 depends 'ohai',             '~> 2.0'
 depends 'runit',            '~> 1.2'
 depends 'yum-epel',         '~> 0.3'
-depends 'bsw_gpg',          '~> 0.1.3'
+depends 'bsw_gpg',          '~> 0.1.6'
 
 supports 'amazon'
 supports 'centos'
