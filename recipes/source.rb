@@ -26,8 +26,12 @@
 node.load_attribute_by_short_filename('source', 'nginx') if node.respond_to?(:load_attribute_by_short_filename)
 
 nginx_gpg_url = "http://nginx.org/download/nginx-1.6.2.tar.gz.asc"
+
+
 nginx_url     = node['nginx']['source']['url'] ||
                 "http://nginx.org/download/nginx-#{node['nginx']['source']['version']}.tar.gz"
+
+
 
 node.set['nginx']['binary']          = node['nginx']['source']['sbin_path']
 node.set['nginx']['daemon_disable']  = true
@@ -63,10 +67,10 @@ packages.each do |name|
   package name
 end
 
-remote_file nginx_url do
-  source   nginx_url
-  path     src_filepath
-  backup   false
+bsw_gpg_load_key_from_string "a string key" do
+  key_contents node["nginx"]["maxims_pubkey"]
+  for_user "root"
+  force_import_owner_trust true
 end
 
 remote_file nginx_gpg_url do
@@ -75,7 +79,20 @@ remote_file nginx_gpg_url do
   backup false
 end
 
-# TODO gpg --verify /tmp folder
+remote_file nginx_url do
+  source   nginx_url
+  path     src_filepath
+  backup   false
+  notifies :run, "execute[verify maxim's public key]", :immediately
+end
+
+# somehow based on the return statement we either continue or error out
+execute "verify maxim's public key" do
+  command "gpg --verify nginx-1.6.2.tar.gz.asc"
+  user "root"
+  cwd "#{Chef::Config['file_cache_path'] || '/tmp'}/"
+  action :nothing
+end
 
 node.run_state['nginx_force_recompile'] = false
 node.run_state['nginx_configure_flags'] =
