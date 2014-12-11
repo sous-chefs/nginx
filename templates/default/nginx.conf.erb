@@ -98,6 +98,14 @@ http {
   <%= key %> <%= value %>;
   <% end -%>
 
+  <% if node['nginx']['install_method'] == 'package' %>
+  ssl_protocols <%= node['nginx']['ssl_protocols'] %>;
+  <% elsif node['nginx']['install_method'] == 'source' %>
+      <% if  node['nginx']['source']['modules'].include? 'nginx::http_ssl_module' %>
+  ssl_protocols <%= node['nginx']['ssl_protocols'] %>;
+      <% end %>
+  <% end -%> 
+
   include <%= node['nginx']['dir'] %>/conf.d/*.conf;
   include <%= node['nginx']['dir'] %>/sites-enabled/*.conf;
 }
