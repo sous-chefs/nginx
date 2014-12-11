@@ -32,14 +32,15 @@ recipes = [
   'nginx::ohai_plugin',
   'nginx::commons_dir',
   'nginx::commons_script',
-  'build-essential::default',
-  'bsw_gpg::default'
+  'build-essential::default'
 ]
 
 recipes.each { |r| include_recipe r }
 
-src_filepath       = "#{Chef::Config['file_cache_path'] || '/tmp'}/nginx-#{node['nginx']['source']['version']}.tar.gz"
-nginx_gpg_filepath = "#{Chef::Config['file_cache_path'] || '/tmp'}/nginx-1.6.2.tar.gz.asc"
+src_filepath       = "#{Chef::Config['file_cache_path'] || 
+                     '/tmp'}/nginx-#{node['nginx']['source']['version']}.tar.gz"
+nginx_gpg_filepath = "#{Chef::Config['file_cache_path'] || 
+                     '/tmp'}/nginx-1.6.2.tar.gz.asc"
 
 packages = value_for_platform_family(
   %w(rhel fedora) => %w(pcre-devel openssl-devel),
@@ -51,29 +52,31 @@ packages.each do |name|
   package name
 end
 
-bsw_gpg_load_key_from_string "Maxims gpg key" do
-  key_contents node["nginx"]["maxims_pubkey"]
-  for_user "root"
-  force_import_owner_trust true
-end
-
 remote_file "nginx gpg key" do
   source nginx_gpg_url
   path   nginx_gpg_filepath
   backup false
 end
 
-remote_file "nginx down url" do
+remote_file "nginx download" do
   source   nginx_url
   path     src_filepath
   backup   false
 end
 
+ruby_block "add and trust the NGINX GPG signature" do
+  block do
+    fingerprint = node["nginx"]["gpg_fingerprint"].gsub " ", ""
+    Chef::Log.info `echo "#{node["nginx"]["gpg_key"]}" | gpg --import`
+    Chef::Log.info `echo "#{fingerprint}:6:" | gpg --import-ownertrust`
+  end
+end
+
 execute "verify maxims public key" do
-  user "root"
+  user  "root"
+  group "root"
   cwd "#{Chef::Config['file_cache_path'] || '/tmp'}/"
   command "gpg --verify nginx-1.6.2.tar.gz.asc"
-  action :nothing
 end
 
 node.run_state['nginx_force_recompile'] = false

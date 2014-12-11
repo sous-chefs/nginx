@@ -41,8 +41,8 @@ default['nginx']['source']['modules']  = %w(
 )
 default['nginx']['source']['use_existing_user'] = false
 
-
-default['nginx']['maxims_pubkey']    = 
+default['nginx']['gpg_fingerprint'] = "B0F4 2533 73F8 F6F5 10D4  2178 520A 9993 A1C0 52F8"
+default['nginx']['gpg_key']    = 
 "-----BEGIN PGP PUBLIC KEY BLOCK-----
 Version: GnuPG v1
 
