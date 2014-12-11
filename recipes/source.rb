@@ -1,4 +1,3 @@
-#
 # Cookbook Name:: nginx
 # Recipe:: source
 #
@@ -7,19 +6,6 @@
 # Author:: Jamie Winsor (<jamie@vialstudios.com>)
 #
 # Copyright 2009-2013, Opscode, Inc.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
 
 # This is for Chef 10 and earlier where attributes aren't loaded
 # deterministically (resolved in Chef 11).
@@ -30,8 +16,6 @@ nginx_gpg_url = "http://nginx.org/download/nginx-1.6.2.tar.gz.asc"
 
 nginx_url     = node['nginx']['source']['url'] ||
                 "http://nginx.org/download/nginx-#{node['nginx']['source']['version']}.tar.gz"
-
-
 
 node.set['nginx']['binary']          = node['nginx']['source']['sbin_path']
 node.set['nginx']['daemon_disable']  = true
@@ -49,7 +33,7 @@ recipes = [
   'nginx::commons_dir',
   'nginx::commons_script',
   'build-essential::default',
-  'bsw_gpg'
+  'bsw_gpg::default'
 ]
 
 recipes.each { |r| include_recipe r }
@@ -67,30 +51,28 @@ packages.each do |name|
   package name
 end
 
-bsw_gpg_load_key_from_string "a string key" do
+bsw_gpg_load_key_from_string "Maxims gpg key" do
   key_contents node["nginx"]["maxims_pubkey"]
   for_user "root"
   force_import_owner_trust true
 end
 
-remote_file nginx_gpg_url do
+remote_file "nginx gpg key" do
   source nginx_gpg_url
   path   nginx_gpg_filepath
   backup false
 end
 
-remote_file nginx_url do
+remote_file "nginx down url" do
   source   nginx_url
   path     src_filepath
   backup   false
-  notifies :run, "execute[verify maxim's public key]", :immediately
 end
 
-# somehow based on the return statement we either continue or error out
-execute "verify maxim's public key" do
-  command "gpg --verify nginx-1.6.2.tar.gz.asc"
+execute "verify maxims public key" do
   user "root"
   cwd "#{Chef::Config['file_cache_path'] || '/tmp'}/"
+  command "gpg --verify nginx-1.6.2.tar.gz.asc"
   action :nothing
 end
 
