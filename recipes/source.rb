@@ -12,11 +12,12 @@
 
 node.load_attribute_by_short_filename('source', 'nginx') if node.respond_to?(:load_attribute_by_short_filename)
 
-nginx_gpg_url = "http://nginx.org/download/nginx-1.6.2.tar.gz.asc"
+filename = "nginx-#{node['nginx']['source']['version']}.tar.gz"
 
-
-nginx_url     = node['nginx']['source']['url'] ||
-                "http://nginx.org/download/nginx-#{node['nginx']['source']['version']}.tar.gz"
+nginx_url          = node['nginx']['source']['url'] || "http://nginx.org/download/#{filename}"
+nginx_gpg_url      = "#{nginx_url}.asc"
+src_filepath       = "#{Chef::Config['file_cache_path'] || '/tmp'}/#{filename}"
+nginx_gpg_filepath = "#{src_filepath}.asc"
 
 node.set['nginx']['binary']          = node['nginx']['source']['sbin_path']
 node.set['nginx']['daemon_disable']  = true
@@ -37,11 +38,6 @@ recipes = [
 ]
 
 recipes.each { |r| include_recipe r }
-
-src_filepath       = "#{Chef::Config['file_cache_path'] || 
-                     '/tmp'}/nginx-#{node['nginx']['source']['version']}.tar.gz"
-nginx_gpg_filepath = "#{Chef::Config['file_cache_path'] || 
-                     '/tmp'}/nginx-1.6.2.tar.gz.asc"
 
 packages = value_for_platform_family(
   %w(rhel fedora) => %w(pcre-devel openssl-devel),
@@ -76,8 +72,7 @@ end
 execute "verify maxims public key" do
   user  "root"
   group "root"
-  cwd "#{Chef::Config['file_cache_path'] || '/tmp'}/"
-  command "gpg --verify nginx-1.6.2.tar.gz.asc"
+  command "gpg --verify #{nginx_gpg_filepath}"
 end
 
 node.run_state['nginx_force_recompile'] = false
