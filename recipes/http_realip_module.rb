@@ -31,7 +31,7 @@ template "#{node['nginx']['dir']}/conf.d/http_realip.conf" do
   owner  'root'
   group  node['root_group']
   mode   '0644'
-  notifies :reload, 'service[nginx]'
+  notifies :reload, 'service[nginx]', :delayed
 end
 
 node.run_state['nginx_configure_flags'] =
