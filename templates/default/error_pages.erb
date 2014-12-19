@@ -1,0 +1,16 @@
+proxy_intercept_errors on;
+fastcgi_intercept_errors on;
+error_page 404 /404.html;
+error_page 500 503 502 504 =503 /500.html;
+
+location = /404.html {
+    proxy_pass http://assets.tunehog.com/404.html;
+    proxy_set_header Host assets.tunehog.com;
+    proxy_hide_header Last-Modified;
+}
+
+location = /500.html {
+    proxy_pass http://assets.tunehog.com/500.html;
+    proxy_set_header Host assets.tunehog.com;
+    proxy_hide_header Last-Modified;
+}
