@@ -61,11 +61,5 @@ default['nginx']['configure_flags']    = []
 default['nginx']['source']['version']  = node['nginx']['version']
 default['nginx']['source']['url']      = "http://nginx.org/download/nginx-#{node['nginx']['source']['version']}.tar.gz"
 default['nginx']['source']['checksum'] = '0510af71adac4b90484ac8caf3b8bd519a0f7126250c2799554d7a751a2db388'
-default['nginx']['source']['modules']  = %w(
-  nginx::ajp_module
-  nginx::jvm_module
-  nginx::upstream_check_module
-  nginx::upload_progress_module
-  nginx::sticky_module
-)
+default['nginx']['source']['modules']  = %w()
 default['nginx']['source']['use_existing_user'] = false
