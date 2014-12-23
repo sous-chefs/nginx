@@ -9,7 +9,7 @@
     listen <%= node['nginx']['port'] %> default;
 
     access_log <%= node['nginx']['log_dir'] %>/<%= node['nginx']['socketproxy']['logname'] %>.access.log main;
-    error_log <%= node['nginx']['log_dir'] %>/<%= node['nginx']['socketproxy']['logname'] %>.error.log debug;
+    error_log <%= node['nginx']['log_dir'] %>/<%= node['nginx']['socketproxy']['logname'] %>.error.log <%= node['nginx']['socketproxy']['log_level'] %>;
 
     <% if node['nginx']['server_name'] -%>
     server_name ~^<%= node['nginx']['server_name'] %>\..*$;
