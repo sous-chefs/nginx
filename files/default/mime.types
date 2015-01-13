@@ -8,6 +8,7 @@ types {
     application/json                      json;
     application/atom+xml                  atom;
     application/rss+xml                   rss;
+    text/cache.manifest                   manifest;
     text/mathml                           mml;
     text/plain                            txt;
     text/vnd.sun.j2me.app-descriptor      jad;
