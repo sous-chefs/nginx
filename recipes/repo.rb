@@ -29,7 +29,6 @@ when 'rhel', 'fedora'
   end
 
 when 'debian'
-  include_recipe 'apt::default'
 
   apt_repository 'nginx' do
     uri          node['nginx']['upstream_repository']
