@@ -1,4 +1,3 @@
-#
 # Cookbook Name:: nginx
 # Recipe:: repo-passenger
 # Author:: Jose Alberto Suarez Lopez <ja@josealberto.org>
@@ -19,7 +18,7 @@
 case node['platform_family']
 when 'rhel', 'fedora'
 
-  log "There is not official phusion passenger repo for redhat based systems." do
+  log 'There is not official phusion passenger repo for redhat based systems.' do
     level :info
   end
 
@@ -28,7 +27,7 @@ when 'debian'
   package 'apt-transport-https'
 
   apt_repository 'phusionpassenger' do
-    uri "https://oss-binaries.phusionpassenger.com/apt/passenger"
+    uri 'https://oss-binaries.phusionpassenger.com/apt/passenger'
     distribution node['lsb']['codename']
     components %w(main)
     deb_src true
