@@ -1,0 +1,10 @@
+AllCops:
+  Exclude:
+    - Guardfile
+    - 'vendor/**/*'
+
+Metrics/LineLength:
+  Max: 160
+
+Style/SingleSpaceBeforeFirstArg:
+  Enabled: false
