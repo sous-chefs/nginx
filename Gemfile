@@ -17,6 +17,7 @@ end
 group :unit do
   gem 'berkshelf', '~> 3.2.0'
   gem 'chefspec',  '~> 4.2.0'
+  gem 'coveralls', '~> 0.7.1', require: false
 end
 
 group :kitchen_cloud do
