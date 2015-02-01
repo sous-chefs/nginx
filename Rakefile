@@ -2,8 +2,12 @@
 
 require 'foodcritic'
 require 'kitchen'
+require 'rake/clean'
 require 'rspec/core/rake_task'
 require 'rubocop/rake_task'
+
+CLEAN.include %w(.kitchen/ coverage)
+CLOBBER.include %w(Berksfile.lock Gemfile.lock)
 
 # Default tasks to run when executing `rake`
 task default: %w(style spec)
