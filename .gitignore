@@ -16,4 +16,5 @@
 \#*#
 Berksfile.lock
 bin
+coverage/
 Gemfile.lock
