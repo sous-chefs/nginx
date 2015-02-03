@@ -50,10 +50,9 @@ if status == 0
   stderr.split("\n").each do |line|
     case line
     when /^configure arguments:(.+)/
-      # This could be better: I'm splitting on configure arguments which removes them and also
-      # adds a blank string at index 0 of the array. This is why we drop index 0 and map to
-      # add the '--' prefix back to the configure argument.
-      nginx[:configure_arguments] = $1.split(/\s--/).drop(1).map { |ca| "--#{ca}" }
+      # Split based on regex. Delete any elements if they do not begin with 2 leading hyphens '--',
+      # and removing trailing whitespace
+      nginx[:configure_arguments] = $1.split(/(--[a-z_0-9-]+=?('[^']+'|[^\s]+|\s)?)/).delete_if { |e| ! e.start_with?('--') }.map{ |e| e.strip }
 
       prefix, conf_path = parse_flags(nginx[:configure_arguments])
 
