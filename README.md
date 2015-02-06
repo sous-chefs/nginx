@@ -40,6 +40,7 @@ Generally used attributes. Some have platform specific values. See `attributes/d
 
 - `node['nginx']['dir']` - Location for Nginx configuration.
 - `node['nginx']['log_dir']` - Location for Nginx logs.
+- `node['nginx']['log_dir_perm']` - Permissions for Nginx logs folder.
 - `node['nginx']['user']` - User that Nginx will run as.
 - `node['nginx']['group]` - Group for Nginx.
 - `node['nginx']['binary']` - Path to the Nginx binary.
