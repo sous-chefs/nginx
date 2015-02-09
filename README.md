@@ -381,6 +381,25 @@ attribute `node['nginx']['source']['modules']`.
 - `openssl_source.rb` - downloads and uses custom OpenSSL source
   when compiling nginx
 
+Definitions
+-----------
+
+The cookbook provides a new definition. At some point in the future this definition may be refactored into a lightweight resource and provider as suggested by [foodcritic rule FC015](http://acrmp.github.com/foodcritic/#FC015).
+
+### nginx\_site
+
+Enable or disable a Server Block in
+`#{node['nginx']['dir']}/sites-available` by calling nxensite or
+nxdissite (introduced by this cookbook) to manage the symbolic link in
+`#{node['nginx']['dir']}/sites-enabled`.
+
+The template for the site must be managed as a separate resource.
+
+### Parameters:
+
+* `name` - Name of the site.
+* `enable` - Default true, which uses `nxensite` to enable the site. If false, the site will be disabled with `nxdissite`.
+
 
 Adding New Modules
 ------------------
