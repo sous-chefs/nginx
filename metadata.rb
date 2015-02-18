@@ -1,6 +1,6 @@
 name              'nginx'
-maintainer        'Opscode, Inc.'
-maintainer_email  'cookbooks@opscode.com'
+maintainer        'Chef Software, Inc.'
+maintainer_email  'cookbooks@chef.io'
 license           'Apache 2.0'
 description       'Installs and configures nginx'
 version           '2.7.4'

@@ -68,7 +68,7 @@ Integration Testing using Vagrant
 ---------------------------------
 Integration tests can be performed on a local workstation using
 Virtualbox or VMWare. Detailed instructions for setting this up can be
-found at the [Bento](https://github.com/opscode/bento) project web site.
+found at the [Bento](https://github.com/chef/bento) project web site.
 
 Integration tests using Vagrant can be performed with either
 ```

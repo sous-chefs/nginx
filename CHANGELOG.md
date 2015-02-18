@@ -74,7 +74,7 @@ v2.4.0 (2014-02-27)
 
 v2.3.0 (2014-02-25)
 -------------------
-- **[COOK-4293](https://tickets.opscode.com/browse/COOK-4293)** - Update testing Gems in nginx and fix a rubocop warnings
+- **[COOK-4293](https://tickets.chef.io/browse/COOK-4293)** - Update testing Gems in nginx and fix a rubocop warnings
 - **[COOK-4237] - Nginx version incorrectly parsed on Ubuntu 13
 - **[COOK-3866] - Nginx default site folder
 
@@ -111,60 +111,60 @@ Locking yum dependency to '< 3'
 v2.0.4
 ------
 ### Bug
-- **[COOK-3808](https://tickets.opscode.com/browse/COOK-3808)** - nginx::passenger run fails because of broken installation of package dependencies
-- **[COOK-3779](https://tickets.opscode.com/browse/COOK-3779)** - Build in master fails due to rubocop error
+- **[COOK-3808](https://tickets.chef.io/browse/COOK-3808)** - nginx::passenger run fails because of broken installation of package dependencies
+- **[COOK-3779](https://tickets.chef.io/browse/COOK-3779)** - Build in master fails due to rubocop error
 
 
 v2.0.2
 ------
 ### Bug
-- **[COOK-3808](https://tickets.opscode.com/browse/COOK-3808)** - nginx::passenger run fails because of broken installation of package dependencies
-- **[COOK-3779](https://tickets.opscode.com/browse/COOK-3779)** - Build in master fails due to rubocop error
+- **[COOK-3808](https://tickets.chef.io/browse/COOK-3808)** - nginx::passenger run fails because of broken installation of package dependencies
+- **[COOK-3779](https://tickets.chef.io/browse/COOK-3779)** - Build in master fails due to rubocop error
 
 
 v2.0.0
 ------
 ### Improvement
-- **[COOK-3733](https://tickets.opscode.com/browse/COOK-3733)** - Add RPM key names and GPG checking
-- **[COOK-3687](https://tickets.opscode.com/browse/COOK-3687)** - Add support for `http_perl`
-- **[COOK-3603](https://tickets.opscode.com/browse/COOK-3603)** - Add a recipe for using custom openssl
-- **[COOK-3602](https://tickets.opscode.com/browse/COOK-3602)** - Use an attribute for the status module port
-- **[COOK-3549](https://tickets.opscode.com/browse/COOK-3549)** - Refactor custom modules support
-- **[COOK-3521](https://tickets.opscode.com/browse/COOK-3521)** - Add support for `http_auth_request`
-- **[COOK-3520](https://tickets.opscode.com/browse/COOK-3520)** - Add support for `spdy`
-- **[COOK-3185](https://tickets.opscode.com/browse/COOK-3185)** - Add `gzip_*` attributes
-- **[COOK-2712](https://tickets.opscode.com/browse/COOK-2712)** - Update `upload_progress` version to 0.9.0
+- **[COOK-3733](https://tickets.chef.io/browse/COOK-3733)** - Add RPM key names and GPG checking
+- **[COOK-3687](https://tickets.chef.io/browse/COOK-3687)** - Add support for `http_perl`
+- **[COOK-3603](https://tickets.chef.io/browse/COOK-3603)** - Add a recipe for using custom openssl
+- **[COOK-3602](https://tickets.chef.io/browse/COOK-3602)** - Use an attribute for the status module port
+- **[COOK-3549](https://tickets.chef.io/browse/COOK-3549)** - Refactor custom modules support
+- **[COOK-3521](https://tickets.chef.io/browse/COOK-3521)** - Add support for `http_auth_request`
+- **[COOK-3520](https://tickets.chef.io/browse/COOK-3520)** - Add support for `spdy`
+- **[COOK-3185](https://tickets.chef.io/browse/COOK-3185)** - Add `gzip_*` attributes
+- **[COOK-2712](https://tickets.chef.io/browse/COOK-2712)** - Update `upload_progress` version to 0.9.0
 
 ### Bug
-- **[COOK-3686](https://tickets.opscode.com/browse/COOK-3686)** - Remove deprecated 'passenger_use_global_queue' directive
-- **[COOK-3626](https://tickets.opscode.com/browse/COOK-3626)** - Parameterize hardcoded path to helper scripts
-- **[COOK-3571](https://tickets.opscode.com/browse/COOK-3571)** - Reloda ohai plugin after installation
-- **[COOK-3428](https://tickets.opscode.com/browse/COOK-3428)** - Fix an issue where access logs are not disabled when the `disable_access_log` attribute is set to `true`
-- **[COOK-3322](https://tickets.opscode.com/browse/COOK-3322)** - Fix an issue where `nginx::ohai_plugin` fails when using source recipe
-- **[COOK-3241](https://tickets.opscode.com/browse/COOK-3241)** - Fix an issue where`nginx::ohai_plugin` fails unless using source recipe
+- **[COOK-3686](https://tickets.chef.io/browse/COOK-3686)** - Remove deprecated 'passenger_use_global_queue' directive
+- **[COOK-3626](https://tickets.chef.io/browse/COOK-3626)** - Parameterize hardcoded path to helper scripts
+- **[COOK-3571](https://tickets.chef.io/browse/COOK-3571)** - Reloda ohai plugin after installation
+- **[COOK-3428](https://tickets.chef.io/browse/COOK-3428)** - Fix an issue where access logs are not disabled when the `disable_access_log` attribute is set to `true`
+- **[COOK-3322](https://tickets.chef.io/browse/COOK-3322)** - Fix an issue where `nginx::ohai_plugin` fails when using source recipe
+- **[COOK-3241](https://tickets.chef.io/browse/COOK-3241)** - Fix an issue where`nginx::ohai_plugin` fails unless using source recipe
 
 ### New Feature
-- **[COOK-3605](https://tickets.opscode.com/browse/COOK-3605)** - Add Lua module
+- **[COOK-3605](https://tickets.chef.io/browse/COOK-3605)** - Add Lua module
 
 
 v1.8.0
 ------
 ### Bug
-- **[COOK-3397](https://tickets.opscode.com/browse/COOK-3397)** - Fix user from nginx package on Gentoo
-- **[COOK-2968](https://tickets.opscode.com/browse/COOK-2968)** - Fix foodcritic failure
-- **[COOK-2723](https://tickets.opscode.com/browse/COOK-2723)** - Remove duplicate  passenger `max_pool_size`
+- **[COOK-3397](https://tickets.chef.io/browse/COOK-3397)** - Fix user from nginx package on Gentoo
+- **[COOK-2968](https://tickets.chef.io/browse/COOK-2968)** - Fix foodcritic failure
+- **[COOK-2723](https://tickets.chef.io/browse/COOK-2723)** - Remove duplicate  passenger `max_pool_size`
 
 ### Improvement
-- **[COOK-3186](https://tickets.opscode.com/browse/COOK-3186)** - Add `client_body_buffer_size` and `server_tokens attributes`
-- **[COOK-3080](https://tickets.opscode.com/browse/COOK-3080)** - Add rate-limiting support
-- **[COOK-2927](https://tickets.opscode.com/browse/COOK-2927)** - Add support for `real_ip_recursive` directive
-- **[COOK-2925](https://tickets.opscode.com/browse/COOK-2925)** - Fix ChefSpec converge
-- **[COOK-2724](https://tickets.opscode.com/browse/COOK-2724)** - Automatically create directory for PID file
-- **[COOK-2472](https://tickets.opscode.com/browse/COOK-2472)** - Bump nginx version to 1.2.9
-- **[COOK-2312](https://tickets.opscode.com/browse/COOK-2312)** - Add additional `mine_types` to the `gzip_types` value
+- **[COOK-3186](https://tickets.chef.io/browse/COOK-3186)** - Add `client_body_buffer_size` and `server_tokens attributes`
+- **[COOK-3080](https://tickets.chef.io/browse/COOK-3080)** - Add rate-limiting support
+- **[COOK-2927](https://tickets.chef.io/browse/COOK-2927)** - Add support for `real_ip_recursive` directive
+- **[COOK-2925](https://tickets.chef.io/browse/COOK-2925)** - Fix ChefSpec converge
+- **[COOK-2724](https://tickets.chef.io/browse/COOK-2724)** - Automatically create directory for PID file
+- **[COOK-2472](https://tickets.chef.io/browse/COOK-2472)** - Bump nginx version to 1.2.9
+- **[COOK-2312](https://tickets.chef.io/browse/COOK-2312)** - Add additional `mine_types` to the `gzip_types` value
 
 ### New Feature
-- **[COOK-3183](https://tickets.opscode.com/browse/COOK-3183)** - Allow inclusion in extra-cookbook modules
+- **[COOK-3183](https://tickets.chef.io/browse/COOK-3183)** - Allow inclusion in extra-cookbook modules
 
 v1.7.0
 ------
