@@ -34,6 +34,7 @@ else
 end
 
 node.default['nginx']['passenger']['packages']['rhel'] = %w(ruby-devel curl-devel)
+node.default['nginx']['passenger']['packages']['fedora'] = %w(ruby-devel libcurl-devel)
 node.default['nginx']['passenger']['packages']['debian'] = %w(ruby-dev libcurl4-gnutls-dev)
 
 node.default['nginx']['passenger']['spawn_method'] = 'smart-lv2'
