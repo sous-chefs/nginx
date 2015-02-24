@@ -98,7 +98,7 @@ default['nginx']['sendfile'] = 'on'
 
 default['nginx']['access_log_options']     = nil
 default['nginx']['error_log_options']      = nil
-default['nginx']['disable_access_log']     = false
+default['nginx']['disable_access_log']     = true
 default['nginx']['install_method']         = 'package'
 default['nginx']['default_site_enabled']   = true
 default['nginx']['types_hash_max_size']    = 2_048
