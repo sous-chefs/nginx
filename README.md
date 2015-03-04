@@ -256,6 +256,8 @@ These attributes are used in the `nginx::passenger` recipe.
   time (default=`300`)
 - `node['nginx']['passenger']['max_requests']` - maximum requests
   (default=`0`)
+- `node['nginx']['passenger']['nodejs']` - Nodejs path for Passenger to
+  use (default=nil)
 
 ### echo
 These attributes are used in the `nginx::http_echo_module` recipe.
