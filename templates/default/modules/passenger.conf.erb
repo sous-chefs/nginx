@@ -8,6 +8,6 @@ passenger_max_instances_per_app <%= node['nginx']['passenger']['max_instances_pe
 passenger_pool_idle_time <%= node['nginx']['passenger']['pool_idle_time'] %>;
 passenger_max_requests <%= node['nginx']['passenger']['max_requests'] %>;
 
-<%- if node['nginx']['passenger']['nodejs'] %>;
+<%- if node['nginx']['passenger']['nodejs'] %>
   passenger_nodejs <%= node['nginx']['passenger']['nodejs'] %>;
 <% end %>
