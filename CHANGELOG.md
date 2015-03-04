@@ -13,6 +13,7 @@ v2.7.5 (Unreleased)
 * Fix typo in `source.rb`, [#205][] [@gregkare][]
 * Test updates: ChefSpec, test-kitchen. Lots of help by [@jujugrrr][]
 * Toolchain updates for testing
+* Adds support for `tcp_nopush`, `tcp_nodelay` [@shtouff][]
 
 https://github.com/miketheman/nginx/compare/v2.7.4...master
 

@@ -113,3 +113,13 @@ attribute 'nginx/sendfile',
   :display_name => 'Nginx sendfile',
   :description => 'Whether to enable sendfile',
   :default => 'on'
+
+attribute 'nginx/tcp_nopush',
+  :display_name => 'Nginx tcp_nopush',
+  :description => 'Whether to enable tcp_nopush',
+  :default => 'on'
+
+attribute 'nginx/tcp_nodelay',
+  :display_name => 'Nginx tcp_nodelay',
+  :description => 'Whether to enable tcp_nodelay',
+  :default => 'on'
