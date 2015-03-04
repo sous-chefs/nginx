@@ -1,5 +1,5 @@
 # Cookbook Name:: nginx
-# Recipe:: repo-passenger
+# Recipe:: repo_passenger
 # Author:: Jose Alberto Suarez Lopez <ja@josealberto.org>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
