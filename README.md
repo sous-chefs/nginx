@@ -65,6 +65,8 @@ Generally used attributes. Some have platform specific values. See `attributes/d
 - `node['nginx']['pid']` - Location of the PID file.
 - `node['nginx']['keepalive']` - Whether to use `keepalive_timeout`,
   any value besides "on" will leave that option out of the config.
+- `node['nginx']['keepalive_requests']` - used for config value of
+  `keepalive_requests`.
 - `node['nginx']['keepalive_timeout']` - used for config value of
   `keepalive_timeout`.
 - `node['nginx']['worker_processes']` - used for config value of

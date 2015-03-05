@@ -45,6 +45,7 @@ http {
   tcp_nodelay on;
 
   <% if node['nginx']['keepalive'] == 'on' %>
+  keepalive_requests <%= node['nginx']['keepalive_requests'] %>;
   keepalive_timeout  <%= node['nginx']['keepalive_timeout'] %>;
   <% end %>
 
