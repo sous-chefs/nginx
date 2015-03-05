@@ -18,6 +18,9 @@ events {
 <% if node['nginx']['event'] -%>
   use <%= node['nginx']['event'] %>;
 <% end -%>
+<% if node['nginx']['accept_mutex_delay'] -%>
+  accept_mutex_delay <%= node['nginx']['accept_mutex_delay'] %>ms;
+<% end -%>
 }
 
 http {
