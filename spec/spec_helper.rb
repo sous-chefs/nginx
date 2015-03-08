@@ -1,8 +1,10 @@
+if ENV['CI']
+  require 'coveralls'
+  Coveralls.wear!
+end
+
 require 'chefspec'
 require 'chefspec/berkshelf'
-require 'coveralls'
-
-Coveralls.wear!
 
 RSpec.configure do |config|
   # prevent any WARN messages during testing

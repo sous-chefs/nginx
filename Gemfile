@@ -7,6 +7,7 @@ group :development do
   gem 'guard-rspec'
   gem 'guard-rubocop'
   gem 'rake'
+  gem 'rb-fsevent'
 end
 
 group :style do
