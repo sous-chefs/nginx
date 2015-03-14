@@ -33,10 +33,15 @@ default['nginx']['binary']       = '/usr/sbin/nginx'
 default['nginx']['default_root'] = '/var/www/nginx-default'
 default['nginx']['ulimit']       = '1024'
 
+default['nginx']['pid'] = '/var/run/nginx.pid'
+
 case node['platform_family']
 when 'debian'
   default['nginx']['user']       = 'www-data'
   default['nginx']['init_style'] = 'runit'
+  if platform == 'ubuntu' && platform_version == '14.04'
+    default['nginx']['pid'] = '/run/nginx.pid'
+  end
 when 'rhel', 'fedora'
   default['nginx']['user']        = 'nginx'
   default['nginx']['init_style']  = 'init'
@@ -65,8 +70,6 @@ default['nginx']['upstart']['respawn_limit'] = nil
 default['nginx']['upstart']['foreground']    = true
 
 default['nginx']['group'] = default['nginx']['group'] || node['nginx']['user']
-
-default['nginx']['pid'] = '/var/run/nginx.pid'
 
 default['nginx']['gzip']              = 'on'
 default['nginx']['gzip_static']       = 'off'
