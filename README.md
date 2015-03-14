@@ -6,6 +6,20 @@ nginx Cookbook
 
 Installs nginx from package OR source code and sets up configuration handling similar to Debian's Apache2 scripts.
 
+# READ THIS FIRST
+
+After having struggled with the cookbook format and the interfaces being brittle, the maintainers have decided to begin rewriting the core implmenetation of the nginx cookbook from the ground up, to allow for better flexibility, testability and maintianability.
+
+To this end, we request that you not open new issues for the existing codebase.
+
+Pull requests for bugs will be merged, any obvious optimizations and clarifications will be merged, and a 2.7.5 release will be shipped, and we will focus on writing the 3.0.0 version.
+
+Thank you for your help on this front!
+
+-- The Maintainers
+
+---
+
 
 Requirements
 ------------
