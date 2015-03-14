@@ -2,7 +2,7 @@
 module ChefSpec::Matchers
   RSpec::Matchers.define :enable_nginx_site do |site|
     match do |chef_run|
-      chef_run.resources.any? do |resource|
+      chef_run.resource_collection.all_resources.any? do |resource|
         resource.resource_name == :execute && resource.name =~ /.*nxensite.*#{site}/
       end
     end
@@ -10,7 +10,7 @@ module ChefSpec::Matchers
 
   RSpec::Matchers.define :disable_nginx_site do |site|
     match do |chef_run|
-      chef_run.resources.any? do |resource|
+      chef_run.resource_collection.all_resources.any? do |resource|
         resource.resource_name == :execute && resource.name =~ /.*nxdissite.*#{site}/
       end
     end

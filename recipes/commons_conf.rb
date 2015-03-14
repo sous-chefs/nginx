@@ -21,7 +21,8 @@
 
 template 'nginx.conf' do
   path   "#{node['nginx']['dir']}/nginx.conf"
-  source 'nginx.conf.erb'
+  source node['nginx']['conf_template']
+  cookbook node['nginx']['conf_cookbook']
   owner  'root'
   group  node['root_group']
   mode   '0644'

@@ -1,6 +1,7 @@
 # encoding: utf-8
 require 'chefspec'
 require 'chefspec/berkshelf'
+require 'support/matchers/nginx_site'
 
 RSpec.configure do |config|
   # prevent any WARN messages during testing
