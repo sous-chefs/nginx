@@ -56,6 +56,7 @@ Generally used attributes. Some have platform specific values. See `attributes/d
 - `node['nginx']['conf_template']` - The `source` template to use when creating the `nginx.conf`.
 - `node['nginx']['conf_cookbook']` - The cookbook where `node['nginx']['conf_template']` resides.
 - `node['nginx']['log_dir']` - Location for Nginx logs.
+- `node['nginx']['log_dir_perm']` - Permissions for Nginx logs folder.
 - `node['nginx']['user']` - User that Nginx will run as.
 - `node['nginx']['group]` - Group for Nginx.
 - `node['nginx']['port']` - Port for nginx to listen on.
