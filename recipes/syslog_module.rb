@@ -22,33 +22,33 @@
 nginx_src = "#{Chef::Config['file_cache_path']}/nginx-#{node['nginx']['source']['version']}"
 nginx_syslog_src = "#{Chef::Config['file_cache_path']}/nginx_syslog_module"
 
-major, minor, patch = node['nginx']['source']['version'].split('.').map{ |s| Integer(s) }
-raise "Unsupported nginx version" if major != 1
+major, minor, patch = node['nginx']['source']['version'].split('.').map { |s| Integer(s) }
+fail 'Unsupported nginx version' if major != 1
 case minor
 when 2
   case patch
   when 0..6
-    syslog_patch = "syslog_1.2.0.patch"
+    syslog_patch = 'syslog_1.2.0.patch'
   else
-    syslog_patch = "syslog_1.2.7.patch"
+    syslog_patch = 'syslog_1.2.7.patch'
   end
 when 3
   case patch
   when 0..9
-    syslog_patch = "syslog_1.2.0.patch"
+    syslog_patch = 'syslog_1.2.0.patch'
   when 10..13
-    syslog_patch = "syslog_1.3.11.patch"
+    syslog_patch = 'syslog_1.3.11.patch'
   else
-    syslog_patch = "syslog_1.3.14.patch"
+    syslog_patch = 'syslog_1.3.14.patch'
   end
 when 4
-  syslog_patch = "syslog_1.4.0.patch"
+  syslog_patch = 'syslog_1.4.0.patch'
 when 5..6
-  syslog_patch = "syslog_1.5.6.patch"
+  syslog_patch = 'syslog_1.5.6.patch'
 when 7
-  syslog_patch = "syslog_1.7.0.patch"
+  syslog_patch = 'syslog_1.7.0.patch'
 else
-  raise "Unsupported nginx version"
+  fail 'Unsupported nginx version'
 end
 
 git nginx_syslog_src do
