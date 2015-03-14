@@ -35,6 +35,17 @@ if platform_family?('rhel')
   end
 elsif platform_family?('debian')
   include_recipe 'nginx::repo' if node['nginx']['repo_source'] == 'nginx'
+
+  file '/usr/sbin/policy-rc.d' do
+    mode    '0755'
+    owner   'root'
+    group   'root'
+    content <<-EOF
+#!/bin/sh
+echo "All runlevel operations denied by policy" >&2
+exit 101
+EOF
+  end
 end
 
 package node['nginx']['package_name'] do
