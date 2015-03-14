@@ -18,6 +18,9 @@ events {
 <% if node['nginx']['event'] -%>
   use <%= node['nginx']['event'] %>;
 <% end -%>
+<% if node['nginx']['accept_mutex_delay'] -%>
+  accept_mutex_delay <%= node['nginx']['accept_mutex_delay'] %>ms;
+<% end -%>
 }
 
 http {
@@ -46,6 +49,7 @@ http {
   tcp_nodelay on;
 
   <% if node['nginx']['keepalive'] == 'on' %>
+  keepalive_requests <%= node['nginx']['keepalive_requests'] %>;
   keepalive_timeout  <%= node['nginx']['keepalive_timeout'] %>;
   <% end %>
 

@@ -96,12 +96,14 @@ default['nginx']['gzip_min_length']   = 1_000
 default['nginx']['gzip_disable']      = 'MSIE [1-6]\.'
 
 default['nginx']['keepalive']            = 'on'
+default['nginx']['keepalive_requests']   = 100
 default['nginx']['keepalive_timeout']    = 65
 default['nginx']['worker_processes']     = node['cpu'] && node['cpu']['total'] ? node['cpu']['total'] : 1
 default['nginx']['worker_connections']   = 1_024
 default['nginx']['worker_rlimit_nofile'] = nil
 default['nginx']['multi_accept']         = false
 default['nginx']['event']                = nil
+default['nginx']['accept_mutex_delay']   = nil
 default['nginx']['server_tokens']        = nil
 default['nginx']['server_names_hash_bucket_size'] = 64
 default['nginx']['variables_hash_max_size']       = 1024
