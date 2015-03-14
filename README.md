@@ -252,6 +252,7 @@ These attributes are used in the `nginx::passenger` recipe.
 
 - `node['nginx']['passenger']['version']` - passenger gem version
 - `node['nginx']['passenger']['root']` - passenger gem root path
+- `node['nginx']['passenger']['install_rake']` - set to false if rake already present on system
 - `node['nginx']['passenger']['max_pool_size']` - maximum passenger
   pool size (default=10)
 - `node['nginx']['passenger']['ruby']` - Ruby path for Passenger to

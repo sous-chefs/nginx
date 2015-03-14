@@ -40,6 +40,7 @@ else
 end
 node.default['nginx']['passenger']['packages']['debian'] = %w(ruby-dev libcurl4-gnutls-dev)
 
+node.default['nginx']['passenger']['install_rake'] = true
 node.default['nginx']['passenger']['spawn_method'] = 'smart-lv2'
 node.default['nginx']['passenger']['buffer_response'] = 'on'
 node.default['nginx']['passenger']['max_pool_size'] = 6
