@@ -99,6 +99,8 @@ Generally used attributes. Some have platform specific values. See `attributes/d
   `server_tokens`.
 - `node['nginx']['server_names_hash_bucket_size']` - used for config
   value of `server_names_hash_bucket_size`.
+- `node['nginx']['log_format']` - Hash used for set log_format option in the
+   format "name" => "format"
 - `node['nginx']['disable_access_log']` - set to true to disable the
   general access log, may be useful on high traffic sites.
 - `node['nginx']['access_log_options']` - Set to a string of additional options
@@ -119,6 +121,8 @@ Generally used attributes. Some have platform specific values. See `attributes/d
   `client_body_buffer_size`.
 - `node['nginx']['client_max_body_size']` - specifies the maximum accepted body
   size of a client request, as indicated by the request header Content-Length.
+- `node['nginx']['resolver']` - specifies the list of resolvers and additional parametrs for it
+- `node['nginx']['resolver_timeout']` - specifies timeout for resolvers
 - `node['nginx']['repo_source']` - when installed from a package this attribute affects
   which yum repositories, if any, will be added before installing the nginx package. The
   default value of 'epel' will use the `yum::epel` recipe, 'nginx' will use the
