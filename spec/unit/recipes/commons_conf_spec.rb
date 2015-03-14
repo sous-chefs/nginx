@@ -4,7 +4,7 @@ require 'spec_helper'
 # the commons_* recipes require the service definition and are included/ran
 # from that recipe.
 describe 'nginx::commons_conf' do
-  let :chef_run do 
+  let :chef_run do
     ChefSpec::Runner.new(:platform => 'debian', :version  => '7.0')
   end
 
