@@ -5,7 +5,11 @@ require 'spec_helper'
 # from that recipe.
 describe 'nginx::commons_conf' do
   let :chef_run do
-    ChefSpec::Runner.new(:platform => 'debian', :version  => '7.0')
+    ChefSpec::SoloRunner.new(:platform => 'debian', :version  => '7.0')
+  end
+
+  before do
+    stub_command('which nginx').and_return(nil)
   end
 
   it 'creates an nginx.conf' do
