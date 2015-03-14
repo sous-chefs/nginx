@@ -45,6 +45,10 @@ http {
   keepalive_timeout  <%= node['nginx']['keepalive_timeout'] %>;
   <% end %>
 
+  <% unless node['nginx']['underscores_in_headers'].nil? %>
+  underscores_in_headers <%= node['nginx']['underscores_in_headers'] %>;
+  <% end %>
+
   gzip  <%= node['nginx']['gzip'] %>;
   <% if node['nginx']['gzip'] == 'on' %>
   gzip_http_version <%= node['nginx']['gzip_http_version'] %>;
