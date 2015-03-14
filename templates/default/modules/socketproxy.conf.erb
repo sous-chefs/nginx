@@ -45,7 +45,7 @@
 
     location ^~ /<%= app_conf['context_name'] %> {
 
-      alias $app_home/<%= app %>/<%= app_conf['subdir'] %>/public;
+      alias $app_home/<%= app %>/<%= app_conf['subdir'] %>/public/;
 
       try_files $uri/index.html $uri.html $uri @app_<%= app %>;
       error_page 404              /404.html;
