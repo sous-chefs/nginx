@@ -64,7 +64,7 @@ default['nginx']['upstart']['runlevels']     = '2345'
 default['nginx']['upstart']['respawn_limit'] = nil
 default['nginx']['upstart']['foreground']    = true
 
-default['nginx']['group'] ||= node['nginx']['user']
+default['nginx']['group'] = default['nginx']['group'] || node['nginx']['user']
 
 default['nginx']['pid'] = '/var/run/nginx.pid'
 
