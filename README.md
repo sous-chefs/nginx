@@ -125,7 +125,7 @@ Generally used attributes. Some have platform specific values. See `attributes/d
 - `node['nginx']['repo_source']` - when installed from a package this attribute affects
   which yum repositories, if any, will be added before installing the nginx package. The
   default value of 'epel' will use the `yum::epel` recipe, 'nginx' will use the
-  `nginx::repo` recipe, and setting no value will not add any additional repositories.
+  `nginx::repo` recipe, 'passenger' will use the 'nginx::repo_passenger' recipe, and setting no value will not add any additional repositories.
 * `node['nginx']['sts_max_age']` - Enable Strict Transport Security for all apps (See: http://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security).  This attribute adds the following header:
 
   Strict-Transport-Security max-age=SECONDS
@@ -278,6 +278,11 @@ These attributes are used in the `nginx::passenger` recipe.
   time (default=`300`)
 - `node['nginx']['passenger']['max_requests']` - maximum requests
   (default=`0`)
+
+Basic configuration to use the official Phusion Passenger repositories:
+- `node['nginx']['repo_source']` - 'passenger'
+- `node['nginx']['package_name']` - 'nginx-extras'
+- `node['nginx']['passenger']['install_method']` - 'package'
 
 ### echo
 These attributes are used in the `nginx::http_echo_module` recipe.
