@@ -1,5 +1,9 @@
 server {
-  listen   80;
+  <% if  node['nginx']['default_listen_port'] -%> 
+    listen <%= node['nginx']['default_listen_port'] %>;
+  <% else -%>
+    listen 80;
+  <% end -%>
   server_name  <%= node['hostname'] %>;
 
   access_log  <%= node['nginx']['log_dir'] %>/localhost.access.log;
