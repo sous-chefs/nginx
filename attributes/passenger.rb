@@ -33,7 +33,11 @@ else
   node.default['nginx']['passenger']['ruby'] = '/usr/bin/ruby'
 end
 
-node.default['nginx']['passenger']['packages']['rhel'] = %w(ruby-devel curl-devel)
+if platform_family?('rhel') && node['platform_version'].to_i >= 6
+  node.default['nginx']['passenger']['packages']['rhel'] = %w(ruby-devel libcurl-devel)
+else
+  node.default['nginx']['passenger']['packages']['rhel'] = %w(ruby-devel curl-devel)
+end
 node.default['nginx']['passenger']['packages']['debian'] = %w(ruby-dev libcurl4-gnutls-dev)
 
 node.default['nginx']['passenger']['spawn_method'] = 'smart-lv2'
