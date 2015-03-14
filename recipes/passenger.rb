@@ -28,9 +28,7 @@ unless packages.empty?
   end
 end
 
-if node['nginx']['passenger']['install_rake']
-  gem_package 'rake'
-end
+gem_package 'rake' if node['nginx']['passenger']['install_rake']
 
 gem_package 'passenger' do
   action     :install
