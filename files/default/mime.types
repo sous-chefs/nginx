@@ -52,9 +52,12 @@ types {
     application/octet-stream              bin exe dll;
     application/octet-stream              deb;
     application/octet-stream              dmg;
-    application/octet-stream              eot;
     application/octet-stream              iso img;
     application/octet-stream              msi msp msm;
+    font/ttf                              ttf;
+    font/opentype                         otf;
+    application/x-font-woff               woff;
+    application/vnd.ms-fontobject         eot;
     audio/midi                            mid midi kar;
     audio/mpeg                            mp3;
     audio/ogg                             ogg;
