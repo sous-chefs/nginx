@@ -202,7 +202,6 @@ describe 'nginx::source' do
     it 'defines nginx service' do
       expect(chef_run.service('nginx')).to do_nothing
     end
-
   end
 
   context 'with bluepill' do
@@ -223,7 +222,6 @@ describe 'nginx::source' do
     it 'defines nginx service' do
       expect(chef_run.service('nginx')).to do_nothing
     end
-
   end
 
   context 'with upstart' do
@@ -244,6 +242,5 @@ describe 'nginx::source' do
     it 'defines nginx service' do
       expect(chef_run.service('nginx')).to do_nothing
     end
-
   end
 end
