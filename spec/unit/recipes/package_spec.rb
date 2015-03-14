@@ -45,6 +45,11 @@ describe 'nginx::package' do
   end
 
   context 'debian platform family' do
+
+    it 'includes apt recipe' do
+      expect(chef_run).to include_recipe('apt::default')
+    end
+
     context 'default attributes' do
       it_behaves_like 'all platforms'
       it_behaves_like 'package resource'
