@@ -19,6 +19,6 @@
 # limitations under the License.
 #
 
-default['nginx']['echo']['version']        = '0.40'
-default['nginx']['echo']['url']            = "https://github.com/agentzh/echo-nginx-module/tarball/v#{node['nginx']['echo']['version']}"
-default['nginx']['echo']['checksum']       = '26ae7f7381d52d6aa5021dfc39a1862fd081d580166343f671d0920ed239ab41'
+default['nginx']['echo']['version']        = '0.57'
+default['nginx']['echo']['url']            = "https://github.com/openresty/echo-nginx-module/archive/v#{node['nginx']['echo']['version']}.tar.gz"
+default['nginx']['echo']['checksum']       = '8467237ca0fae74ca7a32fbd34fc6044df307098415d48068214c9c235695a07'

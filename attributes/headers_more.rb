@@ -20,5 +20,5 @@
 #
 
 default['nginx']['headers_more']['version']         = '0.25'
-default['nginx']['headers_more']['source_url']      = 'https://github.com/openresty/headers-more-nginx-module/archive/v0.25.tar.gz'
-default['nginx']['headers_more']['source_checksum'] = 'b5608c2959d3e7ad09b20fc8f9e5bd4bc87b3bc8ba5936a513c04ed8f1391a18'
+default['nginx']['headers_more']['source_url']      = "https://github.com/openresty/headers-more-nginx-module/archive/v#{node['nginx']['headers_more']['version']}.tar.gz"
+default['nginx']['headers_more']['source_checksum'] = '1473f96f59dcec9d83ce65d691559993c1f80da8c0a4c0c0a30dae9f969eeabf'
