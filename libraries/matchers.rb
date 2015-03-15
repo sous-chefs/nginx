@@ -1,5 +1,5 @@
-# Custom ChefSpec matchers
 if defined?(ChefSpec)
+  # Custom ChefSpec matchers
   module ChefSpec::Matchers
     RSpec::Matchers.define :enable_nginx_site do |site|
       match do |chef_run|
