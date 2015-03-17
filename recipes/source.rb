@@ -73,7 +73,7 @@ cookbook_file "#{node['nginx']['dir']}/mime.types" do
   owner  'root'
   group  node['root_group']
   mode   '0644'
-  notifies :reload, 'service[nginx]'
+  notifies :reload, 'service[nginx]', :delayed
 end
 
 # source install depends on the existence of the `tar` package

@@ -52,5 +52,5 @@ template "#{node['nginx']['dir']}/conf.d/passenger.conf" do
   owner  'root'
   group  node['root_group']
   mode   '0644'
-  notifies :reload, 'service[nginx]'
+  notifies :reload, 'service[nginx]', :delayed
 end

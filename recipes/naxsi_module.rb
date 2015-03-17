@@ -24,7 +24,7 @@ cookbook_file "#{node['nginx']['dir']}/naxsi_core.rules" do
   owner  'root'
   group  node['root_group']
   mode   '0644'
-  notifies :reload, 'service[nginx]'
+  notifies :reload, 'service[nginx]', :delayed
 end
 
 naxsi_src_filename = ::File.basename(node['nginx']['naxsi']['url'])

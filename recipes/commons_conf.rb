@@ -26,7 +26,7 @@ template 'nginx.conf' do
   owner  'root'
   group  node['root_group']
   mode   '0644'
-  notifies :reload, 'service[nginx]'
+  notifies :reload, 'service[nginx]', :delayed
 end
 
 template "#{node['nginx']['dir']}/sites-available/default" do
@@ -34,7 +34,7 @@ template "#{node['nginx']['dir']}/sites-available/default" do
   owner  'root'
   group  node['root_group']
   mode   '0644'
-  notifies :reload, 'service[nginx]'
+  notifies :reload, 'service[nginx]', :delayed
 end
 
 nginx_site 'default' do
