@@ -29,7 +29,7 @@ template 'nginx.conf' do
   notifies :reload, 'service[nginx]', :delayed
 end
 
-template "#{node['nginx']['dir']}/sites-available/default" do
+template "#{node['nginx']['dir']}/sites-available/default.conf" do
   source 'default-site.erb'
   owner  'root'
   group  node['root_group']
@@ -37,6 +37,6 @@ template "#{node['nginx']['dir']}/sites-available/default" do
   notifies :reload, 'service[nginx]', :delayed
 end
 
-nginx_site 'default' do
+nginx_site 'default.conf' do
   enable node['nginx']['default_site_enabled']
 end
