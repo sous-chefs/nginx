@@ -2,7 +2,7 @@ nginx Cookbook CHANGELOG
 ========================
 This file is used to list changes made in each version of the nginx cookbook.
 
-v2.7.5 (Unreleased)
+v2.7.5 (2015-03-17)
 -------------------
 **NOTE** As of this release, this cookbook in its current format is deprecated,
 and only critical bugs and fixes will be added.
