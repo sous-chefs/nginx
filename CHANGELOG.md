@@ -2,6 +2,11 @@ nginx Cookbook CHANGELOG
 ========================
 This file is used to list changes made in each version of the nginx cookbook.
 
+v2.7.6 / 2015-03-17
+==================
+
+  * Bugfix sites do not need a .conf suffix anymore, [#338][] [@runningman84][]
+
 v2.7.5 (2015-03-17)
 -------------------
 **NOTE** As of this release, this cookbook in its current format is deprecated,
@@ -392,6 +397,7 @@ v0.99.2
 [#331]: https://github.com/miketheman/nginx/issues/331
 [#332]: https://github.com/miketheman/nginx/issues/332
 [#335]: https://github.com/miketheman/nginx/issues/335
+[#338]: https://github.com/miketheman/nginx/issues/338
 [@9minutesnooze]: https://github.com/9minutesnooze
 [@CanOfSpam3bug324]: https://github.com/CanOfSpam3bug324
 [@Mytho]: https://github.com/Mytho
@@ -418,6 +424,7 @@ v0.99.2
 [@morr]: https://github.com/morr
 [@n1koo]: https://github.com/n1koo
 [@nkadel-skyhook]: https://github.com/nkadel-skyhook
+[@runningman84]: https://github.com/runningman84
 [@shtouff]: https://github.com/shtouff
 [@stevenolen]: https://github.com/stevenolen
 [@thomasmeeus]: https://github.com/thomasmeeus
