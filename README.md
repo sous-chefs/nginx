@@ -145,6 +145,7 @@ Currently the only valid value is "socketproxy".
 Other configurations
 
 - `node['nginx']['extra_configs']` - a Hash of key/values to nginx configuration.
+- `node['nginx']['extra_raw_configs']` - a Array of raw values to nginx configuration.
 
 Rate Limiting
 

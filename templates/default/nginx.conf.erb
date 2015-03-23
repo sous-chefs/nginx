@@ -98,6 +98,10 @@ http {
   <%= key %> <%= value %>;
   <% end -%>
 
+  <% node['nginx']['extra_raw_configs'].each do |value| -%>
+  <%= value %>
+  <% end -%>
+
   include <%= node['nginx']['dir'] %>/conf.d/*.conf;
   include <%= node['nginx']['dir'] %>/sites-enabled/*;
 }
