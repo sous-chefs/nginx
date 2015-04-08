@@ -43,7 +43,7 @@
       add_header  Cache-Control public;
     }
 
-    location ^~ /<%= app_conf['context_name'] %> {
+    location ~ ^/<%= app_conf['context_name'] %> {
 
       alias $app_home/<%= app %>/<%= app_conf['subdir'] %>/public/;
 
