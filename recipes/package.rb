@@ -20,7 +20,7 @@
 
 include_recipe 'nginx::ohai_plugin'
 
-my_version = node['nginx']['pkg_version'] || node['nginx']['version']
+my_version = node['nginx']['package_version'] || node['nginx']['version']
 
 if platform_family?('rhel')
   if node['nginx']['repo_source'] == 'epel'
@@ -38,13 +38,14 @@ if platform_family?('rhel')
 elsif platform_family?('debian')
   include_recipe 'nginx::repo_passenger' if node['nginx']['repo_source'] == 'passenger'
   include_recipe 'nginx::repo'           if node['nginx']['repo_source'] == 'nginx'
-  include_recipe 'nginx::repo' if node['nginx']['repo_source'] == 'nginx'
+  # Add an asterix to the end for debian because debian is strange.
+  my_version << '*' unless my_version.end_with?('*')
 end
 
 package node['nginx']['package_name'] do
   options package_install_opts
   notifies :reload, 'ohai[reload_nginx]', :immediately
-  not_if 'which nginx'
+  version my_version
 end
 
 service 'nginx' do
