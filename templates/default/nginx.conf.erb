@@ -23,6 +23,10 @@ events {
 <% end -%>
 }
 
+<% if node['nginx']['rtmp']['rtmp_server'] %>
+include       <%= node['nginx']['dir'] %>/rtmp.conf;
+
+<% end %>
 http {
   <% if node.recipe?('nginx::naxsi_module') %>
   include       <%= node['nginx']['dir'] %>/naxsi_core.rules;

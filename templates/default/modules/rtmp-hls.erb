@@ -1,0 +1,17 @@
+server {
+    listen      <%= node['nginx']['rtmp']['hls_port'] -%>;
+    access_log  <%= node['nginx']['log_dir'] %>/rtmp_hls.access.log;
+
+    <% if node['nginx']['rtmp']['hls'] %>
+    location /hls {
+        # Serve HLS fragments
+        types {
+            application/vnd.apple.mpegurl m3u8;
+            video/mp2t ts;
+        }
+        alias /tmp/hls/;
+        add_header Cache-Control no-cache;
+        expires -1;
+    }
+    <% end %>
+}

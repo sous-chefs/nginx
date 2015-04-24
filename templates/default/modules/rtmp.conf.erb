@@ -1,0 +1,17 @@
+rtmp {
+    server {
+        listen <%=node['nginx']['rtmp']['rtmp_port']%>;
+        chunk_size 4000;
+        application live {
+             live on;
+             idle_streams off;
+             hls on;
+             hls_path /tmp/hls;
+             hls_fragment 5s;
+             hls_playlist_length 60s;
+             hls_sync 5ms;
+             hls_type live;
+             allow play all;
+       }
+    }
+}

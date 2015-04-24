@@ -1,0 +1,19 @@
+server {
+    listen      <%= node['nginx']['rtmp']['stat_port'] -%>;
+    access_log  <%= node['nginx']['log_dir'] %>/rtmp_stat.access.log;
+
+    <% if node['nginx']['rtmp']['stat'] %>
+    # This URL provides RTMP statistics in XML
+    location /stat {
+        rtmp_stat all;
+        rtmp_stat_stylesheet stat.xsl;
+    }
+
+    location /stat.xsl {
+        # XML stylesheet to view RTMP stats.
+        # Copy stat.xsl wherever you want
+        # and put the full directory path here
+        root   <%= node['nginx']['rtmp']['stat_root'] %>;
+    }
+    <% end %>
+}
