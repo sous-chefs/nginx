@@ -17,6 +17,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+include_recipe 'nginx'
 
 tar_location = "#{Chef::Config['file_cache_path']}/rtmp_module.tar.gz"
 module_location = "#{Chef::Config['file_cache_path']}/rtmp_module/#{node['nginx']['rtmp']['source_checksum']}"
@@ -49,7 +50,6 @@ end
 node.run_state['nginx_configure_flags'] =
     node.run_state['nginx_configure_flags'] | ["--add-module=#{module_location}/nginx-rtmp-module-#{node['nginx']['rtmp']['version']}/"]
 
-
 template "#{node['nginx']['dir']}/rtmp.conf" do
   source 'modules/rtmp.conf.erb'
   owner  'root'
@@ -65,7 +65,7 @@ directory node['nginx']['rtmp']['stat_root'] do
   recursive true
 end
 
-remote_file "#{node['nginx']['rtmp']['stat_root']}/stat.xsl" do 
+remote_file "#{node['nginx']['rtmp']['stat_root']}/stat.xsl" do
   source "file://#{module_location}/nginx-rtmp-module-#{node['nginx']['rtmp']['version']}/stat.xsl"
   owner  'root'
   group  node['root_group']
