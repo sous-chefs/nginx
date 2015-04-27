@@ -1,11 +1,11 @@
 # encoding: utf-8
 
 describe 'nginx::rtmp_module' do
-  
+
   before do
     stub_command('which nginx').and_return(nil)
   end
-  
+
   cached(:chef_run) do
     ChefSpec::SoloRunner.new do |node|
       node.set['nginx']['source']['modules'] = ['nginx::rtmp_module']
