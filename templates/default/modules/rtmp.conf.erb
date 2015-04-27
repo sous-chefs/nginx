@@ -1,6 +1,14 @@
 rtmp {
     server {
         listen <%=node['nginx']['rtmp']['rtmp_port']%>;
+        <% 
+        if node['nginx']['rtmp'].key?('publishers') then
+          [*node['nginx']['rtmp']['publishers']].each do |p|
+        %>
+        allow publish <%=p%>;
+        <%  end %>
+        deny publish all;
+        <% end %>
         chunk_size 4000;
         application live {
              live on;

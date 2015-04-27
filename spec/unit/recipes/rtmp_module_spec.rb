@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 describe 'nginx::rtmp_module' do
-
   before do
     stub_command('which nginx').and_return(nil)
   end
