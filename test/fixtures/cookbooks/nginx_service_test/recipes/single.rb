@@ -1,0 +1,1 @@
+nginx_service 'single'

@@ -3,4 +3,3 @@
 --order rand
 --require spec_helper
 --tag focus
---tag ~wip

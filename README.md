@@ -29,6 +29,12 @@ Usage
 -----
 TBD
 
+Notes
+-----
+Inside providers, we dynamically render the resource name into the sub-resource
+title to ensure uniqueness.
+This avoids resource cloning via CHEF-3694 and allows ChefSpec to work properly.
+
 License & Authors
 -----------------
 - Author:: Mike Fiedler (<miketheman@gmail.com>)

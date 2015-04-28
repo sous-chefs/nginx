@@ -6,8 +6,8 @@ require 'rake/clean'
 require 'rspec/core/rake_task'
 require 'rubocop/rake_task'
 
-CLEAN.include %w(.kitchen/ coverage)
-CLOBBER.include %w(Berksfile.lock Gemfile.lock)
+CLEAN.include %w(.kitchen/ coverage/ doc/)
+CLOBBER.include %w(Berksfile.lock Gemfile.lock .yardoc/)
 
 # Default tasks to run when executing `rake`
 task default: %w(style spec)
@@ -32,7 +32,7 @@ RSpec::Core::RakeTask.new(:spec) do |t|
   t.verbose = false
 end
 
-# Integration tests. Kitchen.ci
-namespace :integration do
-  # TBD
+desc 'Find notes in code'
+task :notes do
+  puts `egrep --exclude=Rakefile --exclude=*.log -n -r -i '(TODO|FIXME|OPTIMIZE)' .`
 end

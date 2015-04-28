@@ -10,6 +10,7 @@
 .ruby-gemset
 .ruby-version
 .vagrant
+.yardoc/
 *.un~
 *#
 *~
@@ -17,4 +18,5 @@
 Berksfile.lock
 bin
 coverage/
+doc/
 Gemfile.lock
