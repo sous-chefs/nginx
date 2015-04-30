@@ -13,12 +13,18 @@ rtmp {
         application live {
              live on;
              idle_streams off;
+             <% if node['nginx']['rtmp']['hls'] then %>
              hls on;
              hls_path /tmp/hls;
              hls_fragment 5s;
              hls_playlist_length 60s;
              hls_sync 5ms;
              hls_type live;
+             <% end %>
+             <% if node['nginx']['rtmp']['dash'] then %>
+             dash on;
+             dash_path /tmp/dash;
+             <% end %>
              allow play all;
        }
     }

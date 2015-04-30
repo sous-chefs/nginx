@@ -73,15 +73,15 @@ remote_file "#{node['nginx']['rtmp']['stat_root']}/stat.xsl" do
   notifies :reload, 'service[nginx]', :delayed
 end
 
-template "#{node['nginx']['dir']}/sites-available/rtmp-hls" do
-  source 'modules/rtmp-hls.erb'
+template "#{node['nginx']['dir']}/sites-available/rtmp-http" do
+  source 'modules/rtmp-http.erb'
   owner  'root'
   group  node['root_group']
   mode   '0644'
   notifies :reload, 'service[nginx]', :delayed
 end
-nginx_site 'rtmp-hls' do
-  enable node['nginx']['rtmp']['hls']
+nginx_site 'rtmp-http' do
+  enable node['nginx']['rtmp']['hls'] || node['nginx']['rtmp']['dash']
 end
 template "#{node['nginx']['dir']}/sites-available/rtmp-stat" do
   source 'modules/rtmp-stat.erb'

@@ -1,6 +1,6 @@
 server {
-    listen      <%= node['nginx']['rtmp']['hls_port'] -%>;
-    access_log  <%= node['nginx']['log_dir'] %>/rtmp_hls.access.log;
+    listen      <%= node['nginx']['rtmp']['http_port'] -%>;
+    access_log  <%= node['nginx']['log_dir'] %>/rtmp_http.access.log;
 
     <% if node['nginx']['rtmp']['hls'] %>
     location /hls {
@@ -12,6 +12,13 @@ server {
         alias /tmp/hls/;
         add_header Cache-Control no-cache;
         expires -1;
+    }
+    <% end %>
+    <% if node['nginx']['rtmp']['dash'] %>
+    location /dash {
+        # Serve DASH fragments
+        root /tmp;
+        add_header Cache-Control no-cache;
     }
     <% end %>
 }

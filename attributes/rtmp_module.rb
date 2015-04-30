@@ -25,9 +25,10 @@ default['nginx']['rtmp']['source_checksum'] = '7922b0e3d5f3d9c4b275e4908cfb8f5fb
 
 default['nginx']['rtmp']['rtmp_server'] = true
 default['nginx']['rtmp']['rtmp_port'] = '1935'
-default['nginx']['rtmp']['hls_port'] = '8080'
+default['nginx']['rtmp']['http_port'] = '8080'
 default['nginx']['rtmp']['stat_port'] = '8081'
 default['nginx']['rtmp']['hls'] = false
+default['nginx']['rtmp']['dash'] = false
 default['nginx']['rtmp']['stat'] = false
 case node['platform_family']
 when 'freebsd'
