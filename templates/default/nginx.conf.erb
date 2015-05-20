@@ -32,7 +32,7 @@ http {
   default_type  application/octet-stream;
 
   <% node['nginx']['log_formats'].each do |name, format| %>
-  log_format <%= name %> <%= format %>;
+  log_format <%= name %> '<%= format %>';
   <% end -%>
 
   <% if node['nginx']['disable_access_log'] -%>
