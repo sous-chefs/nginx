@@ -113,7 +113,9 @@ default['nginx']['underscores_in_headers'] = nil
 default['nginx']['tcp_nodelay'] = 'on'
 default['nginx']['tcp_nopush'] = 'on'
 
+default['nginx']['access_log'] = "#{node['nginx']['log_dir']}/access.log"
 default['nginx']['access_log_options']     = nil
+default['nginx']['error_log'] = "#{node['nginx']['log_dir']}/error.log"
 default['nginx']['error_log_options']      = nil
 default['nginx']['disable_access_log']     = false
 default['nginx']['log_formats']            = {}
