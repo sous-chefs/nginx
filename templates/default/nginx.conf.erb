@@ -37,6 +37,10 @@ http {
 
   <% if node['nginx']['disable_access_log'] -%>
   access_log    off;
+  <% elsif node['nginx']['access_log'] -%>
+    <% node['nginx']['access_log'].each do |access_log| %>
+  access_log <%= access_log %>;
+    <% end -%>
   <% else -%>
   access_log    <%= node['nginx']['log_dir'] %>/access.log<% if node['nginx']['access_log_options'] %> <%= node['nginx']['access_log_options'] %><% end %>;
   <% end %>
