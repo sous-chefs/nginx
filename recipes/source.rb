@@ -55,7 +55,7 @@ packages.each do |name|
   package name
 end
 
-remote_file nginx_url do
+remote_file src_filepath do
   source   nginx_url
   checksum node['nginx']['source']['checksum']
   path     src_filepath
