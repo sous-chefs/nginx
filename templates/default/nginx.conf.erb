@@ -101,3 +101,11 @@ http {
   include <%= node['nginx']['dir'] %>/conf.d/*.conf;
   include <%= node['nginx']['dir'] %>/sites-enabled/*;
 }
+
+<% major, minor, patch = node['nginx']['source']['version'].split('.').map { |s| Integer(s) } %>
+<% if major > 1 || minor >= 9 %>
+  stream {
+    include <%= node['nginx']['dir'] %>/streams-enabled/*;
+  }
+<% end %>
+

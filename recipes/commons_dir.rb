@@ -48,6 +48,17 @@ end
   end
 end
 
+major, minor, patch = node['nginx']['source']['version'].split('.').map { |s| Integer(s) }
+if major > 1 || minor >= 9
+  %w(streams-available streams-enabled).each do |leaf|
+    directory File.join(node['nginx']['dir'], leaf) do
+      owner 'root'
+      group node['root_group']
+      mode  '0755'
+    end
+  end
+end
+
 if !node['nginx']['default_site_enabled'] && (node['platform_family'] == 'rhel' || node['platform_family'] == 'fedora')
   %w(default.conf example_ssl.conf).each do |config|
     file "/etc/nginx/conf.d/#{config}" do

@@ -40,3 +40,5 @@ default['nginx']['source']['modules']  = %w(
   nginx::http_gzip_static_module
 )
 default['nginx']['source']['use_existing_user'] = false
+
+default['nginx']['source']['patches'] = []

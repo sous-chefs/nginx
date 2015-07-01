@@ -94,6 +94,21 @@ node['nginx']['source']['modules'].each do |ngx_module|
   include_recipe ngx_module
 end
 
+nginx_src = "#{Chef::Config['file_cache_path']}/nginx-#{node['nginx']['source']['version']}"
+node['nginx']['source']['patches'].each do |patch|
+  base_name = ::File.basename(patch)
+  patch_path = "#{Chef::Config[:file_cache_path]}/nginx_patch_#{base_name}"
+  remote_file patch_path  do
+    source patch 
+  end
+
+  execute "nginx-patch-#{::File.basename(patch)}" do
+    cwd nginx_src
+    command "patch -p1 < #{patch_path}"
+    not_if "patch -p1 --dry-run --reverse --silent < #{patch_path}", :cwd => nginx_src 
+  end
+end
+
 configure_flags       = node.run_state['nginx_configure_flags']
 nginx_force_recompile = node.run_state['nginx_force_recompile']
 
