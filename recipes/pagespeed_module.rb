@@ -28,8 +28,8 @@ remote_file psol_src_filepath do
 end
 
 packages = value_for_platform_family(
-    %w(rhel)   => node['nginx']['pagespeed']['packages']['rhel'],
-    %w(debian) => node['nginx']['pagespeed']['packages']['debian']
+  %w(rhel)   => node['nginx']['pagespeed']['packages']['rhel'],
+  %w(debian) => node['nginx']['pagespeed']['packages']['debian']
 )
 
 unless packages.empty?
