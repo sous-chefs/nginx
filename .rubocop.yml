@@ -19,3 +19,6 @@ HashSyntax:
 # Don't fail on whitespace between method names and arguments
 Style/SingleSpaceBeforeFirstArg:
   Enabled: false
+Metrics/AbcSize:
+  Max: 17
+
