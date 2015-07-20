@@ -29,8 +29,9 @@ if node.run_state['upstream_check_module_path'] && node['nginx']['sticky_module'
   execute 'apply_sticky_upstream_check_patch' do
     cwd  sticky_module_src_path
     command "patch -p0 < #{patch_file_path}"
+    subscribes :run, 'bash[extract_sticky_module]', :immediately
     not_if "patch -p0 --dry-run --reverse --silent < #{patch_file_path}"
-    only_if "test -f #{patch_file_path}"
+    only_if "test -f #{patch_file_path} && test -d #{sticky_module_src_path}"
   end
 end
 
