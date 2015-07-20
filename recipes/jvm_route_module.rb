@@ -31,15 +31,5 @@ execute 'apply_jvm_route_patch' do
   only_if "test -f #{jvm_route_patch_path}"
 end
 
-if node.run_state['upstream_check_module_path'] && node['nginx']['jvm_route_module']['use_upstream_check_patch']
-  patch_file_path = ::File.join(node.run_state['upstream_check_module_path'], 'ngx_http_upstream_jvm_route_module.patch')
-  execute 'apply_jvm_route_upstream_check_patch' do
-    cwd jvm_route_src_path
-    command "patch -p1 < #{patch_file_path}"
-    not_if "patch -p1 --dry-run --reverse --silent < #{patch_file_path}"
-    only_if "test -f #{patch_file_path}"
-  end
-end
-
 node.run_state['nginx_configure_flags'] =
   node.run_state['nginx_configure_flags'] | ["--add-module=#{jvm_route_src_path}"]
