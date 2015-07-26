@@ -31,7 +31,8 @@ describe 'test page' do
   end
 
   it 'serves back an example page' do
-    expect(port 80).to be_listening
+    # https://github.com/serverspec/specinfra/pull/453
+    # expect(port 80).to be_listening
     expect((command 'curl http://localhost').stdout).to match(/Hello, world./)
   end
 end
