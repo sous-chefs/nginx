@@ -1,0 +1,17 @@
+machine:
+  environment:
+    KITCHEN_LOCAL_YAML: .kitchen.docker.yml
+  ruby:
+    version: 2.2.2
+  services:
+    - docker
+
+dependencies:
+  bundler:
+    without: [development, kitchen_cloud, kitchen_vagrant]
+
+test:
+  override:
+    - bundle exec rake
+    - bundle exec kitchen verify -c:
+        timeout: 900

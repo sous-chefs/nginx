@@ -12,13 +12,13 @@ end
 
 group :style do
   gem 'foodcritic', '~> 4.0'
-  gem 'rubocop',    '~> 0.32.0'
+  gem 'rubocop',    '~> 0.32.1'
 end
 
 group :unit do
-  gem 'berkshelf', '~> 3.2.4'
-  gem 'chefspec',  '~> 4.2.0'
-  gem 'coveralls', '~> 0.8.1', require: false
+  gem 'berkshelf', '~> 3.3.0'
+  gem 'chefspec',  '~> 4.3.0'
+  gem 'coveralls', '~> 0.8.2', require: false
 end
 
 group :kitchen_cloud do
@@ -33,7 +33,7 @@ group :kitchen_common do
 end
 
 group :kitchen_docker do
-  gem 'kitchen-docker', '~> 2.1.0'
+  gem 'kitchen-docker', '~> 2.3.0'
 end
 
 group :kitchen_vagrant do

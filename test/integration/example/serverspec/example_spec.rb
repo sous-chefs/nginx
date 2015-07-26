@@ -9,8 +9,6 @@ describe 'example service' do
 
   it 'stops the default nginx service' do
     expect(service 'nginx').to_not be_running
-    # @todo Bug exists in service detection when names are similar.
-    # @see https://github.com/serverspec/specinfra/pull/373
     expect(service 'nginx').to_not be_enabled
   end
 
@@ -33,13 +31,7 @@ describe 'test page' do
   end
 
   it 'serves back an example page' do
-    # TODO: `netstat` (from deprecated net-tools package) is needed to test ports..
-    # @see https://github.com/serverspec/specinfra/pull/375
-    packager = os[:family] == 'redhat' ? 'yum' : 'apt-get'
-    expect((command "#{packager} install net-tools").exit_status).to eq 0
-
     expect(port 80).to be_listening
-
     expect((command 'curl http://localhost').stdout).to match(/Hello, world./)
   end
 end
