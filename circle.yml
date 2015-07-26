@@ -15,3 +15,7 @@ test:
     - bundle exec rake
     - bundle exec kitchen verify -c:
         timeout: 900
+
+general:
+  artifacts:
+    - "~/.kitchen/logs/"
