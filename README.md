@@ -409,7 +409,7 @@ attribute `node['nginx']['source']['modules']`.
   enables it as a module when compiling nginx.
 - `http_geoip_module.rb` - installs the GeoIP libraries and data files
   and enables the module for compilation.
-- `http_gzip_static_module.rb` - enables the module for compilation. Be sure to set `node['nginx']['gzip_static'] = 'yes'`.
+- `http_gzip_static_module.rb` - enables the module for compilation. Be sure to set `node['nginx']['gzip_static'] = 'on'`.
 - `http_perl_module.rb` - enables embedded Perl for compilation.
 - `http_realip_module.rb` - enables the module for compilation and
   creates the configuration.
