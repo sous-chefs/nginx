@@ -14,7 +14,7 @@ test:
   override:
     - bundle exec rake
     - bundle exec kitchen verify -c=4:
-        timeout: 900
+        timeout: 1800
 
 general:
   artifacts:
