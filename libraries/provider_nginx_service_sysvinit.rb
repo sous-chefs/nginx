@@ -1,18 +1,18 @@
 class Chef
   class Provider
     class NginxService
-      # Provider actions for Debian-based platforms
+      # Provider actions for platforms using SysVinit
       #
       # @since 3.0.0
       # @author Mike Fiedler <miketheman@gmail.com>
-      class Debian < Chef::Provider::NginxService
-        provides :nginx_service, platform_family: 'debian' if respond_to?(:provides)
+      class NginxServiceSysVinit < Chef::Provider::NginxServiceBase
+        provides :nginx_service, os: '!windows' if defined?(provides)
 
         action :start do
           template "#{res_name} :create /etc/init.d/#{nginx_instance_name}" do
             path "/etc/init.d/#{nginx_instance_name}"
             cookbook 'nginx'
-            source 'nginx.init.d.erb'
+            source 'sysvinit/nginx.erb'
             owner 'root'
             group 'root'
             mode 00744
@@ -23,7 +23,8 @@ class Chef
           # Start up the service
           service "#{nginx_instance_name} :start" do
             service_name nginx_instance_name
-            provider Chef::Provider::Service::Debian
+            provider Chef::Provider::Service::Init::Insserv if node['platform_family'] == 'debian'
+            provider Chef::Provider::Service::Init::Redhat  if node['platform_family'] == 'redhat'
             supports status: true, restart: true
             action [:start, :enable]
           end
@@ -32,7 +33,8 @@ class Chef
         action :stop do
           service "#{nginx_instance_name} :stop" do
             service_name nginx_instance_name
-            provider Chef::Provider::Service::Debian
+            provider Chef::Provider::Service::Init::Insserv if node['platform_family'] == 'debian'
+            provider Chef::Provider::Service::Init::Redhat  if node['platform_family'] == 'redhat'
             supports status: true, restart: true
             action [:stop, :disable]
           end
@@ -47,7 +49,8 @@ class Chef
 
           service "#{res_name} :delete #{nginx_instance_name}" do
             service_name nginx_instance_name
-            provider Chef::Provider::Service::Debian
+            provider Chef::Provider::Service::Init::Insserv if node['platform_family'] == 'debian'
+            provider Chef::Provider::Service::Init::Redhat  if node['platform_family'] == 'redhat'
             supports status: true
             action [:stop, :disable]
           end
@@ -58,7 +61,8 @@ class Chef
           service "#{res_name} :restart #{nginx_instance_name}" do
             service_name nginx_instance_name
             supports status: true, restart: true
-            provider Chef::Provider::Service::Init::Debian
+            provider Chef::Provider::Service::Init::Insserv if node['platform_family'] == 'debian'
+            provider Chef::Provider::Service::Init::Redhat  if node['platform_family'] == 'redhat'
             action :restart
           end
         end
@@ -67,7 +71,8 @@ class Chef
           # @todo create recipes and tests for this
           service "#{res_name} :reload #{nginx_instance_name}" do
             service_name nginx_instance_name
-            provider Chef::Provider::Service::Debian
+            provider Chef::Provider::Service::Init::Insserv if node['platform_family'] == 'debian'
+            provider Chef::Provider::Service::Init::Redhat  if node['platform_family'] == 'redhat'
             supports status: true, reload: true
             action :reload
           end
