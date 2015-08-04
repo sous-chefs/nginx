@@ -18,4 +18,4 @@ test:
 
 general:
   artifacts:
-    - "~/.kitchen/logs/"
+    - ".kitchen/logs/"
