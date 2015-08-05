@@ -85,7 +85,7 @@ package 'tar'
 bash 'unarchive_source' do
   cwd  ::File.dirname(src_filepath)
   code <<-EOH
-    tar zxf #{::File.basename(src_filepath)} -C #{::File.dirname(src_filepath)}
+    tar zxf #{::File.basename(src_filepath)} --no-same-owner -C #{::File.dirname(src_filepath)}
   EOH
   not_if { ::File.directory?("#{Chef::Config['file_cache_path'] || '/tmp'}/nginx-#{node['nginx']['source']['version']}") }
 end
