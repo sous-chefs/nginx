@@ -10,8 +10,9 @@ describe 'nginx::default' do
   end
 
   shared_examples_for 'default recipe' do
-    it 'starts the service' do
-      expect(chef_run).to start_service('nginx')
+    it 'enables the service and start it delayed' do
+      expect(chef_run).to enable_service('nginx')
+      expect(chef_run.service('nginx')).to notify('service[nginx]').to(:start).delayed
     end
   end
 
