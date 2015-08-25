@@ -1,13 +1,13 @@
-describe 'resource_nginx_service :create on debian 7' do
+describe 'resource_nginx_service :create on ubuntu 10.04' do
   before do
-    allow(Chef::Platform::ServiceHelpers).to receive(:service_resource_providers).and_return([:upstart])
+    allow(Chef::Platform::ServiceHelpers).to receive(:service_resource_providers).and_return([:debian])
   end
 
   cached(:chef_run) do
     ChefSpec::SoloRunner.new(
       step_into: 'nginx_service',
-      platform: 'debian',
-      version: '7.0'
+      platform: 'ubuntu',
+      version: '10.04'
     ).converge('nginx::example')
   end
 
@@ -15,7 +15,7 @@ describe 'resource_nginx_service :create on debian 7' do
 
   it_behaves_like 'nginx_service :create', 'example'
   it_behaves_like 'nginx_service :start', 'example'
-  it_behaves_like 'nginx_service #upstart', 'example'
+  it_behaves_like 'nginx_service #sysvinit', 'example'
 
   it_behaves_like 'nginx_config :create', 'example'
 end

@@ -41,14 +41,23 @@ RSpec.configure do
   end
 
   shared_examples_for 'nginx_service :start' do |servicename|
+    it 'starts and enables the service' do
+      expect(chef_run).to start_service("nginx-#{servicename} :start")
+      expect(chef_run).to enable_service("nginx-#{servicename} :start")
+    end
+  end
+
+  shared_examples_for 'nginx_service #sysvinit' do |servicename|
     it 'templates instance-specific files' do
       expect(chef_run).to create_template("/etc/init.d/nginx-#{servicename}")
         .with(user: 'root', group: 'root', mode: 00744)
     end
+  end
 
-    it 'starts and enables the service' do
-      expect(chef_run).to start_service("nginx-#{servicename} :start")
-      expect(chef_run).to enable_service("nginx-#{servicename} :start")
+  shared_examples_for 'nginx_service #upstart' do |servicename|
+    it 'templates instance-specific files' do
+      expect(chef_run).to create_template("/etc/init/nginx-#{servicename}.conf")
+        .with(user: 'root', group: 'root', mode: 00744)
     end
   end
 end

@@ -7,7 +7,7 @@ class Chef
     # Global actions here. Service control actions to be subclassed per-platform
     # @since 3.0.0
     # @author Mike Fiedler <miketheman@gmail.com>
-    class NginxService < Chef::Provider::LWRPBase
+    class NginxServiceBase < Chef::Provider::LWRPBase
       # Chef 11 LWRP DSL Methods
       use_inline_resources if defined?(use_inline_resources)
 
@@ -91,12 +91,6 @@ class Chef
           )
           action :create
         end
-      end
-
-      action :restart do
-      end
-
-      action :reload do
       end
 
       private
