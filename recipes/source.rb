@@ -28,7 +28,7 @@ node.load_attribute_by_short_filename('source', 'nginx') if node.respond_to?(:lo
 nginx_url = node['nginx']['source']['url'] ||
             "http://nginx.org/download/nginx-#{node['nginx']['source']['version']}.tar.gz"
 
-node.set['nginx']['binary']          = node['nginx']['source']['sbin_path']
+node.override['nginx']['binary']     = node['nginx']['source']['sbin_path']
 node.set['nginx']['daemon_disable']  = true
 
 unless node['nginx']['source']['use_existing_user']
