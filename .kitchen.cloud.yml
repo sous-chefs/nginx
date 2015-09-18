@@ -85,6 +85,15 @@ suites:
     attributes:
       nginx:
         repo_source: nginx
+  - name: upstream_check_module
+    run_list:
+      - recipe[et_nginx::default]
+    attributes:
+      nginx:
+        install_method: source
+        source:
+          modules:
+            - et_nginx::upstream_check_module
   - name: modules
     run_list:
       - recipe[nginx::source]
@@ -106,3 +115,4 @@ suites:
             - nginx::ngx_lua_module
             - nginx::openssl_source
             - nginx::upload_progress_module
+            - nginx::upstream_check_module
