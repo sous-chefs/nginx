@@ -39,7 +39,7 @@ The following cookbook is not a strict dependency because its use can be control
 ### Platforms
 The following platforms are supported and tested under test kitchen:
 
-- Ubuntu 10.04, Ubuntu 12.04
+- Ubuntu 10.04, Ubuntu 12.04, Ubuntu 14.04
 - CentOS 5.8, 6.3
 
 Other Debian and RHEL family distributions are assumed to work.
