@@ -1,15 +1,38 @@
-# require_relative '../../libraries/helpers'
-# require_relative '../../libraries/resource_nginx_service'
-#
-# describe NginxCookbook::Helpers do
-#   class DummyClass
-#   end
-#
-#   before(:all) do
-#     @dummy = DummyClass.new
-#     @dummy.extend NginxCookbook::Helpers
-#   end
-#
+require_relative '../../libraries/helpers'
+require_relative '../../libraries/resource_nginx_service'
+
+describe NginxCookbook::Helpers do
+  class DummyClass
+    attr_accessor :node
+
+    def initialize
+      @node = {}
+    end
+  end
+
+  before(:all) do
+    @dummy = DummyClass.new
+    @dummy.extend NginxCookbook::Helpers
+  end
+
+  it 'returns www-data for debin platform' do
+    @dummy.node['platform'] = 'debian'
+
+    expect(@dummy.user_for_platform).to be == 'www-data'
+  end
+
+  it 'returns www-data for ubuntu platform' do
+    @dummy.node['platform'] = 'ubuntu'
+
+    expect(@dummy.user_for_platform).to be == 'www-data'
+  end
+
+  it 'returns nginx for centos platform' do
+    @dummy.node['platform'] = 'centos'
+
+    expect(@dummy.user_for_platform).to be == 'nginx'
+  end
+
 #   # let(:klass) { Class.new { extend NginxCookbook::Helpers } }
 #
 #   # let(:klass) do
@@ -103,4 +126,4 @@
 #       end
 #     end
 #   end
-# end
+end

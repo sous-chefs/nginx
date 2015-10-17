@@ -20,3 +20,4 @@ bin
 coverage/
 doc/
 Gemfile.lock
+vendor/

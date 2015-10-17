@@ -16,7 +16,7 @@ describe 'example service' do
     nginx_example_conf = file '/etc/nginx-example/nginx.conf'
 
     expect(nginx_example_conf).to be_a_file
-    expect(nginx_example_conf.content).to match(/user www-data;/)
+    expect(nginx_example_conf.content).to match(/user (www-data|nginx);/)
   end
 
   it 'starts & enables the example nginx service' do

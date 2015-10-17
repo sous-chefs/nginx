@@ -11,7 +11,9 @@ platforms:
   # - name: ubuntu-15.04
   # - name: centos-5.11
   # - name: centos-6.6
-  # - name: centos-7
+  - name: centos-7.1
+    run_list:
+      - recipe[nginx_service_test::nginx_repo]
 
 suites:
   - name: example

@@ -7,4 +7,5 @@ long_description 'Installs/Configures nginx_service_test'
 version          '0.1.0'
 
 depends 'apt'
+depends 'yum-epel'
 depends 'nginx'
