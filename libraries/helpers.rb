@@ -13,5 +13,20 @@ module NginxCookbook
     def res_name
       new_resource.name
     end
+
+    # @return [String] Name of the user that runs nginx
+    def user_for_platform
+      case node['platform']
+      when 'centos'
+        'nginx'
+      when 'ubuntu', 'debian'
+        'www-data'
+      else
+        fail "Unexpected platform '#{node['platform']}'."
+      end
+    end
   end
 end
+
+Chef::Resource.send(:include, NginxCookbook::Helpers)
+Chef::Provider.send(:include, NginxCookbook::Helpers)

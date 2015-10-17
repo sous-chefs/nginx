@@ -16,8 +16,6 @@ class Chef
         true
       end
 
-      include NginxCookbook::Helpers
-
       action :create do
         # Install nginx using system package resource
         #
