@@ -1,3 +1,6 @@
+require_relative '../../libraries/helpers.rb'
+include NginxCookbook::Helpers
+
 RSpec.configure do
   shared_examples_for 'create a named nginx_service' do |servicename|
     it "creates nginx_service[#{servicename}]" do
@@ -18,7 +21,7 @@ RSpec.configure do
 
     it 'creates new directories for the named instance' do
       expect(chef_run).to create_directory("/var/log/nginx-#{servicename}")
-        .with(user: 'www-data', group: 'adm', mode: 00755)
+        .with(user: user_for_platform, group: 'adm', mode: 00755)
 
       %W(
         /etc/nginx-#{servicename}

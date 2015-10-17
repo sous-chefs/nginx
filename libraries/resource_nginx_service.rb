@@ -14,7 +14,7 @@ class Chef
       attribute :error_log_level, kind_of: String, default: 'warn'
       attribute :run_group, kind_of: String, default: nil
       # @todo Determine what user is correct per-platform
-      attribute :run_user, kind_of: String, default: 'www-data'
+      attribute :run_user, kind_of: String, default: lazy { |r| r.user_for_platform }
       attribute :worker_connections, kind_of: Integer, default: 1024
       attribute :worker_processes, kind_of: Integer, default: 1
 
