@@ -129,3 +129,5 @@ default['nginx']['large_client_header_buffers'] = nil
 default['nginx']['default']['modules']          = []
 
 default['nginx']['extra_configs'] = {}
+
+default['nginx']['default_type'] = 'application/octet-stream'

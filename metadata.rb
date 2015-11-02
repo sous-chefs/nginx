@@ -3,7 +3,7 @@ maintainer        'Chef Software, Inc.'
 maintainer_email  'cookbooks@chef.io'
 license           'Apache 2.0'
 description       'SourcePoint modified nginx forked from 2.7.6'
-version           '3.0.0'
+version           '3.0.1'
 
 recipe 'nginx',         'Installs nginx package and sets up configuration with Debian apache style with sites-enabled/sites-available'
 recipe 'nginx::source', 'Installs nginx from source and sets up configuration with Debian apache style with sites-enabled/sites-available'
