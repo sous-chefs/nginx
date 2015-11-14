@@ -42,8 +42,14 @@ elsif node['nginx']['passenger']['install_method'] == 'source'
     gem_binary node['nginx']['passenger']['gem_binary'] if node['nginx']['passenger']['gem_binary']
   end
 
+  if Chef::VersionConstraint.new(">= 5.0.0").include?(node['nginx']['passenger']['version'])
+    module_src_path = 'src/nginx_module'
+  else
+    module_src_path = 'ext/nginx'
+  end
+
   node.run_state['nginx_configure_flags'] =
-    node.run_state['nginx_configure_flags'] | ["--add-module=#{node['nginx']['passenger']['root']}/ext/nginx"]
+    node.run_state['nginx_configure_flags'] | ["--add-module=#{node['nginx']['passenger']['root']}/#{module_src_path}"]
 
 end
 
