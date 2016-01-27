@@ -39,7 +39,7 @@ The following cookbook is not a strict dependency because its use can be control
 ### Platforms
 The following platforms are supported and tested under test kitchen:
 
-- Ubuntu 10.04, Ubuntu 12.04
+- Ubuntu 10.04, Ubuntu 12.04, Ubuntu 14.04
 - CentOS 5.8, 6.3
 
 Other Debian and RHEL family distributions are assumed to work.
@@ -439,12 +439,12 @@ Enable or disable a Server Block in
 nxdissite (introduced by this cookbook) to manage the symbolic link in
 `#{node['nginx']['dir']}/sites-enabled`.
 
-The template for the site must be managed as a separate resource.
-
 ### Parameters:
 
 * `name` - Name of the site.
 * `enable` - Default true, which uses `nxensite` to enable the site. If false, the site will be disabled with `nxdissite`.
+* `template` - (optional) Path to the source for the `template` resource.
+* `variables` - (optional) Variables to be used with the `template` resource
 
 
 Adding New Modules
