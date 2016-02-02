@@ -35,15 +35,19 @@ if node['nginx']['passenger']['install_method'] == 'package'
   package node['nginx']['package_name']
   package 'passenger'
 elsif node['nginx']['passenger']['install_method'] == 'source'
-
   gem_package 'passenger' do
     action     :install
     version    node['nginx']['passenger']['version']
     gem_binary node['nginx']['passenger']['gem_binary'] if node['nginx']['passenger']['gem_binary']
   end
 
+  path = '/ext/nginx'
+  if node['nginx']['passenger']['version'] == '5.0.19' || node['nginx']['passenger']['version'] =~ /5\.\d*\.[2-9]\d?/
+    path = '/src/nginx_module'
+  end
+
   node.run_state['nginx_configure_flags'] =
-    node.run_state['nginx_configure_flags'] | ["--add-module=#{node['nginx']['passenger']['root']}/ext/nginx"]
+    node.run_state['nginx_configure_flags'] | ["--add-module=#{node['nginx']['passenger']['root']}#{path}"]
 
 end
 
