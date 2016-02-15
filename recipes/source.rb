@@ -103,6 +103,7 @@ bash 'compile_nginx_source' do
     cd nginx-#{node['nginx']['source']['version']} &&
     ./configure #{node.run_state['nginx_configure_flags'].join(' ')} &&
     make && make install
+    ln -sf #{File.dirname(src_filepath)}/sbin/nginx /usr/bin/nginx
   EOH
 
   not_if do
