@@ -1,10 +1,11 @@
 #!/usr/bin/env rake
 
 require 'foodcritic'
-require 'kitchen'
 require 'rake/clean'
 require 'rspec/core/rake_task'
 require 'rubocop/rake_task'
+
+load './test/circle_parallel.rake'
 
 CLEAN.include %w(.kitchen/ coverage/ doc/)
 CLOBBER.include %w(Berksfile.lock Gemfile.lock .yardoc/)

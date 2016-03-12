@@ -1,20 +1,25 @@
 machine:
   environment:
     KITCHEN_LOCAL_YAML: .kitchen.docker.yml
-  ruby:
-    version: 2.2.2
   services:
     - docker
 
 dependencies:
-  bundler:
-    without: [development, kitchen_cloud, kitchen_vagrant]
+  override:
+    - curl -L https://www.chef.io/chef/install.sh | sudo bash -s -- -P chefdk -v 0.11.2
+    - chef gem install kitchen-docker -v '~> 2.3.0'
+  cache_directories:
+    - "~/.chefdk"
 
 test:
+  pre:
+    - eval "$(/opt/chefdk/bin/chef shell-init bash)"
   override:
-    - bundle exec rake
-    - bundle exec kitchen verify:
-        timeout: 1800
+    - chef --version
+    - gem query -d chefspec rubocop foodcritic rake
+    - chef exec rake circle:
+        parallel: true
+        timeout: 900
 
 general:
   artifacts:
