@@ -5,5 +5,5 @@ license           'Apache 2.0'
 description       'Installs and configures nginx'
 version           '2.99.0'
 
-suggests 'apt', '~> 2.6.1'
-suggests 'yum', '~> 3.5.2'
+issues_url 'https://github.com/miketheman/nginx/issues'
+source_url 'https://github.com/miketheman/nginx'

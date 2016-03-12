@@ -1,13 +1,28 @@
-language: ruby
-cache: bundler
 sudo: false
 
-rvm:
-  - 2.0
-  - 2.1
-  - 2.2
+addons:
+  apt:
+    sources:
+      - chef-stable-precise
+    packages:
+      - chefdk
 
-bundler_args: --without development kitchen_docker kitchen_vagrant
+# Don't `bundle install`
+install: echo "skip bundle install"
+
+# Ensure we make ChefDK's Ruby the default
+before_script:
+  - eval "$(/opt/chefdk/bin/chef shell-init bash)"
+  # update foodcritic version to prevent false-postiive detection
+  # https://github.com/acrmp/foodcritic/pull/423
+  # TODO: Remove when 6.0.1 is included in ChefDK stable
+  - chef gem install foodcritic -v '6.0.1'
+  - chef gem install coveralls -v '~> 0.8.13'
+
+script:
+  - chef --version
+  - gem query -d chefspec rubocop foodcritic rake
+  - rake
 
 notifications:
   webhooks:

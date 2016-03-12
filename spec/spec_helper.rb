@@ -5,6 +5,7 @@ end
 
 require 'chefspec'
 require 'chefspec/berkshelf'
+ChefSpec::Coverage.start!
 
 RSpec.configure do |config|
   # Uncomment to prevent any WARN messages during testing
@@ -16,5 +17,3 @@ end
 
 # Load all shared example groups
 Dir[File.join(File.dirname(__FILE__), 'shared_examples', '**.rb')].sort.each { |f| require f }
-
-ChefSpec::Coverage.start!

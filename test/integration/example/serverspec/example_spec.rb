@@ -4,12 +4,12 @@ set :backend, :exec
 
 describe 'example service' do
   it 'installs nginx package' do
-    expect(package 'nginx').to be_installed
+    expect(package('nginx')).to be_installed
   end
 
   it 'stops the default nginx service' do
-    expect(service 'nginx').to_not be_running
-    expect(service 'nginx').to_not be_enabled
+    expect(service('nginx')).to_not be_running
+    expect(service('nginx')).to_not be_enabled
   end
 
   it 'creates an nginx-example config file' do
@@ -20,8 +20,8 @@ describe 'example service' do
   end
 
   it 'starts & enables the example nginx service' do
-    expect(service 'nginx-example').to be_running
-    expect(service 'nginx-example').to be_enabled
+    expect(service('nginx-example')).to be_running
+    expect(service('nginx-example')).to be_enabled
   end
 end
 
