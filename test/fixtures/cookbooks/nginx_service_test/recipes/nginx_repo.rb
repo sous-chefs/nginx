@@ -13,5 +13,11 @@ when 'ubuntu', 'debian'
     only_if      { node['platform_family'] == 'debian' }
   end
 when 'centos'
-  include_recipe 'yum-epel::default'
+  centos_version = node['platform_version'].to_i
+  yum_repository 'epel' do
+    description 'Extra Packages for Enterprise Linux'
+    mirrorlist "http://mirrors.fedoraproject.org/mirrorlist?repo=epel-#{centos_version}&arch=$basearch"
+    gpgkey "http://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-#{centos_version}"
+    action :create
+  end
 end
