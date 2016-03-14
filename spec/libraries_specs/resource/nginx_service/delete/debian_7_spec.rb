@@ -9,7 +9,7 @@ describe 'resource_nginx_service :delete on debian 7' do
 
   it_behaves_like 'create a named nginx_service', 'single'
 
-  it_behaves_like 'nginx_service :create', 'single'
+  it_behaves_like 'nginx_service :create', 'single', 'platform' => 'debian'
   it_behaves_like 'nginx_service :start', 'single'
 
   xit 'stops the service' do

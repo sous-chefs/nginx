@@ -15,7 +15,7 @@ module NginxCookbook
     end
 
     # @return [String] Name of the user that runs nginx
-    def user_for_platform
+    def user_for_platform(node)
       case node['platform']
       when 'centos'
         'nginx'
