@@ -22,7 +22,7 @@ module NginxCookbook
       when 'ubuntu', 'debian'
         'www-data'
       else
-        fail "Unexpected platform '#{node['platform']}'."
+        raise "Unexpected platform '#{node['platform']}'."
       end
     end
   end
