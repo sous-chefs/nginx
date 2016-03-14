@@ -15,22 +15,22 @@ describe NginxCookbook::Helpers do
     @dummy.extend NginxCookbook::Helpers
   end
 
-  it 'returns www-data for debin platform' do
+  it 'returns www-data for debian platform' do
     @dummy.node['platform'] = 'debian'
 
-    expect(@dummy.user_for_platform).to be == 'www-data'
+    expect(@dummy.user_for_platform(@dummy.node)).to be == 'www-data'
   end
 
   it 'returns www-data for ubuntu platform' do
     @dummy.node['platform'] = 'ubuntu'
 
-    expect(@dummy.user_for_platform).to be == 'www-data'
+    expect(@dummy.user_for_platform(@dummy.node)).to be == 'www-data'
   end
 
   it 'returns nginx for centos platform' do
     @dummy.node['platform'] = 'centos'
 
-    expect(@dummy.user_for_platform).to be == 'nginx'
+    expect(@dummy.user_for_platform(@dummy.node)).to be == 'nginx'
   end
 
 #   # let(:klass) { Class.new { extend NginxCookbook::Helpers } }

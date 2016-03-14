@@ -8,7 +8,7 @@ RSpec.configure do
     end
   end
 
-  shared_examples_for 'nginx_service :create' do |servicename|
+  shared_examples_for 'nginx_service :create' do |servicename, node|
     it 'installs the nginx package' do
       expect(chef_run).to install_package("#{servicename} :create nginx")
         .with(package_name: 'nginx')
@@ -21,7 +21,7 @@ RSpec.configure do
 
     it 'creates new directories for the named instance' do
       expect(chef_run).to create_directory("/var/log/nginx-#{servicename}")
-        .with(user: user_for_platform, group: 'adm', mode: 00755)
+        .with(user: user_for_platform(node), group: 'adm', mode: 00755)
 
       %W(
         /etc/nginx-#{servicename}
@@ -61,6 +61,13 @@ RSpec.configure do
     it 'templates instance-specific files' do
       expect(chef_run).to create_template("/etc/init/nginx-#{servicename}.conf")
         .with(user: 'root', group: 'root', mode: 00744)
+    end
+  end
+
+  shared_examples_for 'nginx_service #systemd' do |servicename|
+    it 'templates instance-specific files' do
+      expect(chef_run).to create_template("/etc/nginx-#{servicename}/nginx.conf")
+        .with(user: 'root', group: 'root', mode: 00644)
     end
   end
 end
