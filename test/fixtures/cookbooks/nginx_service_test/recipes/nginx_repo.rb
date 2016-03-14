@@ -13,5 +13,11 @@ when 'ubuntu', 'debian'
     only_if      { node['platform_family'] == 'debian' }
   end
 when 'centos'
-  include_recipe 'yum-epel::default'
+  yum_repository 'nginx repo' do
+    description 'Official Red Hat/CentOS packages'
+    mirrorlist 'http://nginx.org/packages/centos/$releasever/$basearch/'
+    gpgcheck false
+    enabled true
+    action :create
+  end
 end
