@@ -7,7 +7,7 @@ After=network.target remote-fs.target nss-lookup.target
 [Service]
 Type=forking
 PIDFile=/run/<%= @nginx_instance_name %>.pid
-ExecStartPre=/usr/sbin/nginx -t
+ExecStartPre=/usr/sbin/nginx -t -c /etc/<%= @nginx_instance_name %>/nginx.conf
 ExecStart=/usr/sbin/nginx -c /etc/<%= @nginx_instance_name %>/nginx.conf
 ExecReload=/bin/kill -s HUP $MAINPID
 KillMode=process
