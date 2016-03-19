@@ -1,0 +1,8 @@
+---
+driver:
+  name: vagrant
+
+platforms:
+  - name: centos-7.2
+  - name: debian-8.3
+  - name: ubuntu-15.10

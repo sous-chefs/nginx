@@ -1,3 +1,4 @@
+---
 driver:
   name: docker
   use_sudo: false
@@ -14,8 +15,3 @@ platforms:
       disable_upstart: false
       run_command: /sbin/init
 <% end %>
-
-  # @todo figure out how to run service via systemd
-  # - name: ubuntu-15.04
-  #   driver:
-  #     run_command: /lib/systemd/systemd

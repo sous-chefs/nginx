@@ -14,6 +14,7 @@ module NginxCookbook
       new_resource.name
     end
 
+    # @param [Chef::Node] An Object that responds to a `['platform']` call
     # @return [String] Name of the user that runs nginx
     def user_for_platform(node)
       case node['platform']

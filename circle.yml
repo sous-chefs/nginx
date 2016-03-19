@@ -6,17 +6,18 @@ machine:
 
 dependencies:
   override:
-    - curl -L https://www.chef.io/chef/install.sh | sudo bash -s -- -P chefdk -v 0.11.2
+    - curl -L https://www.chef.io/chef/install.sh | sudo bash -s -- -P chefdk -v 0.12.0
     - chef gem install kitchen-docker -v '~> 2.3.0'
   cache_directories:
     - "~/.chefdk"
 
 test:
   pre:
+    - docker version && docker info
     - eval "$(/opt/chefdk/bin/chef shell-init bash)"
   override:
     - chef --version
-    - gem query -d chefspec rubocop foodcritic rake
+    - chef gem query -d chefspec rubocop foodcritic rake
     - chef exec rake circle:
         parallel: true
         timeout: 900

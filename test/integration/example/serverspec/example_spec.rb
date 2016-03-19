@@ -1,11 +1,7 @@
-require 'serverspec'
-
-set :backend, :exec
+require 'spec_helper'
 
 describe 'example service' do
-  it 'installs nginx package' do
-    expect(package('nginx')).to be_installed
-  end
+  it_behaves_like 'nginx package'
 
   it 'stops the default nginx service' do
     expect(service('nginx')).to_not be_running
@@ -19,10 +15,7 @@ describe 'example service' do
     expect(nginx_example_conf.content).to match(/user (www-data|nginx);/)
   end
 
-  it 'starts & enables the example nginx service' do
-    expect(service('nginx-example')).to be_running
-    expect(service('nginx-example')).to be_enabled
-  end
+  it_behaves_like 'nginx service', 'example'
 end
 
 describe 'test page' do

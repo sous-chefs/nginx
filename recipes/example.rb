@@ -4,7 +4,13 @@
 
 nginx_service 'example'
 
-file '/tmp/index.htm' do
+root_dir = '/var/www/example'
+
+directory root_dir do
+  recursive true
+end
+
+file File.join(root_dir, 'index.htm') do
   content <<-EOF.gsub(/^ {4}/, '')
     <html>
     <body>
@@ -21,7 +27,7 @@ file '/etc/nginx-example/sites-enabled/default' do
       listen 80 default_server;
       listen [::]:80 default_server ipv6only=on;
 
-      root /tmp;
+      root #{root_dir};
       index index.html index.htm;
 
       # Make site accessible from http://localhost/

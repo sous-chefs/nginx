@@ -1,21 +1,24 @@
-require 'serverspec'
-
-set :backend, :exec
+require 'spec_helper'
 
 describe 'single service, upstream repo' do
-  it 'creates the apt repo file' do
-    listfile = '/etc/apt/sources.list.d/nginx.org.list'
-    expect(file(listfile)).to be_a_file
-    expect(file(listfile).content).to match(%r{http://nginx.org/packages/})
+  case os[:family]
+  when 'debian', 'ubuntu'
+    repo_file = '/etc/apt/sources.list.d/nginx.org.list'
+    repo_installed_command = 'grep -q nginx.org /var/lib/dpkg/status'
+  when 'redhat'
+    repo_file = '/etc/yum.repos.d/nginx.org.repo'
+    repo_installed_command = 'yum info nginx | grep -q "From repo\s.*nginx.org$"'
   end
 
-  it 'installs nginx package' do
-    expect(package('nginx')).to be_installed
-    expect(command('grep -q nginx.org /var/lib/dpkg/status').exit_status).to eq 0
+  describe file(repo_file) do
+    it { should be_file }
+    its(:content) { should match(%r{http://nginx.org/packages/}) }
   end
 
-  it 'starts & enables nginx service' do
-    expect(service('nginx-single')).to be_running
-    expect(service('nginx-single')).to be_enabled
+  describe command(repo_installed_command) do
+    its(:exit_status) { should eq 0 }
   end
+
+  it_behaves_like 'nginx package'
+  it_behaves_like 'nginx service', 'single'
 end

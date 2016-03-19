@@ -9,6 +9,7 @@
 .kitchen/
 .ruby-gemset
 .ruby-version
+.tags*
 .vagrant
 .yardoc/
 *.un~
