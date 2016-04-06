@@ -6,5 +6,4 @@ description      'Installs/Configures nginx_service_test'
 long_description 'Installs/Configures nginx_service_test'
 version          '0.1.0'
 
-depends 'apt'
 depends 'nginx'
