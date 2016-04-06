@@ -3,3 +3,5 @@ Metrics/LineLength:
 
 Style/SpaceBeforeFirstArg:
   Enabled: false
+Style/ExtraSpacing:
+  Enabled: false
