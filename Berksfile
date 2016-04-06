@@ -3,7 +3,8 @@ source 'https://supermarket.chef.io'
 metadata
 
 group :integration do
-  cookbook 'apt', '~> 2.6.1'
+  cookbook 'apt'
+  cookbook 'yum'
 
   cookbook 'nginx_service_test', path: 'test/fixtures/cookbooks/nginx_service_test'
 
