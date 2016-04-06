@@ -4,8 +4,9 @@ AllCops:
     - 'vendor/**/*'
 
 Metrics/LineLength:
-  Max: 160
-
+  Enabled: false
+CyclomaticComplexity:
+  Enabled: false
 Style/SpaceBeforeFirstArg:
   Enabled: false
 Style/ExtraSpacing:

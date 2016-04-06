@@ -2,6 +2,10 @@
 # This should serve as a simple guide of how to use the resource to set up nginx.
 # See more in the README.md and in test/fixtures/cookbooks for more examples.
 
+nginx_install 'nginx' do
+  action :install
+end
+
 nginx_service 'example'
 
 file '/tmp/index.htm' do

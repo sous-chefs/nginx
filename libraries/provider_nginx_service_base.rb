@@ -19,15 +19,6 @@ class Chef
       include NginxCookbook::Helpers
 
       action :create do
-        # Install nginx using system package resource
-        #
-        # Requires a pacakge to be available via distro packaging.
-        # @todo skip this if using a source install
-        package "#{res_name} :create nginx" do
-          package_name 'nginx'
-          action :install
-        end
-
         create_stop_package_service
 
         ## Create instance directories
