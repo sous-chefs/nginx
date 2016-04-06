@@ -1,10 +1,34 @@
 AllCops:
   Exclude:
     - Guardfile
-    - 'vendor/**/*'
 
-Metrics/LineLength:
-  Max: 160
-
+AlignParameters:
+  Enabled: false
+ClassLength:
+  Enabled: false
+CyclomaticComplexity:
+  Enabled: false
+Documentation:
+  Enabled: false
+Encoding:
+  Enabled: false
+Style/FileName:
+  Enabled: false
+Style/Alias:
+  Enabled: false
 Style/SpaceBeforeFirstArg:
+  Enabled: false
+LineLength:
+  Enabled: false
+MethodLength:
+  Enabled: false
+Metrics/AbcSize:
+  Enabled: false
+Metrics/ModuleLength:
+  Enabled: false
+PerceivedComplexity:
+  Enabled: false
+Style/ClassAndModuleChildren:
+  Enabled: false
+Style/ExtraSpacing:
   Enabled: false

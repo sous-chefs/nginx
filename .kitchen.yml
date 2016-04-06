@@ -5,13 +5,21 @@ provisioner:
   name: chef_zero
 
 platforms:
-  - name: debian-7
+  - name: centos-5.11
+  - name: centos-6.7
+  - name: centos-7.2
+  - name: debian-7.9
+    run_list: apt::default
+  - name: debian-8.2
+    run_list: apt::default
+  - name: fedora-22
+    run_list: yum::dnf_yum_compat
+  - name: fedora-23
+    run_list: yum::dnf_yum_compat
   - name: ubuntu-12.04
+    run_list: apt::default
   - name: ubuntu-14.04
-  # - name: ubuntu-15.04
-  # - name: centos-5.11
-  # - name: centos-6.6
-  # - name: centos-7
+    run_list: apt::default
 
 suites:
   - name: example
@@ -25,8 +33,3 @@ suites:
   - name: service_multi
     run_list:
       - recipe[nginx_service_test::multi]
-
-  - name: service_single_upstream
-    run_list:
-      - recipe[nginx_service_test::nginx_repo]
-      - recipe[nginx_service_test::single]

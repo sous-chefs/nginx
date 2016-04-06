@@ -6,11 +6,6 @@ RSpec.configure do
   end
 
   shared_examples_for 'nginx_service :create' do |servicename|
-    it 'installs the nginx package' do
-      expect(chef_run).to install_package("#{servicename} :create nginx")
-        .with(package_name: 'nginx')
-    end
-
     it 'stops & disables the default service' do
       expect(chef_run).to stop_service('nginx')
       expect(chef_run).to disable_service('nginx')

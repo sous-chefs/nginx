@@ -1,21 +1,54 @@
+settings:
+  parallel: true
+
 driver:
   name: docker
-  use_sudo: false
+  # privileged is required otherwise the container doesn't boot right
+  privileged: true
 
 platforms:
-  # - name: debian-7
+- name: centos-6
+  driver:
+    image: centos:6
+    platform: rhel
+    run_command: /sbin/init
+    provision_command:
+      - /usr/bin/yum install -y initscripts net-tools wget
+- name: centos-7
+  driver:
+    image: centos:7
+    platform: rhel
+    run_command: /usr/lib/systemd/systemd
+    provision_command:
+      - /bin/yum install -y initscripts net-tools wget
+- name: ubuntu-12.04
+  driver:
+    image: ubuntu-upstart:12.04
+    platform: ubuntu
+    disable_upstart: false
+    run_command: /sbin/init
+    provision_command:
+      - /usr/bin/apt-get update
+      - /usr/bin/apt-get install apt-transport-https net-tools -y
+- name: ubuntu-14.04
+  driver:
+    image: ubuntu-upstart:14.04
+    platform: ubuntu
+    disable_upstart: false
+    run_command: /sbin/init
+    provision_command:
+      - /usr/bin/apt-get update
+      - /usr/bin/apt-get install apt-transport-https net-tools -y
 
-<% %w(12.04 14.04).each do |ubver| %>
-  - name: ubuntu-<%= ubver %>
-    driver:
-      platform: ubuntu
-      # Testing starting/stopping services inside a container needs an init
-      image: ubuntu-upstart:<%= ubver %>
-      disable_upstart: false
-      run_command: /sbin/init
-<% end %>
+suites:
+  - name: example
+    run_list:
+      - recipe[nginx::example]
 
-  # @todo figure out how to run service via systemd
-  # - name: ubuntu-15.04
-  #   driver:
-  #     run_command: /lib/systemd/systemd
+  - name: service_single
+    run_list:
+      - recipe[nginx_service_test::single]
+
+  - name: service_multi
+    run_list:
+      - recipe[nginx_service_test::multi]
