@@ -52,8 +52,3 @@ suites:
   - name: service_multi
     run_list:
       - recipe[nginx_service_test::multi]
-
-  - name: service_single_upstream
-    run_list:
-      - recipe[nginx_service_test::nginx_repo]
-      - recipe[nginx_service_test::single]
