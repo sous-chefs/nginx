@@ -9,7 +9,7 @@ class Chef
     # @author Mike Fiedler <miketheman@gmail.com>
     class NginxServiceBase < Chef::Provider::LWRPBase
       # Chef 11 LWRP DSL Methods
-      use_inline_resources if defined?(use_inline_resources)
+      use_inline_resources
 
       # @return [TrueClass] true
       def whyrun_supported?
