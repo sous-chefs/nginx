@@ -13,10 +13,6 @@ install: echo "skip bundle install"
 # Ensure we make ChefDK's Ruby the default
 before_script:
   - eval "$(/opt/chefdk/bin/chef shell-init bash)"
-  # update foodcritic version to prevent false-postiive detection
-  # https://github.com/acrmp/foodcritic/pull/423
-  # TODO: Remove when 6.0.1 is included in ChefDK stable
-  - chef gem install foodcritic -v '6.0.1'
   - chef gem install coveralls -v '~> 0.8.13'
 
 script:

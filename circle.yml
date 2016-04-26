@@ -6,7 +6,7 @@ machine:
 
 dependencies:
   override:
-    - curl -L https://www.chef.io/chef/install.sh | sudo bash -s -- -P chefdk -v 0.12.0
+    - curl -L https://www.chef.io/chef/install.sh | sudo bash -s -- -P chefdk -v 0.13
     - chef gem install kitchen-docker -v '~> 2.3.0'
   cache_directories:
     - "~/.chefdk"
