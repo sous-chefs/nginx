@@ -24,12 +24,8 @@ ohai 'reload_nginx' do
   action :nothing
 end
 
-template "#{node['ohai']['plugin_path']}/nginx.rb" do
-  source 'plugins/nginx.rb.erb'
-  owner  'root'
-  group  node['root_group']
-  mode   '0755'
+ohai_plugin 'nginx' do
+  source_file 'plugins/nginx.rb.erb'
+  resource :template
   notifies :reload, 'ohai[reload_nginx]', :immediately
 end
-
-include_recipe 'ohai::default'
