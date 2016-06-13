@@ -7,8 +7,7 @@ class Chef
       # @author Mike Fiedler <miketheman@gmail.com>
       class NginxServiceUpstart < Chef::Provider::NginxServiceBase
         provides :nginx_service, os: 'linux' do
-          Chef::Platform::ServiceHelpers.service_resource_providers.include?(:upstart) &&
-            !Chef::Platform::ServiceHelpers.service_resource_providers.include?(:redhat)
+          Chef::Platform::ServiceHelpers.service_resource_providers.include?(:upstart)
         end if defined?(provides)
 
         action :start do
