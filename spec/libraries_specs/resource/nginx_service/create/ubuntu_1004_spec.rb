@@ -3,12 +3,16 @@ describe 'resource_nginx_service :create on ubuntu 10.04' do
     allow(Chef::Platform::ServiceHelpers).to receive(:service_resource_providers).and_return([:debian])
   end
 
-  cached(:chef_run) do
+  cached(:runner) do
     ChefSpec::SoloRunner.new(
       step_into: 'nginx_service',
       platform: 'ubuntu',
       version: '10.04'
-    ).converge('nginx::example')
+    )
+  end
+
+  cached(:chef_run) do
+    runner.converge('nginx::example')
   end
 
   it_behaves_like 'create a named nginx_service', 'example'

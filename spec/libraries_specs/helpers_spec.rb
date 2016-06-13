@@ -2,35 +2,30 @@ require_relative '../../libraries/helpers'
 require_relative '../../libraries/resource_nginx_service'
 
 describe NginxCookbook::Helpers do
-  class DummyClass
-    attr_accessor :node
-
-    def initialize
-      @node = {}
-    end
-  end
-
-  before(:all) do
-    @dummy = DummyClass.new
-    @dummy.extend NginxCookbook::Helpers
-  end
+  include described_class
 
   it 'returns www-data for debian platform' do
-    @dummy.node['platform'] = 'debian'
+    node = Fauxhai.mock(platform: 'debian', version: '7.0').data
 
-    expect(@dummy.user_for_platform(@dummy.node)).to be == 'www-data'
+    expect(user_for_node(node)).to be == 'www-data'
   end
 
   it 'returns www-data for ubuntu platform' do
-    @dummy.node['platform'] = 'ubuntu'
+    node = Fauxhai.mock(platform: 'ubuntu', version: '14.04').data
 
-    expect(@dummy.user_for_platform(@dummy.node)).to be == 'www-data'
+    expect(user_for_node(node)).to be == 'www-data'
   end
 
   it 'returns nginx for centos platform' do
-    @dummy.node['platform'] = 'centos'
+    node = Fauxhai.mock(platform: 'centos', version: '7.0').data
 
-    expect(@dummy.user_for_platform(@dummy.node)).to be == 'nginx'
+    expect(user_for_node(node)).to be == 'nginx'
+  end
+
+  it 'returns nginx for amazon platform' do
+    node = Fauxhai.mock(platform: 'amazon', version: '2015.09').data
+
+    expect(user_for_node(node)).to be == 'nginx'
   end
 
   # # let(:klass) { Class.new { extend NginxCookbook::Helpers } }

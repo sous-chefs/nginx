@@ -1,10 +1,14 @@
 describe 'resource_nginx_service :delete on centos 7' do
-  cached(:chef_run) do
+  cached(:runner) do
     ChefSpec::SoloRunner.new(
       step_into: 'nginx_service',
       platform: 'centos',
       version: '7.0'
-    ).converge('nginx_service_test::single', 'nginx_service_test::delete')
+    )
+  end
+
+  cached(:chef_run) do
+    runner.converge('nginx_service_test::single', 'nginx_service_test::delete')
   end
 
   it_behaves_like 'create a named nginx_service', 'single'

@@ -3,17 +3,21 @@ describe 'resource_nginx_service :create on centos 7' do
     allow(Chef::Platform::ServiceHelpers).to receive(:service_resource_providers).and_return([:systemd])
   end
 
-  cached(:chef_run) do
+  cached(:runner) do
     ChefSpec::SoloRunner.new(
       step_into: 'nginx_service',
       platform: 'centos',
       version: '7.0'
-    ).converge('nginx::example')
+    )
+  end
+
+  cached(:chef_run) do
+    runner.converge('nginx::example')
   end
 
   it_behaves_like 'create a named nginx_service', 'example'
 
-  it_behaves_like 'nginx_service :create', 'example', 'platform' => 'centos'
+  it_behaves_like 'nginx_service :create', 'example'
   it_behaves_like 'nginx_service :start', 'example'
   it_behaves_like 'nginx_service #systemd', 'example'
 
