@@ -14,16 +14,16 @@ module NginxCookbook
       new_resource.name
     end
 
-    # @param [Chef::Node] An Object that responds to a `['platform']` call
+    # @param [Chef::Node] An Object that responds to a `['platform_family']` call
     # @return [String] Name of the user that runs nginx
-    def user_for_platform(node)
-      case node['platform']
-      when 'centos'
+    def user_for_node(node)
+      case node['platform_family']
+      when 'rhel'
         'nginx'
-      when 'ubuntu', 'debian'
+      when 'debian'
         'www-data'
       else
-        raise "Unexpected platform '#{node['platform']}'."
+        raise "Unexpected platform family '#{node['platform_family']}'."
       end
     end
   end

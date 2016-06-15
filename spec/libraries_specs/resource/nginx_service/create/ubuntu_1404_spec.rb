@@ -13,7 +13,7 @@ describe 'resource_nginx_service :create on ubuntu 14.04' do
 
   it_behaves_like 'create a named nginx_service', 'example'
 
-  it_behaves_like 'nginx_service :create', 'example', 'platform' => 'ubuntu'
+  it_behaves_like 'nginx_service :create', 'example'
   it_behaves_like 'nginx_service :start', 'example'
   it_behaves_like 'nginx_service #upstart', 'example'
 
