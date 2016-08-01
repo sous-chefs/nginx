@@ -44,7 +44,7 @@ suites:
             - nginx::http_geoip_module
             - nginx::http_gzip_static_module
             - nginx::http_realip_module
-            - nginx::http_spdy_module
+            - nginx::http_v2_module
             - nginx::http_ssl_module
             - nginx::http_stub_status_module
             - nginx::naxsi_module
