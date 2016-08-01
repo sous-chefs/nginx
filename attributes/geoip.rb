@@ -22,9 +22,9 @@
 default['nginx']['geoip']['path']                 = '/srv/geoip'
 default['nginx']['geoip']['enable_city']          = true
 default['nginx']['geoip']['country_dat_url']      = 'http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz'
-default['nginx']['geoip']['country_dat_checksum'] = '1672e07a5cafee05c1751f6b14d44b356cbb5377cde8ad780c45e1195422cae2'
+default['nginx']['geoip']['country_dat_checksum'] = '87ea7255887af3bf12adecaf9f8d4abc6d7065155f8923feed9748ab8541370f'
 default['nginx']['geoip']['city_dat_url']         = 'http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz'
-default['nginx']['geoip']['city_dat_checksum']    = 'ae8185e5e0d72d6c1720054cdc7a374729714209f3c4764b4a3eb9127d04097d'
+default['nginx']['geoip']['city_dat_checksum']    = 'de873ffe7a8b3aa47fc5fedbbfd861360d020cd3c78c446e033177a872da35ce'
 default['nginx']['geoip']['lib_version']          = '1.6.3'
 lib_version = node['nginx']['geoip']['lib_version'] # convenience variable for line length
 default['nginx']['geoip']['lib_url']              = "https://github.com/maxmind/geoip-api-c/releases/download/v#{lib_version}/GeoIP-#{lib_version}.tar.gz"
