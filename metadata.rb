@@ -11,8 +11,8 @@ recipe 'nginx::source', 'Installs nginx from source and sets up configuration wi
 depends 'apt'
 depends 'bluepill'
 depends 'build-essential'
-depends 'ohai'
-depends 'runit'
+depends 'ohai', '< 4.0'
+depends 'runit', '>= 1.6.0'
 depends 'yum'
 depends 'yum-epel'
 
