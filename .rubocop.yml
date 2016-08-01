@@ -1,21 +1,54 @@
-AllCops:
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle, SupportedStyles, SingleLineConditionsOnly.
+# SupportedStyles: assign_to_condition, assign_inside_condition
+Style/ConditionalAssignment:
   Exclude:
-    - Guardfile
-    - 'vendor/**/*'
-AlignParameters:
-  Enabled: false
-ClassAndModuleChildren:
-  Enabled: false
-Encoding:
-  Enabled: false
-LineLength:
-  Max: 200
-HashSyntax:
-  EnforcedStyle: hash_rockets
+    - 'attributes/passenger.rb'
+    - 'attributes/repo.rb'
+    - 'recipes/syslog_module.rb'
+
+# Cop supports --auto-correct.
+# Configuration parameters: AllowForAlignment, ForceEqualSignAlignment.
+Style/ExtraSpacing:
   Exclude:
-    - Rakefile
-    - 'spec/**/*'
-    - 'test/**/*'
-# Don't fail on whitespace between method names and arguments
-Style/SingleSpaceBeforeFirstArg:
-  Enabled: false
+    - 'recipes/http_geoip_module.rb'
+    - 'recipes/repo.rb'
+    - 'recipes/source.rb'
+
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle, SupportedStyles, IndentationWidth.
+# SupportedStyles: consistent, special_for_inner_method_call, special_for_inner_method_call_in_parentheses
+Style/FirstParameterIndentation:
+  Exclude:
+    - 'recipes/pagespeed_module.rb'
+
+# Cop supports --auto-correct.
+# Configuration parameters: IndentationWidth.
+Style/IndentAssignment:
+  Exclude:
+    - 'recipes/headers_more_module.rb'
+
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+# SupportedStyles: only_raise, only_fail, semantic
+Style/SignalException:
+  Exclude:
+    - 'recipes/package.rb'
+    - 'recipes/socketproxy.rb'
+    - 'recipes/syslog_module.rb'
+
+# Cop supports --auto-correct.
+# Configuration parameters: AllowForAlignment.
+Style/SpaceAroundOperators:
+  Exclude:
+    - 'recipes/http_geoip_module.rb'
+    - 'recipes/passenger.rb'
+    - 'recipes/source.rb'
+    - 'spec/unit/recipes/commons_conf_spec.rb'
+    - 'spec/unit/recipes/source_spec.rb'
+
+# Cop supports --auto-correct.
+# Configuration parameters: AllowForAlignment.
+Style/SpaceBeforeFirstArg:
+  Exclude:
+    - 'recipes/repo.rb'
