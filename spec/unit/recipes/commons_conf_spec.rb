@@ -5,7 +5,7 @@ require 'spec_helper'
 # from that recipe.
 describe 'nginx::commons_conf' do
   let :chef_run do
-    ChefSpec::SoloRunner.new(platform: 'debian', version: '7.0')
+    ChefSpec::ServerRunner.new(platform: 'debian', version: '8.4')
   end
 
   before do

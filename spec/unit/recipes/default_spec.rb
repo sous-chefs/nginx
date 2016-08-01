@@ -6,7 +6,7 @@ describe 'nginx::default' do
   end
 
   let(:chef_run) do
-    ChefSpec::SoloRunner.new.converge(described_recipe)
+    ChefSpec::ServerRunner.new.converge(described_recipe)
   end
 
   shared_examples_for 'default recipe' do

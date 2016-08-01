@@ -2,7 +2,7 @@
 
 describe 'nginx::ohai_plugin' do
   let(:chef_run) do
-    ChefSpec::SoloRunner.new.converge(described_recipe)
+    ChefSpec::ServerRunner.new.converge(described_recipe)
   end
 
   xit 'defines ohai reload resource' do
@@ -12,7 +12,7 @@ describe 'nginx::ohai_plugin' do
 
   context 'ohai 8' do
     let(:chef_run) do
-      ChefSpec::SoloRunner.new do |node|
+      ChefSpec::ServerRunner.new do |node|
         node.automatic['chef_packages']['ohai']['version'] = '8.1.4'
       end.converge(described_recipe)
     end
@@ -25,7 +25,7 @@ describe 'nginx::ohai_plugin' do
 
   context 'ohai 6' do
     let(:chef_run) do
-      ChefSpec::SoloRunner.new do |node|
+      ChefSpec::ServerRunner.new do |node|
         node.automatic['chef_packages']['ohai']['version'] = '6.1.3'
       end.converge(described_recipe)
     end

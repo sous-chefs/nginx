@@ -7,9 +7,9 @@ describe 'nginx::package' do
   end
 
   let(:chef_run) do
-    ChefSpec::SoloRunner.new(
+    ChefSpec::ServerRunner.new(
       platform: 'debian',
-      version: '7.0'
+      version: '8.4'
     ).converge(described_recipe)
   end
 
@@ -64,7 +64,7 @@ describe 'nginx::package' do
 
   context 'rhel platform family' do
     let(:chef_run) do
-      ChefSpec::SoloRunner.new(
+      ChefSpec::ServerRunner.new(
         platform: 'redhat',
         version: '6.5'
       ).converge(described_recipe)
