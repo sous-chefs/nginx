@@ -19,11 +19,11 @@
 # limitations under the License.
 #
 
-if node.attribute?('chef_packages')
-  ohai_major_ver = node['chef_packages']['ohai']['version'].split('.')[0].to_i
-else
-  ohai_major_ver = 6
-end
+ohai_major_ver = if node.attribute?('chef_packages')
+                   node['chef_packages']['ohai']['version'].split('.')[0].to_i
+                 else
+                   6
+                 end
 
 ohai 'reload_nginx' do
   plugin 'nginx'
