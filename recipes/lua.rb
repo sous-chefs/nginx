@@ -24,9 +24,6 @@ luajit_extract_path = "#{Chef::Config['file_cache_path']}/luajit-#{node['nginx']
 remote_file luajit_src_filepath do
   source   node['nginx']['luajit']['url']
   checksum node['nginx']['luajit']['checksum']
-  owner    'root'
-  group    node['root_group']
-  mode     '0644'
 end
 
 bash 'extract_luajit' do

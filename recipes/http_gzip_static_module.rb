@@ -21,9 +21,6 @@
 
 template "#{node['nginx']['dir']}/conf.d/http_gzip_static.conf" do
   source 'modules/http_gzip_static.conf.erb'
-  owner 'root'
-  group node['root_group']
-  mode '0644'
 end
 
 node.run_state['nginx_configure_flags'] =

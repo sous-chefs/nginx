@@ -3,7 +3,7 @@ include_recipe 'nginx::commons_dir'
 directory node['nginx']['socketproxy']['root'] do
   owner node['nginx']['socketproxy']['app_owner']
   group node['nginx']['socketproxy']['app_owner']
-  mode 00755
+  mode '0755'
   action :create
 end
 
@@ -15,9 +15,6 @@ raise 'More than one app has the same context_name configured.' if context_names
 
 template node['nginx']['dir'] + '/sites-available/socketproxy.conf' do
   source 'modules/socketproxy.conf.erb'
-  owner 'root'
-  group 'root'
-  mode 00644
   notifies :reload, 'service[nginx]', :delayed
 end
 

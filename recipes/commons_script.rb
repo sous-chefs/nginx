@@ -23,7 +23,5 @@
   template "#{node['nginx']['script_dir']}/#{nxscript}" do
     source "#{nxscript}.erb"
     mode   '0755'
-    owner  'root'
-    group  node['root_group']
   end
 end

@@ -32,9 +32,6 @@ else
   remote_file arm_src_filepath do
     source   node['nginx']['auth_request']['url']
     checksum node['nginx']['auth_request']['checksum']
-    owner    'root'
-    group    node['root_group']
-    mode     '0644'
   end
 
   bash 'extract_auth_request_module' do

@@ -55,8 +55,6 @@ git nginx_syslog_src do
   repository node['nginx']['syslog']['git_repo']
   revision node['nginx']['syslog']['git_revision']
   action :sync
-  user 'root'
-  group 'root'
 end
 
 execute 'apply_nginx_syslog_patch' do

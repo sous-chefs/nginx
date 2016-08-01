@@ -70,9 +70,6 @@ include_recipe 'nginx::commons_conf'
 
 cookbook_file "#{node['nginx']['dir']}/mime.types" do
   source 'mime.types'
-  owner  'root'
-  group  node['root_group']
-  mode   '0644'
   notifies :reload, 'service[nginx]', :delayed
 end
 
@@ -132,7 +129,6 @@ when 'bluepill'
 
   template "#{node['bluepill']['conf_dir']}/nginx.pill" do
     source 'nginx.pill.erb'
-    mode   '0644'
   end
 
   bluepill_service 'nginx' do
@@ -151,9 +147,6 @@ when 'upstart'
 
   template '/etc/init/nginx.conf' do
     source 'nginx-upstart.conf.erb'
-    owner  'root'
-    group  node['root_group']
-    mode   '0644'
   end
 
   service 'nginx' do
@@ -181,17 +174,12 @@ else
 
   template '/etc/init.d/nginx' do
     source 'nginx.init.erb'
-    owner  'root'
-    group  node['root_group']
     mode   '0755'
   end if generate_init
 
   if generate_template
     template defaults_path do
       source 'nginx.sysconfig.erb'
-      owner  'root'
-      group  node['root_group']
-      mode   '0644'
     end
   end
 

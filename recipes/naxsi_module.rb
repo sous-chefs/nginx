@@ -21,9 +21,6 @@
 
 cookbook_file "#{node['nginx']['dir']}/naxsi_core.rules" do
   source 'naxsi_core.rules'
-  owner  'root'
-  group  node['root_group']
-  mode   '0644'
   notifies :reload, 'service[nginx]', :delayed
 end
 
@@ -34,9 +31,6 @@ naxsi_extract_path = "#{Chef::Config['file_cache_path']}/nginx-naxsi-#{node['ngi
 remote_file naxsi_src_filepath do
   source   node['nginx']['naxsi']['url']
   checksum node['nginx']['naxsi']['checksum']
-  owner    'root'
-  group    node['root_group']
-  mode     '0644'
 end
 
 bash 'extract_naxsi_module' do
