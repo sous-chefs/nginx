@@ -19,13 +19,19 @@
 # limitations under the License.
 #
 
+if node.attribute?('chef_packages')
+  ohai_major_ver = node['chef_packages']['ohai']['version'].split('.')[0].to_i
+else
+  ohai_major_ver = 6
+end
+
 ohai 'reload_nginx' do
   plugin 'nginx'
   action :nothing
 end
 
-template "#{node['ohai']['plugin_path']}/nginx.rb" do
-  source 'plugins/nginx.rb.erb'
+template "#{node['ohai']['plugin_path']}/nginx.rb" do # ~FC033
+  source ohai_major_ver <= 6 ? 'plugins/ohai6-nginx.rb.erb' : 'plugins/ohai7-nginx.rb.erb'
   owner  'root'
   group  node['root_group']
   mode   '0755'
