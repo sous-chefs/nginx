@@ -40,7 +40,7 @@ case node['platform_family']
 when 'debian'
   default['nginx']['user']       = 'www-data'
   default['nginx']['init_style'] = 'runit'
-  if platform == 'ubuntu' && platform_version == '14.04'
+  if node['platform'] == 'ubuntu' && node['platform_version'].to_f > 14.04
     default['nginx']['pid'] = '/run/nginx.pid'
   end
 when 'rhel', 'fedora'
