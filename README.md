@@ -42,6 +42,10 @@ The following platforms are supported and tested with Test Kitchen:
 
 Other Debian and RHEL family distributions are assumed to work.
 
+### Chef
+
+- Chef 11+
+
 ## Attributes
 
 Node attributes for this cookbook are logically separated into different files. Some attributes are set only via a specific recipe.
