@@ -300,8 +300,6 @@ The following recipes are used to build module support into Nginx. To use a modu
 
 ## Definitions
 
-The cookbook provides a new definition. At some point in the future this definition may be refactored into a lightweight resource and provider as suggested by [foodcritic rule FC015](http://acrmp.github.com/foodcritic/#FC015).
-
 ### nginx_site
 
 Enable or disable a Server Block in `#{node['nginx']['dir']}/sites-available` by calling nxensite or nxdissite (introduced by this cookbook) to manage the symbolic link in `#{node['nginx']['dir']}/sites-enabled`.
