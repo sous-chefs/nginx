@@ -13,6 +13,7 @@ depends 'bluepill'
 depends 'build-essential'
 depends 'ohai'
 depends 'runit'
+depends 'yum'
 depends 'yum-epel'
 
 supports 'amazon'
