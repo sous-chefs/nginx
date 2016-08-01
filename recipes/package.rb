@@ -31,7 +31,7 @@ if platform_family?('rhel')
       level :debug
     end
   else
-    fail ArgumentError, "Unknown value '#{node['nginx']['repo_source']}' was passed to the nginx cookbook."
+    raise ArgumentError, "Unknown value '#{node['nginx']['repo_source']}' was passed to the nginx cookbook."
   end
 elsif platform_family?('debian')
   include_recipe 'nginx::repo_passenger' if node['nginx']['repo_source'] == 'passenger'
@@ -45,7 +45,7 @@ package node['nginx']['package_name'] do
 end
 
 service 'nginx' do
-  supports :status => true, :restart => true, :reload => true
+  supports status: true, restart: true, reload: true
   action   :enable
 end
 

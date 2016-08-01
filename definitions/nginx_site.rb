@@ -19,7 +19,7 @@
 # limitations under the License.
 #
 
-define :nginx_site, :enable => true, :timing => :delayed do
+define :nginx_site, enable: true, timing: :delayed do
   if params[:enable]
 
     if params[:template]

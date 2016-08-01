@@ -44,7 +44,7 @@ include_recipe 'nginx::commons_dir'
 include_recipe 'nginx::commons_script'
 include_recipe 'build-essential::default'
 
-src_filepath  = "#{Chef::Config['file_cache_path'] || '/tmp'}/nginx-#{node['nginx']['source']['version']}.tar.gz"
+src_filepath = "#{Chef::Config['file_cache_path'] || '/tmp'}/nginx-#{node['nginx']['source']['version']}.tar.gz"
 packages = value_for_platform_family(
   %w(rhel fedora suse) => %w(pcre-devel openssl-devel),
   %w(gentoo)      => [],
@@ -124,7 +124,7 @@ when 'runit'
   runit_service 'nginx'
 
   service 'nginx' do
-    supports       :status => true, :restart => true, :reload => true
+    supports       status: true, restart: true, reload: true
     reload_command "#{node['runit']['sv_bin']} hup #{node['runit']['service_dir']}/nginx"
   end
 when 'bluepill'
@@ -140,14 +140,14 @@ when 'bluepill'
   end
 
   service 'nginx' do
-    supports       :status => true, :restart => true, :reload => true
+    supports       status: true, restart: true, reload: true
     reload_command "[[ -f #{node['nginx']['pid']} ]] && kill -HUP `cat #{node['nginx']['pid']}` || true"
     action         :nothing
   end
 when 'upstart'
   # we rely on this to set up nginx.conf with daemon disable instead of doing
   # it in the upstart init script.
-  node.set['nginx']['daemon_disable']  = node['nginx']['upstart']['foreground']
+  node.set['nginx']['daemon_disable'] = node['nginx']['upstart']['foreground']
 
   template '/etc/init/nginx.conf' do
     source 'nginx-upstart.conf.erb'
@@ -158,7 +158,7 @@ when 'upstart'
 
   service 'nginx' do
     provider Chef::Provider::Service::Upstart
-    supports :status => true, :restart => true, :reload => true
+    supports status: true, restart: true, reload: true
     action   :nothing
   end
 else
@@ -171,12 +171,12 @@ else
     generate_template = false
   when 'debian', 'ubuntu'
     generate_template = true
-    defaults_path    = '/etc/default/nginx'
+    defaults_path     = '/etc/default/nginx'
   when 'freebsd'
-    generate_init    = false
+    generate_init     = false
   else
     generate_template = true
-    defaults_path    = '/etc/sysconfig/nginx'
+    defaults_path     = '/etc/sysconfig/nginx'
   end
 
   template '/etc/init.d/nginx' do
@@ -196,7 +196,7 @@ else
   end
 
   service 'nginx' do
-    supports :status => true, :restart => true, :reload => true
+    supports status: true, restart: true, reload: true
     action   :enable
   end
 end

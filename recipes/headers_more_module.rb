@@ -47,4 +47,4 @@ bash 'extract_headers_more' do
 end
 
 node.run_state['nginx_configure_flags'] =
-    node.run_state['nginx_configure_flags'] | ["--add-module=#{module_location}/headers-more-nginx-module-#{node['nginx']['headers_more']['version']}/"]
+  node.run_state['nginx_configure_flags'] | ["--add-module=#{module_location}/headers-more-nginx-module-#{node['nginx']['headers_more']['version']}/"]

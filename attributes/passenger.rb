@@ -36,11 +36,11 @@ else
   node.default['nginx']['passenger']['ruby'] = '/usr/bin/ruby'
 end
 
-if platform_family?('rhel') && node['platform_version'].to_i >= 6
-  node.default['nginx']['passenger']['packages']['rhel'] = %w(ruby-devel libcurl-devel)
-else
-  node.default['nginx']['passenger']['packages']['rhel'] = %w(ruby-devel curl-devel)
-end
+node.default['nginx']['passenger']['packages']['rhel'] = if platform_family?('rhel') && node['platform_version'].to_i >= 6
+                                                           %w(ruby-devel libcurl-devel)
+                                                         else
+                                                           %w(ruby-devel curl-devel)
+                                                         end
 node.default['nginx']['passenger']['packages']['fedora'] = %w(ruby-devel libcurl-devel)
 node.default['nginx']['passenger']['packages']['debian'] = %w(ruby-dev libcurl4-gnutls-dev)
 

@@ -8,8 +8,8 @@ describe 'nginx::package' do
 
   let(:chef_run) do
     ChefSpec::SoloRunner.new(
-      :platform => 'debian',
-      :version => '7.0'
+      platform: 'debian',
+      version: '7.0'
     ).converge(described_recipe)
   end
 
@@ -65,8 +65,8 @@ describe 'nginx::package' do
   context 'rhel platform family' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new(
-        :platform => 'redhat',
-        :version => '6.5'
+        platform: 'redhat',
+        version: '6.5'
       ).converge(described_recipe)
     end
 
@@ -87,7 +87,7 @@ describe 'nginx::package' do
 
       it 'installs the nginx package with modifiers' do
         expect(chef_run).to install_package('nginx').with(
-          :options => '--disablerepo=* --enablerepo=nginx'
+          options: '--disablerepo=* --enablerepo=nginx'
         )
       end
 
