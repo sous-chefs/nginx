@@ -4,7 +4,7 @@
 #
 # Author:: Alex Dergachev (<alex@evolvingweb.ca>)
 #
-# Copyright 2013, Chef Software, Inc.
+# Copyright 2013-2016, Chef Software, Inc.
 # Copyright 2012, Susan Potter
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -36,11 +36,11 @@ else
   node.default['nginx']['passenger']['ruby'] = '/usr/bin/ruby'
 end
 
-if platform_family?('rhel') && node['platform_version'].to_i >= 6
-  node.default['nginx']['passenger']['packages']['rhel'] = %w(ruby-devel libcurl-devel)
-else
-  node.default['nginx']['passenger']['packages']['rhel'] = %w(ruby-devel curl-devel)
-end
+node.default['nginx']['passenger']['packages']['rhel'] = if platform_family?('rhel') && node['platform_version'].to_i >= 6
+                                                           %w(ruby-devel libcurl-devel)
+                                                         else
+                                                           %w(ruby-devel curl-devel)
+                                                         end
 node.default['nginx']['passenger']['packages']['fedora'] = %w(ruby-devel libcurl-devel)
 node.default['nginx']['passenger']['packages']['debian'] = %w(ruby-dev libcurl4-gnutls-dev)
 

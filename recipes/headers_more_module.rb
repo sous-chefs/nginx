@@ -24,14 +24,9 @@ module_location = "#{Chef::Config['file_cache_path']}/headers_more/#{node['nginx
 remote_file tar_location do
   source   node['nginx']['headers_more']['source_url']
   checksum node['nginx']['headers_more']['source_checksum']
-  owner    'root'
-  group    node['root_group']
-  mode     '0644'
 end
 
 directory module_location do
-  owner     'root'
-  group     node['root_group']
   mode      '0755'
   recursive true
   action    :create
@@ -47,4 +42,4 @@ bash 'extract_headers_more' do
 end
 
 node.run_state['nginx_configure_flags'] =
-    node.run_state['nginx_configure_flags'] | ["--add-module=#{module_location}/headers-more-nginx-module-#{node['nginx']['headers_more']['version']}/"]
+  node.run_state['nginx_configure_flags'] | ["--add-module=#{module_location}/headers-more-nginx-module-#{node['nginx']['headers_more']['version']}/"]

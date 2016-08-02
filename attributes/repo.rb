@@ -4,7 +4,7 @@
 #
 # Author:: Nick Rycar <nrycar@bluebox.net>
 #
-# Copyright 2008-2013, Chef Software, Inc.
+# Copyright 2008-2016, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,15 +21,15 @@
 
 case node['platform_family']
 when 'rhel', 'fedora'
-  case node['platform']
-  when 'centos'
-    # See http://wiki.nginx.org/Install
-    default['nginx']['upstream_repository'] = "http://nginx.org/packages/centos/#{node['platform_version'].to_i}/$basearch/"
-  when 'amazon'
-    default['nginx']['upstream_repository'] = 'http://nginx.org/packages/rhel/6/$basearch/'
-  else
-    default['nginx']['upstream_repository'] = "http://nginx.org/packages/rhel/#{node['platform_version'].to_i}/$basearch/"
-  end
+  default['nginx']['upstream_repository'] = case node['platform']
+                                            when 'centos'
+                                              # See http://wiki.nginx.org/Install
+                                              "http://nginx.org/packages/centos/#{node['platform_version'].to_i}/$basearch/"
+                                            when 'amazon'
+                                              'http://nginx.org/packages/rhel/6/$basearch/'
+                                            else
+                                              "http://nginx.org/packages/rhel/#{node['platform_version'].to_i}/$basearch/"
+                                            end
 when 'debian'
   default['nginx']['upstream_repository'] = "http://nginx.org/packages/#{node['platform']}"
 end

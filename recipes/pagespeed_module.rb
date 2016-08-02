@@ -9,9 +9,6 @@ extract_path = "#{Chef::Config['file_cache_path']}/nginx_pagespeed-#{node['nginx
 
 remote_file src_filepath do
   source   node['nginx']['pagespeed']['url']
-  owner    'root'
-  group    node['root_group']
-  mode     '0644'
   not_if { ::File.exist?(src_filepath) }
 end
 
@@ -21,15 +18,12 @@ psol_extract_path = "#{Chef::Config['file_cache_path']}/nginx_pagespeed-#{node['
 
 remote_file psol_src_filepath do
   source   node['nginx']['psol']['url']
-  owner    'root'
-  group    node['root_group']
-  mode     '0644'
   not_if { ::File.exist?(psol_src_filepath) }
 end
 
 packages = value_for_platform_family(
-    %w(rhel)   => node['nginx']['pagespeed']['packages']['rhel'],
-    %w(debian) => node['nginx']['pagespeed']['packages']['debian']
+  %w(rhel)   => node['nginx']['pagespeed']['packages']['rhel'],
+  %w(debian) => node['nginx']['pagespeed']['packages']['debian']
 )
 
 unless packages.empty?

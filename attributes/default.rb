@@ -5,7 +5,7 @@
 # Author:: Adam Jacob (<adam@chef.io>)
 # Author:: Joshua Timberman (<joshua@chef.io>)
 #
-# Copyright 2009-2013, Chef Software, Inc.
+# Copyright 2009-2016, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@
 # In order to update the version, the checksum attribute must be changed too.
 # This attribute is in the source.rb file, though we recommend overriding
 # attributes by modifying a role, or the node itself.
-default['nginx']['version']      = '1.6.2'
+default['nginx']['version']      = '1.10.1'
 default['nginx']['package_name'] = 'nginx'
 default['nginx']['port']         = '80'
 default['nginx']['dir']          = '/etc/nginx'
@@ -40,7 +40,7 @@ case node['platform_family']
 when 'debian'
   default['nginx']['user']       = 'www-data'
   default['nginx']['init_style'] = 'runit'
-  if platform == 'ubuntu' && platform_version == '14.04'
+  if node['platform'] == 'ubuntu' && node['platform_version'].to_f > 14.04
     default['nginx']['pid'] = '/run/nginx.pid'
   end
 when 'rhel', 'fedora'

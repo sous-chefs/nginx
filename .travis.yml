@@ -1,12 +1,27 @@
+# Use Travis's container based infrastructure
 sudo: false
-language: ruby
-cache: bundler
-bundler_args: --without development kitchen_docker kitchen_vagrant
-rvm:
-- 2.1.4
+addons:
+  apt:
+    sources:
+      - chef-current-precise
+    packages:
+      - chefdk
+
+# Don't `bundle install`
+install: echo "skip bundle install"
+
+# Ensure we make ChefDK's Ruby the default
+before_script:
+  - eval "$(/opt/chefdk/bin/chef shell-init bash)"
+  # We have to install chef-sugar for ChefSpec
+  - /opt/chefdk/embedded/bin/chef gem install chef-sugar
+
 script:
-- bundle exec rake style
-- bundle exec rake spec
+  - /opt/chefdk/embedded/bin/chef --version
+  - /opt/chefdk/embedded/bin/cookstyle --version
+  - /opt/chefdk/embedded/bin/foodcritic --version
+  - /opt/chefdk/bin/chef exec rake
+
 notifications:
   webhooks:
     urls:

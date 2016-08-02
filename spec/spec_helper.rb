@@ -8,6 +8,6 @@ RSpec.configure do |config|
 
   # run all specs when using a filter, but no spec match
   config.run_all_when_everything_filtered = true
-end
 
-ChefSpec::Coverage.start!
+  Ohai::Config[:log_level] = :error
+end

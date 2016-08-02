@@ -1,10 +1,8 @@
 #
 # Cookbook Name:: nginx
-# Attributes:: echo
+# Recipe:: http_v2_module
 #
-# Author:: Danial Pearce (<github@tigris.id.au>)
 #
-# Copyright 2013, Danial Pearce
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,6 +17,5 @@
 # limitations under the License.
 #
 
-default['nginx']['echo']['version']        = '0.59'
-default['nginx']['echo']['url']            = "https://github.com/openresty/echo-nginx-module/archive/v#{node['nginx']['echo']['version']}.tar.gz"
-default['nginx']['echo']['checksum']       = '9b319ad7836202883128d2b9c24ed818082541df57ef7f2065b7557085c603cd'
+node.run_state['nginx_configure_flags'] =
+  node.run_state['nginx_configure_flags'] | ['--with-http_v2_module']

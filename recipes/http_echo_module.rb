@@ -26,9 +26,6 @@ echo_extract_path = "#{Chef::Config['file_cache_path']}/nginx_echo_module/#{node
 remote_file echo_src_filepath do
   source   node['nginx']['echo']['url']
   checksum node['nginx']['echo']['checksum']
-  owner    'root'
-  group    node['root_group']
-  mode     '0644'
 end
 
 bash 'extract_http_echo_module' do

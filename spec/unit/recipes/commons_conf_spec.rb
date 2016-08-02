@@ -5,7 +5,7 @@ require 'spec_helper'
 # from that recipe.
 describe 'nginx::commons_conf' do
   let :chef_run do
-    ChefSpec::SoloRunner.new(:platform => 'debian', :version  => '7.0')
+    ChefSpec::ServerRunner.new(platform: 'debian', version: '8.4')
   end
 
   before do
@@ -23,8 +23,8 @@ describe 'nginx::commons_conf' do
     chef_run.converge('nginx::default')
     template_file = "#{chef_run.node['nginx']['dir']}/nginx.conf"
     expect(chef_run).to create_template(template_file).with(
-      :source => 'mytemplate.conf.erb',
-      :cookbook => 'somecookbook'
+      source: 'mytemplate.conf.erb',
+      cookbook: 'somecookbook'
     )
   end
 

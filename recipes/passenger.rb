@@ -2,7 +2,7 @@
 # Cookbook Name:: nginx
 # Recipe:: Passenger
 #
-# Copyright 2013, Chef Software, Inc.
+# Copyright 2013-2016, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,8 +18,8 @@
 #
 
 packages = value_for_platform_family(
-  %w(rhel)   => node['nginx']['passenger']['packages']['rhel'],
-  %w(fedora)   => node['nginx']['passenger']['packages']['fedora'],
+  %w(rhel) => node['nginx']['passenger']['packages']['rhel'],
+  %w(fedora) => node['nginx']['passenger']['packages']['fedora'],
   %w(debian) => node['nginx']['passenger']['packages']['debian']
 )
 
@@ -42,15 +42,20 @@ elsif node['nginx']['passenger']['install_method'] == 'source'
     gem_binary node['nginx']['passenger']['gem_binary'] if node['nginx']['passenger']['gem_binary']
   end
 
+  passenger_module = node['nginx']['passenger']['root']
+
+  passenger_module << if Chef::VersionConstraint.new('>= 5.0.19').include?(node['nginx']['passenger']['version'])
+                        '/src/nginx_module'
+                      else
+                        '/ext/nginx'
+                      end
+
   node.run_state['nginx_configure_flags'] =
-    node.run_state['nginx_configure_flags'] | ["--add-module=#{node['nginx']['passenger']['root']}/ext/nginx"]
+    node.run_state['nginx_configure_flags'] | ["--add-module=#{passenger_module}"]
 
 end
 
 template "#{node['nginx']['dir']}/conf.d/passenger.conf" do
   source 'modules/passenger.conf.erb'
-  owner  'root'
-  group  node['root_group']
-  mode   '0644'
   notifies :reload, 'service[nginx]', :delayed
 end
