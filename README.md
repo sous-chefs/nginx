@@ -92,7 +92,7 @@ Generally used attributes. Some have platform specific values. See `attributes/d
 - `node['nginx']['proxy_read_timeout']` - defines a timeout (between two successive read operations) for reading a response from the proxied server.
 - `node['nginx']['client_body_buffer_size']` - used for config value of `client_body_buffer_size`.
 - `node['nginx']['client_max_body_size']` - specifies the maximum accepted body size of a client request, as indicated by the request header Content-Length.
-- `node['nginx']['repo_source']` - when installed from a package this attribute affects which yum repositories, if any, will be added before installing the nginx package. The default value of 'epel' will use the `yum::epel` recipe, 'nginx' will use the `nginx::repo` recipe, 'passenger' will use the 'nginx::repo_passenger' recipe, and setting no value will not add any additional repositories.
+- `node['nginx']['repo_source']` - when installed from a package this attribute affects which yum repositories, if any, will be added before installing the nginx package. The default value of 'epel' will use the `yum-epel` cookbook, 'nginx' will use the `nginx::repo` recipe, 'passenger' will use the 'nginx::repo_passenger' recipe, and setting no value will not add any additional repositories.
 - `node['nginx']['sts_max_age']` - Enable Strict Transport Security for all apps (See: <http://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security>). This attribute adds the following header:
 
   Strict-Transport-Security max-age=SECONDS
@@ -210,7 +210,7 @@ Basic configuration to use the official Phusion Passenger repositories:
 
 These attributes are used in the `nginx::http_echo_module` recipe.
 
-- `node['nginx']['echo']['version']` - The version of `http_echo` you want (default: 0.40)
+- `node['nginx']['echo']['version']` - The version of `http_echo` you want (default: 0.59)
 - `node['nginx']['echo']['url']` - URL for the tarball.
 - `node['nginx']['echo']['checksum']` - Checksum of the tarball.
 
@@ -231,7 +231,7 @@ These attributes are used in the `nginx::syslog_module` recipe.
 
 These attributes are used in the `nginx::openssl_source` recipe.
 
-- `node['nginx']['openssl_source']['version']` - The version of OpenSSL you want to download and use (default: 1.0.1e)
+- `node['nginx']['openssl_source']['version']` - The version of OpenSSL you want to download and use (default: 1.0.1t)
 - `node['nginx']['openssl_source']['url']` - The url for the OpenSSL source
 
 ## socketproxy.rb
