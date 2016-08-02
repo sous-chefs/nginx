@@ -19,6 +19,6 @@
 # limitations under the License.
 #
 
-default['nginx']['echo']['version']        = '0.57'
+default['nginx']['echo']['version']        = '0.59'
 default['nginx']['echo']['url']            = "https://github.com/openresty/echo-nginx-module/archive/v#{node['nginx']['echo']['version']}.tar.gz"
-default['nginx']['echo']['checksum']       = '8467237ca0fae74ca7a32fbd34fc6044df307098415d48068214c9c235695a07'
+default['nginx']['echo']['checksum']       = '9b319ad7836202883128d2b9c24ed818082541df57ef7f2065b7557085c603cd'
