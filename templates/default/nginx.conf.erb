@@ -30,6 +30,7 @@ http {
 
   include       <%= node['nginx']['dir'] %>/mime.types;
   default_type  application/octet-stream;
+  charset_types text/css text/plain text/vnd.wap.wml application/javascript application/json application/rss+xml application/xml;
 
   <% node['nginx']['log_formats'].each do |name, format| %>
   log_format <%= name %> <%= format %>;

@@ -18,6 +18,7 @@ This file is used to list changes made in each version of the nginx cookbook.
 - Removed the lua-devel package install from the lua recipe that failed chef runs and wasn't necessary
 - Removed duplicate packages from the source module installs
 - Added a dependency on the yum cookbook which was missing from the metadata
+- Updated the mime.types file and added the charset_types configuration option to the nginx config
 - Added source_url, issue_url, and chef_version metadata
 - Fixed the pid file attribute logic for Ubuntu 16.04
 - Removed the Contributing doc that was for contributing to Opscode cookbooks
