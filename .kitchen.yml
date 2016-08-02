@@ -24,17 +24,21 @@ platforms:
 suites:
   - name: example
     run_list:
+      - recipe[nginx_service_test::common]
       - recipe[nginx::example]
 
   - name: service_single
     run_list:
+      - recipe[nginx_service_test::common]
       - recipe[nginx_service_test::single]
 
   - name: service_multi
     run_list:
+      - recipe[nginx_service_test::common]
       - recipe[nginx_service_test::multi]
 
   - name: service_single_upstream
     run_list:
+      - recipe[nginx_service_test::common]
       - recipe[nginx_service_test::nginx_repo]
       - recipe[nginx_service_test::single]
