@@ -11,8 +11,8 @@ will be actively supported by Chef Software.
 
 We will continue to migrate the cookbook to a more resource driven model, with incremental changes that are non-breaking when possible.
 
-If this cookbook is eventually merged into the `nginx` namespace on the supermarket, this `chef_nginx` will receive updates in parallel
-in order to minimize disruption to users that have adopted this cookbook.
+If this cookbook is eventually merged into the `nginx` namespace on the supermarket, this `chef_nginx` cookbook will receive updates
+in parallel (mirroring) in order to minimize disruption to users that have adopted this cookbook.
 
 ## Requirements
 
