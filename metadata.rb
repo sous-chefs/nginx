@@ -10,7 +10,6 @@ recipe 'chef_nginx', 'Installs nginx package and sets up configuration with Debi
 recipe 'chef_nginx::source', 'Installs nginx from source and sets up configuration with Debian apache style with sites-enabled/sites-available'
 
 depends 'apt'
-depends 'bluepill'
 depends 'build-essential'
 depends 'ohai', '>= 4.1.0'
 depends 'runit', '>= 1.6.0'

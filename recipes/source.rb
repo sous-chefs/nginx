@@ -124,22 +124,6 @@ when 'runit'
     supports       status: true, restart: true, reload: true
     reload_command "#{node['runit']['sv_bin']} hup #{node['runit']['service_dir']}/nginx"
   end
-when 'bluepill'
-  include_recipe 'bluepill::default'
-
-  template "#{node['bluepill']['conf_dir']}/nginx.pill" do
-    source 'nginx.pill.erb'
-  end
-
-  bluepill_service 'nginx' do
-    action [:enable, :load]
-  end
-
-  service 'nginx' do
-    supports       status: true, restart: true, reload: true
-    reload_command "[[ -f #{node['nginx']['pid']} ]] && kill -HUP `cat #{node['nginx']['pid']}` || true"
-    action         :nothing
-  end
 when 'upstart'
   # we rely on this to set up nginx.conf with daemon disable instead of doing
   # it in the upstart init script.

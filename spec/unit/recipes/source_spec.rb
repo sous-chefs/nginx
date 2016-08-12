@@ -120,7 +120,7 @@ describe 'chef_nginx::source' do
   end
 
   context 'set up the init style' do
-    context 'without runit/bluepill/upstart' do
+    context 'without runit/upstart' do
       let(:chef_run) do
         ChefSpec::ServerRunner.new(platform: 'debian', version: '8.4') do |node|
           node.set['nginx']['init_style'] = 'other'
@@ -197,26 +197,6 @@ describe 'chef_nginx::source' do
 
     it 'includes runit recipe' do
       expect(chef_run).to include_recipe('runit::default')
-    end
-
-    it 'defines nginx service' do
-      expect(chef_run.service('nginx')).to do_nothing
-    end
-  end
-
-  context 'with bluepill' do
-    let(:chef_run) do
-      ChefSpec::ServerRunner.new(platform: 'debian', version: '8.4') do |node|
-        node.set['nginx']['init_style'] = 'bluepill'
-      end.converge(described_recipe)
-    end
-
-    it 'includes bluepill recipe' do
-      expect(chef_run).to include_recipe('bluepill::default')
-    end
-
-    it 'configures bluepill' do
-      expect(chef_run).to render_file("#{chef_run.node['bluepill']['conf_dir']}/nginx.pill")
     end
 
     it 'defines nginx service' do
