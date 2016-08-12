@@ -4,10 +4,11 @@ This file is used to list changes made in each version of the nginx cookbook.
 
 ## v2.8.0 (2016-08-01)
 
-- This 2.X release of the cookbook remains in a "deprecated" status while we march towards the custom resource driven 3.X release. Pending that release however we've chosen to ship an additional 2.X release to unblock the community
+This is the first release of the nginx codebase under the chef_nginx namespace. We've chosen to bring this cookbook under the direction of the Community Cookbook Team, in order to ship a working 2.X release. The cookbook name has been changed, but all attributes are the same and compatibility has been maintained. After this 2.8.0 release we will release 3.0 as a Chef 12+ version of the cookbook and then work to add additional custom resources for managing nginx with wrapper cookbooks. Expect regular releases as we march towards a resource driven model. 
+
 - Removed the restrictive version constraints for cookbook dependencies that prevented users from utilizing new functionality. Ohai has been pinned to < 4.0 to allow for Chef 11 compatibility, but other cookbooks have no upper limit
 - Updated all modules in the source install to their latest releases
-- Updated the checksum for the GeoIP files to match the latest releases
+- Removed the GeoIP database checksums as these files are constantly updates and this causes Chef run failures
 - Updated OpenSSL for source installs to 1.0.1t
 - Updated the source install of Nginx to version 1.10.1
 - Updated the ohai recipe to install a Ohai 7+ compatible plugin on systems running Ohai 7+
@@ -33,6 +34,10 @@ This file is used to list changes made in each version of the nginx cookbook.
 - Updated Chefspecs to avoid constant deprecation warnings and converge using chef-zero on a newer Debian 8 system
 - Switch Travis CI testing to use ChefDK instead of RVM/Gem installs
 - Added a Circle CI config to properly run tests
+- Removed testing dependencies from the Gemfile as testing should be performed via ChefDK. Release gems are still in the Gemfile as they are not shipped with ChefDK
+- Added a maintainers.md doc and updated the contributing/testing docs to point to the Chef docs
+- Removed Guard as guard-foodcritic doesn't support the latest release which makes guard incompatible with ChefDK
+
 
 ## v2.7.6 (2015-03-17)
 
