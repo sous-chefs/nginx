@@ -47,7 +47,7 @@ Ohai.plugin(:Nginx) do
     nginx[:conf_path]           = nil unless nginx[:conf_path]
 
     status, stdout, stderr = run_command(:no_status_check => true,
-                                         :command => "<%= node['nginx']['binary'] %> -V")
+                                         :command => "<%= @binary %> -V")
 
     if status == 0
       stderr.split("\n").each do |line|
