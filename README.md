@@ -1,6 +1,6 @@
 # nginx Cookbook
 
-[![Cookbook](http://img.shields.io/cookbook/v/chef_nginx.svg)](https://github.com/chef-cookbooks/chef_nginx) [![Build Status](https://travis-ci.org/chef-cookbooks/chef_nginx.svg?branch=master)](https://travis-ci.org/chef-cookbooks/chef_nginx)
+[![Cookbook](http://img.shields.io/cookbook/v/chef_nginx.svg)](https://supermarket.chef.io/cookbooks/chef_nginx) [![Build Status](https://travis-ci.org/chef-cookbooks/chef_nginx.svg?branch=master)](https://travis-ci.org/chef-cookbooks/chef_nginx)
 
 Installs nginx from package OR source code and sets up configuration handling similar to Debian's Apache2 scripts.
 
