@@ -36,6 +36,10 @@ describe 'chef_nginx::package' do
     it 'installs the nginx package' do
       expect(chef_run).to install_package('nginx')
     end
+
+    it 'reloads ohai' do
+      expect(chef_run.package('nginx')).to notify('ohai[reload_nginx]').to(:reload).immediately
+    end
   end
 
   context 'default attributes' do
