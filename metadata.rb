@@ -16,6 +16,7 @@ depends 'ohai', '< 4.0'
 depends 'runit', '>= 1.6.0'
 depends 'yum'
 depends 'yum-epel'
+depends 'zypper'
 
 supports 'amazon'
 supports 'centos'
@@ -25,6 +26,7 @@ supports 'oracle'
 supports 'redhat'
 supports 'scientific'
 supports 'ubuntu'
+supports 'suse'
 
 source_url 'https://github.com/chef-cookbooks/nginx' if respond_to?(:source_url)
 issues_url 'https://github.com/chef-cookbooks/nginx/issues' if respond_to?(:issues_url)

@@ -28,9 +28,14 @@ when 'rhel', 'fedora'
     action       :create
   end
 
-when 'debian'
-  include_recipe 'apt::default'
+when 'suse'
+  zypper_repo 'nginx' do
+    repo_name 'Nginx.org Repository'
+    uri 'http://nginx.org/packages/sles/12'
+    key 'http://nginx.org/keys/nginx_signing.key'
+  end
 
+when 'debian'
   apt_repository 'nginx' do
     uri          node['nginx']['upstream_repository']
     distribution node['lsb']['codename']

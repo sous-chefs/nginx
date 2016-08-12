@@ -27,6 +27,7 @@ The following cookbooks are direct dependencies because they're used for common 
 - `runit` for source installs
 - `yum` for setting up the Nginx.org repository on RHEL platforms
 - `yum-epel` for setting up the EPEL repository on RHEL platforms
+- `zypper` for setting up the Nginx.org repository on Suse platforms
 
 ### Platforms
 
@@ -35,6 +36,7 @@ The following platforms are supported and tested with Test Kitchen:
 - Ubuntu 12.04+
 - CentOS 5+
 - Debian 7+
+- openSUSE 13.2+
 
 Other Debian and RHEL family distributions are assumed to work.
 
