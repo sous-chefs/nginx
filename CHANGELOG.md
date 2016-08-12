@@ -33,7 +33,6 @@ This is the first release of the nginx codebase under the chef_nginx namespace. 
 - Added the standard Chef Rakefile for simplified testing
 - Updated Chefspecs to avoid constant deprecation warnings and converge using chef-zero on a newer Debian 8 system
 - Switch Travis CI testing to use ChefDK instead of RVM/Gem installs
-- Added a Circle CI config to properly run tests
 - Removed testing dependencies from the Gemfile as testing should be performed via ChefDK. Release gems are still in the Gemfile as they are not shipped with ChefDK
 - Added a maintainers.md doc and updated the contributing/testing docs to point to the Chef docs
 - Removed Guard as guard-foodcritic doesn't support the latest release which makes guard incompatible with ChefDK
