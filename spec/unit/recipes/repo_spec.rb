@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-describe 'nginx::repo' do
+describe 'chef_nginx::repo' do
   context 'Debian' do
     let(:chef_run) do
       ChefSpec::ServerRunner.new(platform: 'debian', version: '8.4').converge(described_recipe)

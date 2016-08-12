@@ -29,7 +29,7 @@ console output
 
 exec ${DAEMON} -c "${CONFIG}"
 
-<% if node.recipe?('nginx::passenger') and not node['nginx']['upstart']['foreground'] %>
+<% if node.recipe?('chef_nginx::passenger') and not node['nginx']['upstart']['foreground'] %>
 # classic example of why pidfiles should have gone away
 # with the advent of fork().  we missed that bus a long
 # time ago so hack around it.

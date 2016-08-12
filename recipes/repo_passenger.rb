@@ -35,5 +35,5 @@ when 'debian'
     key '561F9B9CAC40B2F7'
   end
 
-  include_recipe 'nginx::passenger'
+  include_recipe 'chef_nginx::passenger'
 end

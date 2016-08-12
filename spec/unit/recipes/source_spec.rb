@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-describe 'nginx::source' do
+describe 'chef_nginx::source' do
   let(:chef_run) do
     ChefSpec::ServerRunner.new(platform: 'debian', version: '8.4').converge(described_recipe)
   end
@@ -26,7 +26,7 @@ describe 'nginx::source' do
     commons_conf
   ).each do |recipe|
     it "includes the #{recipe} recipe" do
-      expect(chef_run).to include_recipe("nginx::#{recipe}")
+      expect(chef_run).to include_recipe("chef_nginx::#{recipe}")
     end
   end
 
@@ -103,8 +103,8 @@ describe 'nginx::source' do
   end
 
   it 'includes all the source modules recipes' do
-    expect(chef_run).to include_recipe('nginx::http_gzip_static_module')
-    expect(chef_run).to include_recipe('nginx::http_ssl_module')
+    expect(chef_run).to include_recipe('chef_nginx::http_gzip_static_module')
+    expect(chef_run).to include_recipe('chef_nginx::http_ssl_module')
   end
 
   it 'compiles nginx source' do

@@ -1,7 +1,7 @@
 # encoding: utf-8
 require 'spec_helper'
 
-describe 'nginx::package' do
+describe 'chef_nginx::package' do
   before do
     stub_command('which nginx').and_return(nil)
   end
@@ -15,11 +15,11 @@ describe 'nginx::package' do
 
   shared_examples_for 'all platforms' do
     it 'includes the ohai_plugin recipe' do
-      expect(chef_run).to include_recipe('nginx::ohai_plugin')
+      expect(chef_run).to include_recipe('chef_nginx::ohai_plugin')
     end
 
     it 'includes the commons recipe' do
-      expect(chef_run).to include_recipe('nginx::commons')
+      expect(chef_run).to include_recipe('chef_nginx::commons')
     end
 
     it 'enables the nginx service' do
@@ -29,7 +29,7 @@ describe 'nginx::package' do
 
   shared_examples_for 'nginx repo' do
     it 'includes the nginx repo recipe' do
-      expect(chef_run).to include_recipe('nginx::repo')
+      expect(chef_run).to include_recipe('chef_nginx::repo')
     end
   end
 

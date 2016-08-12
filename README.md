@@ -1,22 +1,8 @@
 # nginx Cookbook
 
-[![Cookbook](http://img.shields.io/cookbook/v/nginx.svg)](https://github.com/miketheman/nginx) [![Build Status](https://travis-ci.org/miketheman/nginx.svg?branch=master)](https://travis-ci.org/miketheman/nginx) [![Gitter chat](https://img.shields.io/badge/Gitter-miketheman%2Fnginx-brightgreen.svg)](https://gitter.im/miketheman/nginx)
+[![Cookbook](http://img.shields.io/cookbook/v/chef_nginx.svg)](https://github.com/chef-cookbooks/chef_nginx) [![Build Status](https://travis-ci.org/chef-cookbooks/chef_nginx.svg?branch=master)](https://travis-ci.org/chef-cookbooks/chef_nginx)
 
 Installs nginx from package OR source code and sets up configuration handling similar to Debian's Apache2 scripts.
-
-# READ THIS FIRST
-
-After having struggled with the cookbook format and the interfaces being brittle, the maintainers have decided to begin rewriting the core implementation of the nginx cookbook from the ground up, to allow for better flexibility, testability and maintainability.
-
-To this end, we request that you not open new issues for the existing codebase.
-
-Pull requests for bugs will be merged, obvious optimizations and clarifications will be merged, and a 2.X releases will be shipped, but we will focus on writing the 3.0.0 version.
-
-Thank you for your help on this front!
-
--- The Maintainers
-
---------------------------------------------------------------------------------
 
 ## Requirements
 
@@ -63,7 +49,7 @@ Generally used attributes. Some have platform specific values. See `attributes/d
 - `node['nginx']['group]` - Group for Nginx.
 - `node['nginx']['port']` - Port for nginx to listen on.
 - `node['nginx']['binary']` - Path to the Nginx binary.
-- `node['nginx']['init_style']` - How to run Nginx as a service when using `nginx::source`. Values can be "runit", "upstart", "init" or "bluepill". When using runit or bluepill, those recipes will be included as well and are dependencies of this cookbook. Recipes are not included for upstart, it is assumed that upstart is built into the platform you are using (ubuntu or el6). This attribute is not used in the `nginx` recipe because the package manager's init script style for the platform is assumed. Upstart is never set as a default as this represents a change in behavior, if you are running ubuntu or el6 and want to use upstart, please set this attribute in a role or similar.
+- `node['nginx']['init_style']` - How to run Nginx as a service when using `chef_nginx::source`. Values can be "runit", "upstart", "init" or "bluepill". When using runit or bluepill, those recipes will be included as well and are dependencies of this cookbook. Recipes are not included for upstart, it is assumed that upstart is built into the platform you are using (ubuntu or el6). This attribute is not used in the `nginx` recipe because the package manager's init script style for the platform is assumed. Upstart is never set as a default as this represents a change in behavior, if you are running ubuntu or el6 and want to use upstart, please set this attribute in a role or similar.
 - `node['nginx']['upstart']['foreground']` - Set this to true if you want upstart to run nginx in the foreground, set to false if you want upstart to detach and track the process via pid.
 - `node['nginx']['upstart']['runlevels']` - String of runlevels in the format '2345' which determines which runlevels nginx will start at when entering and stop at when leaving.
 - `node['nginx']['upstart']['respawn_limit']` - Respawn limit in upstart stanza format, count followed by space followed by interval in seconds.
@@ -92,7 +78,7 @@ Generally used attributes. Some have platform specific values. See `attributes/d
 - `node['nginx']['proxy_read_timeout']` - defines a timeout (between two successive read operations) for reading a response from the proxied server.
 - `node['nginx']['client_body_buffer_size']` - used for config value of `client_body_buffer_size`.
 - `node['nginx']['client_max_body_size']` - specifies the maximum accepted body size of a client request, as indicated by the request header Content-Length.
-- `node['nginx']['repo_source']` - when installed from a package this attribute affects which yum repositories, if any, will be added before installing the nginx package. The default value of 'epel' will use the `yum-epel` cookbook, 'nginx' will use the `nginx::repo` recipe, 'passenger' will use the 'nginx::repo_passenger' recipe, and setting no value will not add any additional repositories.
+- `node['nginx']['repo_source']` - when installed from a package this attribute affects which yum repositories, if any, will be added before installing the nginx package. The default value of 'epel' will use the `yum-epel` cookbook, 'nginx' will use the `chef_nginx::repo` recipe, 'passenger' will use the 'chef_nginx::repo_passenger' recipe, and setting no value will not add any additional repositories.
 - `node['nginx']['sts_max_age']` - Enable Strict Transport Security for all apps (See: <http://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security>). This attribute adds the following header:
 
   Strict-Transport-Security max-age=SECONDS
@@ -127,16 +113,16 @@ Rate Limiting
 
   ### Attributes set in recipes
 
-#### nginx::source
+#### chef_nginx::source
 
-- `node['nginx']['daemon_disable']` - Whether the daemon should be disabled which can be true or false; disable the daemon (run in the foreground) when using a service supervisor such as runit or bluepill for "init_style". This is automatically set in the `nginx::source` recipe when the init style is not bluepill or runit.
+- `node['nginx']['daemon_disable']` - Whether the daemon should be disabled which can be true or false; disable the daemon (run in the foreground) when using a service supervisor such as runit or bluepill for "init_style". This is automatically set in the `chef_nginx::source` recipe when the init style is not bluepill or runit.
 
-#### nginx::authorized_ips
+#### chef_nginx::authorized_ips
 
 - `node['nginx']['remote_ip_var']` - The remote ip variable name to use.
 - `node['nginx']['authorized_ips']` - IPs authorized by the module
 
-#### nginx::http_realip_module
+#### chef_nginx::http_realip_module
 
 From: <http://nginx.org/en/docs/http/ngx_http_realip_module.html>
 
@@ -146,19 +132,19 @@ From: <http://nginx.org/en/docs/http/ngx_http_realip_module.html>
 
 ### source
 
-These attributes are used in the `nginx::source` recipe. Some of them are dynamically modified during the run. See `attributes/source.rb` for default values.
+These attributes are used in the `chef_nginx::source` recipe. Some of them are dynamically modified during the run. See `attributes/source.rb` for default values.
 
 - `node['nginx']['source']['url']` - (versioned) URL for the Nginx source code. By default this will use the version specified as `node['nginx']['version']`.
 - `node['nginx']['source']['prefix']` - (versioned) prefix for installing nginx from source
 - `node['nginx']['source']['conf_path']` - location of the main config file, in `node['nginx']['dir']` by default.
-- `node['nginx']['source']['modules']` - Array of modules that should be compiled into Nginx by including their recipes in `nginx::source`.
+- `node['nginx']['source']['modules']` - Array of modules that should be compiled into Nginx by including their recipes in `chef_nginx::source`.
 - `node['nginx']['source']['default_configure_flags']` - The default flags passed to the configure script when building Nginx.
-- `node['nginx']['configure_flags']` - Preserved for compatibility and dynamically generated from the `node['nginx']['source']['default_configure_flags']` in the `nginx::source` recipe.
-- `node['nginx']['source']['use_existing_user']` - set to `true` if you do not want `nginx::source` recipe to create system user with name `node['nginx']['user']`.
+- `node['nginx']['configure_flags']` - Preserved for compatibility and dynamically generated from the `node['nginx']['source']['default_configure_flags']` in the `chef_nginx::source` recipe.
+- `node['nginx']['source']['use_existing_user']` - set to `true` if you do not want `chef_nginx::source` recipe to create system user with name `node['nginx']['user']`.
 
 ### geoip
 
-These attributes are used in the `nginx::http_geoip_module` recipe. Please note that the `country_dat_checksum` and `city_dat_checksum` are based on downloads from a datacenter in Fremont, CA, USA. You really should override these with checksums for the geo tarballs from your node location.
+These attributes are used in the `chef_nginx::http_geoip_module` recipe. Please note that the `country_dat_checksum` and `city_dat_checksum` are based on downloads from a datacenter in Fremont, CA, USA. You really should override these with checksums for the geo tarballs from your node location.
 
 **Note** The upstream, maxmind.com, may block access for repeated downloads of the data files. It is recommended that you download and host the data files, and change the URLs in the attributes.
 
@@ -174,7 +160,7 @@ These attributes are used in the `nginx::http_geoip_module` recipe. Please note 
 
 ### upload_progress
 
-These attributes are used in the `nginx::upload_progress_module` recipe.
+These attributes are used in the `chef_nginx::upload_progress_module` recipe.
 
 - `node['nginx']['upload_progress']['url']` - URL for the tarball.
 - `node['nginx']['upload_progress']['checksum']` - Checksum of the tarball.
@@ -184,7 +170,7 @@ These attributes are used in the `nginx::upload_progress_module` recipe.
 
 ### passenger
 
-These attributes are used in the `nginx::passenger` recipe.
+These attributes are used in the `chef_nginx::passenger` recipe.
 
 - `node['nginx']['passenger']['version']` - passenger gem version
 - `node['nginx']['passenger']['root']` - passenger gem root path
@@ -208,7 +194,7 @@ Basic configuration to use the official Phusion Passenger repositories:
 
 ### echo
 
-These attributes are used in the `nginx::http_echo_module` recipe.
+These attributes are used in the `chef_nginx::http_echo_module` recipe.
 
 - `node['nginx']['echo']['version']` - The version of `http_echo` you want (default: 0.59)
 - `node['nginx']['echo']['url']` - URL for the tarball.
@@ -216,27 +202,27 @@ These attributes are used in the `nginx::http_echo_module` recipe.
 
 ### status
 
-These attributes are used in the `nginx::http_stub_status_module` recipe.
+These attributes are used in the `chef_nginx::http_stub_status_module` recipe.
 
 - `node['nginx']['status']['port']` - The port on which nginx will serve the status info (default: 8090)
 
 ### syslog
 
-These attributes are used in the `nginx::syslog_module` recipe.
+These attributes are used in the `chef_nginx::syslog_module` recipe.
 
 - `node['nginx']['syslog']['git_repo']` - The git repository url to use for the syslog patches.
 - `node['nginx']['syslog']['git_revision']` - The revision on the git repository to checkout.
 
 ### openssl_source
 
-These attributes are used in the `nginx::openssl_source` recipe.
+These attributes are used in the `chef_nginx::openssl_source` recipe.
 
 - `node['nginx']['openssl_source']['version']` - The version of OpenSSL you want to download and use (default: 1.0.1t)
 - `node['nginx']['openssl_source']['url']` - The url for the OpenSSL source
 
 ## socketproxy.rb
 
-These attributes are used in the `nginx::socketproxy` recipe.
+These attributes are used in the `chef_nginx::socketproxy` recipe.
 
 - `node['nginx']['socketproxy']['root']` - The directory (on your server) where socketproxy apps are deployed.
 - `node['nginx']['socketproxy']['default_app']` - Static assets directory for requests to "/" that don't meet any proxy_pass filter requirements.
@@ -286,7 +272,7 @@ The nginx service will be set up according to `node['nginx']['init_style']`. Ava
 
 **RHEL/CentOS** This recipe should work on RHEL/CentOS with "init" as the init style.
 
-The following recipes are used to build module support into Nginx. To use a module in the `nginx::source` recipe, add its recipe name to the attribute `node['nginx']['source']['modules']`.
+The following recipes are used to build module support into Nginx. To use a module in the `chef_nginx::source` recipe, add its recipe name to the attribute `node['nginx']['source']['modules']`.
 
 - `ipv6.rb` - enables IPv6 support
 - `http_echo_module.rb` - downloads the `http_echo_module` module and enables it as a module when compiling nginx.
@@ -324,7 +310,7 @@ node.run_state['nginx_configure_flags'] =
   node.run_state['nginx_configure_flags'] | ['--with-http_stub_status_module']
 ```
 
-The recipe will be included by `recipe[nginx::source]` automatically, adding the configure flags. Add any other configuration templates or other resources as required. See the recipes described above for examples.
+The recipe will be included by `recipe[chef_nginx::source]` automatically, adding the configure flags. Add any other configuration templates or other resources as required. See the recipes described above for examples.
 
 ## Ohai Plugin
 

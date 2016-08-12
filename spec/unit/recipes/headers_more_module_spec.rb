@@ -1,9 +1,9 @@
 # encoding: utf-8
 
-describe 'nginx::headers_more_module' do
+describe 'chef_nginx::headers_more_module' do
   cached(:chef_run) do
     ChefSpec::ServerRunner.new do |node|
-      node.set['nginx']['source']['modules'] = ['nginx::headers_more_module']
+      node.set['nginx']['source']['modules'] = ['chef_nginx::headers_more_module']
     end.converge(described_recipe)
   end
 

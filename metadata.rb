@@ -1,4 +1,4 @@
-name              'nginx'
+name              'chef_nginx'
 maintainer        'Chef Software, Inc.'
 maintainer_email  'cookbooks@chef.io'
 license           'Apache 2.0'

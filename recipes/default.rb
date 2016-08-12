@@ -19,7 +19,7 @@
 # limitations under the License.
 #
 
-include_recipe "nginx::#{node['nginx']['install_method']}"
+include_recipe "chef_nginx::#{node['nginx']['install_method']}"
 
 service 'nginx' do
   supports status: true, restart: true, reload: true
@@ -27,5 +27,5 @@ service 'nginx' do
 end
 
 node['nginx']['default']['modules'].each do |ngx_module|
-  include_recipe "nginx::#{ngx_module}"
+  include_recipe "chef_nginx::#{ngx_module}"
 end

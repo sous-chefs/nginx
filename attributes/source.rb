@@ -19,7 +19,7 @@
 # limitations under the License.
 #
 
-include_attribute 'nginx::default'
+include_attribute 'chef_nginx::default'
 
 default['nginx']['source']['version']                 = node['nginx']['version']
 default['nginx']['source']['prefix']                  = "/opt/nginx-#{node['nginx']['source']['version']}"
@@ -36,7 +36,7 @@ default['nginx']['source']['version']  = node['nginx']['version']
 default['nginx']['source']['url']      = "http://nginx.org/download/nginx-#{node['nginx']['source']['version']}.tar.gz"
 default['nginx']['source']['checksum'] = '1fd35846566485e03c0e318989561c135c598323ff349c503a6c14826487a801'
 default['nginx']['source']['modules']  = %w(
-  nginx::http_ssl_module
-  nginx::http_gzip_static_module
+  chef_nginx::http_ssl_module
+  chef_nginx::http_gzip_static_module
 )
 default['nginx']['source']['use_existing_user'] = false

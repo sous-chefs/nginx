@@ -19,6 +19,6 @@
 # limitations under the License.
 #
 
-include_recipe 'nginx::commons_dir'
-include_recipe 'nginx::commons_script'
-include_recipe 'nginx::commons_conf'
+include_recipe 'chef_nginx::commons_dir'
+include_recipe 'chef_nginx::commons_script'
+include_recipe 'chef_nginx::commons_conf'
