@@ -6,7 +6,13 @@ Installs nginx from package OR source code and sets up configuration handling si
 
 ## nginx vs. chef_nginx
 
-This cookbook is a continuation of the 2.7.x branch from the [@miketheman](https://github.com/miketheman)'s [nginx cookbook](https://github.com/miketheman/nginx). Many users were blocked by bugs in the current release of nginx available on Supermarket (2.7.6), and we felt the need to unblock those users with an update to the 2.7.X branch. Going forward Chef Software will will be the officially support this cookbook for nginx installations. We will continue to migrate the cookbook to a more resource driven model, with incremental changes that are non-breaking when possible. Ideally these changes are merged back to the nginx namespace, and the need for the chef-nginx namespace goes away. If not we'll continue to maintain this cookbook namespace to unblock users.
+This cookbook is a fork from the 2.7.x branch of the [community nginx cookbook](https://github.com/miketheman/nginx).  This branch
+will be actively supported by Chef Software.
+
+We will continue to migrate the cookbook to a more resource driven model, with incremental changes that are non-breaking when possible.
+
+If this cookbook is eventually merged into the `nginx` namespace on the supermarket, this `chef_nginx` will receive updates in parallel
+in order to minimize disruption to users that have adopted this cookbook.
 
 ## Requirements
 
