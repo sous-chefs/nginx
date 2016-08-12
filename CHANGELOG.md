@@ -2,6 +2,9 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## 2.9.0 (2016-08-12)
+- Add support for Suse Nginx.org packages
+
 ## v2.8.0 (2016-08-01)
 
 This is the first release of the nginx codebase under the chef_nginx namespace. We've chosen to bring this cookbook under the direction of the Community Cookbook Team, in order to ship a working 2.X release. The cookbook name has been changed, but all attributes are the same and compatibility has been maintained. After this 2.8.0 release we will release 3.0 as a Chef 12+ version of the cookbook and then work to add additional custom resources for managing nginx with wrapper cookbooks. Expect regular releases as we march towards a resource driven model. 
