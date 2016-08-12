@@ -1,4 +1,3 @@
-# encoding: utf-8
 require 'spec_helper'
 
 describe 'chef_nginx::package' do
@@ -9,7 +8,7 @@ describe 'chef_nginx::package' do
   let(:chef_run) do
     ChefSpec::ServerRunner.new(
       platform: 'debian',
-      version: '8.4'
+      version: '8.5'
     ).converge(described_recipe)
   end
 
@@ -65,8 +64,8 @@ describe 'chef_nginx::package' do
   context 'rhel platform family' do
     let(:chef_run) do
       ChefSpec::ServerRunner.new(
-        platform: 'redhat',
-        version: '6.5'
+        platform: 'centos',
+        version: '6.8'
       ).converge(described_recipe)
     end
 
