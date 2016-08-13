@@ -51,6 +51,8 @@ namespace :integration do
     puts ">>> Gem load error: #{e}, omitting #{task.name}" unless ENV['CI']
   rescue Kitchen::UserError => e
     puts ">>> Test Kitchen error: #{e}" unless ENV['CI']
+  rescue Kitchen::UserError => e
+    puts ">>> Test Kitchen error: #{e}" unless ENV['CI']
   end
 end
 
