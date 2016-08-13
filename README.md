@@ -39,7 +39,7 @@ Other Debian and RHEL family distributions are assumed to work.
 
 ### Chef
 
-- Chef 12+
+- Chef 12.1+
 
 ## Attributes
 
