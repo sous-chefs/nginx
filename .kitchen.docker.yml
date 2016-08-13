@@ -19,7 +19,7 @@ platforms:
     pid_one_command: /sbin/init
     intermediate_instructions:
       - RUN /usr/bin/apt-get update
-      - RUN /usr/bin/apt-get install lsb-release -y
+      - RUN /usr/bin/apt-get install lsb-release procps -y
 
 - name: debian-8
   driver:
