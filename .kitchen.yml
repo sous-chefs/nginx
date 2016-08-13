@@ -25,6 +25,12 @@ platforms:
     run_list: apt::default
   - name: ubuntu-16.04
     run_list: apt::default
+  - name: ubuntu-16.04-chef-12.1
+    run_list: apt::default
+    driver_config:
+      box: bento/ubuntu-16.04
+    provisioner:
+      require_chef_omnibus: 12.1.0
 
 suites:
   - name: default
@@ -36,6 +42,8 @@ suites:
     attributes:
       nginx:
         install_method: source
+    excludes:
+      - ubuntu-16.04-chef-12.1
   - name: upstream_repo
     run_list:
       - recipe[chef_nginx::repo]
@@ -45,6 +53,7 @@ suites:
         repo_source: nginx
     excludes:
       - fedora-24
+      - ubuntu-16.04-chef-12.1
   - name: modules
     run_list:
       - recipe[chef_nginx::source]
@@ -66,3 +75,5 @@ suites:
             - chef_nginx::ngx_lua_module
             - chef_nginx::openssl_source
             - chef_nginx::upload_progress_module
+    excludes:
+      - ubuntu-16.04-chef-12.1

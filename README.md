@@ -6,13 +6,11 @@ Installs nginx from package OR source code and sets up configuration handling si
 
 ## nginx vs. chef_nginx
 
-This cookbook is a fork from the 2.7.x branch of the [community nginx cookbook](https://github.com/miketheman/nginx).  This branch
-will be actively supported by Chef Software.
+This cookbook is a fork from the 2.7.x branch of the [community nginx cookbook](https://github.com/miketheman/nginx). This branch will be actively supported by Chef Software.
 
 We will continue to migrate the cookbook to a more resource driven model, with incremental changes that are non-breaking when possible.
 
-If this cookbook is eventually merged into the `nginx` namespace on the supermarket, this `chef_nginx` cookbook will receive updates
-in parallel (mirroring) in order to minimize disruption to users that have adopted this cookbook.
+If this cookbook is eventually merged into the `nginx` namespace on the supermarket, this `chef_nginx` cookbook will receive updates in parallel (mirroring) in order to minimize disruption to users that have adopted this cookbook.
 
 ## Requirements
 
@@ -21,7 +19,6 @@ in parallel (mirroring) in order to minimize disruption to users that have adopt
 The following cookbooks are direct dependencies because they're used for common "default" functionality.
 
 - `apt` for setting up the Nginx.org repository on Debian/Ubuntu platforms
-- `bluepill` for source installations
 - `build-essential` for source installations
 - `ohai` for setting up the ohai plugin
 - `runit` for source installs
@@ -42,7 +39,7 @@ Other Debian and RHEL family distributions are assumed to work.
 
 ### Chef
 
-- Chef 11+
+- Chef 12+
 
 ## Attributes
 
@@ -61,7 +58,7 @@ Generally used attributes. Some have platform specific values. See `attributes/d
 - `node['nginx']['group]` - Group for Nginx.
 - `node['nginx']['port']` - Port for nginx to listen on.
 - `node['nginx']['binary']` - Path to the Nginx binary.
-- `node['nginx']['init_style']` - How to run Nginx as a service when using `chef_nginx::source`. Values can be "runit", "upstart", "init" or "bluepill". When using runit or bluepill, those recipes will be included as well and are dependencies of this cookbook. Recipes are not included for upstart, it is assumed that upstart is built into the platform you are using (ubuntu or el6). This attribute is not used in the `nginx` recipe because the package manager's init script style for the platform is assumed. Upstart is never set as a default as this represents a change in behavior, if you are running ubuntu or el6 and want to use upstart, please set this attribute in a role or similar.
+- `node['nginx']['init_style']` - How to run Nginx as a service when using `chef_nginx::source`. Values can be "runit", "upstart", or "init". When using runit that recipes will be included as well. Recipes are not included for upstart, it is assumed that upstart is built into the platform you are using (ubuntu). This attribute is not used in the `nginx` recipe because the package manager's init script style for the platform is assumed. Upstart is never set as a default as this represents a change in behavior, if you are running ubuntu or el6 and want to use upstart, please set this attribute in a role or similar.
 - `node['nginx']['upstart']['foreground']` - Set this to true if you want upstart to run nginx in the foreground, set to false if you want upstart to detach and track the process via pid.
 - `node['nginx']['upstart']['runlevels']` - String of runlevels in the format '2345' which determines which runlevels nginx will start at when entering and stop at when leaving.
 - `node['nginx']['upstart']['respawn_limit']` - Respawn limit in upstart stanza format, count followed by space followed by interval in seconds.
@@ -127,7 +124,7 @@ Rate Limiting
 
 #### chef_nginx::source
 
-- `node['nginx']['daemon_disable']` - Whether the daemon should be disabled which can be true or false; disable the daemon (run in the foreground) when using a service supervisor such as runit or bluepill for "init_style". This is automatically set in the `chef_nginx::source` recipe when the init style is not bluepill or runit.
+- `node['nginx']['daemon_disable']` - Whether the daemon should be disabled which can be true or false; disable the daemon (run in the foreground) when using a service supervisor such as runit for "init_style". This is automatically set in the `chef_nginx::source` recipe when the init style is not runit.
 
 #### chef_nginx::authorized_ips
 
@@ -279,7 +276,6 @@ The recipe attempts to detect whether additional modules should be added to the 
 The nginx service will be set up according to `node['nginx']['init_style']`. Available options are:
 
 - runit: uses runit cookbook and sets up `runit_service`.
-- bluepill: uses bluepill cookbook and sets up `bluepill_service`.
 - anything else (e.g., "init") will use the nginx init script template.
 
 **RHEL/CentOS** This recipe should work on RHEL/CentOS with "init" as the init style.

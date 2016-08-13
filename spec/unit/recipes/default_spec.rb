@@ -1,4 +1,4 @@
-# encoding: utf-8
+require 'spec_helper'
 
 describe 'chef_nginx::default' do
   before do

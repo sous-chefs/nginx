@@ -5,6 +5,7 @@
 # Author:: Jamie Winsor (<jamie@vialstudios.com>)
 #
 # Copyright 2012-2013, Riot Games
+# Copyright 2016, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,21 +20,14 @@
 # limitations under the License.
 #
 
-ohai_major_ver = if node.attribute?('chef_packages')
-                   node['chef_packages']['ohai']['version'].split('.')[0].to_i
-                 else
-                   6
-                 end
-
+# for notification post install / change
 ohai 'reload_nginx' do
   plugin 'nginx'
   action :nothing
 end
 
-template "#{node['ohai']['plugin_path']}/nginx.rb" do # ~FC033
-  source ohai_major_ver <= 6 ? 'plugins/ohai6-nginx.rb.erb' : 'plugins/ohai7-nginx.rb.erb'
-  mode   '0755'
-  notifies :reload, 'ohai[reload_nginx]', :immediately
+ohai_plugin 'nginx' do
+  source_file 'plugins/ohai-nginx.rb.erb'
+  variables binary: node['nginx']['binary']
+  resource :template
 end
-
-include_recipe 'ohai::default'

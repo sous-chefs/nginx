@@ -1,8 +1,8 @@
-# encoding: utf-8
+require 'spec_helper'
 
 describe 'chef_nginx::source' do
   let(:chef_run) do
-    ChefSpec::ServerRunner.new(platform: 'debian', version: '8.4').converge(described_recipe)
+    ChefSpec::ServerRunner.new(platform: 'debian', version: '8.5').converge(described_recipe)
   end
 
   before do
@@ -48,7 +48,7 @@ describe 'chef_nginx::source' do
 
   context 'Rhel familly' do
     let(:chef_run) do
-      ChefSpec::ServerRunner.new(platform: 'centos', version: '6.5').converge(described_recipe)
+      ChefSpec::ServerRunner.new(platform: 'centos', version: '6.8').converge(described_recipe)
     end
 
     describe 'installs packages dependencies' do
@@ -120,9 +120,9 @@ describe 'chef_nginx::source' do
   end
 
   context 'set up the init style' do
-    context 'without runit/bluepill/upstart' do
+    context 'without runit/upstart' do
       let(:chef_run) do
-        ChefSpec::ServerRunner.new(platform: 'debian', version: '8.4') do |node|
+        ChefSpec::ServerRunner.new(platform: 'debian', version: '8.5') do |node|
           node.set['nginx']['init_style'] = 'other'
         end.converge(described_recipe)
       end
@@ -148,7 +148,7 @@ describe 'chef_nginx::source' do
       end
       context 'Debian familly' do
         let(:chef_run) do
-          ChefSpec::ServerRunner.new(platform: 'debian', version: '8.4') do |node|
+          ChefSpec::ServerRunner.new(platform: 'debian', version: '8.5') do |node|
             node.set['nginx']['init_style'] = 'other'
           end.converge(described_recipe)
         end
@@ -161,7 +161,7 @@ describe 'chef_nginx::source' do
       end
       context 'Freebsd familly' do
         let(:chef_run) do
-          ChefSpec::ServerRunner.new(platform: 'freebsd', version: '10.0') do |node|
+          ChefSpec::ServerRunner.new(platform: 'freebsd', version: '10.3') do |node|
             node.set['nginx']['init_style'] = 'other'
           end.converge(described_recipe)
         end
@@ -175,7 +175,7 @@ describe 'chef_nginx::source' do
       end
       context 'Other OS familly(Rhel y example)' do
         let(:chef_run) do
-          ChefSpec::ServerRunner.new(platform: 'centos', version: '6.5') do |node|
+          ChefSpec::ServerRunner.new(platform: 'centos', version: '6.8') do |node|
             node.set['nginx']['init_style'] = 'other'
           end.converge(described_recipe)
         end
@@ -190,7 +190,7 @@ describe 'chef_nginx::source' do
   end
   context 'with runit' do
     let(:chef_run) do
-      ChefSpec::ServerRunner.new(platform: 'debian', version: '8.4') do |node|
+      ChefSpec::ServerRunner.new(platform: 'debian', version: '8.5') do |node|
         node.set['nginx']['init_style'] = 'runit'
       end.converge(described_recipe)
     end
@@ -204,29 +204,9 @@ describe 'chef_nginx::source' do
     end
   end
 
-  context 'with bluepill' do
-    let(:chef_run) do
-      ChefSpec::ServerRunner.new(platform: 'debian', version: '8.4') do |node|
-        node.set['nginx']['init_style'] = 'bluepill'
-      end.converge(described_recipe)
-    end
-
-    it 'includes bluepill recipe' do
-      expect(chef_run).to include_recipe('bluepill::default')
-    end
-
-    it 'configures bluepill' do
-      expect(chef_run).to render_file("#{chef_run.node['bluepill']['conf_dir']}/nginx.pill")
-    end
-
-    it 'defines nginx service' do
-      expect(chef_run.service('nginx')).to do_nothing
-    end
-  end
-
   context 'with upstart' do
     let(:chef_run) do
-      ChefSpec::ServerRunner.new(platform: 'debian', version: '8.4') do |node|
+      ChefSpec::ServerRunner.new(platform: 'debian', version: '8.5') do |node|
         node.set['nginx']['init_style'] = 'upstart'
       end.converge(described_recipe)
     end
