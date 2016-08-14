@@ -25,7 +25,6 @@ env:
   - INSTANCE=default-debian-7
   - INSTANCE=default-debian-8
   - INSTANCE=default-fedora-latest
-  - INSTANCE=default-opensuse-132
   - INSTANCE=default-opensuse-421
   - INSTANCE=default-ubuntu-1204
   - INSTANCE=default-ubuntu-1404
