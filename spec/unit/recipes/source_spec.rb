@@ -63,26 +63,6 @@ describe 'chef_nginx::source' do
     end
   end
 
-  context 'Gentoo familly' do
-    let(:chef_run) do
-      ChefSpec::ServerRunner.new(platform: 'gentoo', version: '2.1').converge(described_recipe)
-    end
-
-    describe 'does not need packages dependencies' do
-      %w(
-        libpcre3
-        libpcre3-dev
-        libssl-dev
-        pcre-devel
-        openssl-devel
-      ).each do |pkg|
-        it "does not install #{pkg}" do
-          expect(chef_run).to_not install_package(pkg)
-        end
-      end
-    end
-  end
-
   it 'downloads nginx sources' do
     src_file = "#{Chef::Config['file_cache_path']}/nginx-#{@ngx_version}.tar.gz"
     expect(chef_run).to create_remote_file(src_file).with(
@@ -131,20 +111,6 @@ describe 'chef_nginx::source' do
       end
       it 'defines nginx service' do
         expect(chef_run).to enable_service('nginx')
-      end
-      context 'Gentoo familly' do
-        let(:chef_run) do
-          ChefSpec::ServerRunner.new(platform: 'gentoo', version: '2.1') do |node|
-            node.set['nginx']['init_style'] = 'other'
-          end.converge(described_recipe)
-        end
-        it 'creates init script' do
-          expect(chef_run).to render_file('/etc/init.d/nginx')
-        end
-        it 'doesn\'t generate defaults configuration' do
-          expect(chef_run).to_not render_file('/etc/default/nginx')
-          expect(chef_run).to_not render_file('/etc/sysconfig/nginx')
-        end
       end
       context 'Debian familly' do
         let(:chef_run) do

@@ -44,7 +44,6 @@ src_filepath = "#{Chef::Config['file_cache_path'] || '/tmp'}/nginx-#{node['nginx
 packages = value_for_platform_family(
   %w(rhel fedora) => %w(pcre-devel openssl-devel),
   %w(suse) => %w(pcre-devel libopenssl-devel),
-  %w(gentoo)      => [],
   %w(default)     => %w(libpcre3 libpcre3-dev libssl-dev)
 )
 
@@ -151,8 +150,6 @@ else
   generate_init = true
 
   case node['platform']
-  when 'gentoo'
-    generate_template = false
   when 'debian', 'ubuntu'
     generate_template = true
     defaults_path     = '/etc/default/nginx'
