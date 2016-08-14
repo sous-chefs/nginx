@@ -59,7 +59,7 @@ when 'freebsd'
   default['nginx']['default_root'] = '/usr/local/www/nginx-dist'
 when 'suse'
   default['nginx']['user']       = 'wwwrun'
-  default['nginx']['init_style'] = 'init'
+  default['nginx']['init_style'] = 'systemd'
   default['nginx']['group']      = 'www'
 else
   default['nginx']['user']       = 'www-data'

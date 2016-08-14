@@ -42,7 +42,8 @@ include_recipe 'build-essential::default'
 
 src_filepath = "#{Chef::Config['file_cache_path'] || '/tmp'}/nginx-#{node['nginx']['source']['version']}.tar.gz"
 packages = value_for_platform_family(
-  %w(rhel fedora suse) => %w(pcre-devel openssl-devel),
+  %w(rhel fedora) => %w(pcre-devel openssl-devel),
+  %w(suse) => %w(pcre-devel libopenssl-devel),
   %w(gentoo)      => [],
   %w(default)     => %w(libpcre3 libpcre3-dev libssl-dev)
 )
@@ -131,6 +132,16 @@ when 'upstart'
 
   service 'nginx' do
     provider Chef::Provider::Service::Upstart
+    supports status: true, restart: true, reload: true
+    action   :nothing
+  end
+when 'systemd'
+  template '/usr/lib/systemd/system/nginx.service' do
+    source 'nginx.service.erb'
+  end
+
+  service 'nginx' do
+    provider Chef::Provider::Service::Systemd
     supports status: true, restart: true, reload: true
     action   :nothing
   end
