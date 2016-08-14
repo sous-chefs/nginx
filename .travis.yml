@@ -1,23 +1,49 @@
-# Use Travis's container based infrastructure
-sudo: false
+sudo: required
+dist: trusty
+
+# install the pre-release chef-dk.  Use chef-stable-precise to install the stable release
 addons:
   apt:
     sources:
-      - chef-current-precise
+      - chef-current-trusty
     packages:
       - chefdk
 
-# Don't `bundle install`
+# Don't `bundle install` which takes about 1.5 mins
 install: echo "skip bundle install"
 
-# Ensure we make ChefDK's Ruby the default
-before_script:
-  - eval "$(/opt/chefdk/bin/chef shell-init bash)"
-  # We have to install chef-sugar for ChefSpec
-  - /opt/chefdk/embedded/bin/chef gem install chef-sugar
+branches:
+  only:
+    - master
 
-script:
-  - /opt/chefdk/embedded/bin/chef --version
-  - /opt/chefdk/embedded/bin/cookstyle --version
-  - /opt/chefdk/embedded/bin/foodcritic --version
-  - /opt/chefdk/bin/chef exec rake
+services: docker
+
+env:
+  matrix:
+  - INSTANCE=default-centos-6
+  - INSTANCE=default-centos-7
+  - INSTANCE=default-debian-7
+  - INSTANCE=default-debian-8
+  - INSTANCE=default-fedora-latest
+  - INSTANCE=default-opensuse-132
+  - INSTANCE=default-opensuse-421
+  - INSTANCE=default-ubuntu-1204
+  - INSTANCE=default-ubuntu-1404
+  - INSTANCE=default-ubuntu-1604
+
+before_script:
+  - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )
+  - eval "$(/opt/chefdk/bin/chef shell-init bash)"
+
+script: KITCHEN_LOCAL_YAML=.kitchen.docker.yml /opt/chefdk/embedded/bin/kitchen verify ${INSTANCE}
+
+matrix:
+  include:
+    - before_script:
+      - eval "$(/opt/chefdk/bin/chef shell-init bash)"
+      - /opt/chefdk/embedded/bin/chef --version
+      - /opt/chefdk/embedded/bin/cookstyle --version
+      - /opt/chefdk/embedded/bin/foodcritic --version
+    - script:
+      - /opt/chefdk/bin/chef exec rake
+      env: UNIT_AND_LINT=1
