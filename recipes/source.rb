@@ -22,7 +22,7 @@
 #
 
 nginx_url = node['nginx']['source']['url'] ||
-            "http://nginx.org/download/nginx-#{node['nginx']['source']['version']}.tar.gz"
+            "https://nginx.org/download/nginx-#{node['nginx']['source']['version']}.tar.gz"
 
 node.normal['nginx']['binary']          = node['nginx']['source']['sbin_path']
 node.normal['nginx']['daemon_disable']  = true
