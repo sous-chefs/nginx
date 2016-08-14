@@ -56,6 +56,7 @@ remote_file nginx_url do
   checksum node['nginx']['source']['checksum']
   path     src_filepath
   backup   false
+  retries  4
 end
 
 node.run_state['nginx_force_recompile'] = false
