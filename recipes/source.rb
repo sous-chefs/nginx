@@ -119,7 +119,7 @@ when 'runit'
 when 'upstart'
   # we rely on this to set up nginx.conf with daemon disable instead of doing
   # it in the upstart init script.
-  node.set['nginx']['daemon_disable'] = node['nginx']['upstart']['foreground']
+  node.normal['nginx']['daemon_disable'] = node['nginx']['upstart']['foreground']
 
   template '/etc/init/nginx.conf' do
     source 'nginx-upstart.conf.erb'
@@ -141,7 +141,7 @@ when 'systemd'
     action   :nothing
   end
 else
-  node.set['nginx']['daemon_disable'] = false
+  node.normal['nginx']['daemon_disable'] = false
 
   generate_init = true
 

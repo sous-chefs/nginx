@@ -103,7 +103,7 @@ describe 'chef_nginx::source' do
     context 'without runit/upstart' do
       let(:chef_run) do
         ChefSpec::ServerRunner.new(platform: 'debian', version: '8.5') do |node|
-          node.set['nginx']['init_style'] = 'other'
+          node.normal['nginx']['init_style'] = 'other'
         end.converge(described_recipe)
       end
       it 'enables daemon mode in nginx' do
@@ -115,7 +115,7 @@ describe 'chef_nginx::source' do
       context 'Debian familly' do
         let(:chef_run) do
           ChefSpec::ServerRunner.new(platform: 'debian', version: '8.5') do |node|
-            node.set['nginx']['init_style'] = 'other'
+            node.normal['nginx']['init_style'] = 'other'
           end.converge(described_recipe)
         end
         it 'creates init script' do
@@ -128,7 +128,7 @@ describe 'chef_nginx::source' do
       context 'Freebsd familly' do
         let(:chef_run) do
           ChefSpec::ServerRunner.new(platform: 'freebsd', version: '10.3') do |node|
-            node.set['nginx']['init_style'] = 'other'
+            node.normal['nginx']['init_style'] = 'other'
           end.converge(described_recipe)
         end
         it 'doesn\'t create the init script' do
@@ -142,7 +142,7 @@ describe 'chef_nginx::source' do
       context 'Other OS familly(Rhel y example)' do
         let(:chef_run) do
           ChefSpec::ServerRunner.new(platform: 'centos', version: '6.8') do |node|
-            node.set['nginx']['init_style'] = 'other'
+            node.normal['nginx']['init_style'] = 'other'
           end.converge(described_recipe)
         end
         it 'creates init script' do
@@ -157,7 +157,7 @@ describe 'chef_nginx::source' do
   context 'with runit' do
     let(:chef_run) do
       ChefSpec::ServerRunner.new(platform: 'debian', version: '8.5') do |node|
-        node.set['nginx']['init_style'] = 'runit'
+        node.normal['nginx']['init_style'] = 'runit'
       end.converge(described_recipe)
     end
 
@@ -173,7 +173,7 @@ describe 'chef_nginx::source' do
   context 'with upstart' do
     let(:chef_run) do
       ChefSpec::ServerRunner.new(platform: 'debian', version: '8.5') do |node|
-        node.set['nginx']['init_style'] = 'upstart'
+        node.normal['nginx']['init_style'] = 'upstart'
       end.converge(described_recipe)
     end
 
