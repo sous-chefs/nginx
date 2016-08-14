@@ -41,15 +41,13 @@ include_recipe 'chef_nginx::commons_script'
 include_recipe 'build-essential::default'
 
 src_filepath = "#{Chef::Config['file_cache_path'] || '/tmp'}/nginx-#{node['nginx']['source']['version']}.tar.gz"
-packages = value_for_platform_family(
-  %w(rhel fedora) => %w(pcre-devel openssl-devel),
-  %w(suse) => %w(pcre-devel libopenssl-devel),
-  %w(default)     => %w(libpcre3 libpcre3-dev libssl-dev)
-)
 
-packages.each do |name|
-  package name
-end
+# install prereqs
+package value_for_platform_family(
+  %w(rhel fedora) => %w(pcre-devel openssl-devel tar),
+  %w(suse) => %w(pcre-devel libopenssl-devel tar),
+  %w(default)     => %w(libpcre3 libpcre3-dev libssl-dev tar)
+)
 
 remote_file nginx_url do
   source   nginx_url
@@ -69,9 +67,6 @@ cookbook_file "#{node['nginx']['dir']}/mime.types" do
   source 'mime.types'
   notifies :reload, 'service[nginx]', :delayed
 end
-
-# source install depends on the existence of the `tar` package
-package 'tar'
 
 # Unpack downloaded source so we could apply nginx patches
 # in custom modules - example http://yaoweibin.github.io/nginx_tcp_proxy_module/
