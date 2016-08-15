@@ -38,8 +38,13 @@ default['nginx']['init_style']   = node['init_package']
 case node['platform_family']
 when 'debian'
   default['nginx']['user'] = 'www-data'
-  if node['platform'] == 'ubuntu' && node['platform_version'].to_f > 14.04
-    default['nginx']['pid'] = '/run/nginx.pid'
+  if node['platform'] == 'ubuntu'
+    if node['platform_version'].to_f >= 14.04
+      default['nginx']['pid'] = '/run/nginx.pid'
+    else
+      # init_package identifies 12.04/14.04 as init, but we should be using upstart here
+      default['nginx']['init_style'] = 'upstart'
+    end
   end
 when 'rhel', 'fedora'
   default['nginx']['user']        = 'nginx'
