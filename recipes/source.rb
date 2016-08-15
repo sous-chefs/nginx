@@ -21,11 +21,8 @@
 # limitations under the License.
 #
 
-nginx_url = node['nginx']['source']['url'] ||
-            "https://nginx.org/download/nginx-#{node['nginx']['source']['version']}.tar.gz"
-
-node.normal['nginx']['binary']          = node['nginx']['source']['sbin_path']
-node.normal['nginx']['daemon_disable']  = true
+node.normal['nginx']['binary'] = node['nginx']['source']['sbin_path']
+node.normal['nginx']['daemon_disable'] = true
 
 unless node['nginx']['source']['use_existing_user']
   user node['nginx']['user'] do
@@ -40,7 +37,7 @@ include_recipe 'chef_nginx::commons_dir'
 include_recipe 'chef_nginx::commons_script'
 include_recipe 'build-essential::default'
 
-src_filepath = "#{Chef::Config['file_cache_path'] || '/tmp'}/nginx-#{node['nginx']['source']['version']}.tar.gz"
+src_filepath = "#{Chef::Config['file_cache_path']}/nginx-#{node['nginx']['source']['version']}.tar.gz"
 
 # install prereqs
 package value_for_platform_family(
@@ -49,8 +46,8 @@ package value_for_platform_family(
   %w(default) => %w(libpcre3 libpcre3-dev libssl-dev tar)
 )
 
-remote_file nginx_url do
-  source   nginx_url
+remote_file 'nginx source' do
+  source   node['nginx']['source']['url']
   checksum node['nginx']['source']['checksum']
   path     src_filepath
   backup   false
