@@ -15,16 +15,8 @@
 # limitations under the License.
 #
 
-case node['platform_family']
-when 'rhel', 'fedora'
-
-  log 'There is not official phusion passenger repo for redhat based systems.' do
-    level :info
-  end
-
-when 'debian'
+if platform_family?('debian')
   include_recipe 'apt::default'
-  package 'apt-transport-https'
 
   apt_repository 'phusionpassenger' do
     uri 'https://oss-binaries.phusionpassenger.com/apt/passenger'
@@ -36,4 +28,8 @@ when 'debian'
   end
 
   include_recipe 'chef_nginx::passenger'
+else
+  log "There is not official phusion passenger repo platform #{node['platform']}. Skipping repo setup!" do
+    level :warn
+  end
 end

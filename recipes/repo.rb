@@ -19,7 +19,7 @@
 #
 
 case node['platform_family']
-when 'rhel', 'fedora'
+when 'rhel'
 
   yum_repository 'nginx' do
     description  'Nginx.org Repository'
@@ -29,6 +29,7 @@ when 'rhel', 'fedora'
   end
 
 when 'suse'
+
   zypper_repo 'nginx' do
     repo_name 'Nginx.org Repository'
     uri 'http://nginx.org/packages/sles/12'
@@ -36,11 +37,17 @@ when 'suse'
   end
 
 when 'debian'
+
   apt_repository 'nginx' do
     uri          node['nginx']['upstream_repository']
     distribution node['lsb']['codename']
     components   %w(nginx)
     deb_src      true
     key          'http://nginx.org/keys/nginx_signing.key'
+  end
+
+else
+  log "nginx.org does not maintain packages for platform #{node['platform']}. Cannot setup the upstream repo!" do
+    level :warn
   end
 end

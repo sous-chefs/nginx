@@ -64,22 +64,16 @@ platforms:
   driver:
     image: ubuntu-upstart:12.04
     pid_one_command: /sbin/init
-    intermediate_instructions:
-      - RUN /usr/bin/apt-get update
 
 - name: ubuntu-14.04
   driver:
     image: ubuntu-upstart:14.04
     pid_one_command: /sbin/init
-    intermediate_instructions:
-      - RUN /usr/bin/apt-get update
 
 - name: ubuntu-16.04
   driver:
     image: ubuntu:16.04
     pid_one_command: /bin/systemd
-    intermediate_instructions:
-      - RUN /usr/bin/apt-get update
 
 - name: opensuse-13.2
   driver:
@@ -98,38 +92,13 @@ platforms:
 suites:
   - name: default
     run_list:
-      - recipe[chef_nginx::default]
+      - recipe[test::default]
   - name: source
     run_list:
-      - recipe[chef_nginx::default]
-    attributes:
-      nginx:
-        install_method: source
+      - recipe[test::source]
   - name: upstream_repo
     run_list:
-      - recipe[chef_nginx::repo]
-      - recipe[chef_nginx::default]
-    attributes:
-      nginx:
-        repo_source: nginx
+      - recipe[test::upstream_repo]
   - name: modules
     run_list:
-      - recipe[chef_nginx::source]
-    attributes:
-      nginx:
-        source:
-          modules:
-            - chef_nginx::headers_more_module
-            - chef_nginx::http_auth_request_module
-            - chef_nginx::http_echo_module
-            - chef_nginx::http_geoip_module
-            - chef_nginx::http_gzip_static_module
-            - chef_nginx::http_realip_module
-            - chef_nginx::http_v2_module
-            - chef_nginx::http_ssl_module
-            - chef_nginx::http_stub_status_module
-            - chef_nginx::naxsi_module
-            - chef_nginx::ngx_devel_module
-            - chef_nginx::ngx_lua_module
-            - chef_nginx::openssl_source
-            - chef_nginx::upload_progress_module
+      - recipe[test::modules]
