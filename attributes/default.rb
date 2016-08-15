@@ -46,9 +46,11 @@ when 'debian'
       default['nginx']['init_style'] = 'upstart'
     end
   end
-when 'rhel', 'fedora'
+when 'rhel'
   default['nginx']['user']        = 'nginx'
   default['nginx']['repo_source'] = 'epel'
+when 'fedora'
+  default['nginx']['user']        = 'nginx'
 when 'freebsd'
   default['nginx']['package_name'] = 'www/nginx'
   default['nginx']['user']         = 'www'
