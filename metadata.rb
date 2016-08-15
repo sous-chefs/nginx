@@ -26,6 +26,8 @@ supports 'redhat'
 supports 'scientific'
 supports 'ubuntu'
 supports 'suse'
+supports 'opensuse'
+supports 'opensuseleap'
 
 source_url 'https://github.com/chef-cookbooks/chef_nginx'
 issues_url 'https://github.com/chef-cookbooks/chef_nginx/issues'
