@@ -49,15 +49,15 @@ env:
   - INSTANCE=modules-ubuntu-1204
   - INSTANCE=modules-ubuntu-1404
   - INSTANCE=modules-ubuntu-1604
-  - INSTANCE=upstream_repo-centos-6
-  - INSTANCE=upstream_repo-centos-7
-  - INSTANCE=upstream_repo-debian-7
-  - INSTANCE=upstream_repo-debian-8
-  - INSTANCE=upstream_repo-opensuse-132
-  - INSTANCE=upstream_repo-opensuse-421
-  - INSTANCE=upstream_repo-ubuntu-1204
-  - INSTANCE=upstream_repo-ubuntu-1404
-  - INSTANCE=upstream_repo-ubuntu-1604
+  - INSTANCE=upstream-repo-centos-6
+  - INSTANCE=upstream-repo-centos-7
+  - INSTANCE=upstream-repo-debian-7
+  - INSTANCE=upstream-repo-debian-8
+  - INSTANCE=upstream-repo-opensuse-132
+  - INSTANCE=upstream-repo-opensuse-421
+  - INSTANCE=upstream-repo-ubuntu-1204
+  - INSTANCE=upstream-repo-ubuntu-1404
+  - INSTANCE=upstream-repo-ubuntu-1604
 
 before_script:
   - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )
