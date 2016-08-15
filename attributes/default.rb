@@ -33,17 +33,16 @@ default['nginx']['binary']       = '/usr/sbin/nginx'
 default['nginx']['default_root'] = '/var/www/nginx-default'
 default['nginx']['ulimit']       = '1024'
 default['nginx']['pid']          = '/var/run/nginx.pid'
+default['nginx']['init_style']   = node['init_package']
 
 case node['platform_family']
 when 'debian'
-  default['nginx']['user']       = 'www-data'
-  default['nginx']['init_style'] = 'runit'
+  default['nginx']['user'] = 'www-data'
   if node['platform'] == 'ubuntu' && node['platform_version'].to_f > 14.04
     default['nginx']['pid'] = '/run/nginx.pid'
   end
 when 'rhel', 'fedora'
   default['nginx']['user']        = 'nginx'
-  default['nginx']['init_style']  = 'init'
   default['nginx']['repo_source'] = 'epel'
 when 'freebsd'
   default['nginx']['package_name'] = 'www/nginx'
@@ -54,11 +53,9 @@ when 'freebsd'
   default['nginx']['default_root'] = '/usr/local/www/nginx-dist'
 when 'suse'
   default['nginx']['user']       = 'wwwrun'
-  default['nginx']['init_style'] = 'systemd'
   default['nginx']['group']      = 'www'
 else
   default['nginx']['user']       = 'www-data'
-  default['nginx']['init_style'] = 'init'
 end
 
 default['nginx']['upstart']['runlevels']     = '2345'

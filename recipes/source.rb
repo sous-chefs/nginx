@@ -128,7 +128,10 @@ when 'upstart'
     action   :nothing
   end
 when 'systemd'
-  template '/usr/lib/systemd/system/nginx.service' do
+
+  systemd_prefix = platform_family?('suse') ? '/usr/lib' : '/lib'
+
+  template "#{systemd_prefix}/systemd/system/nginx.service" do
     source 'nginx.service.erb'
   end
 
