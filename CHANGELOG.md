@@ -9,8 +9,8 @@ This file is used to list changes made in each version of the nginx cookbook.
 Ideally we'd offer perfect backwards compatibility forever, but in order to maintain the cookbook going forward we've evaluated the current scope of the cookbook and removed lesser used functionality that added code complexity.
 
 - Minimum chef-client version is now 12.1 or later, which will enable support for custom resources and init system detection in the future.
-- Support for Gentoo has been removed. Gentoo is not a supported platform on Chef and we there is no Bento image to use for Test Kitchen integration tests.
-- Support for the bluepill init system has been removed. Usage of this init system has declined and supporting it added a cookbook dependency and code complexity.
+- Support for Gentoo has been removed. Chef does not directly support the Gentoo platform with packages and there is no Bento image to use for Test Kitchen integration tests.
+- Support for the bluepill init system has been removed. Usage of this init system has declined and supporting it added a cookbook dependency / code complexity.
 
 ### Other changes
 
