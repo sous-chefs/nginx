@@ -29,7 +29,7 @@ if platform_family?('debian')
 
   include_recipe 'chef_nginx::passenger'
 else
-  log "There is not official phusion passenger repo platform #{node['platform']} redhat based systems. Skipping repo setup!" do
+  log "There is not official phusion passenger repo platform #{node['platform']}. Skipping repo setup!" do
     level :warn
   end
 end

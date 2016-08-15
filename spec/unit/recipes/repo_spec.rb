@@ -36,8 +36,10 @@ describe 'chef_nginx::repo' do
       ChefSpec::ServerRunner.new(platform: 'fedora', version: '24').converge(described_recipe)
     end
 
-    it 'adds yum repository' do
-      expect(chef_run).to create_yum_repository('nginx')
+    it "logs a message that the repo doesn't support Fedora" do
+      expect(chef_run).to write_log(
+        'nginx.org does not maintain packages for platform fedora. Cannot setup the upstream repo!'
+      ).with(level: :warn)
     end
   end
 end
