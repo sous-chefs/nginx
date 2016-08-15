@@ -14,7 +14,6 @@ Ideally we'd offer perfect backwards compatibility forever, but in order to main
 
 ### Other changes
 
-- Chefspec platform updates and minor fixes
 - Added support for openSUSE source installs using systemd
 - Retry downloads of the nginx source file as the mirror sometimes fails to load
 - Download the nginx source from the secure nginx.org site
@@ -22,11 +21,16 @@ Ideally we'd offer perfect backwards compatibility forever, but in order to main
 - Install source install pre-reqs using multi-package which speeds up Chef runs
 - Add testing in Travis with Kitchen Dokken for full integration testing of each PR
 - Add integration test on Chef 12.1 as well as the latest Chef to ensure compatibility with the oldest release we support
+- Remove installation of apt-transport-https and instead increase the apt dependency to >= 2.9.1 which includes the installation of apt-transport-https
+- Don't try to setup the nginx.org repo on Fedora as this will fail
+- Better log when trying to setup repositories on unsupported platforms
 - Fixed source_url and issue_url in the metadata to point to the correct URLs
 - Removed Chef 10 compatibility code
+- Chefspec platform updates and minor fixes
 - Replace all usage of node.set with node.normal to avoid deprecation notices
 - Remove the suse init script that isn't used anymore
 - Speed up the specs with caching
+- Move test attributes and runlists out the kitchen.yml files and into a test cookbook
 
 ## 2.9.0 (2016-08-12)
 
