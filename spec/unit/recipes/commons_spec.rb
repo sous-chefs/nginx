@@ -73,7 +73,7 @@ describe 'chef_nginx::commons' do
     context 'When the default website is disabled' do
       let(:chef_run) do
         ChefSpec::ServerRunner.new do |node|
-          node.set['nginx']['default_site_enabled'] = false
+          node.normal['nginx']['default_site_enabled'] = false
         end.converge('chef_nginx::default', described_recipe)
       end
 

@@ -55,7 +55,7 @@ describe 'chef_nginx::package' do
 
     context 'modified attributes' do
       before do
-        chef_run.node.set['nginx']['repo_source'] = 'nginx'
+        chef_run.node.normal['nginx']['repo_source'] = 'nginx'
         chef_run.converge(described_recipe)
       end
 
@@ -84,7 +84,7 @@ describe 'chef_nginx::package' do
 
     context 'modified attributes' do
       before do
-        chef_run.node.set['nginx']['repo_source'] = 'nginx'
+        chef_run.node.normal['nginx']['repo_source'] = 'nginx'
         chef_run.converge(described_recipe)
       end
 
@@ -100,7 +100,7 @@ describe 'chef_nginx::package' do
 
     context 'no extra repos added when empty' do
       before do
-        chef_run.node.set['nginx']['repo_source'] = ''
+        chef_run.node.normal['nginx']['repo_source'] = ''
         chef_run.converge(described_recipe)
       end
 

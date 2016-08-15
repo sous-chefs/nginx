@@ -21,12 +21,8 @@
 # limitations under the License.
 #
 
-# This is for Chef 10 and earlier where attributes aren't loaded
-# deterministically (resolved in Chef 11).
-node.load_attribute_by_short_filename('source', 'nginx') if node.respond_to?(:load_attribute_by_short_filename)
-
 nginx_url = node['nginx']['source']['url'] ||
-            "http://nginx.org/download/nginx-#{node['nginx']['source']['version']}.tar.gz"
+            "https://nginx.org/download/nginx-#{node['nginx']['source']['version']}.tar.gz"
 
 node.normal['nginx']['binary']          = node['nginx']['source']['sbin_path']
 node.normal['nginx']['daemon_disable']  = true
@@ -45,21 +41,20 @@ include_recipe 'chef_nginx::commons_script'
 include_recipe 'build-essential::default'
 
 src_filepath = "#{Chef::Config['file_cache_path'] || '/tmp'}/nginx-#{node['nginx']['source']['version']}.tar.gz"
-packages = value_for_platform_family(
-  %w(rhel fedora suse) => %w(pcre-devel openssl-devel),
-  %w(gentoo)      => [],
-  %w(default)     => %w(libpcre3 libpcre3-dev libssl-dev)
-)
 
-packages.each do |name|
-  package name
-end
+# install prereqs
+package value_for_platform_family(
+  %w(rhel fedora) => %w(pcre-devel openssl-devel tar),
+  %w(suse) => %w(pcre-devel libopenssl-devel tar),
+  %w(default) => %w(libpcre3 libpcre3-dev libssl-dev tar)
+)
 
 remote_file nginx_url do
   source   nginx_url
   checksum node['nginx']['source']['checksum']
   path     src_filepath
   backup   false
+  retries  4
 end
 
 node.run_state['nginx_force_recompile'] = false
@@ -72,9 +67,6 @@ cookbook_file "#{node['nginx']['dir']}/mime.types" do
   source 'mime.types'
   notifies :reload, 'service[nginx]', :delayed
 end
-
-# source install depends on the existence of the `tar` package
-package 'tar'
 
 # Unpack downloaded source so we could apply nginx patches
 # in custom modules - example http://yaoweibin.github.io/nginx_tcp_proxy_module/
@@ -127,7 +119,7 @@ when 'runit'
 when 'upstart'
   # we rely on this to set up nginx.conf with daemon disable instead of doing
   # it in the upstart init script.
-  node.set['nginx']['daemon_disable'] = node['nginx']['upstart']['foreground']
+  node.normal['nginx']['daemon_disable'] = node['nginx']['upstart']['foreground']
 
   template '/etc/init/nginx.conf' do
     source 'nginx-upstart.conf.erb'
@@ -138,14 +130,22 @@ when 'upstart'
     supports status: true, restart: true, reload: true
     action   :nothing
   end
+when 'systemd'
+  template '/usr/lib/systemd/system/nginx.service' do
+    source 'nginx.service.erb'
+  end
+
+  service 'nginx' do
+    provider Chef::Provider::Service::Systemd
+    supports status: true, restart: true, reload: true
+    action   :nothing
+  end
 else
-  node.set['nginx']['daemon_disable'] = false
+  node.normal['nginx']['daemon_disable'] = false
 
   generate_init = true
 
   case node['platform']
-  when 'gentoo'
-    generate_template = false
   when 'debian', 'ubuntu'
     generate_template = true
     defaults_path     = '/etc/default/nginx'

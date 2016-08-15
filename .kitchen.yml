@@ -36,6 +36,8 @@ suites:
   - name: default
     run_list:
       - recipe[chef_nginx::default]
+    excludes:
+      - opensuse-13.2 # lacks nginx package
   - name: source
     run_list:
       - recipe[chef_nginx::default]

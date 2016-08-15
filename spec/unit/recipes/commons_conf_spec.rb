@@ -18,8 +18,8 @@ describe 'chef_nginx::commons_conf' do
   end
 
   it 'allows alternative template sources' do
-    chef_run.node.set['nginx']['conf_template'] = 'mytemplate.conf.erb'
-    chef_run.node.set['nginx']['conf_cookbook'] = 'somecookbook'
+    chef_run.node.normal['nginx']['conf_template'] = 'mytemplate.conf.erb'
+    chef_run.node.normal['nginx']['conf_cookbook'] = 'somecookbook'
     chef_run.converge('chef_nginx::default')
     template_file = "#{chef_run.node['nginx']['dir']}/nginx.conf"
     expect(chef_run).to create_template(template_file).with(
@@ -39,7 +39,7 @@ describe 'chef_nginx::commons_conf' do
   end
 
   it 'disables the default site when default_site_enabled = false' do
-    chef_run.node.set['nginx']['default_site_enabled'] = false
+    chef_run.node.normal['nginx']['default_site_enabled'] = false
     chef_run.converge('chef_nginx::default')
     expect(chef_run).not_to enable_nginx_site('default')
   end
