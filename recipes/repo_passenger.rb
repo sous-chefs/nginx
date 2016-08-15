@@ -18,8 +18,8 @@
 case node['platform_family']
 when 'rhel', 'fedora'
 
-  log 'There is not official phusion passenger repo for redhat based systems.' do
-    level :info
+  log 'There is not official phusion passenger repo for redhat based systems. Skipping repo setup!' do
+    level :warn
   end
 
 when 'debian'
