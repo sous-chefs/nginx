@@ -15,14 +15,7 @@
 # limitations under the License.
 #
 
-case node['platform_family']
-when 'rhel', 'fedora'
-
-  log 'There is not official phusion passenger repo for redhat based systems. Skipping repo setup!' do
-    level :warn
-  end
-
-when 'debian'
+if platform_family?('debian')
   include_recipe 'apt::default'
 
   apt_repository 'phusionpassenger' do
@@ -35,4 +28,8 @@ when 'debian'
   end
 
   include_recipe 'chef_nginx::passenger'
+else
+  log "There is not official phusion passenger repo platform #{node['platform']} redhat based systems. Skipping repo setup!" do
+    level :warn
+  end
 end
