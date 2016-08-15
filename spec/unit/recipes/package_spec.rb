@@ -5,7 +5,7 @@ describe 'chef_nginx::package' do
     stub_command('which nginx').and_return(nil)
   end
 
-  let(:chef_run) do
+  cached(:chef_run) do
     ChefSpec::ServerRunner.new(
       platform: 'debian',
       version: '8.5'
