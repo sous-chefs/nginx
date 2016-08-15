@@ -24,7 +24,6 @@ when 'rhel', 'fedora'
 
 when 'debian'
   include_recipe 'apt::default'
-  package 'apt-transport-https'
 
   apt_repository 'phusionpassenger' do
     uri 'https://oss-binaries.phusionpassenger.com/apt/passenger'
