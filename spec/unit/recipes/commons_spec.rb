@@ -2,7 +2,7 @@ require 'spec_helper'
 
 # running chef_nginx::default as we need service[nginx] to be defined
 describe 'chef_nginx::commons' do
-  let(:chef_run) do
+  cached(:chef_run) do
     ChefSpec::ServerRunner.new.converge('chef_nginx::default', described_recipe)
   end
 

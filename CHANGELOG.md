@@ -2,12 +2,39 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## UNRELEASED
+
+### Breaking changes
+
+Ideally we'd offer perfect backwards compatibility forever, but in order to maintain the cookbook going forward we've evaluated the current scope of the cookbook and removed lesser used functionality that added code complexity.
+
+- Minimum chef-client version is now 12.1 or later, which will enable support for custom resources and init system detection in the future.
+- Support for Gentoo has been removed. Gentoo is not a supported platform on Chef and we there is no Bento image to use for Test Kitchen integration tests.
+- Support for the bluepill init system has been removed. Usage of this init system has declined and supporting it added a cookbook dependency and code complexity.
+
+### Other changes
+
+- Chefspec platform updates and minor fixes
+- Added support for openSUSE source installs using systemd
+- Retry downloads of the nginx source file as the mirror sometimes fails to load
+- Download the nginx source from the secure nginx.org site
+- Updated the Ohai plugin to avoid deprecation notices and function better on non us-en locale systems
+- Install source install pre-reqs using multi-package which speeds up Chef runs
+- Add testing in Travis with Kitchen Dokken for full integration testing of each PR
+- Add integration test on Chef 12.1 as well as the latest Chef to ensure compatibility with the oldest release we support
+- Fixed source_url and issue_url in the metadata to point to the correct URLs
+- Removed Chef 10 compatibility code
+- Replace all usage of node.set with node.normal to avoid deprecation notices
+- Remove the suse init script that isn't used anymore
+- Speed up the specs with caching
+
 ## 2.9.0 (2016-08-12)
+
 - Add support for Suse Nginx.org packages
 
 ## v2.8.0 (2016-08-12)
 
-This is the first release of the nginx codebase under the chef_nginx namespace. We've chosen to bring this cookbook under the direction of the Community Cookbook Team, in order to ship a working 2.X release. The cookbook name has been changed, but all attributes are the same and compatibility has been maintained. After this 2.8.0 release we will release 3.0 as a Chef 12+ version of the cookbook and then work to add additional custom resources for managing nginx with wrapper cookbooks. Expect regular releases as we march towards a resource driven model. 
+This is the first release of the nginx codebase under the chef_nginx namespace. We've chosen to bring this cookbook under the direction of the Community Cookbook Team, in order to ship a working 2.X release. The cookbook name has been changed, but all attributes are the same and compatibility has been maintained. After this 2.8.0 release we will release 3.0 as a Chef 12+ version of the cookbook and then work to add additional custom resources for managing nginx with wrapper cookbooks. Expect regular releases as we march towards a resource driven model.
 
 - Removed the restrictive version constraints for cookbook dependencies that prevented users from utilizing new functionality. Ohai has been pinned to < 4.0 to allow for Chef 11 compatibility, but other cookbooks have no upper limit
 - Updated all modules in the source install to their latest releases
@@ -39,7 +66,6 @@ This is the first release of the nginx codebase under the chef_nginx namespace. 
 - Removed testing dependencies from the Gemfile as testing should be performed via ChefDK. Release gems are still in the Gemfile as they are not shipped with ChefDK
 - Added a maintainers.md doc and updated the contributing/testing docs to point to the Chef docs
 - Removed Guard as guard-foodcritic doesn't support the latest release which makes guard incompatible with ChefDK
-
 
 ## v2.7.6 (2015-03-17)
 
