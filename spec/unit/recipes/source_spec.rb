@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'chef_nginx::source' do
-  let(:chef_run) do
+  cached(:chef_run) do
     ChefSpec::ServerRunner.new(platform: 'debian', version: '8.5').converge(described_recipe)
   end
 
@@ -34,32 +34,17 @@ describe 'chef_nginx::source' do
     expect(chef_run).to include_recipe('build-essential::default')
   end
 
-  describe 'installs packages dependencies' do
-    %w(
-      libpcre3
-      libpcre3-dev
-      libssl-dev
-    ).each do |pkg|
-      it "installs #{pkg}" do
-        expect(chef_run).to install_package(pkg)
-      end
-    end
+  it 'installs packages dependencies' do
+    expect(chef_run).to install_package(['libpcre3', 'libpcre3-dev', 'libssl-dev', 'tar'])
   end
 
-  context 'Rhel familly' do
-    let(:chef_run) do
+  context 'Rhel family' do
+    cached(:chef_run) do
       ChefSpec::ServerRunner.new(platform: 'centos', version: '6.8').converge(described_recipe)
     end
 
-    describe 'installs packages dependencies' do
-      %w(
-        openssl-devel
-        pcre-devel
-      ).each do |pkg|
-        it "installs #{pkg}" do
-          expect(chef_run).to install_package(pkg)
-        end
-      end
+    it 'installs packages dependencies' do
+      expect(chef_run).to install_package(['pcre-devel', 'openssl-devel', 'tar'])
     end
   end
 
@@ -101,7 +86,7 @@ describe 'chef_nginx::source' do
 
   context 'set up the init style' do
     context 'without runit/upstart' do
-      let(:chef_run) do
+      cached(:chef_run) do
         ChefSpec::ServerRunner.new(platform: 'debian', version: '8.5') do |node|
           node.normal['nginx']['init_style'] = 'other'
         end.converge(described_recipe)
@@ -113,7 +98,7 @@ describe 'chef_nginx::source' do
         expect(chef_run).to enable_service('nginx')
       end
       context 'Debian familly' do
-        let(:chef_run) do
+        cached(:chef_run) do
           ChefSpec::ServerRunner.new(platform: 'debian', version: '8.5') do |node|
             node.normal['nginx']['init_style'] = 'other'
           end.converge(described_recipe)
@@ -126,7 +111,7 @@ describe 'chef_nginx::source' do
         end
       end
       context 'Freebsd familly' do
-        let(:chef_run) do
+        cached(:chef_run) do
           ChefSpec::ServerRunner.new(platform: 'freebsd', version: '10.3') do |node|
             node.normal['nginx']['init_style'] = 'other'
           end.converge(described_recipe)
@@ -140,7 +125,7 @@ describe 'chef_nginx::source' do
         end
       end
       context 'Other OS familly(Rhel y example)' do
-        let(:chef_run) do
+        cached(:chef_run) do
           ChefSpec::ServerRunner.new(platform: 'centos', version: '6.8') do |node|
             node.normal['nginx']['init_style'] = 'other'
           end.converge(described_recipe)
@@ -155,7 +140,7 @@ describe 'chef_nginx::source' do
     end
   end
   context 'with runit' do
-    let(:chef_run) do
+    cached(:chef_run) do
       ChefSpec::ServerRunner.new(platform: 'debian', version: '8.5') do |node|
         node.normal['nginx']['init_style'] = 'runit'
       end.converge(described_recipe)
@@ -171,7 +156,7 @@ describe 'chef_nginx::source' do
   end
 
   context 'with upstart' do
-    let(:chef_run) do
+    cached(:chef_run) do
       ChefSpec::ServerRunner.new(platform: 'debian', version: '8.5') do |node|
         node.normal['nginx']['init_style'] = 'upstart'
       end.converge(described_recipe)
