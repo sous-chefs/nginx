@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe 'chef_nginx::source' do
-
   shared_examples_for 'all platforms' do
     it 'creates nginx user' do
       expect(chef_run).to create_user('www-data').with(

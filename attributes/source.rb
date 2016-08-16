@@ -21,6 +21,13 @@
 
 include_attribute 'chef_nginx::default'
 
+default['nginx']['init_style'] = if node['platform'] == 'ubuntu' && node['platform_version'].to_f <= 14.04
+                                   # init_package identifies 12.04/14.04 as init, but we should be using upstart here
+                                   'upstart'
+                                 else
+                                   node['init_package']
+                                 end
+
 default['nginx']['source']['version']                 = node['nginx']['version']
 default['nginx']['source']['prefix']                  = "/opt/nginx-#{node['nginx']['source']['version']}"
 default['nginx']['source']['conf_path']               = "#{node['nginx']['dir']}/nginx.conf"

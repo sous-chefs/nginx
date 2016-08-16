@@ -11,10 +11,12 @@ Ideally we'd offer perfect backwards compatibility forever, but in order to main
 - Minimum chef-client version is now 12.1 or later, which will enable support for custom resources and init system detection in the future.
 - Support for Gentoo has been removed. Chef does not directly support the Gentoo platform with packages and there is no Bento image to use for Test Kitchen integration tests.
 - Support for the bluepill init system has been removed. Usage of this init system has declined and supporting it added a cookbook dependency / code complexity.
+- Ubuntu source installs will no longer default to runit, and will instead use either Upstart or Systemd depending on the release. You can still force the use of runit by setting default['nginx']['init_style'] to 'runit'. Runit was used historically before reliable inits were included on Ubuntu, but both Upstart and Systemd have the concept or restarting on failure, which was the main reason for choosing Runit over sys-v init.
 
 ### Other changes
 
-- Added support for openSUSE source installs using systemd
+- Don't setup the YUM EPEL repo on Fedora as it's not needed
+- Systemd based platforms will now use systemd by default for source installs
 - Retry downloads of the nginx source file as the mirror sometimes fails to load
 - Download the nginx source from the secure nginx.org site
 - Updated the Ohai plugin to avoid deprecation notices and function better on non us-en locale systems
