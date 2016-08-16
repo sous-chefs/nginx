@@ -39,7 +39,6 @@ env:
   - INSTANCE=source-ubuntu-1204
   - INSTANCE=source-ubuntu-1404
   - INSTANCE=source-ubuntu-1604
-  - INSTANCE=modules-centos-6
   - INSTANCE=modules-centos-7
   - INSTANCE=modules-debian-7
   - INSTANCE=modules-debian-8
