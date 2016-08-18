@@ -13,6 +13,10 @@ platforms:
   - name: centos-7.2
   - name: debian-7.11
   - name: debian-8.5
+  - name: freebsd-9.3
+    run_list: freebsd::portsnap
+  - name: freebsd-10.3
+    run_list: freebsd::portsnap
   - name: fedora-24
     run_list: yum::dnf_yum_compat
   - name: opensuse-13.2
