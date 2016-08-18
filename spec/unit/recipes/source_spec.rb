@@ -67,7 +67,7 @@ describe 'chef_nginx::source' do
   end
 
   cached(:chef_run) do
-    ChefSpec::ServerRunner.new(platform: 'debian', version: '7.11').converge(described_recipe)
+    ChefSpec::ServerRunner.new(platform: 'debian', version: '7.10').converge(described_recipe)
   end
 
   before do
