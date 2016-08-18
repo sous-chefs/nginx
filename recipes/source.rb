@@ -160,9 +160,10 @@ else
     mode   '0755'
   end if generate_init
 
-  template defaults_path do
-    source 'nginx.sysconfig.erb'
-    only_if { generate_template }
+  if generate_template # ~FC023
+    template defaults_path do
+      source 'nginx.sysconfig.erb'
+    end
   end
 
   service 'nginx' do

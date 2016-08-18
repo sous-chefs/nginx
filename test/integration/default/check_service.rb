@@ -1,4 +1,4 @@
-describe command('ps -ef | grep ngin[x]') do
+describe command('ps ax | grep nginx') do
   its('exit_status') { should eq 0 }
 end
 
