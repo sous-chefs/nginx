@@ -21,6 +21,16 @@ describe 'chef_nginx::repo' do
     end
   end
 
+  context 'SUSE' do
+    let(:chef_run) do
+      ChefSpec::ServerRunner.new(platform: 'opensuse', version: '13.2').converge(described_recipe)
+    end
+
+    it 'adds zypper repository' do
+      expect(chef_run).to add_zypper_repo('nginx')
+    end
+  end
+
   context 'RHEL' do
     let(:chef_run) do
       ChefSpec::ServerRunner.new(platform: 'centos', version: '6.8').converge(described_recipe)

@@ -65,6 +65,21 @@ describe 'chef_nginx::package' do
     end
   end
 
+  context 'fedora platform family' do
+    let(:chef_run) do
+      ChefSpec::ServerRunner.new(
+        platform: 'fedora',
+        version: '24'
+      ).converge(described_recipe)
+    end
+
+    # epel should not be used on fedora since epel is basically fedora packages
+    # backported to RHEL
+    it 'does not include yum-epel recipe' do
+      expect(chef_run).to_not include_recipe('yum-epel')
+    end
+  end
+
   context 'rhel platform family' do
     let(:chef_run) do
       ChefSpec::ServerRunner.new(
