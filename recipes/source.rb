@@ -24,12 +24,11 @@
 node.normal['nginx']['binary'] = node['nginx']['source']['sbin_path']
 node.normal['nginx']['daemon_disable'] = true
 
-unless node['nginx']['source']['use_existing_user']
-  user node['nginx']['user'] do
-    system true
-    shell  '/bin/false'
-    home   '/var/www'
-  end
+user node['nginx']['user'] do
+  system true
+  shell  '/bin/false'
+  home   '/var/www'
+  not_if { node['nginx']['source']['use_existing_user'] }
 end
 
 include_recipe 'chef_nginx::ohai_plugin'
@@ -161,10 +160,9 @@ else
     mode   '0755'
   end if generate_init
 
-  if generate_template
-    template defaults_path do
-      source 'nginx.sysconfig.erb'
-    end
+  template defaults_path do
+    source 'nginx.sysconfig.erb'
+    only_if { generate_template }
   end
 
   service 'nginx' do

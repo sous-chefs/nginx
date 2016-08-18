@@ -22,11 +22,10 @@
 define :nginx_site, enable: true, timing: :delayed do
   if params[:enable]
 
-    if params[:template]
-      template "#{node['nginx']['dir']}/sites-available/#{params[:name]}" do
-        source params[:template]
-        variables(params[:variables])
-      end
+    template "#{node['nginx']['dir']}/sites-available/#{params[:name]}" do
+      source params[:template]
+      variables(params[:variables])
+      only_if { params[:template] }
     end
 
     execute "nxensite #{params[:name]}" do
