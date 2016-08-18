@@ -9,7 +9,7 @@ This file is used to list changes made in each version of the nginx cookbook.
 Ideally we'd offer perfect backwards compatibility forever, but in order to maintain the cookbook going forward we've evaluated the current scope of the cookbook and removed lesser used functionality that added code complexity.
 
 - The minimum chef-client version is now 12.1 or later, which will enables support for Ohai 7+ plugins, the ohai_plugin custom resource, and automatic init system discovery.
-- Support for Gentoo has been removed. Gentoo is not a supported platform on Chef and there is no Bento image to use for Test Kitchen integration tests.
+- Support for Gentoo has been removed. Gentoo lacks an official Chef package and there is no Bento image to use for Test Kitchen integration tests.
 - Support for the bluepill init system has been removed. Usage of this init system has declined, and supporting it added a cookbook dependency as well as code complexity.
 - Ubuntu source installs will no longer default to runit, and will instead use either Upstart or Systemd depending on the release of Ubuntu. You can still force the use of runit by setting default['nginx']['init_style'] to 'runit'. Runit was used historically before reliable init systems were shipped with Ubuntu. Both Upstart and Systemd have the concept of restarting on failure, which was the main reason for choosing Runit over sys-v init.
 
