@@ -8,17 +8,10 @@ This file is used to list changes made in each version of the nginx cookbook.
 
 Ideally we'd offer perfect backwards compatibility forever, but in order to maintain the cookbook going forward we've evaluated the current scope of the cookbook and removed lesser used functionality that added code complexity.
 
-<<<<<<< 58ecdd5afd09ea372a5b394f8924c82410837897
-- Minimum chef-client version is now 12.1 or later, which will enable support for custom resources and init system detection in the future.
-- Support for Gentoo has been removed. Chef does not directly support the Gentoo platform with packages and there is no Bento image to use for Test Kitchen integration tests.
-- Support for the bluepill init system has been removed. Usage of this init system has declined and supporting it added a cookbook dependency / code complexity.
-- Ubuntu source installs will no longer default to runit, and will instead use either Upstart or Systemd depending on the release. You can still force the use of runit by setting default['nginx']['init_style'] to 'runit'. Runit was used historically before reliable inits were included on Ubuntu, but both Upstart and Systemd have the concept or restarting on failure, which was the main reason for choosing Runit over sys-v init.
-=======
 - The minimum chef-client version is now 12.1 or later, which will enable support for custom resources and init system detection in the future.
 - Support for Gentoo has been removed. Gentoo is not a supported platform on Chef and there is no Bento image to use for Test Kitchen integration tests.
 - Support for the bluepill init system has been removed. Usage of this init system has declined, and supporting it added a cookbook dependency as well as code complexity.
 - Ubuntu source installs will no longer default to runit, and will instead use either Upstart or Systemd depending on the release of Ubuntu. You can still force the use of runit by setting default['nginx']['init_style'] to 'runit'. Runit was used historically before reliable init systems were shipped with Ubuntu. Both Upstart and Systemd have the concept of restarting on failure, which was the main reason for choosing Runit over sys-v init.
->>>>>>> Reword the breaking changes in the changelog
 
 ### Other changes
 
