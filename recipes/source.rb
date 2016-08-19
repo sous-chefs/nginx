@@ -21,6 +21,8 @@
 # limitations under the License.
 #
 
+Chef::Application.fatal!("#{node['platform']} is not a supported platform in the nginx::source recipe}") unless platform_family?('rhel', 'fedora', 'debian', 'suse')
+
 node.normal['nginx']['binary'] = node['nginx']['source']['sbin_path']
 node.normal['nginx']['daemon_disable'] = true
 
@@ -42,7 +44,7 @@ src_filepath = "#{Chef::Config['file_cache_path']}/nginx-#{node['nginx']['source
 package value_for_platform_family(
   %w(rhel fedora) => %w(pcre-devel openssl-devel tar),
   %w(suse) => %w(pcre-devel libopenssl-devel tar),
-  %w(default) => %w(libpcre3 libpcre3-dev libssl-dev tar)
+  %w(debian) => %w(libpcre3 libpcre3-dev libssl-dev tar)
 )
 
 remote_file 'nginx source' do

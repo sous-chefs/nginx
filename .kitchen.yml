@@ -41,6 +41,8 @@ suites:
       - recipe[test::source]
     excludes:
       - ubuntu-16.04-chef-12.1
+      - freebsd-9.3
+      - freebsd-10.3
   - name: upstream_repo
     run_list:
       - recipe[test::upstream_repo]
@@ -52,3 +54,5 @@ suites:
       - recipe[test::modules]
     excludes:
       - ubuntu-16.04-chef-12.1
+      - freebsd-9.3
+      - freebsd-10.3
