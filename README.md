@@ -195,6 +195,7 @@ These attributes are used in the `chef_nginx::passenger` recipe.
 - `node['nginx']['passenger']['pool_idle_time']` - passenger pool idle time (default=`300`)
 - `node['nginx']['passenger']['max_requests']` - maximum requests (default=`0`)
 - `node['nginx']['passenger']['nodejs']` - Nodejs path for Passenger to use (default=nil)
+- `node['nginx']['passenger']['show_version_in_header']` - Show passenger version in HTTP headers (default=`on`)
 
 Basic configuration to use the official Phusion Passenger repositories:
 
