@@ -49,7 +49,7 @@ env:
   - INSTANCE=modules-ubuntu-1404
   - INSTANCE=modules-ubuntu-1604
   - INSTANCE=upstream-repo-centos-6
-  #- INSTANCE=upstream-repo-centos-7 disable due to core chef bug
+  - INSTANCE=upstream-repo-centos-7
   - INSTANCE=upstream-repo-debian-7
   - INSTANCE=upstream-repo-debian-8
   - INSTANCE=upstream-repo-opensuse-132
