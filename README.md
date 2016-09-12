@@ -18,11 +18,10 @@ If this cookbook is eventually merged into the `nginx` namespace on the supermar
 
 The following cookbooks are direct dependencies because they're used for common "default" functionality.
 
-- `apt` for setting up the Nginx.org repository on Debian/Ubuntu platforms
 - `build-essential` for source installations
 - `ohai` for setting up the ohai plugin
 - `runit` for source installs
-- `yum` for setting up the Nginx.org repository on RHEL platforms
+- `compat_resource` for setting up the Nginx.org repository on Chef 12.1 - 12.13
 - `yum-epel` for setting up the EPEL repository on RHEL platforms
 - `zypper` for setting up the Nginx.org repository on Suse platforms
 

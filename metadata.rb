@@ -9,12 +9,10 @@ version '3.0.0'
 recipe 'chef_nginx', 'Installs nginx package and sets up configuration with Debian apache style with sites-enabled/sites-available'
 recipe 'chef_nginx::source', 'Installs nginx from source and sets up configuration with Debian apache style with sites-enabled/sites-available'
 
-depends 'apt', '>= 2.9.1'
 depends 'build-essential'
 depends 'ohai', '>= 4.1.0'
 depends 'runit', '>= 1.6.0'
-depends 'yum'
-depends 'yum-epel'
+depends 'compat_resource', '>= 12.14.1'
 depends 'zypper'
 
 supports 'amazon'
