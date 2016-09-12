@@ -21,7 +21,7 @@
 # limitations under the License.
 #
 
-Chef::Application.fatal!("#{node['platform']} is not a supported platform in the nginx::source recipe}") unless platform_family?('rhel', 'fedora', 'debian', 'suse')
+Chef::Application.fatal! "#{node['platform']} is not a supported platform in the nginx::source recipe" unless platform_family?('rhel', 'fedora', 'debian', 'suse')
 
 node.normal['nginx']['binary'] = node['nginx']['source']['sbin_path']
 node.normal['nginx']['daemon_disable'] = true

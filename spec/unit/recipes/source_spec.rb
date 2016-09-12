@@ -111,13 +111,8 @@ describe 'chef_nginx::source' do
       ChefSpec::ServerRunner.new(platform: 'freebsd', version: '10.3').converge(described_recipe)
     end
 
-    it 'does not create the init script' do
-      expect(chef_run).to_not render_file('/etc/init.d/nginx')
-    end
-
-    it 'does not generate defaults configuration' do
-      expect(chef_run).to_not render_file('/etc/default/nginx')
-      expect(chef_run).to_not render_file('/etc/sysconfig/nginx')
+    it 'logs a warning that the platform is unsupported' do
+      expect { chef_run }.to raise_error
     end
   end
 
