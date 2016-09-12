@@ -16,7 +16,6 @@
 #
 
 if platform_family?('debian')
-  include_recipe 'apt::default'
   package 'ca-certificates'
 
   apt_repository 'phusionpassenger' do
