@@ -44,7 +44,7 @@ elsif node['nginx']['passenger']['install_method'] == 'source'
 
   passenger_module = node['nginx']['passenger']['root']
 
-  passenger_module << if Chef::VersionConstraint.new('>= 5.0.19').include?(node['nginx']['passenger']['version'])
+  passenger_module += if Chef::VersionConstraint.new('>= 5.0.19').include?(node['nginx']['passenger']['version'])
                         '/src/nginx_module'
                       else
                         '/ext/nginx'
