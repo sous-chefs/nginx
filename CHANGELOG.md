@@ -2,6 +2,18 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## 3.1.0 (2016-09-14)
+- Resolve FC023 warnings
+- FreeBSD fixes
+- Fail hard on unsupported platforms in the source recipe
+- Install 'ca-certificates' packages with passenger
+- Add `passenger_show_version_in_header` config
+- Remove chef 11 compatibility
+- Replace apt/yum deps with compat_resource
+- Fix specs for freebsd source installs
+- Remove apt recipe from the repo_passenger recipe
+- Switch to += operator as << also incorrectly replaces text in root.
+
 ## 3.0.0 (2016-08-18)
 
 ### Breaking changes
