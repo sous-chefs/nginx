@@ -66,7 +66,7 @@ describe 'chef_nginx::source' do
     end
   end
 
-  cached(:chef_run) do
+  let(:chef_run) do
     ChefSpec::ServerRunner.new(platform: 'debian', version: '7.10').converge(described_recipe)
   end
 
@@ -93,8 +93,8 @@ describe 'chef_nginx::source' do
   end
 
   context 'On Debian 8' do
-    cached(:chef_run) do
-      ChefSpec::ServerRunner.new(platform: 'debian', version: '8.5').converge(described_recipe)
+    let(:chef_run) do
+      ChefSpec::ServerRunner.new(platform: 'debian', version: '8.5').converge('chef_nginx::source')
     end
 
     it 'creates systemd unit file' do
@@ -106,19 +106,9 @@ describe 'chef_nginx::source' do
     end
   end
 
-  context 'Freebsd familly' do
-    cached(:chef_run) do
-      ChefSpec::ServerRunner.new(platform: 'freebsd', version: '10.3').converge(described_recipe)
-    end
-
-    it 'logs a warning that the platform is unsupported' do
-      expect { chef_run }.to raise_error
-    end
-  end
-
   context 'On RHEL 6' do
-    cached(:chef_run) do
-      ChefSpec::ServerRunner.new(platform: 'centos', version: '6.8').converge(described_recipe)
+    let(:chef_run) do
+      ChefSpec::ServerRunner.new(platform: 'centos', version: '6.8').converge('chef_nginx::source')
     end
 
     it 'creates init script' do
@@ -131,22 +121,22 @@ describe 'chef_nginx::source' do
   end
 
   context 'On RHEL 7' do
-    cached(:chef_run) do
-      ChefSpec::ServerRunner.new(platform: 'centos', version: '7.2.1511').converge(described_recipe)
+    let(:chef_run) do
+      ChefSpec::ServerRunner.new(platform: 'centos', version: '7.2.1511').converge('chef_nginx::source')
     end
 
     it 'creates systemd unit file' do
       expect(chef_run).to render_file('/lib/systemd/system/nginx.service')
     end
 
-    it 'generates defaults configuration' do
+    it 'generates sysconfig configuration' do
       expect(chef_run).to render_file('/etc/sysconfig/nginx')
     end
   end
 
   context 'On openSUSE 13.2' do
-    cached(:chef_run) do
-      ChefSpec::ServerRunner.new(platform: 'opensuse', version: '13.2').converge(described_recipe)
+    let(:chef_run) do
+      ChefSpec::ServerRunner.new(platform: 'opensuse', version: '13.2').converge('chef_nginx::source')
     end
 
     it 'creates systemd unit file' do
@@ -159,7 +149,7 @@ describe 'chef_nginx::source' do
   end
 
   context 'with Runit init system set' do
-    cached(:chef_run) do
+    let(:chef_run) do
       ChefSpec::ServerRunner.new(platform: 'debian', version: '8.5') do |node|
         node.normal['nginx']['init_style'] = 'runit'
       end.converge(described_recipe)
