@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## 3.1.1 (2016-09-21)
+- Raise on error vs. Chef::Appliation.fatal
+- Require compat_resource with notification fixes
+
 ## 3.1.0 (2016-09-14)
 - Resolve FC023 warnings
 - FreeBSD fixes
