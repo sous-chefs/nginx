@@ -13,7 +13,7 @@ depends 'build-essential'
 depends 'ohai', '>= 4.1.0'
 depends 'yum-epel'
 depends 'runit', '>= 1.6.0'
-depends 'compat_resource', '>= 12.14.3'
+depends 'compat_resource', '>= 12.14.6'
 depends 'zypper'
 
 supports 'amazon'
