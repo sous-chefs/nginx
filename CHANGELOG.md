@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## 3.1.2 (2016-10-24)
+- [GH-26] Remove guard on package[nginx] resource
+- Fix pcre packages on RHEL that prevented pagespeed module compilation
+
 ## 3.1.1 (2016-09-21)
 - Raise on error vs. Chef::Appliation.fatal
 - Require compat_resource with notification fixes
