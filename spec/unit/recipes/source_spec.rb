@@ -100,10 +100,6 @@ describe 'chef_nginx::source' do
     it 'creates systemd unit file' do
       expect(chef_run).to render_file('/lib/systemd/system/nginx.service')
     end
-
-    it 'generates defaults configuration' do
-      expect(chef_run).to render_file('/etc/default/nginx')
-    end
   end
 
   context 'On RHEL 6' do
@@ -128,10 +124,6 @@ describe 'chef_nginx::source' do
     it 'creates systemd unit file' do
       expect(chef_run).to render_file('/lib/systemd/system/nginx.service')
     end
-
-    it 'generates sysconfig configuration' do
-      expect(chef_run).to render_file('/etc/sysconfig/nginx')
-    end
   end
 
   context 'On openSUSE 13.2' do
@@ -141,10 +133,6 @@ describe 'chef_nginx::source' do
 
     it 'creates systemd unit file' do
       expect(chef_run).to render_file('/usr/lib/systemd/system/nginx.service')
-    end
-
-    it 'generates defaults configuration' do
-      expect(chef_run).to render_file('/etc/sysconfig/nginx')
     end
   end
 
