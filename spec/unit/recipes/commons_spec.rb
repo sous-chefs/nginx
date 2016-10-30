@@ -27,7 +27,7 @@ describe 'chef_nginx::commons' do
     %W(
       /etc/nginx
       /var/log/nginx
-      #{File.dirname('/var/run/nginx.pid')}
+      #{File.dirname('/run/nginx.pid')}
       /etc/nginx/sites-available
       /etc/nginx/sites-enabled
       /etc/nginx/conf.d
