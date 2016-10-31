@@ -249,7 +249,7 @@ These attributes are used in the `chef_nginx::upload_progress_module` recipe.
 This cookbook provides three main recipes for installing nginx.
 
 - `default.rb` - _Use this recipe_ if you have a native package for nginx.
-- `repo.rb` - The developer of nginx also maintain [stable packages](http://nginx.org/en/download.html) for several platforms.
+- `repo.rb` - _Use this recipe_ if you want to use official nginx.org repositories for RHEL, Debian/Ubuntu, and Suse platforms.
 - `source.rb` - _Use this recipe_ if you do not have a native package for nginx, or if you want to install a newer version than is available, or if you have custom module compilation needs.
 
 Several recipes are related to the `source` recipe specifically. See that recipe's section below for a description.
