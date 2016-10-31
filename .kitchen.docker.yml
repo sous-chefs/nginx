@@ -90,9 +90,9 @@ platforms:
       - RUN zypper --non-interactive install aaa_base perl-Getopt-Long-Descriptive which hostname
 
 suites:
-  - name: default
+  - name: distro_packages
     run_list:
-      - recipe[test::default]
+      - recipe[test::distro_packages]
   - name: source
     run_list:
       - recipe[test::source]

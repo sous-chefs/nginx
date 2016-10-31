@@ -15,4 +15,5 @@ node.default['nginx']['source']['modules'] = %w(
   chef_nginx::openssl_source
   chef_nginx::upload_progress_module)
 
-include_recipe 'chef_nginx::default'
+include_recipe 'test::_base'
+include_recipe 'test::_test_site'
