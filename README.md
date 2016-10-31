@@ -136,34 +136,7 @@ These attributes are used in the `chef_nginx::ngx_devel_module` recipe.
 - `node['nginx']['devel']['url']` - The URL of the nginx devel module tar.gz file
 - `node['nginx']['devel']['checksum']` - The checksum of the nginx devel module tar.gz file
 
-#### chef_nginx::rate_limiting
-
-- `node['nginx']['enable_rate_limiting']` - set to true to enable rate limiting (`limit_req_zone` in nginx.conf)
-- `node['nginx']['rate_limiting_zone_name']` - sets the zone in `limit_req_zone`.
-- `node['nginx']['rate_limiting_backoff']` - sets the backoff time for `limit_req_zone`.
-- `node['nginx']['rate_limit']` - set the rate limit amount for `limit_req_zone`.
-
-### chef_nginx::http_realip_module
-
-From: <http://nginx.org/en/docs/http/ngx_http_realip_module.html>
-
-- `node['nginx']['realip']['header']` - Header to use for the RealIp Module; only accepts "X-Forwarded-For" or "X-Real-IP"
-- `node['nginx']['realip']['addresses']` - Addresses to use for the `http_realip` configuration.
-- `node['nginx']['realip']['real_ip_recursive']` - If recursive search is enabled, the original client address that matches one of the trusted addresses is replaced by the last non-trusted address sent in the request header field. Can be on "on" or "off" (default).
-
-### source
-
-These attributes are used in the `chef_nginx::source` recipe. Some of them are dynamically modified during the run. See `attributes/source.rb` for default values.
-
-- `node['nginx']['source']['url']` - (versioned) URL for the nginx source code. By default this will use the version specified as `node['nginx']['version']`.
-- `node['nginx']['source']['prefix']` - (versioned) prefix for installing nginx from source
-- `node['nginx']['source']['conf_path']` - location of the main config file, in `node['nginx']['dir']` by default.
-- `node['nginx']['source']['modules']` - Array of modules that should be compiled into nginx by including their recipes in `chef_nginx::source`.
-- `node['nginx']['source']['default_configure_flags']` - The default flags passed to the configure script when building nginx.
-- `node['nginx']['configure_flags']` - Preserved for compatibility and dynamically generated from the `node['nginx']['source']['default_configure_flags']` in the `chef_nginx::source` recipe.
-- `node['nginx']['source']['use_existing_user']` - set to `true` if you do not want `chef_nginx::source` recipe to create system user with name `node['nginx']['user']`.
-
-### geoip
+### chef_nginx::geoip
 
 These attributes are used in the `chef_nginx::http_geoip_module` recipe. Please note that the `country_dat_checksum` and `city_dat_checksum` are based on downloads from a datacenter in Fremont, CA, USA. You really should override these with checksums for the geo tarballs from your node location.
 
@@ -179,17 +152,15 @@ These attributes are used in the `chef_nginx::http_geoip_module` recipe. Please 
 - `node['nginx']['geoip']['lib_url']` - (Versioned) Tarball URL of the GeoIP library
 - `node['nginx']['geoip']['lib_checksum']` - Checksum of the GeoIP library tarball
 
-### upload_progress
+### chef_nginx::http_realip_module
 
-These attributes are used in the `chef_nginx::upload_progress_module` recipe.
+From: <http://nginx.org/en/docs/http/ngx_http_realip_module.html>
 
-- `node['nginx']['upload_progress']['url']` - URL for the tarball.
-- `node['nginx']['upload_progress']['checksum']` - Checksum of the tarball.
-- `node['nginx']['upload_progress']['javascript_output']` - Output in javascript. Default is `true` for backwards compatibility.
-- `node['nginx']['upload_progress']['zone_name']` - Zone name which will be used to store the per-connection tracking information. Default is `proxied`.
-- `node['nginx']['upload_progress']['zone_size']` - Zone size in bytes. Default is `1m` (1 megabyte).
+- `node['nginx']['realip']['header']` - Header to use for the RealIp Module; only accepts "X-Forwarded-For" or "X-Real-IP"
+- `node['nginx']['realip']['addresses']` - Addresses to use for the `http_realip` configuration.
+- `node['nginx']['realip']['real_ip_recursive']` - If recursive search is enabled, the original client address that matches one of the trusted addresses is replaced by the last non-trusted address sent in the request header field. Can be on "on" or "off" (default).
 
-### passenger
+### chef_nginx::passenger
 
 These attributes are used in the `chef_nginx::passenger` recipe.
 
@@ -214,27 +185,21 @@ Basic configuration to use the official Phusion Passenger repositories:
 - `node['nginx']['package_name']` - 'nginx-extras'
 - `node['nginx']['passenger']['install_method']` - 'package'
 
-### status
-
-These attributes are used in the `chef_nginx::http_stub_status_module` recipe.
-
-- `node['nginx']['status']['port']` - The port on which nginx will serve the status info (default: 8090)
-
-### syslog
-
-These attributes are used in the `chef_nginx::syslog_module` recipe.
-
-- `node['nginx']['syslog']['git_repo']` - The git repository url to use for the syslog patches.
-- `node['nginx']['syslog']['git_revision']` - The revision on the git repository to checkout.
-
-### openssl_source
+### chef_nginx::openssl_source
 
 These attributes are used in the `chef_nginx::openssl_source` recipe.
 
 - `node['nginx']['openssl_source']['version']` - The version of OpenSSL you want to download and use (default: 1.0.1t)
 - `node['nginx']['openssl_source']['url']` - The url for the OpenSSL source
 
-## socketproxy.rb
+### chef_nginx::rate_limiting
+
+- `node['nginx']['enable_rate_limiting']` - set to true to enable rate limiting (`limit_req_zone` in nginx.conf)
+- `node['nginx']['rate_limiting_zone_name']` - sets the zone in `limit_req_zone`.
+- `node['nginx']['rate_limiting_backoff']` - sets the backoff time for `limit_req_zone`.
+- `node['nginx']['rate_limit']` - set the rate limit amount for `limit_req_zone`.
+
+### chef_nginx::socketproxy
 
 These attributes are used in the `chef_nginx::socketproxy` recipe.
 
@@ -243,6 +208,41 @@ These attributes are used in the `chef_nginx::socketproxy` recipe.
 - `node['nginx']['socketproxy']['apps']['app_name']['prepend_slash']` - Prepend a slash to requests to app "app_name" before sending them to the socketproxy socket.
 - `node['nginx']['socketproxy']['apps']['app_name']['context_name']` - URI (e.g. "app_name" in order to achieve "<http://mydomain.com/app_name>") at which to host the application "app_name"
 - `node['nginx']['socketproxy']['apps']['app_name']['subdir']` - Directory (under `node['nginx']['socketproxy']['root']`) in which to find the application.
+
+### chef_nginx::source
+
+These attributes are used in the `chef_nginx::source` recipe. Some of them are dynamically modified during the run. See `attributes/source.rb` for default values.
+
+- `node['nginx']['source']['url']` - (versioned) URL for the nginx source code. By default this will use the version specified as `node['nginx']['version']`.
+- `node['nginx']['source']['prefix']` - (versioned) prefix for installing nginx from source
+- `node['nginx']['source']['conf_path']` - location of the main config file, in `node['nginx']['dir']` by default.
+- `node['nginx']['source']['modules']` - Array of modules that should be compiled into nginx by including their recipes in `chef_nginx::source`.
+- `node['nginx']['source']['default_configure_flags']` - The default flags passed to the configure script when building nginx.
+- `node['nginx']['configure_flags']` - Preserved for compatibility and dynamically generated from the `node['nginx']['source']['default_configure_flags']` in the `chef_nginx::source` recipe.
+- `node['nginx']['source']['use_existing_user']` - set to `true` if you do not want `chef_nginx::source` recipe to create system user with name `node['nginx']['user']`.
+
+### chef_nginx::status
+
+These attributes are used in the `chef_nginx::http_stub_status_module` recipe.
+
+- `node['nginx']['status']['port']` - The port on which nginx will serve the status info (default: 8090)
+
+### chef_nginx::syslog
+
+These attributes are used in the `chef_nginx::syslog_module` recipe.
+
+- `node['nginx']['syslog']['git_repo']` - The git repository url to use for the syslog patches.
+- `node['nginx']['syslog']['git_revision']` - The revision on the git repository to checkout.
+
+### chef_nginx::upload_progress
+
+These attributes are used in the `chef_nginx::upload_progress_module` recipe.
+
+- `node['nginx']['upload_progress']['url']` - URL for the tarball.
+- `node['nginx']['upload_progress']['checksum']` - Checksum of the tarball.
+- `node['nginx']['upload_progress']['javascript_output']` - Output in javascript. Default is `true` for backwards compatibility.
+- `node['nginx']['upload_progress']['zone_name']` - Zone name which will be used to store the per-connection tracking information. Default is `proxied`.
+- `node['nginx']['upload_progress']['zone_size']` - Zone size in bytes. Default is `1m` (1 megabyte).
 
 ## Recipes
 
