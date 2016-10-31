@@ -1,5 +1,5 @@
 nginx_site 'default' do
-  enable false
+  enable false # legacy "action"
 end
 
 template "#{node['nginx']['dir']}/sites-available/test_site" do
@@ -9,6 +9,7 @@ template "#{node['nginx']['dir']}/sites-available/test_site" do
   group node['nginx']['user']
 end
 
-nginx_site 'test_site' do
-  enable true
+nginx_site 'Enable the test_site' do
+  name 'test_site'
+  action :enable # modern action
 end

@@ -301,16 +301,20 @@ The following recipes are used to build module support into nginx. To use a modu
 - `upload_progress_module.rb` - builds the `upload_progress` module and enables it as a module when compiling nginx.
 - `openssl_source.rb` - downloads and uses custom OpenSSL source when compiling nginx
 
-## Definitions
+## Resources
 
 ### nginx_site
 
 Enable or disable a Server Block in `#{node['nginx']['dir']}/sites-available` by calling nxensite or nxdissite (introduced by this cookbook) to manage the symbolic link in `#{node['nginx']['dir']}/sites-enabled`.
 
-### Parameters:
+### Actions
 
-- `name` - Name of the site.
-- `enable` - Default true, which uses `nxensite` to enable the site. If false, the site will be disabled with `nxdissite`.
+- `enable` - Enable the nginx site (default)
+- `disable` - Disable the nginx site
+
+### Properties:
+
+- `name` - (optional) Name of the site to enable. By default it's assumed that the name of the nginx_site resource is the site name, but this allows overriding that.
 - `template` - (optional) Path to the source for the `template` resource.
 - `variables` - (optional) Variables to be used with the `template` resource
 
