@@ -64,7 +64,7 @@ Ohai.plugin(:Nginx) do
             # This could be better: I'm splitting on configure arguments which removes them and also
             # adds a blank string at index 0 of the array. This is why we drop index 0 and map to
             # add the '--' prefix back to the configure argument.
-            nginx[:configure_arguments] = Regexp.last_match(1).split(/\s--/).drop(1).map { |ca| "--#{ca}" }
+            nginx[:configure_arguments] = Regexp.last_match(1).split(/\s--(?!param)/).drop(1).map { |ca| "--#{ca}" }
 
             prefix, conf_path = parse_flags(nginx[:configure_arguments])
 
