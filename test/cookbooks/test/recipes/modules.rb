@@ -15,6 +15,4 @@ node.default['nginx']['source']['modules'] = %w(
   chef_nginx::openssl_source
   chef_nginx::upload_progress_module)
 
-apt_update 'update' if platform_family?('debian')
-
 include_recipe 'chef_nginx::default'
