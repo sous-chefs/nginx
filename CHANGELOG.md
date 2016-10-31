@@ -2,18 +2,34 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## 4.0.0 (2016-10-31)
+
+### Breaking changes
+
+The nginx_site definition is now a custom_resource. This improves the overall experience and allows for notifications and reporting on resource updates. It does change the behavior in some circumstances however. Previously to disable a site you would set 'enable false' on your definition. This will still function, but will result in a deprecation warning. Instead you should use 'action :disable' since this is a real resource now.
+
+### Other changes
+
+- Avoid splitting on compile params in the ohai plugin, which resulted in some source installs attempting to install on every Chef run.
+- Expanded testing and improved kitchen suite setup
+- Improved documentation of attributes and cookbook usage
+
 ## 3.2.0 (2016-10-28)
+
 - Reload nginx on site change
 
 ## 3.1.2 (2016-10-24)
+
 - [GH-26] Remove guard on package[nginx] resource
 - Fix pcre packages on RHEL that prevented pagespeed module compilation
 
 ## 3.1.1 (2016-09-21)
+
 - Raise on error vs. Chef::Appliation.fatal
 - Require compat_resource with notification fixes
 
 ## 3.1.0 (2016-09-14)
+
 - Resolve FC023 warnings
 - FreeBSD fixes
 - Fail hard on unsupported platforms in the source recipe
