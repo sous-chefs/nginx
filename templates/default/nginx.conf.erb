@@ -1,5 +1,5 @@
 user <%= node['nginx']['user'] %><% if node['nginx']['user'] != node['nginx']['group'] %> <%= node['nginx']['group'] %><% end %>;
-worker_processes  <%= node['nginx']['worker_processes'] %>;
+worker_processes <%= node['nginx']['worker_processes'] %>;
 <% if node['nginx']['daemon_disable'] -%>
 daemon off;
 <% end -%>
@@ -9,7 +9,6 @@ worker_rlimit_nofile <%= node['nginx']['worker_rlimit_nofile'] %>;
 
 error_log  <%= node['nginx']['log_dir'] %>/error.log<% if node['nginx']['error_log_options'] %> <%= node['nginx']['error_log_options'] %><% end %>;
 pid        <%= node['nginx']['pid'] %>;
-
 events {
   worker_connections  <%= node['nginx']['worker_connections'] %>;
 <% if node['nginx']['multi_accept'] -%>
