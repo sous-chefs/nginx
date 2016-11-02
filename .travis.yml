@@ -20,6 +20,15 @@ services: docker
 
 env:
   matrix:
+  - INSTANCE=upstream-repo-centos-6
+  - INSTANCE=upstream-repo-centos-7
+  - INSTANCE=upstream-repo-debian-7
+  - INSTANCE=upstream-repo-debian-8
+  - INSTANCE=upstream-repo-opensuse-132
+  - INSTANCE=upstream-repo-opensuse-421
+  - INSTANCE=upstream-repo-ubuntu-1204
+  - INSTANCE=upstream-repo-ubuntu-1404
+  - INSTANCE=upstream-repo-ubuntu-1604
   - INSTANCE=distro-packages-centos-6
   - INSTANCE=distro-packages-centos-7
   - INSTANCE=distro-packages-debian-7
@@ -48,15 +57,6 @@ env:
   - INSTANCE=modules-ubuntu-1204
   - INSTANCE=modules-ubuntu-1404
   - INSTANCE=modules-ubuntu-1604
-  - INSTANCE=upstream-repo-centos-6
-  - INSTANCE=upstream-repo-centos-7
-  - INSTANCE=upstream-repo-debian-7
-  - INSTANCE=upstream-repo-debian-8
-  - INSTANCE=upstream-repo-opensuse-132
-  - INSTANCE=upstream-repo-opensuse-421
-  - INSTANCE=upstream-repo-ubuntu-1204
-  - INSTANCE=upstream-repo-ubuntu-1404
-  - INSTANCE=upstream-repo-ubuntu-1604
 
 before_script:
   - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )
