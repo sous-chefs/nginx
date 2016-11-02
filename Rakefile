@@ -11,7 +11,7 @@ namespace :style do
     desc 'Run Ruby style checks'
     RuboCop::RakeTask.new(:ruby)
   rescue LoadError => e
-    puts ">>> Gem load error: #{e}, omitting style:ruby" unless ENV['CI']
+    puts ">>> Gem load error: #{e}, omitting #{task.name}" unless ENV['CI']
   end
 
   begin
@@ -25,7 +25,7 @@ namespace :style do
       }
     end
   rescue LoadError
-    puts ">>> Gem load error: #{e}, omitting style:chef" unless ENV['CI']
+    puts ">>> Gem load error: #{e}, omitting #{task.name}" unless ENV['CI']
   end
 end
 
@@ -34,12 +34,11 @@ task style: ['style:chef', 'style:ruby']
 
 # ChefSpec
 begin
-  require 'rspec/core/rake_task'
-
   desc 'Run ChefSpec examples'
+  require 'rspec/core/rake_task'
   RSpec::Core::RakeTask.new(:spec)
 rescue LoadError => e
-  puts ">>> Gem load error: #{e}, omitting spec" unless ENV['CI']
+  puts ">>> Gem load error: #{e}, omitting #{task.name}" unless ENV['CI']
 end
 
 # Integration tests. Kitchen.ci
@@ -50,15 +49,14 @@ namespace :integration do
     desc 'Run kitchen integration tests'
     Kitchen::RakeTasks.new
   rescue StandardError => e
-    puts ">>> Kitchen error: #{e}, omitting #{task.name}" unless ENV['CI']
+    puts ">>> Gem load error: #{e}, omitting #{task.name}" unless ENV['CI']
   end
 end
 
 namespace :supermarket do
   begin
-    require 'stove/rake_task'
-
     desc 'Publish cookbook to Supermarket with Stove'
+    require 'stove/rake_task'
     Stove::RakeTask.new
   rescue LoadError => e
     puts ">>> Gem load error: #{e}, omitting #{task.name}" unless ENV['CI']
