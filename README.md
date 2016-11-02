@@ -20,7 +20,7 @@ The following cookbooks are direct dependencies because they're used for common 
 
 - `build-essential` for source installations
 - `ohai` for setting up the ohai plugin
-- `runit` for source installs
+- `runit` for source installs using the runit init system
 - `compat_resource` for setting up the nginx.org repository on Chef 12.1 - 12.13
 - `yum-epel` for setting up the EPEL repository on RHEL platforms
 - `zypper` for setting up the nginx.org repository on Suse platforms
