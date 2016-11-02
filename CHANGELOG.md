@@ -2,6 +2,11 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## 4.0.1 (2016-10-31)
+- Fix a version check in the realip recipe
+- Align the config with the default config a bit
+- Fix the ChefSpec matchers now that nginx_site is a custom resource
+
 ## 4.0.0 (2016-10-31)
 
 ### Breaking changes
