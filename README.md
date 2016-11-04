@@ -316,6 +316,7 @@ Enable or disable a Server Block in `#{node['nginx']['dir']}/sites-available` by
 
 - `name` - (optional) Name of the site to enable. By default it's assumed that the name of the nginx_site resource is the site name, but this allows overriding that.
 - `template` - (optional) Path to the source for the `template` resource.
+- `cookbook` - (optional) The cookbook that contains the template source.
 - `variables` - (optional) Variables to be used with the `template` resource
 
 ## Adding New Modules
