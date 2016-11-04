@@ -42,6 +42,7 @@ action :enable do
   # use declare_resource so we can have a property also named template
   declare_resource(:template, "#{node['nginx']['dir']}/sites-available/#{new_resource.name}") do
     source new_resource.template
+    cookbook new_resource.cookbook
     variables(new_resource.variables)
     notifies :reload, 'service[nginx]'
     only_if { new_resource.template }
