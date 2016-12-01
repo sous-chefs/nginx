@@ -1,10 +1,10 @@
 #
-# Cookbook Name:: nginx
+# Cookbook:: nginx
 # Recipe:: headers_more_module
 #
 # Author:: Lucas Jandrew (<ljandrew@riotgames.com>)
 #
-# Copyright 2012-2013, Riot Games
+# Copyright:: 2012-2016, Riot Games
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.

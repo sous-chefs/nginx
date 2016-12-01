@@ -1,4 +1,4 @@
-# Cookbook Name:: nginx
+# Cookbook:: nginx
 # Recipe:: repo_passenger
 # Author:: Jose Alberto Suarez Lopez <ja@josealberto.org>
 #

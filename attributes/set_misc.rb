@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: nginx
+# Cookbook:: nginx
 # Attributes:: set_misc
 #
 

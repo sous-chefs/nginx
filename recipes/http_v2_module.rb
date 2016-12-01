@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: nginx
+# Cookbook:: nginx
 # Recipe:: http_v2_module
 #
 #
