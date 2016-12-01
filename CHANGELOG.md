@@ -2,6 +2,12 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## 4.0.2 (2016-12-01)
+- Default to openssl 1.0.2j with source installs
+- Add cookbook property to the nginx_site resource to allow using templates defined in other cookbooks
+- Prevent default docroot index.html on bad url in status
+- Readme improvements
+
 ## 4.0.1 (2016-10-31)
 - Fix a version check in the realip recipe
 - Align the config with the default config a bit
