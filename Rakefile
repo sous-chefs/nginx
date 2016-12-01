@@ -24,7 +24,7 @@ namespace :style do
         progress: true
       }
     end
-  rescue LoadError
+  rescue LoadError => e
     puts ">>> Gem load error: #{e}, omitting #{task.name}" unless ENV['CI']
   end
 end
@@ -34,10 +34,11 @@ task style: ['style:chef', 'style:ruby']
 
 # ChefSpec
 begin
-  desc 'Run ChefSpec examples'
   require 'rspec/core/rake_task'
+
+  desc 'Run ChefSpec examples'
   RSpec::Core::RakeTask.new(:spec)
-rescue LoadError => e
+rescue LoadError
   puts ">>> Gem load error: #{e}, omitting #{task.name}" unless ENV['CI']
 end
 
@@ -55,8 +56,9 @@ end
 
 namespace :supermarket do
   begin
-    desc 'Publish cookbook to Supermarket with Stove'
     require 'stove/rake_task'
+
+    desc 'Publish cookbook to Supermarket with Stove'
     Stove::RakeTask.new
   rescue LoadError => e
     puts ">>> Gem load error: #{e}, omitting #{task.name}" unless ENV['CI']
