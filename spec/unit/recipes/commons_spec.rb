@@ -67,7 +67,7 @@ describe 'chef_nginx::commons' do
     end
 
     it 'enables default site' do
-      expect(chef_run).to run_execute('nxensite default')
+      expect(chef_run).to enable_nginx_site('default')
     end
 
     context 'When the default website is disabled' do
