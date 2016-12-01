@@ -11,4 +11,8 @@ server {
     stub_status on;
     access_log off;
   }
+
+  location / {
+    return 404;
+  }
 }
