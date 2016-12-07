@@ -34,6 +34,13 @@ default['nginx']['default_root'] = '/var/www/nginx-default'
 default['nginx']['ulimit']       = '1024'
 default['nginx']['pid']          = '/var/run/nginx.pid'
 
+# use the upstream nginx repo vs. distro packages
+# this enables the use of modern nginx releases
+# set this to nil to use the distro packages
+# this is ignored if install_method is set to source
+default['nginx']['repo_source']    = 'nginx'
+default['nginx']['install_method'] = 'package'
+
 case node['platform_family']
 when 'debian'
   default['nginx']['user'] = 'www-data'
@@ -42,7 +49,6 @@ when 'debian'
   end
 when 'rhel'
   default['nginx']['user']        = 'nginx'
-  default['nginx']['repo_source'] = 'epel'
 when 'fedora'
   default['nginx']['user']        = 'nginx'
 when 'freebsd'
@@ -110,7 +116,6 @@ default['nginx']['access_log_options']     = nil
 default['nginx']['error_log_options']      = nil
 default['nginx']['disable_access_log']     = false
 default['nginx']['log_formats']            = {}
-default['nginx']['install_method']         = 'package'
 default['nginx']['default_site_enabled']   = true
 default['nginx']['types_hash_max_size']    = 2_048
 default['nginx']['types_hash_bucket_size'] = 64

@@ -6,11 +6,9 @@ Installs nginx from package OR source code and sets up configuration handling si
 
 ## nginx vs. chef_nginx
 
-This cookbook is a fork from the 2.7.x branch of the [community nginx cookbook](https://github.com/miketheman/nginx). This branch will be actively supported by Chef Software.
+This cookbook is a fork from the 2.7.x branch of the [community nginx cookbook](https://github.com/miketheman/nginx).
 
-We will continue to migrate the cookbook to a more resource driven model, with incremental changes that are non-breaking when possible.
-
-If this cookbook is eventually merged into the `nginx` namespace on the supermarket, this `chef_nginx` cookbook will receive updates in parallel (mirroring) in order to minimize disruption to users that have adopted this cookbook.
+This fork will be actively supported by Chef Software and we will continue to migrate the cookbook to a more resource driven model, with incremental changes following the SemVer model.
 
 ## Requirements
 
@@ -65,7 +63,7 @@ Generally used attributes. Some have platform specific values. See `attributes/d
 - `node['nginx']['group]` - Group for nginx.
 - `node['nginx']['port']` - Port for nginx to listen on.
 - `node['nginx']['binary']` - Path to the nginx binary.
-- `node['nginx']['init_style']` - How to run nginx as a service when using `chef_nginx::source`. Values can be "runit", "upstart", or "init". When using runit that recipes will be included as well. Recipes are not included for upstart, it is assumed that upstart is built into the platform you are using (ubuntu). This attribute is not used in the `package` recipe because the package manager's init script style for the platform is assumed.
+- `node['nginx']['init_style']` - How to run nginx as a service when using `chef_nginx::source`. Values can be "runit", "upstart", or "init". When using runit that recipes will be included as well. This attribute is not used in the `package` recipe because the package manager's init script style for the platform is assumed.
 - `node['nginx']['upstart']['foreground']` - Set this to true if you want upstart to run nginx in the foreground, set to false if you want upstart to detach and track the process via pid.
 - `node['nginx']['upstart']['runlevels']` - String of runlevels in the format '2345' which determines which runlevels nginx will start at when entering and stop at when leaving.
 - `node['nginx']['upstart']['respawn_limit']` - Respawn limit in upstart stanza format, count followed by space followed by interval in seconds.
@@ -244,62 +242,77 @@ These attributes are used in the `chef_nginx::upload_progress_module` recipe.
 - `node['nginx']['upload_progress']['zone_name']` - Zone name which will be used to store the per-connection tracking information. Default is `proxied`.
 - `node['nginx']['upload_progress']['zone_size']` - Zone size in bytes. Default is `1m` (1 megabyte).
 
-## Recipes
+## Resources
 
-This cookbook provides three main recipes for installing nginx.
+### nginx_site
 
-- `default.rb` - _Use this recipe_ to install nginx from either a distro package or a package provided by the repo recipe below. Note you'll need to include the repo recipe first if you plan to use the nginx.org repo.
-- `repo.rb` - _Use this recipe_ if you want to use official nginx.org repositories for RHEL, Debian/Ubuntu, and Suse platforms.
-- `source.rb` - _Use this recipe_ to compile nginx from source to avoid distro/nginx.org packages. This gives you the ultimate control over the version of nginx you use and the included modules, but it requires a number of compilation tools and time.
+Enable or disable a Server Block in `#{node['nginx']['dir']}/sites-available` by calling nxensite or nxdissite (introduced by this cookbook) to manage the symbolic link in `#{node['nginx']['dir']}/sites-enabled`.
 
-Several recipes are related to the `source` recipe specifically. See that recipe's section below for a description.
+### Actions
 
-### default
+- `enable` - Enable the nginx site (default)
+- `disable` - Disable the nginx site
 
-The default recipe will install nginx as a native package for the system through the package manager and sets up the configuration according to the Debian site enable/disable style with `sites-enabled` using the `nxensite` and `nxdissite` scripts. The nginx service will be managed with the normal init scripts that are presumably included in the native package.
+### Properties:
 
-Includes the `ohai_plugin` recipe so the plugin is available.
+- `name` - (optional) Name of the site to enable. By default it's assumed that the name of the nginx_site resource is the site name, but this allows overriding that.
+- `template` - (optional) Path to the source for the `template` resource.
+- `variables` - (optional) Variables to be used with the `template` resource
 
-### socketproxy
+## Ohai Plugin
 
-This will add socketproxy support to your nginx proxy setup. Do not include this recipe directly. Instead, add it to the `node['nginx']['default']['modules']` array (see below).
+The `ohai_plugin` recipe includes an Ohai plugin. It will be automatically installed and activated, providing the following attributes via ohai, no matter how nginx is installed (source or package):
 
-### ohai_plugin
+- `node['nginx']['version']` - version of nginx
+- `node['nginx']['configure_arguments']` - options passed to `./configure` when nginx was built
+- `node['nginx']['prefix']` - installation prefix
+- `node['nginx']['conf_path']` - configuration file path
 
-This recipe provides an Ohai plugin as a template. It is included by both the `default` and `source` recipes.
+In the source recipe, it is used to determine whether control attributes for building nginx have changed.
 
-### authorized_ips
+## Usage
 
-Sets up configuration for the `authorized_ip` nginx module.
+This cookbook provides three distinct installation methods, all of which are controlled via attributes and executed using the chef_nginx::default recipe.
 
-### source
+### Package installation using the nginx.org repositories
 
-This recipe is responsible for building nginx from source. It ensures that the required packages to build nginx are installed (pcre, openssl, compile tools). The source will be downloaded from the `node['nginx']['source']['url']`. The `node['nginx']['user']` will be created as a system user. If you want to use existing user set `node['nginx']['source']['use_existing_user']` to `true`. The appropriate configuration and log directories and config files will be created as well according to the attributes `node['nginx']['dir']` and `node['nginx']['log_dir']`.
+Nginx provides repositories for RHEL, Debian/Ubuntu, and Suse platforms with up to date packages available on older distributions. Due to the age of many nginx packages shipping with distros we believe this is the ideal installation method. With no attributes set the nginx.org repositories will be added to your system and nginx will be installed via package. This provides a solid out of the box install for most users.
 
-The recipe attempts to detect whether additional modules should be added to the configure command through recipe inclusion (see below), and whether the version or configuration flags have changed and should trigger a recompile.
+### Package installation using distro repositories
 
-The nginx service will be set up according to `node['nginx']['init_style']`. Available options are:
+If you prefer to use the packages included in your distro or to roll your own packages you'll want to set `node['nginx']['repo_source']` to `nil` to skip the repository setup. The default recipe will still install nginx from packages, but you'll retain control over the package location.
 
-- runit: uses runit cookbook and sets up `runit_service`.
-- anything else (e.g., "init") will use the nginx init script template.
+### Source installation to compile non-dynamic modules
 
-**RHEL/CentOS** This recipe should work on RHEL/CentOS with "init" as the init style.
+If you need control over how nginx is built, or you need non-dynamic modules to be included you'll need to compile nginx from source. We highly recommend against using this method as it requires the installation of a full compilation toolchain and development dependencies on your nodes. Creating your own packages with nginx compiled as necessary is a preferred option. If that's not possible you can set `node['nginx']['install_method']` to `source` and provide a version in `node['nginx']['version']`.
 
-The following recipes are used to build module support into nginx. To use a module in the `chef_nginx::source` recipe, add its recipe name to the attribute `node['nginx']['source']['modules']`.
+#### Specifying Modules to compile
+
+The following recipes are used to build module support into nginx. To compile a module, add its recipe name to the array attribute `node['nginx']['source']['modules']`.
 
 - `ipv6.rb` - enables IPv6 support
+- `headers_more_module` -
+- `http_auth_request_module``
 - `http_echo_module.rb` - downloads the `http_echo_module` module and enables it as a module when compiling nginx.
 - `http_geoip_module.rb` - installs the GeoIP libraries and data files and enables the module for compilation.
 - `http_gzip_static_module.rb` - enables the module for compilation. Be sure to set `node['nginx']['gzip_static'] = 'yes'`.
+- `http_mp4_module` -
 - `http_perl_module.rb` - enables embedded Perl for compilation.
 - `http_realip_module.rb` - enables the module for compilation and creates the configuration.
+- `http_spdy_module` -
 - `http_ssl_module.rb` - enables SSL for compilation.
 - `http_stub_status_module.rb` - provides `nginx_status` configuration and enables the module for compilation.
+- `http_v2_module`
+- `ipv6` -
 - `naxsi_module` - enables the naxsi module for the web application firewall for nginx.
-- `passenger` - builds the passenger gem and configuration for "`mod_passenger`".
-- `syslog` - enables syslog support for nginx. This only works with source builds. See <https://github.com/yaoweibin/nginx_syslog_patch>
-- `upload_progress_module.rb` - builds the `upload_progress` module and enables it as a module when compiling nginx.
+- `ngx_devel_module` -
+- `ngx_lua_module` -
 - `openssl_source.rb` - downloads and uses custom OpenSSL source when compiling nginx
+- `pagespeed_module`-
+- `passenger` - builds the passenger gem and configuration for "`mod_passenger`".
+- `set_misc` -
+- `syslog_module` - enables syslog support for nginx. This only works with source builds. See <https://github.com/yaoweibin/nginx_syslog_patch> -
+- `upload_progress_module.rb` - builds the `upload_progress` module and enables it as a module when compiling nginx.
 
 ## Resources
 
@@ -321,31 +334,12 @@ Enable or disable a Server Block in `#{node['nginx']['dir']}/sites-available` by
 
 ## Adding New Modules
 
-To add a new module to be compiled into nginx in the source recipe, the node's run state is manipulated in a recipe, and the module as a recipe should be added to `node['nginx']['source']['modules']`. For example:
+Previously we'd add each possible module to this cookbook itself. That's not necessary using wrapper cookbooks and we'd prefer to not add any addition module recipes at this time. Instead in your nginx wrapper cookbook setup any necessary packages and then include the follow code to add the module to the list of modules to compile:
 
 ```ruby
 node.run_state['nginx_configure_flags'] =
-  node.run_state['nginx_configure_flags'] | ['--with-http_stub_status_module']
+  node.run_state['nginx_configure_flags'] | ['--with-SOMETHING', "--with-SOME_OPT='things'"]
 ```
-
-The recipe will be included by `recipe[chef_nginx::source]` automatically, adding the configure flags. Add any other configuration templates or other resources as required. See the recipes described above for examples.
-
-## Ohai Plugin
-
-The `ohai_plugin` recipe includes an Ohai plugin. It will be automatically installed and activated, providing the following attributes via ohai, no matter how nginx is installed (source or package):
-
-- `node['nginx']['version']` - version of nginx
-- `node['nginx']['configure_arguments']` - options passed to `./configure` when nginx was built
-- `node['nginx']['prefix']` - installation prefix
-- `node['nginx']['conf_path']` - configuration file path
-
-In the source recipe, it is used to determine whether control attributes for building nginx have changed.
-
-## Usage
-
-Include the recipe on your node or role that fits how you wish to install nginx on your system per the recipes section above. Modify the attributes as required in your role to change how various configuration is applied per the attributes section above. In general, override attributes in the role should be used when changing attributes.
-
-There's some redundancy in that the config handling hasn't been separated from the installation method (yet), so use only one of the recipes, default or source.
 
 ## License & Authors
 
