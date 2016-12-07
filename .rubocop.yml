@@ -17,5 +17,5 @@ HashSyntax:
     - 'spec/**/*'
     - 'test/**/*'
 # Don't fail on whitespace between method names and arguments
-Style/SingleSpaceBeforeFirstArg:
+Style/SpaceBeforeFirstArg:
   Enabled: false

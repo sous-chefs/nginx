@@ -2,10 +2,19 @@ nginx Cookbook CHANGELOG
 ========================
 This file is used to list changes made in each version of the nginx cookbook.
 
-v2.7.6 / 2015-03-17
-==================
+v2.7.7 (2016-12-07)
+-------------------
+* depends 'apt',             '~> 5.0'
+* depends 'bluepill',        '~> 3.0'
+* depends 'build-essential', '~> 7.0'
+* depends 'ohai',            '~> 4.2'
+* depends 'runit',           '~> 3.0'
+* depends 'yum-epel',        '~> 1.0'
 
-  * Bugfix sites do not need a .conf suffix anymore, [#338][] [@runningman84][]
+v2.7.6 (2015-03-17)
+-------------------
+
+* Bugfix sites do not need a .conf suffix anymore, [#338][] [@runningman84][]
 
 v2.7.5 (2015-03-17)
 -------------------

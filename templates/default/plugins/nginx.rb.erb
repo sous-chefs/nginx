@@ -16,51 +16,63 @@
 # limitations under the License.
 #
 
-provides "nginx"
-provides "nginx/version"
-provides "nginx/configure_arguments"
-provides "nginx/prefix"
-provides "nginx/conf_path"
+Ohai.plugin(:Nginx) do
 
-def parse_flags(flags)
-  prefix = nil
-  conf_path = nil
+  provides 'nginx'
 
-  flags.each do |flag|
-    case flag
-    when /^--prefix=(.+)$/
-      prefix = $1
-    when /^--conf-path=(.+)$/
-      conf_path = $1
-    end
+  def create_objects
+    nginx Mash.new
+    nginx[:version] = nil
+    nginx[:configure_arguments] = Array.new
+    nginx[:prefix] = nil
+    nginx[:conf_path] = nil
   end
 
-  [ prefix, conf_path ]
-end
+  def parse_flags(flags)
+    prefix = nil
+    conf_path = nil
 
-nginx Mash.new unless nginx
-nginx[:version]             = nil unless nginx[:version]
-nginx[:configure_arguments] = Array.new unless nginx[:configure_arguments]
-nginx[:prefix]              = nil unless nginx[:prefix]
-nginx[:conf_path]           = nil unless nginx[:conf_path]
+    flags.each do |flag|
+      case flag
+      when /^--prefix=(.+)$/
+        prefix = $1
+      when /^--conf-path=(.+)$/
+        conf_path = $1
+      end
+    end
 
-status, stdout, stderr = run_command(:no_status_check => true, :command => "<%= node['nginx']['binary'] %> -V")
+    [ prefix, conf_path ]
+  end
 
-if status == 0
-  stderr.split("\n").each do |line|
-    case line
-    when /^configure arguments:(.+)/
-      # This could be better: I'm splitting on configure arguments which removes them and also
-      # adds a blank string at index 0 of the array. This is why we drop index 0 and map to
-      # add the '--' prefix back to the configure argument.
-      nginx[:configure_arguments] = $1.split(/\s--/).drop(1).map { |ca| "--#{ca}" }
+  collect_data(:default) do
 
-      prefix, conf_path = parse_flags(nginx[:configure_arguments])
+    create_objects
 
-      nginx[:prefix] = prefix
-      nginx[:conf_path] = conf_path
-    when /^nginx version: nginx\/(\d+\.\d+\.\d+)/
-      nginx[:version] = $1
+    begin
+      so = shell_out("<%= @nginx_bin -%> -V", cwd: "<%= @nginx_prefix -%>")
+      status = so.exitstatus
+      stderr = so.stderr
+    rescue Ohai::Exceptions::Exec => e
+      status = 1
+    end
+
+    if status == 0
+      stderr.split("\n").each do |line|
+        case line
+        when /^configure arguments:(.+)/
+          # This could be better: I'm splitting on configure arguments which removes them and also
+          # adds a blank string at index 0 of the array. This is why we drop index 0 and map to
+          # add the '--' prefix back to the configure argument.
+          nginx[:configure_arguments] = $1.split(/\s--/).drop(1).map { |ca| "--#{ca}" }
+
+          prefix, conf_path = parse_flags(nginx[:configure_arguments])
+
+          nginx[:prefix] = prefix
+          nginx[:conf_path] = conf_path
+        when /^nginx version: nginx\/(\d+\.\d+\.\d+)/
+          nginx[:version] = $1
+        end
+      end
     end
   end
 end
