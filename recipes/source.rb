@@ -105,6 +105,7 @@ end
 
 case node['nginx']['init_style']
 when 'runit'
+  Chef::Log.warn('The usage of the runit init system for nginx is highly discouraged. Modern distro init systems will more than likely provide you with a better experience. Runit will be removed from this cookbook in the future.')
   node.normal['nginx']['src_binary'] = node['nginx']['binary']
   include_recipe 'runit::default'
 
