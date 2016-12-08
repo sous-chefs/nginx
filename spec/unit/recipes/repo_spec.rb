@@ -13,7 +13,7 @@ describe 'chef_nginx::repo' do
 
   context 'Debian' do
     let(:chef_run) do
-      ChefSpec::ServerRunner.new(platform: 'debian', version: '8.5').converge(described_recipe)
+      ChefSpec::ServerRunner.new(platform: 'debian', version: '8.6').converge(described_recipe)
     end
 
     it 'adds apt repository' do

@@ -280,7 +280,7 @@ Nginx provides repositories for RHEL, Debian/Ubuntu, and Suse platforms with up 
 
 ### Package installation using distro repositories
 
-If you prefer to use the packages included in your distro or to roll your own packages you'll want to set `node['nginx']['repo_source']` to `nil` to skip the repository setup. The default recipe will still install nginx from packages, but you'll retain control over the package location.
+If you prefer to use the packages included in your distro or to roll your own packages you'll want to set `node['nginx']['repo_source']` to `nil` or `distro` to skip the repository setup. The default recipe will still install nginx from packages, but you'll retain control over the package location.
 
 ### Source installation to compile non-dynamic modules
 
