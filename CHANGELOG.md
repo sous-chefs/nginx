@@ -2,6 +2,18 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## 5.0.0 (2016-12-07)
+
+### Breaking changes
+
+- Default to the upstream nginx.org repo for package installs. The official nginx repo gives an improved experience over outdated distro releases. This can be disabled via attribute if you'd like to remain on the distro packages.
+
+### Other changes
+
+- Add a deprecation warning when using runit
+- Rewrite the readme usage section
+- Better document how to compile modules
+
 ## 4.0.2 (2016-12-01)
 - Default to openssl 1.0.2j with source installs
 - Add cookbook property to the nginx_site resource to allow using templates defined in other cookbooks
