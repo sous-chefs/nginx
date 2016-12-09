@@ -21,16 +21,12 @@ remote_file psol_src_filepath do
   not_if { ::File.exist?(psol_src_filepath) }
 end
 
-packages = value_for_platform_family(
+package_array = value_for_platform_family(
   %w(rhel)   => node['nginx']['pagespeed']['packages']['rhel'],
   %w(debian) => node['nginx']['pagespeed']['packages']['debian']
 )
 
-unless packages.empty?
-  packages.each do |name|
-    package name
-  end
-end
+packages package_array unless package_array.empty?
 
 bash 'extract_pagespeed' do
   cwd  ::File.dirname(src_filepath)
