@@ -34,21 +34,32 @@ suites:
   - name: distro_packages
     run_list:
       - recipe[test::distro_packages]
-    excludes:
-      - opensuse-13.2 # lacks nginx package
+    excludes: # these all lack distro packages
+      - opensuse-13.2
+      - centos-5.11
+      - centos-6.8
+      - centos-7.2
   - name: source
     run_list:
       - recipe[test::source]
-    excludes:
-      - ubuntu-16.04-chef-12.1
-      - freebsd-9.3
-      - freebsd-10.3
+  - name: epel
+    run_list:
+      - recipe[test::epel]
+    includes:
+      - centos-5.11
+      - centos-6.8
+      - centos-7.2
+  - name: source
+    run_list:
+      - recipe[test::source]
   - name: upstream_repo
     run_list:
       - recipe[test::upstream_repo]
     excludes:
       - fedora-24 # lacks nginx repo
       - ubuntu-16.04-chef-12.1
+      - freebsd-9.3
+      - freebsd-10.3
   - name: modules
     run_list:
       - recipe[test::modules]

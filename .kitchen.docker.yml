@@ -28,7 +28,7 @@ platforms:
     pid_one_command: /bin/systemd
     intermediate_instructions:
       - RUN /usr/bin/apt-get update
-      - RUN /usr/bin/apt-get install openssl apt-transport-https lsb-release procs net-tools -y
+      - RUN /usr/bin/apt-get install openssl apt-transport-https lsb-release procps net-tools -y
 
 - name: centos-5
   driver:
@@ -103,12 +103,29 @@ suites:
   - name: distro_packages
     run_list:
       - recipe[test::distro_packages]
+    excludes: # these all lack distro packages
+      - opensuse-13.2
+      - centos-5
+      - centos-6
+      - centos-7
+  - name: source
+    run_list:
+      - recipe[test::source]
+  - name: epel
+    run_list:
+      - recipe[test::epel]
+    includes:
+      - centos-5
+      - centos-6
+      - centos-7
   - name: source
     run_list:
       - recipe[test::source]
   - name: upstream_repo
     run_list:
       - recipe[test::upstream_repo]
+    excludes:
+      - fedora-latest
   - name: modules
     run_list:
       - recipe[test::modules]
