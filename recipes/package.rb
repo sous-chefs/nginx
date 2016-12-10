@@ -35,7 +35,9 @@ if platform_family?('rhel')
   end
 elsif platform_family?('debian')
   include_recipe 'chef_nginx::repo_passenger' if node['nginx']['repo_source'] == 'passenger'
-  include_recipe 'chef_nginx::repo'           if node['nginx']['repo_source'] == 'nginx'
+  include_recipe 'chef_nginx::repo' if node['nginx']['repo_source'] == 'nginx'
+else
+  include_recipe 'chef_nginx::repo' if node['nginx']['repo_source'] == 'nginx'
 end
 
 package node['nginx']['package_name'] do
