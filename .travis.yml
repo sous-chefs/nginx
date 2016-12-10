@@ -29,8 +29,8 @@ env:
   - INSTANCE=upstream-repo-ubuntu-1204
   - INSTANCE=upstream-repo-ubuntu-1404
   - INSTANCE=upstream-repo-ubuntu-1604
-  - INSTANCE=distro-packages-centos-6
-  - INSTANCE=distro-packages-centos-7
+  - INSTANCE=epel-centos-6
+  - INSTANCE=epel-centos-7
   - INSTANCE=distro-packages-debian-7
   - INSTANCE=distro-packages-debian-8
   - INSTANCE=distro-packages-fedora-latest

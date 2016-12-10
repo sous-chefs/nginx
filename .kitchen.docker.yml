@@ -103,12 +103,29 @@ suites:
   - name: distro_packages
     run_list:
       - recipe[test::distro_packages]
+    excludes: # these all lack distro packages
+      - opensuse-13.2
+      - centos-5
+      - centos-6
+      - centos-7
+  - name: source
+    run_list:
+      - recipe[test::source]
+  - name: epel
+    run_list:
+      - recipe[test::epel]
+    includes:
+      - centos-5
+      - centos-6
+      - centos-7
   - name: source
     run_list:
       - recipe[test::source]
   - name: upstream_repo
     run_list:
       - recipe[test::upstream_repo]
+    excludes:
+      - fedora-latest
   - name: modules
     run_list:
       - recipe[test::modules]
