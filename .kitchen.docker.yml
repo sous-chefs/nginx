@@ -20,7 +20,7 @@ platforms:
     pid_one_command: /sbin/init
     intermediate_instructions:
       - RUN /usr/bin/apt-get update
-      - RUN /usr/bin/apt-get install lsb-release procps -y
+      - RUN /usr/bin/apt-get install lsb-release procps net-tools -y
 
 - name: debian-8
   driver:
@@ -28,7 +28,7 @@ platforms:
     pid_one_command: /bin/systemd
     intermediate_instructions:
       - RUN /usr/bin/apt-get update
-      - RUN /usr/bin/apt-get install lsb-release -y
+      - RUN /usr/bin/apt-get install lsb-release procs net-tools -y
 
 - name: centos-5
   driver:
@@ -36,7 +36,7 @@ platforms:
     platform: rhel
     pid_one_command: /sbin/init
     intermediate_instructions:
-      - RUN yum install -y which initscripts
+      - RUN yum install -y which initscripts net-tools wget
 
 - name: centos-6
   driver:
@@ -44,7 +44,7 @@ platforms:
     platform: rhel
     pid_one_command: /sbin/init
     intermediate_instructions:
-      - RUN yum -y install which initscripts
+      - RUN yum -y install which initscripts net-tools wget
 
 - name: centos-7
   driver:
@@ -52,29 +52,38 @@ platforms:
     platform: rhel
     pid_one_command: /usr/lib/systemd/systemd
     intermediate_instructions:
-      - RUN yum -y install lsof which systemd-sysv initscripts openssl
+      - RUN yum -y install lsof which systemd-sysv initscripts wget net-tools
 
 - name: fedora-latest
   driver:
     image: fedora:latest
     pid_one_command: /usr/lib/systemd/systemd
     intermediate_instructions:
-      - RUN dnf -y install yum which systemd-sysv initscripts
+      - RUN dnf -y install yum which systemd-sysv initscripts wget net-tools
 
 - name: ubuntu-12.04
   driver:
     image: ubuntu-upstart:12.04
     pid_one_command: /sbin/init
+    intermediate_instructions:
+      - RUN /usr/bin/apt-get update
+      - RUN /usr/bin/apt-get install apt-transport-https lsb-release procps net-tools -y
 
 - name: ubuntu-14.04
   driver:
     image: ubuntu-upstart:14.04
     pid_one_command: /sbin/init
+    intermediate_instructions:
+      - RUN /usr/bin/apt-get update
+      - RUN /usr/bin/apt-get install apt-transport-https lsb-release procps net-tools -y
 
 - name: ubuntu-16.04
   driver:
     image: ubuntu:16.04
     pid_one_command: /bin/systemd
+    intermediate_instructions:
+      - RUN /usr/bin/apt-get update
+      - RUN /usr/bin/apt-get install apt-transport-https lsb-release procps net-tools -y
 
 - name: opensuse-13.2
   driver:
