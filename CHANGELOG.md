@@ -2,6 +2,13 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## 5.0.1 (2016-12-13)
+
+- Use multipackage in pagespeed module recipe to speed up installs
+- Simplify the distro repo setup logic to ensure we're using the correct repos under all conditions. Previously the upstream repo was being missed on Suse systems
+- Determine pidfile location correctly via a helper so we correctly set pidfiles when using Upstream packages on Ubuntu 14.04 / 16.04. This involved removing the attribute for the pidfile location, which may cause issues if you relied on that attribute.
+- Testing improvements to make sure all suites run and the suites are testing the correct conditions
+
 ## 5.0.0 (2016-12-07)
 
 ### Breaking changes
