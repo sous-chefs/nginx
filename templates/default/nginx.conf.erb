@@ -8,7 +8,7 @@ worker_rlimit_nofile <%= node['nginx']['worker_rlimit_nofile'] %>;
 <% end -%>
 
 error_log  <%= node['nginx']['log_dir'] %>/error.log<% if node['nginx']['error_log_options'] %> <%= node['nginx']['error_log_options'] %><% end %>;
-pid        <%= node['nginx']['pid'] %>;
+pid        <%= @pid_file %>;
 events {
   worker_connections  <%= node['nginx']['worker_connections'] %>;
 <% if node['nginx']['multi_accept'] -%>
