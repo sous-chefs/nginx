@@ -44,9 +44,7 @@ default['nginx']['install_method'] = 'package'
 case node['platform_family']
 when 'debian'
   default['nginx']['user'] = 'www-data'
-  if node['platform'] == 'ubuntu' && node['platform_version'].to_f >= 14.04
-    default['nginx']['pid'] = '/run/nginx.pid'
-  end
+  default['nginx']['pid'] = '/run/nginx.pid' if node['init_package'] == 'systemd' || node['platform_version'].to_f == 14.04
 when 'rhel'
   default['nginx']['user']        = 'nginx'
 when 'fedora'
