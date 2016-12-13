@@ -31,7 +31,8 @@ directory node['nginx']['log_dir'] do
   recursive true
 end
 
-directory File.dirname(node['nginx']['pid']) do
+directory 'pid file directory' do
+  path       lazy { File.dirname(pidfile_location) }
   mode      '0755'
   recursive true
 end

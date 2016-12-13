@@ -32,7 +32,6 @@ default['nginx']['log_dir_perm'] = '0750'
 default['nginx']['binary']       = '/usr/sbin/nginx'
 default['nginx']['default_root'] = '/var/www/nginx-default'
 default['nginx']['ulimit']       = '1024'
-default['nginx']['pid']          = '/var/run/nginx.pid'
 
 # use the upstream nginx repo vs. distro packages
 # this enables the use of modern nginx releases
@@ -44,7 +43,6 @@ default['nginx']['install_method'] = 'package'
 case node['platform_family']
 when 'debian'
   default['nginx']['user'] = 'www-data'
-  default['nginx']['pid'] = '/run/nginx.pid' if node['init_package'] == 'systemd' || node['platform_version'].to_f == 14.04
 when 'rhel'
   default['nginx']['user']        = 'nginx'
 when 'fedora'

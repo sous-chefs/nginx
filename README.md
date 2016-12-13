@@ -67,7 +67,6 @@ Generally used attributes. Some have platform specific values. See `attributes/d
 - `node['nginx']['upstart']['foreground']` - Set this to true if you want upstart to run nginx in the foreground, set to false if you want upstart to detach and track the process via pid.
 - `node['nginx']['upstart']['runlevels']` - String of runlevels in the format '2345' which determines which runlevels nginx will start at when entering and stop at when leaving.
 - `node['nginx']['upstart']['respawn_limit']` - Respawn limit in upstart stanza format, count followed by space followed by interval in seconds.
-- `node['nginx']['pid']` - Location of the PID file.
 - `node['nginx']['keepalive']` - Whether to use `keepalive_timeout`, any value besides "on" will leave that option out of the config.
 - `node['nginx']['keepalive_requests']` - used for config value of `keepalive_requests`.
 - `node['nginx']['keepalive_timeout']` - used for config value of `keepalive_timeout`.

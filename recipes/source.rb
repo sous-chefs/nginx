@@ -122,6 +122,7 @@ when 'upstart'
 
   template '/etc/init/nginx.conf' do
     source 'nginx-upstart.conf.erb'
+    variables(lazy { { pid_file: pidfile_location } })
   end
 
   service 'nginx' do
@@ -161,6 +162,7 @@ else
   template '/etc/init.d/nginx' do
     source 'nginx.init.erb'
     mode   '0755'
+    variables(lazy { { pid_file: pidfile_location } })
   end if generate_init
 
   if generate_template # ~FC023
