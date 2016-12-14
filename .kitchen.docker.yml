@@ -92,9 +92,9 @@ platforms:
     intermediate_instructions:
       - RUN zypper --non-interactive install openssl aaa_base perl-Getopt-Long-Descriptive which net-tools
 
-- name: opensuse-42.1
+- name: opensuse-leap
   driver:
-    image: opensuse:42.1
+    image: opensuse:leap
     pid_one_command: /bin/systemd
     intermediate_instructions:
       - RUN zypper --non-interactive install openssl aaa_base perl-Getopt-Long-Descriptive which hostname
