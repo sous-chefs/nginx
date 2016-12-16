@@ -27,15 +27,19 @@ describe 'chef_nginx::commons' do
     %W(
       /etc/nginx
       /var/log/nginx
-      #{File.dirname('/run/nginx.pid')}
       /etc/nginx/sites-available
       /etc/nginx/sites-enabled
       /etc/nginx/conf.d
     ).each do |dir|
-      it 'creates nginx dir' do
+      it "creates directory #{dir}" do
         expect(chef_run).to create_directory(dir)
       end
     end
+
+    it "creates pid file directory" do
+      expect(chef_run).to create_directory("pid file directory").with(path: '/var/run')
+    end
+
   end
 
   describe 'commons_script recipe' do

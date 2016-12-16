@@ -25,7 +25,7 @@ env:
   - INSTANCE=upstream-repo-debian-7
   - INSTANCE=upstream-repo-debian-8
   - INSTANCE=upstream-repo-opensuse-132
-  - INSTANCE=upstream-repo-opensuse-421
+  - INSTANCE=upstream-repo-opensuse-leap
   - INSTANCE=upstream-repo-ubuntu-1204
   - INSTANCE=upstream-repo-ubuntu-1404
   - INSTANCE=upstream-repo-ubuntu-1604
@@ -34,7 +34,7 @@ env:
   - INSTANCE=distro-packages-debian-7
   - INSTANCE=distro-packages-debian-8
   - INSTANCE=distro-packages-fedora-latest
-  - INSTANCE=distro-packages-opensuse-421
+  - INSTANCE=distro-packages-opensuse-leap
   - INSTANCE=distro-packages-ubuntu-1204
   - INSTANCE=distro-packages-ubuntu-1404
   - INSTANCE=distro-packages-ubuntu-1604
@@ -44,7 +44,7 @@ env:
   - INSTANCE=source-debian-8
   - INSTANCE=source-fedora-latest
   - INSTANCE=source-opensuse-132
-  - INSTANCE=source-opensuse-421
+  - INSTANCE=source-opensuse-leap
   - INSTANCE=source-ubuntu-1204
   - INSTANCE=source-ubuntu-1404
   - INSTANCE=source-ubuntu-1604
@@ -53,7 +53,7 @@ env:
   - INSTANCE=modules-debian-8
   - INSTANCE=modules-fedora-latest
   - INSTANCE=modules-opensuse-132
-  - INSTANCE=modules-opensuse-421
+  - INSTANCE=modules-opensuse-leap
   - INSTANCE=modules-ubuntu-1204
   - INSTANCE=modules-ubuntu-1404
   - INSTANCE=modules-ubuntu-1604
