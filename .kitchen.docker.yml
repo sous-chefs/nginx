@@ -28,7 +28,7 @@ platforms:
     pid_one_command: /bin/systemd
     intermediate_instructions:
       - RUN /usr/bin/apt-get update
-      - RUN /usr/bin/apt-get install openssl apt-transport-https lsb-release procps net-tools systemd-sysv-install -y
+      - RUN /usr/bin/apt-get install openssl apt-transport-https lsb-release procps net-tools -y
 
 - name: centos-5
   driver:
