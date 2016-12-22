@@ -2,6 +2,9 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## 5.0.2 (2016-12-22)
+- Requite the latest compat_resource
+
 ## 5.0.1 (2016-12-13)
 
 - Use multipackage in pagespeed module recipe to speed up installs
