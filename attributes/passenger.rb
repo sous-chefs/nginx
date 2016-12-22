@@ -54,6 +54,8 @@ node.default['nginx']['passenger']['pool_idle_time'] = 300
 node.default['nginx']['passenger']['max_requests'] = 0
 node.default['nginx']['passenger']['gem_binary'] = nil
 node.default['nginx']['passenger']['show_version_in_header'] = 'on'
+# By default, the Passenger log file is the global Nginx error log file. Set this attribute to write passenger log to another location.
+node.default['nginx']['passenger']['passenger_log_file'] = nil
 
 # NodeJs disable by default
 node.default['nginx']['passenger']['nodejs'] = nil
