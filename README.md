@@ -60,7 +60,7 @@ Generally used attributes. Some have platform specific values. See `attributes/d
 - `node['nginx']['log_dir']` - Location for nginx logs.
 - `node['nginx']['log_dir_perm']` - Permissions for nginx logs folder.
 - `node['nginx']['user']` - User that nginx will run as.
-- `node['nginx']['group]` - Group for nginx.
+- `node['nginx']['group']` - Group for nginx.
 - `node['nginx']['port']` - Port for nginx to listen on.
 - `node['nginx']['binary']` - Path to the nginx binary.
 - `node['nginx']['init_style']` - How to run nginx as a service when using `chef_nginx::source`. Values can be "runit", "upstart", or "init". When using runit that recipes will be included as well. This attribute is not used in the `package` recipe because the package manager's init script style for the platform is assumed.
