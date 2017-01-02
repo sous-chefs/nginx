@@ -24,7 +24,7 @@ describe 'chef_nginx::commons' do
 
   # Describe individual recipes here instead of adding more files
   describe 'commons_dir recipe' do
-    %W(
+    %w(
       /etc/nginx
       /var/log/nginx
       /etc/nginx/sites-available
@@ -36,10 +36,9 @@ describe 'chef_nginx::commons' do
       end
     end
 
-    it "creates pid file directory" do
-      expect(chef_run).to create_directory("pid file directory").with(path: '/var/run')
+    it 'creates pid file directory' do
+      expect(chef_run).to create_directory('pid file directory').with(path: '/var/run')
     end
-
   end
 
   describe 'commons_script recipe' do
