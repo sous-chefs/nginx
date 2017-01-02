@@ -67,4 +67,14 @@ action :disable do
         ::File.symlink?("#{node['nginx']['dir']}/sites-enabled/000-#{new_resource.name}")
     end
   end
+
+  # The nginx.org packages store the default site at /etc/nginx/conf.d/default.conf and our
+  # normal script doesn't disable these.
+  if new_resource.name == 'default' && ::File.exist?('/etc/nginx/conf.d/default.conf')
+    execute 'Move nginx.org package default site config to sites-available' do
+      command "mv /etc/nginx/conf.d/default.conf #{node['nginx']['dir']}/sites-available/default"
+      user 'root'
+      notifies :reload, 'service[nginx]'
+    end
+  end
 end
