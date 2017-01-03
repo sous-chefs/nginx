@@ -2,6 +2,11 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## 5.0.3 (2017-01-03)
+
+- Add ability to write passenger log to another location
+- Properly disable the default site with nginx.org packages
+
 ## 5.0.2 (2016-12-22)
 - Requite the latest compat_resource
 
