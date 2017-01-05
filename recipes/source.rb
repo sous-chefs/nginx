@@ -114,6 +114,7 @@ when 'runit'
   service 'nginx' do
     supports       status: true, restart: true, reload: true
     reload_command "#{node['runit']['sv_bin']} hup #{node['runit']['service_dir']}/nginx"
+    action         [:start, :enable]
   end
 when 'upstart'
   # we rely on this to set up nginx.conf with daemon disable instead of doing
@@ -128,7 +129,7 @@ when 'upstart'
   service 'nginx' do
     provider Chef::Provider::Service::Upstart
     supports status: true, restart: true, reload: true
-    action   :nothing
+    action   [:start, :enable]
   end
 when 'systemd'
 
@@ -141,7 +142,7 @@ when 'systemd'
   service 'nginx' do
     provider Chef::Provider::Service::Systemd
     supports status: true, restart: true, reload: true
-    action   :nothing
+    action   [:start, :enable]
   end
 else
   node.normal['nginx']['daemon_disable'] = false
@@ -173,7 +174,7 @@ else
 
   service 'nginx' do
     supports status: true, restart: true, reload: true
-    action   :enable
+    action   [:start, :enable]
   end
 end
 

@@ -47,7 +47,7 @@ end
 
 service 'nginx' do
   supports status: true, restart: true, reload: true
-  action   :enable
+  action   [:start, :enable]
 end
 
 include_recipe 'chef_nginx::commons'
