@@ -70,7 +70,7 @@ action :disable do
 
   # The nginx.org packages store the default site at /etc/nginx/conf.d/default.conf and our
   # normal script doesn't disable these.
-  if new_resource.name == 'default' && ::File.exist?('/etc/nginx/conf.d/default.conf')
+  if new_resource.name == 'default' && ::File.exist?('/etc/nginx/conf.d/default.conf') # ~FC023
     execute 'Move nginx.org package default site config to sites-available' do
       command "mv /etc/nginx/conf.d/default.conf #{node['nginx']['dir']}/sites-available/default"
       user 'root'
