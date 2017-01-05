@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## 5.0.4 (2017-01-04)
+
+- Avoid deprecation warnings by only defining nginx service once
+
 ## 5.0.3 (2017-01-03)
 
 - Add ability to write passenger log to another location
