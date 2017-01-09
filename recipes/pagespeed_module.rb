@@ -26,7 +26,7 @@ package_array = value_for_platform_family(
   %w(debian) => node['nginx']['pagespeed']['packages']['debian']
 )
 
-packages package_array unless package_array.empty?
+package package_array unless package_array.empty?
 
 bash 'extract_pagespeed' do
   cwd  ::File.dirname(src_filepath)
