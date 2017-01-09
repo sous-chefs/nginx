@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## 5.0.5 (2017-01-09)
+
+- Fix typo in the pagespeed recipe
+
 ## 5.0.4 (2017-01-04)
 
 - Avoid deprecation warnings by only defining nginx service once
