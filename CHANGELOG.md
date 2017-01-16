@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## 5.0.6 (2017-01-16)
+
+- Rebuild shared library cache after installing luajit
+
 ## 5.0.5 (2017-01-09)
 
 - Fix typo in the pagespeed recipe
