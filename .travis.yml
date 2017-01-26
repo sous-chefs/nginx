@@ -1,7 +1,7 @@
 sudo: required
 dist: trusty
 
-# install the pre-release chef-dk.  Use chef-stable-trusty to install the stable release
+# install the pre-release chef-dk.  Use chef-stable-DIST to install the stable release
 addons:
   apt:
     sources:
@@ -26,7 +26,6 @@ env:
     #  - INSTANCE=upstream-repo-debian-8 InSpec fails to recognize that the service is actually enabled
   - INSTANCE=upstream-repo-opensuse-132
   - INSTANCE=upstream-repo-opensuse-leap
-  - INSTANCE=upstream-repo-ubuntu-1204
   - INSTANCE=upstream-repo-ubuntu-1404
   - INSTANCE=upstream-repo-ubuntu-1604
   - INSTANCE=epel-centos-6
@@ -35,7 +34,6 @@ env:
   - INSTANCE=distro-packages-debian-8
   - INSTANCE=distro-packages-fedora-latest
   - INSTANCE=distro-packages-opensuse-leap
-  - INSTANCE=distro-packages-ubuntu-1204
   - INSTANCE=distro-packages-ubuntu-1404
   - INSTANCE=distro-packages-ubuntu-1604
   - INSTANCE=source-centos-6
@@ -45,7 +43,6 @@ env:
   - INSTANCE=source-fedora-latest
   - INSTANCE=source-opensuse-132
   - INSTANCE=source-opensuse-leap
-  - INSTANCE=source-ubuntu-1204
   - INSTANCE=source-ubuntu-1404
   - INSTANCE=source-ubuntu-1604
   - INSTANCE=modules-centos-7
@@ -54,7 +51,6 @@ env:
   - INSTANCE=modules-fedora-latest
   - INSTANCE=modules-opensuse-132
   - INSTANCE=modules-opensuse-leap
-  - INSTANCE=modules-ubuntu-1204
   - INSTANCE=modules-ubuntu-1404
   - INSTANCE=modules-ubuntu-1604
 

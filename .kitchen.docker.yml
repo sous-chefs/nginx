@@ -1,7 +1,6 @@
 driver:
   name: dokken
   privileged: true # because Docker and SystemD/Upstart
-  chef_image: chef/chef
   chef_version: current
 
 transport:
@@ -29,14 +28,6 @@ platforms:
     intermediate_instructions:
       - RUN /usr/bin/apt-get update
       - RUN /usr/bin/apt-get install openssl apt-transport-https lsb-release procps net-tools -y
-
-- name: centos-5
-  driver:
-    image: centos:5
-    platform: rhel
-    pid_one_command: /sbin/init
-    intermediate_instructions:
-      - RUN yum install -y openssl which initscripts net-tools wget
 
 - name: centos-6
   driver:
