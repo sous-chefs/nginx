@@ -2,6 +2,11 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## 5.0.7 (2017-02-12)
+
+- Fix Opsworks compatibility
+- Resolve a Chef 13 deprecation warning
+
 ## 5.0.6 (2017-01-16)
 
 - Rebuild shared library cache after installing luajit
