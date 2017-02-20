@@ -6,6 +6,9 @@ daemon off;
 <% if node['nginx']['worker_rlimit_nofile'] -%>
 worker_rlimit_nofile <%= node['nginx']['worker_rlimit_nofile'] %>;
 <% end -%>
+<% node['nginx']['load_modules'].each do |module_to_load| %>
+load_module <%= module_to_load %>;
+<% end -%>
 
 error_log  <%= node['nginx']['log_dir'] %>/error.log<% if node['nginx']['error_log_options'] %> <%= node['nginx']['error_log_options'] %><% end %>;
 pid        <%= @pid_file %>;
