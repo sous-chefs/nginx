@@ -69,13 +69,6 @@ platforms:
       - RUN /usr/bin/apt-get update
       - RUN /usr/bin/apt-get install openssl apt-transport-https lsb-release procps net-tools -y
 
-- name: opensuse-13.2
-  driver:
-    image: opensuse:13.2
-    pid_one_command: /bin/systemd
-    intermediate_instructions:
-      - RUN zypper --non-interactive install openssl aaa_base perl-Getopt-Long-Descriptive which net-tools
-
 - name: opensuse-leap
   driver:
     image: opensuse:leap
@@ -88,8 +81,6 @@ suites:
     run_list:
       - recipe[test::distro_packages]
     excludes: # these all lack distro packages
-      - opensuse-13.2
-      - centos-5
       - centos-6
       - centos-7
   - name: source
@@ -99,7 +90,6 @@ suites:
     run_list:
       - recipe[test::epel]
     includes:
-      - centos-5
       - centos-6
       - centos-7
   - name: source

@@ -13,12 +13,11 @@ platforms:
   - name: centos-7.3
   - name: debian-7.11
   - name: debian-8.6
-  - name: freebsd-9.3
-    run_list: freebsd::portsnap
   - name: freebsd-10.3
     run_list: freebsd::portsnap
+  - name: freebsd-11.0
+    run_list: freebsd::portsnap
   - name: fedora-25
-  - name: opensuse-13.2
   - name: opensuse-leap-42.2
   - name: ubuntu-14.04
   - name: ubuntu-16.04
@@ -33,8 +32,6 @@ suites:
     run_list:
       - recipe[test::distro_packages]
     excludes: # these all lack distro packages
-      - opensuse-13.2
-      - centos-5.11
       - centos-6.8
       - centos-7.3
   - name: source
@@ -44,7 +41,6 @@ suites:
     run_list:
       - recipe[test::epel]
     includes:
-      - centos-5.11
       - centos-6.8
       - centos-7.3
   - name: source
@@ -56,12 +52,12 @@ suites:
     excludes:
       - fedora-25 # lacks nginx repo
       - ubuntu-16.04-chef-12.1
-      - freebsd-9.3
       - freebsd-10.3
+      - freebsd-11.0
   - name: modules
     run_list:
       - recipe[test::modules]
     excludes:
       - ubuntu-16.04-chef-12.1
-      - freebsd-9.3
       - freebsd-10.3
+      - freebsd-11.0
