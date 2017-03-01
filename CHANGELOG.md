@@ -2,6 +2,12 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## 5.1.0 (2017-03-01)
+
+- Support the load_module directive
+- Test with Local Delivery and not Rake
+- Remove EOL platforms from the kitchen configs
+
 ## 5.0.7 (2017-02-12)
 
 - Fix Opsworks compatibility
