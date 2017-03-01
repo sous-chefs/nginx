@@ -24,7 +24,6 @@ env:
   - INSTANCE=upstream-repo-centos-7
   - INSTANCE=upstream-repo-debian-7
     #  - INSTANCE=upstream-repo-debian-8 InSpec fails to recognize that the service is actually enabled
-  - INSTANCE=upstream-repo-opensuse-132
   - INSTANCE=upstream-repo-opensuse-leap
   - INSTANCE=upstream-repo-ubuntu-1404
   - INSTANCE=upstream-repo-ubuntu-1604
@@ -41,7 +40,6 @@ env:
   - INSTANCE=source-debian-7
   - INSTANCE=source-debian-8
   - INSTANCE=source-fedora-latest
-  - INSTANCE=source-opensuse-132
   - INSTANCE=source-opensuse-leap
   - INSTANCE=source-ubuntu-1404
   - INSTANCE=source-ubuntu-1604
@@ -49,7 +47,6 @@ env:
   - INSTANCE=modules-debian-7
   - INSTANCE=modules-debian-8
   - INSTANCE=modules-fedora-latest
-  - INSTANCE=modules-opensuse-132
   - INSTANCE=modules-opensuse-leap
   - INSTANCE=modules-ubuntu-1404
   - INSTANCE=modules-ubuntu-1604
