@@ -123,3 +123,5 @@ default['nginx']['large_client_header_buffers'] = nil
 default['nginx']['default']['modules']          = []
 
 default['nginx']['extra_configs'] = {}
+
+default['nginx']['load_modules'] = []

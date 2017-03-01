@@ -94,6 +94,7 @@ Generally used attributes. Some have platform specific values. See `attributes/d
 - `node['nginx']['repo_source']` - when installed from a package this attribute affects which yum repositories, if any, will be added before installing the nginx package. The default value of 'epel' will use the `yum-epel` cookbook, 'nginx' will use the `chef_nginx::repo` recipe, 'passenger' will use the 'chef_nginx::repo_passenger' recipe, and setting no value will not add any additional repositories.
 - `node['nginx']['sts_max_age']` - Enable Strict Transport Security for all apps (See: <http://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security>). This attribute adds the following header: Strict-Transport-Security max-age=SECONDS to all incoming requests and takes an integer (in seconds) as its argument.
 - `node['nginx']['default']['modules']` - Array specifying which modules to enable via the conf-enabled config include function. Currently the only valid value is "socketproxy".
+- `node['nginx']['load_modules']` - Array of paths to modules to dynamically load on nginx startup using the `load_module` directive. Default is `[]`.
 
 #### authorized_ips module
 
