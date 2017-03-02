@@ -25,7 +25,7 @@ provides :nginx_site
 property :name, String, name_property: true
 property :variables, Hash, default: {}
 property :cookbook, String
-property :template, String
+property :template, [String, Array]
 property :enable, [String, true, false]
 
 action :enable do
