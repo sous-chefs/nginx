@@ -1,5 +1,5 @@
 #
-# Cookbook:: nginx
+# Cookbook:: chef_nginx
 # Attributes:: openssl_source
 #
 # Author:: David Radcliffe (<radcliffe.david@gmail.com>)

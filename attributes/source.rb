@@ -1,5 +1,5 @@
 #
-# Cookbook:: nginx
+# Cookbook:: chef_nginx
 # Attributes:: source
 #
 # Author:: Jamie Winsor (<jamie@vialstudios.com>)

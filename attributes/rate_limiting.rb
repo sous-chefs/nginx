@@ -1,5 +1,5 @@
 #
-# Cookbook:: nginx
+# Cookbook:: chef_nginx
 # Attribute:: rate_limiting
 #
 # Copyright:: 2013-2016, Chef Software, Inc.

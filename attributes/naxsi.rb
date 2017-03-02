@@ -1,5 +1,5 @@
 #
-# Cookbook:: nginx
+# Cookbook:: chef_nginx
 # Attributes:: naxsi
 #
 # Author:: Artiom Lunev (<artiom.lunev@gmail.com>)

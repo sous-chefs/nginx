@@ -1,5 +1,5 @@
 #
-# Cookbook:: nginx
+# Cookbook:: chef_nginx
 # Attributes:: auth_request
 #
 # Author:: David Radcliffe (<radcliffe.david@gmail.com>)
