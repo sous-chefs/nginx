@@ -2,6 +2,12 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## 5.1.1 (2017-03-02)
+
+- Add WantedBy to systemd service file so it starts at boot
+- Avoid a warning in nginx_site by moving the template check outside the resource
+- Allow nginx_site to specify template as an array of templates
+
 ## 5.1.0 (2017-03-01)
 
 - Support the load_module directive
