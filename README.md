@@ -63,7 +63,7 @@ Generally used attributes. Some have platform specific values. See `attributes/d
 - `node['nginx']['group']` - Group for nginx.
 - `node['nginx']['port']` - Port for nginx to listen on.
 - `node['nginx']['binary']` - Path to the nginx binary.
-- `node['nginx']['init_style']` - How to run nginx as a service when using `chef_nginx::source`. Values can be "runit", "upstart", or "init". When using runit that recipes will be included as well. This attribute is not used in the `package` recipe because the package manager's init script style for the platform is assumed.
+- `node['nginx']['init_style']` - How to run nginx as a service when using `chef_nginx::source`. Values can be "runit", "upstart", "systemd", or "init". When using runit that recipes will be included as well. This attribute is not used in the `package` recipe because the package manager's init script style for the platform is assumed.
 - `node['nginx']['upstart']['foreground']` - Set this to true if you want upstart to run nginx in the foreground, set to false if you want upstart to detach and track the process via pid.
 - `node['nginx']['upstart']['runlevels']` - String of runlevels in the format '2345' which determines which runlevels nginx will start at when entering and stop at when leaving.
 - `node['nginx']['upstart']['respawn_limit']` - Respawn limit in upstart stanza format, count followed by space followed by interval in seconds.
