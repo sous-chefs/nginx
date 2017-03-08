@@ -58,6 +58,7 @@ end
 node.run_state['nginx_force_recompile'] = false
 node.run_state['nginx_configure_flags'] =
   node['nginx']['source']['default_configure_flags'] | node['nginx']['configure_flags']
+node.run_state['nginx_source_env'] = {}
 
 include_recipe 'chef_nginx::commons_conf'
 
@@ -83,12 +84,13 @@ end
 
 configure_flags       = node.run_state['nginx_configure_flags']
 nginx_force_recompile = node.run_state['nginx_force_recompile']
+env_string            = node.run_state['nginx_source_env'].map { |k, v| "#{k}=\"#{v}\"" }.join(' ')
 
 bash 'compile_nginx_source' do
   cwd  ::File.dirname(src_filepath)
   code <<-EOH
     cd nginx-#{node['nginx']['source']['version']} &&
-    ./configure #{node.run_state['nginx_configure_flags'].join(' ')} &&
+    #{env_string} ./configure #{node.run_state['nginx_configure_flags'].join(' ')} &&
     make && make install
   EOH
 

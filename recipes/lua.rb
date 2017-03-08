@@ -34,8 +34,11 @@ bash 'extract_luajit' do
     cd luajit-#{node['nginx']['luajit']['version']}/LuaJIT-#{node['nginx']['luajit']['version']}
     make && make install
     ldconfig
-    export LUAJIT_INC="/usr/local/include/luajit-2.0"
-    export LUAJIT_LIB="usr/local/lib"
   EOH
   not_if { ::File.exist?(luajit_extract_path) }
 end
+
+node.run_state['nginx_source_env'].merge!(
+  'LUAJIT_INC' => '/usr/local/include/luajit-2.0',
+  'LUAJIT_LIB' => '/usr/local/lib/lua'
+)
