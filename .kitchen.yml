@@ -51,13 +51,13 @@ suites:
       - recipe[test::upstream_repo]
     excludes:
       - fedora-25 # lacks nginx repo
-      - ubuntu-16.04-chef-12.1
+      - ubuntu-16.04-chef-12.5
       - freebsd-10.3
       - freebsd-11.0
   - name: modules
     run_list:
       - recipe[test::modules]
     excludes:
-      - ubuntu-16.04-chef-12.1
+      - ubuntu-16.04-chef-12.5
       - freebsd-10.3
       - freebsd-11.0
