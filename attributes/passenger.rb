@@ -4,8 +4,8 @@
 #
 # Author:: Alex Dergachev (<alex@evolvingweb.ca>)
 #
-# Copyright:: 2013-2016, Chef Software, Inc.
-# Copyright:: 2012-2016, Susan Potter
+# Copyright:: 2013-2017, Chef Software, Inc.
+# Copyright:: 2012-2017, Susan Potter
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.

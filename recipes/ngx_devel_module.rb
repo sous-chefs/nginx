@@ -4,7 +4,7 @@
 #
 # Author:: Arthur Freyman (<afreyman@riotgames.com>)
 #
-# Copyright:: 2013-2016, Riot Games
+# Copyright:: 2013-2017, Riot Games
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
