@@ -84,13 +84,13 @@ end
 
 configure_flags       = node.run_state['nginx_configure_flags']
 nginx_force_recompile = node.run_state['nginx_force_recompile']
-env_string            = node.run_state['nginx_source_env'].map { |k, v| "#{k}=\"#{v}\"" }.join(' ')
 
 bash 'compile_nginx_source' do
   cwd  ::File.dirname(src_filepath)
+  environment node.run_state['nginx_source_env']
   code <<-EOH
     cd nginx-#{node['nginx']['source']['version']} &&
-    #{env_string} ./configure #{node.run_state['nginx_configure_flags'].join(' ')} &&
+    ./configure #{node.run_state['nginx_configure_flags'].join(' ')} &&
     make && make install
   EOH
 
