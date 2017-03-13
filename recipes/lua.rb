@@ -1,6 +1,6 @@
 #
 # Cookbook:: nginx
-# Recipe:: default
+# Recipe:: lua
 #
 # Copyright:: 2013-2017, Chef Software, Inc.
 #
@@ -33,12 +33,14 @@ bash 'extract_luajit' do
     tar xzf #{luajit_src_filename} -C #{luajit_extract_path}
     cd luajit-#{node['nginx']['luajit']['version']}/LuaJIT-#{node['nginx']['luajit']['version']}
     make && make install
-    ldconfig
   EOH
   not_if { ::File.exist?(luajit_extract_path) }
 end
 
 node.run_state['nginx_source_env'].merge!(
   'LUAJIT_INC' => '/usr/local/include/luajit-2.0',
-  'LUAJIT_LIB' => '/usr/local/lib/lua'
+  'LUAJIT_LIB' => '/usr/local/lib'
 )
+
+node.run_state['nginx_configure_flags'] =
+    node.run_state['nginx_configure_flags'] | ['--with-ld-opt="-Wl,-rpath,/usr/local/lib"']
