@@ -1,6 +1,6 @@
 #
 # Cookbook:: nginx
-# Recipes:: lua
+# Recipes:: nginx_lua_module
 #
 # Author:: Arthur Freyman (<afreyman@riotgames.com>)
 #
