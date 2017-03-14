@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## 5.1.2 (2017-03-14)
+
+- Setup LD options to include /usr/local/lib for libluajit in search path and bump the lua version
+
 ## 5.1.1 (2017-03-02)
 
 - Add WantedBy to systemd service file so it starts at boot
