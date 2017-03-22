@@ -82,6 +82,7 @@ default['nginx']['gzip_types'] = %w(
   application/xml
   application/rss+xml
   application/atom+xml
+  image/svg+xml
   text/javascript
   application/javascript
   application/json
