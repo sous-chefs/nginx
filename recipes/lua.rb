@@ -43,4 +43,4 @@ node.run_state['nginx_source_env'].merge!(
 )
 
 node.run_state['nginx_configure_flags'] =
-  node.run_state['nginx_configure_flags'] | ['--with-ld-opt="-Wl,-rpath,/usr/local/lib"']
+  node.run_state['nginx_configure_flags'] | ['--with-ld-opt=-Wl,-rpath,/usr/local/lib']
