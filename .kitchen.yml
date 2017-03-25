@@ -41,6 +41,8 @@ suites:
     includes:
       - centos-6.8
       - centos-7.3
+      - freebsd-10.3
+      - freebsd-11.0
   - name: source
     run_list:
       - recipe[test::source]
