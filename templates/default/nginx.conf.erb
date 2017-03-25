@@ -6,6 +6,9 @@ daemon off;
 <% if node['nginx']['worker_rlimit_nofile'] -%>
 worker_rlimit_nofile <%= node['nginx']['worker_rlimit_nofile'] %>;
 <% end -%>
+<% if node['nginx']['worker_shutdown_timeout'] -%>
+worker_shutdown_timeout <%= node['nginx']['worker_shutdown_timeout'] %>;
+<% end -%>
 <% node['nginx']['load_modules'].each do |module_to_load| %>
 load_module <%= module_to_load %>;
 <% end -%>

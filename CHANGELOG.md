@@ -2,6 +2,12 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## 5.1.3 (2017-03-24)
+
+- Update apache2 license string
+- Add image/svg+xml to gzip_files defaults
+- support `worker_shutdown_timeout` released in 1.11.11
+
 ## 5.1.2 (2017-03-14)
 
 - Setup LD options to include /usr/local/lib for libluajit in search path and bump the lua version
