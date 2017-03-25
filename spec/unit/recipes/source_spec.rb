@@ -135,20 +135,4 @@ describe 'chef_nginx::source' do
       expect(chef_run).to render_file('/usr/lib/systemd/system/nginx.service')
     end
   end
-
-  context 'with Runit init system set' do
-    let(:chef_run) do
-      ChefSpec::ServerRunner.new(platform: 'debian', version: '8.5') do |node|
-        node.normal['nginx']['init_style'] = 'runit'
-      end.converge(described_recipe)
-    end
-
-    it 'includes runit recipe' do
-      expect(chef_run).to include_recipe('runit::default')
-    end
-
-    it 'defined runit_service' do
-      expect(chef_run).to enable_runit_service('nginx')
-    end
-  end
 end
