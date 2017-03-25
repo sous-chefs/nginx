@@ -18,7 +18,6 @@ The following cookbooks are direct dependencies because they're used for common 
 
 - `build-essential` for source installations
 - `ohai` for setting up the ohai plugin
-- `runit` for source installs using the runit init system
 - `compat_resource` for setting up the nginx.org repository on Chef 12.1 - 12.13
 - `yum-epel` for setting up the EPEL repository on RHEL platforms
 - `zypper` for setting up the nginx.org repository on Suse platforms
@@ -63,7 +62,7 @@ Generally used attributes. Some have platform specific values. See `attributes/d
 - `node['nginx']['group']` - Group for nginx.
 - `node['nginx']['port']` - Port for nginx to listen on.
 - `node['nginx']['binary']` - Path to the nginx binary.
-- `node['nginx']['init_style']` - How to run nginx as a service when using `chef_nginx::source`. Values can be "runit", "upstart", "systemd", or "init". When using runit that recipes will be included as well. This attribute is not used in the `package` recipe because the package manager's init script style for the platform is assumed.
+- `node['nginx']['init_style']` - How to run nginx as a service when using `chef_nginx::source`. Values can be "upstart", "systemd", or "init". This attribute is not used in the `package` recipe because the package manager's init script style for the platform is assumed.
 - `node['nginx']['upstart']['foreground']` - Set this to true if you want upstart to run nginx in the foreground, set to false if you want upstart to detach and track the process via pid.
 - `node['nginx']['upstart']['runlevels']` - String of runlevels in the format '2345' which determines which runlevels nginx will start at when entering and stop at when leaving.
 - `node['nginx']['upstart']['respawn_limit']` - Respawn limit in upstart stanza format, count followed by space followed by interval in seconds.

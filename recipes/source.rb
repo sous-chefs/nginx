@@ -106,18 +106,6 @@ bash 'compile_nginx_source' do
 end
 
 case node['nginx']['init_style']
-when 'runit'
-  Chef::Log.warn('The usage of the runit init system for nginx is highly discouraged. Modern distro init systems will more than likely provide you with a better experience. Runit will be removed from this cookbook in the future.')
-  node.normal['nginx']['src_binary'] = node['nginx']['binary']
-  include_recipe 'runit::default'
-
-  runit_service 'nginx'
-
-  service 'nginx' do
-    supports       status: true, restart: true, reload: true
-    reload_command "#{node['runit']['sv_bin']} hup #{node['runit']['service_dir']}/nginx"
-    action         [:start, :enable]
-  end
 when 'upstart'
   # we rely on this to set up nginx.conf with daemon disable instead of doing
   # it in the upstart init script.
