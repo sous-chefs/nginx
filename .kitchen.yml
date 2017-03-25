@@ -15,9 +15,7 @@ platforms:
   - name: debian-8.6
   - name: fedora-25
   - name: freebsd-10.3
-    run_list: freebsd::portsnap
   - name: freebsd-11.0
-    run_list: freebsd::portsnap
   - name: opensuse-leap-42.2
   - name: ubuntu-14.04
   - name: ubuntu-16.04
