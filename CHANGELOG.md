@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## 6.0.1 (2017-04-04)
+
+- double quotes are unnecessary in lua configure flags
+
 ## 6.0.0 (2017-03-25)
 
 ### Breaking change
