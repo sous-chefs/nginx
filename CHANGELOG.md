@@ -2,6 +2,18 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## 6.0.0 (2017-03-25)
+
+### Breaking change
+
+- Support for Runit as an init system has been removed. If you require runit you will need to pin to the 5.X cookbook release. We highly recommend using either systemd or upstart instead of Runit.
+
+### Other changes
+
+- Install nginx 1.10.3 for source based installs
+- Remove freebsd cookbook from testing as it’s not necessary anymore
+- Bump OpenSSL to 1.0.2k
+
 ## 5.1.3 (2017-03-24)
 
 - Update apache2 license string
