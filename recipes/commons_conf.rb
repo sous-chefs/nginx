@@ -32,7 +32,6 @@ template "#{node['nginx']['dir']}/sites-available/default" do
   notifies :reload, 'service[nginx]', :delayed
 end
 
-nginx_site 'Disable default site' do
-  name 'default'
+nginx_site 'default' do
   action node['nginx']['default_site_enabled'] ? :enable : :disable
 end
