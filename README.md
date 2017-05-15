@@ -195,7 +195,7 @@ Basic configuration to use the official Phusion Passenger repositories:
 
 - `node['nginx']['enable_rate_limiting']` - set to true to enable rate limiting (`limit_req_zone` in nginx.conf)
 - `node['nginx']['rate_limiting_zone_name']` - sets the zone in `limit_req_zone`.
-- `node['nginx']['rate_limiting_backoff']` - sets the backoff time for `limit_req_zone`.
+- `node['nginx']['rate_limiting_backoff']` - **Incorrect name, retained for compatibility reasons** - sets the size of the shared memory zone (default=`10m`, 10 megabytes)
 - `node['nginx']['rate_limit']` - set the rate limit amount for `limit_req_zone`.
 
 ### chef_nginx::repo
