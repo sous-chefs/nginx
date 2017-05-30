@@ -9,7 +9,7 @@ verifier:
   name: inspec
 
 platforms:
-  - name: centos-6.8
+  - name: centos-6.9
   - name: centos-7.3
   - name: debian-7.11
   - name: debian-8.7
@@ -30,7 +30,7 @@ suites:
     run_list:
       - recipe[test::distro_packages]
     excludes: # these all lack distro packages
-      - centos-6.8
+      - centos-6.9
       - centos-7.3
   - name: source
     run_list:
@@ -39,7 +39,7 @@ suites:
     run_list:
       - recipe[test::epel]
     includes:
-      - centos-6.8
+      - centos-6.9
       - centos-7.3
       - freebsd-10.3
       - freebsd-11.0
