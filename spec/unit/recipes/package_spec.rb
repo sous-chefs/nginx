@@ -93,7 +93,7 @@ describe 'chef_nginx::package' do
 
       it 'installs the nginx package with repo modifiers' do
         expect(chef_run).to install_package('nginx').with(
-          options: '--disablerepo=* --enablerepo=nginx'
+          options: ['--disablerepo=*', '--enablerepo=nginx']
         )
       end
 
