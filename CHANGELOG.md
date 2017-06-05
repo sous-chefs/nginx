@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## 6.0.3 (2017-06-05)
+
+- Correctly compare nginx versions with multiple digits so 1.10 is properly recognized as coming after 1.2.
+
 ## 6.0.2 (2017-04-27)
 
 - Resolve name conflicts in the resource 
