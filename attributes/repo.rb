@@ -21,12 +21,14 @@
 
 default['nginx']['upstream_repository'] =
   case node['platform_family']
+  when 'amazon' # Chef 13+ on amazon linux
+    'http://nginx.org/packages/rhel/6/$basearch/'
   when 'rhel', 'fedora'
     case node['platform']
     when 'centos'
       # See http://wiki.nginx.org/Install
       "http://nginx.org/packages/centos/#{node['platform_version'].to_i}/$basearch/"
-    when 'amazon'
+    when 'amazon' # Chef < 13 on Amazon
       'http://nginx.org/packages/rhel/6/$basearch/'
     else
       "http://nginx.org/packages/rhel/#{node['platform_version'].to_i}/$basearch/"
