@@ -23,11 +23,7 @@ packages = value_for_platform_family(
   %w(debian) => node['nginx']['passenger']['packages']['debian']
 )
 
-unless packages.empty?
-  packages.each do |name|
-    package name
-  end
-end
+package packages unless packages.empty?
 
 gem_package 'rake' if node['nginx']['passenger']['install_rake']
 
