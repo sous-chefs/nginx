@@ -42,7 +42,7 @@ default['nginx']['install_method'] = 'package'
 
 case node['platform_family']
 when 'rhel', 'fedora', 'amazon'
-  default['nginx']['user']        = 'nginx'
+  default['nginx']['user'] = 'nginx'
 when 'freebsd'
   default['nginx']['package_name'] = 'www/nginx'
   default['nginx']['user']         = 'www'
