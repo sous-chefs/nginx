@@ -119,14 +119,6 @@ Generally used attributes. Some have platform specific values. See `attributes/d
 
 - `node['nginx']['extra_configs']` - a Hash of key/values to nginx configuration.
 
-### chef_nginx::echo
-
-These attributes are used in the `chef_nginx::http_echo_module` recipe.
-
-- `node['nginx']['echo']['version']` - The version of `http_echo` you want (default: 0.59)
-- `node['nginx']['echo']['url']` - URL for the tarball.
-- `node['nginx']['echo']['checksum']` - Checksum of the tarball.
-
 ### chef_nginx::devel
 
 These attributes are used in the `chef_nginx::ngx_devel_module` recipe.
@@ -134,6 +126,14 @@ These attributes are used in the `chef_nginx::ngx_devel_module` recipe.
 - `node['nginx']['devel']['version']` - The version of the nginx devel module
 - `node['nginx']['devel']['url']` - The URL of the nginx devel module tar.gz file
 - `node['nginx']['devel']['checksum']` - The checksum of the nginx devel module tar.gz file
+
+### chef_nginx::echo
+
+These attributes are used in the `chef_nginx::http_echo_module` recipe.
+
+- `node['nginx']['echo']['version']` - The version of `http_echo` you want (default: 0.59)
+- `node['nginx']['echo']['url']` - URL for the tarball.
+- `node['nginx']['echo']['checksum']` - Checksum of the tarball.
 
 ### chef_nginx::geoip
 
@@ -158,6 +158,13 @@ From: <http://nginx.org/en/docs/http/ngx_http_realip_module.html>
 - `node['nginx']['realip']['header']` - Header to use for the RealIp Module; only accepts "X-Forwarded-For" or "X-Real-IP"
 - `node['nginx']['realip']['addresses']` - Addresses to use for the `http_realip` configuration.
 - `node['nginx']['realip']['real_ip_recursive']` - If recursive search is enabled, the original client address that matches one of the trusted addresses is replaced by the last non-trusted address sent in the request header field. Can be on "on" or "off" (default).
+
+### chef_nginx::openssl_source
+
+These attributes are used in the `chef_nginx::openssl_source` recipe.
+
+- `node['nginx']['openssl_source']['version']` - The version of OpenSSL you want to download and use (default: 1.0.1t)
+- `node['nginx']['openssl_source']['url']` - The url for the OpenSSL source
 
 ### chef_nginx::passenger
 
@@ -184,19 +191,17 @@ Basic configuration to use the official Phusion Passenger repositories:
 - `node['nginx']['package_name']` - 'nginx-extras'
 - `node['nginx']['passenger']['install_method']` - 'package'
 
-### chef_nginx::openssl_source
-
-These attributes are used in the `chef_nginx::openssl_source` recipe.
-
-- `node['nginx']['openssl_source']['version']` - The version of OpenSSL you want to download and use (default: 1.0.1t)
-- `node['nginx']['openssl_source']['url']` - The url for the OpenSSL source
-
 ### chef_nginx::rate_limiting
 
 - `node['nginx']['enable_rate_limiting']` - set to true to enable rate limiting (`limit_req_zone` in nginx.conf)
 - `node['nginx']['rate_limiting_zone_name']` - sets the zone in `limit_req_zone`.
 - `node['nginx']['rate_limiting_backoff']` - sets the backoff time for `limit_req_zone`.
 - `node['nginx']['rate_limit']` - set the rate limit amount for `limit_req_zone`.
+
+### chef_nginx::repo
+
+- `node['nginx']['upstream_repository']` - the URL to use for the package repository resource; default is set based on platform type
+- `node['nginx']['repo_signing_key']` - The URL from which package signing/gpg key is retrieved
 
 ### chef_nginx::socketproxy
 

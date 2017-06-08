@@ -24,7 +24,7 @@ when 'rhel'
   yum_repository 'nginx' do
     description  'Nginx.org Repository'
     baseurl      node['nginx']['upstream_repository']
-    gpgkey       'http://nginx.org/keys/nginx_signing.key'
+    gpgkey       node['nginx']['repo_signing_key']
     action       :create
   end
 
@@ -32,8 +32,8 @@ when 'suse'
 
   zypper_repo 'nginx' do
     repo_name 'Nginx.org Repository'
-    uri 'http://nginx.org/packages/sles/12'
-    key 'http://nginx.org/keys/nginx_signing.key'
+    uri node['nginx']['upstream_repository']
+    key node['nginx']['repo_signing_key']
   end
 
 when 'debian'
@@ -43,7 +43,7 @@ when 'debian'
     distribution node['lsb']['codename']
     components   %w(nginx)
     deb_src      true
-    key          'http://nginx.org/keys/nginx_signing.key'
+    key          node['nginx']['repo_signing_key']
   end
 
 else
