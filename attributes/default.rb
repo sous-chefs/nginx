@@ -41,11 +41,7 @@ default['nginx']['repo_source']    = 'nginx'
 default['nginx']['install_method'] = 'package'
 
 case node['platform_family']
-when 'debian'
-  default['nginx']['user'] = 'www-data'
-when 'rhel'
-  default['nginx']['user']        = 'nginx'
-when 'fedora'
+when 'rhel', 'fedora', 'amazon'
   default['nginx']['user']        = 'nginx'
 when 'freebsd'
   default['nginx']['package_name'] = 'www/nginx'
@@ -57,7 +53,7 @@ when 'freebsd'
 when 'suse'
   default['nginx']['user']       = 'wwwrun'
   default['nginx']['group']      = 'www'
-else
+else # debian probably
   default['nginx']['user']       = 'www-data'
 end
 
