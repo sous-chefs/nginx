@@ -2,6 +2,11 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## 6.1.1 (2017-06-08)
+
+- Use multipackage installs in the pagespeed recipe to speed things up
+- Several fixes for Amazon Linux on Chef 13+
+
 ## 6.1.0 (2017-06-07)
 
 - Add attributes for setting the repository URLs
