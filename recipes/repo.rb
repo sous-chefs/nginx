@@ -19,7 +19,7 @@
 #
 
 case node['platform_family']
-when 'rhel'
+when 'rhel', 'amazon'
 
   yum_repository 'nginx' do
     description  'Nginx.org Repository'

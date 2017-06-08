@@ -21,7 +21,7 @@
 # limitations under the License.
 #
 
-raise "#{node['platform']} is not a supported platform in the nginx::source recipe" unless platform_family?('rhel', 'fedora', 'debian', 'suse')
+raise "#{node['platform']} is not a supported platform in the nginx::source recipe" unless platform_family?('rhel', 'amazon', 'fedora', 'debian', 'suse')
 
 node.normal['nginx']['binary'] = node['nginx']['source']['sbin_path']
 node.normal['nginx']['daemon_disable'] = true

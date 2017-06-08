@@ -43,7 +43,7 @@ end
   end
 end
 
-if !node['nginx']['default_site_enabled'] && platform_family?('rhel', 'fedora')
+if !node['nginx']['default_site_enabled'] && platform_family?('rhel', 'fedora', 'amazon')
   %w(default.conf example_ssl.conf).each do |config|
     file "/etc/nginx/conf.d/#{config}" do
       action :delete
