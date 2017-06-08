@@ -2,6 +2,12 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## 6.1.0 (2017-06-07)
+
+- Add attributes for setting the repository URLs
+- Fix support for Amazon Linux repos on Chef 13+
+
+
 ## 6.0.3 (2017-06-05)
 
 - Correctly compare nginx versions with multiple digits so 1.10 is properly recognized as coming after 1.2.
