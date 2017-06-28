@@ -26,7 +26,7 @@ module NginxRecipeHelpers
   # systemd based distros and Ubuntu 14.04 use '/run/nginx.pid' for their
   # packages
   def pidfile_location
-    if (node['nginx']['repo_source'].nil? || node['nginx']['repo_source'] == 'distro') &&
+    if (node['nginx']['repo_source'].nil? || %w(distro passenger).include?(node['nginx']['repo_source'])) &&
        (node['init_package'] == 'systemd' || node['platform_version'].to_f == 14.04)
       '/run/nginx.pid'
     else
