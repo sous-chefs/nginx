@@ -103,3 +103,17 @@ suites:
   - name: modules
     run_list:
       - recipe[test::modules]
+  - name: passenger
+    run_list:
+      - recipe[test::passenger_packages]
+    excludes: # passenger distro install is not compatible with these
+      - fedora-latest
+      - centos-6
+      - centos-7
+      - opensuse-leap
+    attributes:
+      nginx:
+        repo_source: 'passenger'
+        package_name: 'nginx-extras'
+        passenger:
+          install_method: 'package'

@@ -61,3 +61,20 @@ suites:
       - ubuntu-16.04-chef-12.5
       - freebsd-10.3
       - freebsd-11.0
+  - name: passenger
+    run_list:
+      - recipe[test::passenger_packages]
+    excludes: # passenger distro install is not compatible with these
+      - ubuntu-16.04-chef-12.5
+      - freebsd-10.3
+      - freebsd-11.0
+      - opensuse-leap-42.2
+      - centos-6.8
+      - centos-7.3
+      - fedora-25
+    attributes:
+      nginx:
+        repo_source: 'passenger'
+        package_name: 'nginx-extras'
+        passenger:
+          install_method: 'package'
