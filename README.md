@@ -347,17 +347,13 @@ node.run_state['nginx_configure_flags'] =
   node.run_state['nginx_configure_flags'] | ['--with-SOMETHING', "--with-SOME_OPT='things'"]
 ```
 
-## License & Authors
+## Maintainers
 
-- Author:: Joshua Timberman ([joshua@chef.io](mailto:joshua@chef.io))
-- Author:: Adam Jacob ([adam@chef.io](mailto:adam@chef.io))
-- Author:: AJ Christensen ([aj@chef.io](mailto:aj@chef.io))
-- Author:: Jamie Winsor ([jamie@vialstudios.com](mailto:jamie@vialstudios.com))
-- Author:: Mike Fiedler ([miketheman@gmail.com](mailto:miketheman@gmail.com))
+This cookbook is maintained by Chef's Community Cookbook Engineering team. Our goal is to improve cookbook quality and to aid the community in contributing to cookbooks. To learn more about our team, process, and design goals see our [team documentation](https://github.com/chef-cookbooks/community_cookbook_documentation/blob/master/COOKBOOK_TEAM.MD). To learn more about contributing to cookbooks like this see our [contributing documentation](https://github.com/chef-cookbooks/community_cookbook_documentation/blob/master/CONTRIBUTING.MD), or if you have general questions about this cookbook come chat with us in #cookbok-engineering on the [Chef Community Slack](http://community-slack.chef.io/)
 
-```text
-Copyright 2008-2016, Chef Software, Inc
+## License
 
+```
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
