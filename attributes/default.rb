@@ -22,7 +22,7 @@
 
 # In order to update the version, the checksum attribute must be changed too.
 # This attribute is defined in the source.rb attribute file
-default['nginx']['version']      = '1.10.3'
+default['nginx']['version']      = '1.12.1'
 default['nginx']['package_name'] = 'nginx'
 default['nginx']['port']         = '80'
 default['nginx']['dir']          = '/etc/nginx'

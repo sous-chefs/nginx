@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'chef_nginx::http_realip_module' do
-  let(:nginx_version) { '1.10.3' }
+  let(:nginx_version) { '1.12.1' }
 
   let(:chef_run) do
     ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '16.04') do |node|
