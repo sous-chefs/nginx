@@ -2,6 +2,17 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## 6.2.0 (2017-09-12)
+
+- Install basic configuration before starting the nginx service
+- Correct documentation for `rate_limiting_backoff` attribute
+- Phusion Passenger distro has pid file location in /run/nginx.pid
+- [GH-92] add a test suite for passenger install
+- Swap the maintainer files for a readme section
+- Update nginx version [1.12.1] and checksum attributes for source installs
+- Update versions and checksums for lua-nginx-module and echo-nginx-module
+- Simplify repo logic and use HTTPS repos
+
 ## 6.1.1 (2017-06-08)
 
 - Use multipackage installs in the pagespeed recipe to speed things up
