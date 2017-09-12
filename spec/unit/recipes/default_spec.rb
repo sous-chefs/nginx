@@ -6,7 +6,7 @@ describe 'chef_nginx::default' do
   end
 
   let(:chef_run) do
-    ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '16.04').converge(described_recipe)
+    ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '16.04').converge(described_recipe)
   end
 
   shared_examples_for 'default recipe' do

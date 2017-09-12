@@ -56,7 +56,7 @@ describe 'chef_nginx::package' do
   context 'debian platform family' do
     context 'default attributes' do
       cached(:chef_run) do
-        ChefSpec::ServerRunner.new(
+        ChefSpec::SoloRunner.new(
           platform: 'ubuntu',
           version: '16.04'
         ).converge(described_recipe)
@@ -72,7 +72,7 @@ describe 'chef_nginx::package' do
 
     context 'repo_source set to distro' do
       cached(:chef_run) do
-        ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '16.04') do |node|
+        ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '16.04') do |node|
           node.override['nginx']['repo_source'] = 'distro'
         end.converge(described_recipe)
       end
@@ -85,7 +85,7 @@ describe 'chef_nginx::package' do
   context 'rhel platform family' do
     context 'default attributes' do
       cached(:chef_run) do
-        ChefSpec::ServerRunner.new(
+        ChefSpec::SoloRunner.new(
           platform: 'centos',
           version: '6.8'
         ).converge(described_recipe)
@@ -103,7 +103,7 @@ describe 'chef_nginx::package' do
 
     context 'repo_source set to distro' do
       cached(:chef_run) do
-        ChefSpec::ServerRunner.new(platform: 'centos', version: '6.8') do |node|
+        ChefSpec::SoloRunner.new(platform: 'centos', version: '6.8') do |node|
           node.override['nginx']['repo_source'] = 'distro'
         end.converge(described_recipe)
       end

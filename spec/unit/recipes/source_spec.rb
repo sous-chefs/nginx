@@ -67,7 +67,7 @@ describe 'chef_nginx::source' do
   end
 
   let(:chef_run) do
-    ChefSpec::ServerRunner.new(platform: 'debian', version: '7.10').converge(described_recipe)
+    ChefSpec::SoloRunner.new(platform: 'debian', version: '7.10').converge(described_recipe)
   end
 
   before do
@@ -94,7 +94,7 @@ describe 'chef_nginx::source' do
 
   context 'On Debian 8' do
     let(:chef_run) do
-      ChefSpec::ServerRunner.new(platform: 'debian', version: '8.5').converge('chef_nginx::source')
+      ChefSpec::SoloRunner.new(platform: 'debian', version: '8.9').converge('chef_nginx::source')
     end
 
     it 'creates systemd unit file' do
@@ -104,7 +104,7 @@ describe 'chef_nginx::source' do
 
   context 'On RHEL 6' do
     let(:chef_run) do
-      ChefSpec::ServerRunner.new(platform: 'centos', version: '6.8').converge('chef_nginx::source')
+      ChefSpec::SoloRunner.new(platform: 'centos', version: '6.8').converge('chef_nginx::source')
     end
 
     it 'creates init script' do
@@ -118,7 +118,7 @@ describe 'chef_nginx::source' do
 
   context 'On RHEL 7' do
     let(:chef_run) do
-      ChefSpec::ServerRunner.new(platform: 'centos', version: '7.2.1511').converge('chef_nginx::source')
+      ChefSpec::SoloRunner.new(platform: 'centos', version: '7.2.1511').converge('chef_nginx::source')
     end
 
     it 'creates systemd unit file' do
@@ -126,9 +126,9 @@ describe 'chef_nginx::source' do
     end
   end
 
-  context 'On openSUSE 13.2' do
+  context 'On openSUSE Leap' do
     let(:chef_run) do
-      ChefSpec::ServerRunner.new(platform: 'opensuse', version: '13.2').converge('chef_nginx::source')
+      ChefSpec::SoloRunner.new(platform: 'opensuse', version: '13.2').converge('chef_nginx::source')
     end
 
     it 'creates systemd unit file' do

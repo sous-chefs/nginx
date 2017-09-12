@@ -4,7 +4,7 @@ describe 'chef_nginx::http_realip_module' do
   let(:nginx_version) { '1.12.1' }
 
   let(:chef_run) do
-    ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '16.04') do |node|
+    ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '16.04') do |node|
       node.normal['nginx']['source']['modules'] = ['chef_nginx::http_realip_module']
       node.normal['nginx']['version'] = nginx_version
       node.normal['nginx']['realip']['real_ip_recursive'] = 'off'

@@ -5,7 +5,7 @@ require 'spec_helper'
 # from that recipe.
 describe 'chef_nginx::commons_conf with default attributes' do
   cached(:chef_run) do
-    ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '16.04').converge('chef_nginx::default')
+    ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '16.04').converge('chef_nginx::default')
   end
 
   before do
@@ -27,7 +27,7 @@ end
 
 describe 'chef_nginx::commons_conf with non-default attributes' do
   let(:chef_run) do
-    ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '16.04').converge('chef_nginx::default')
+    ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '16.04').converge('chef_nginx::default')
   end
 
   before do

@@ -3,7 +3,7 @@ require 'spec_helper'
 # running chef_nginx::default as we need service[nginx] to be defined
 describe 'chef_nginx::commons' do
   cached(:chef_run) do
-    ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '16.04').converge('chef_nginx::default', described_recipe)
+    ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '16.04').converge('chef_nginx::default', described_recipe)
   end
 
   before do
@@ -75,7 +75,7 @@ describe 'chef_nginx::commons' do
 
     context 'When the default website is disabled' do
       let(:chef_run) do
-        ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '16.04') do |node|
+        ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '16.04') do |node|
           node.normal['nginx']['default_site_enabled'] = false
         end.converge('chef_nginx::default', described_recipe)
       end
