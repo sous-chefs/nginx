@@ -69,7 +69,7 @@ suites:
       - freebsd-10.3
       - freebsd-11.0
       - opensuse-leap-42.2
-      - centos-6.8
+      - centos-6.9
       - centos-7.3
       - fedora-25
     attributes:

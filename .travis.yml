@@ -49,9 +49,9 @@ env:
   - INSTANCE=modules-opensuse-leap
   - INSTANCE=modules-ubuntu-1404
   - INSTANCE=modules-ubuntu-1604
-#  - INSTANCE=passenger-debian-7 TODO: nginx is not started as a service here
+#  - INSTANCE=passenger-debian-7 # TODO: does not work on this system
   - INSTANCE=passenger-debian-8
-#  - INSTANCE=passenger-ubuntu-1404 TODO: nginx is not started as a service here
+  - INSTANCE=passenger-ubuntu-1404
   - INSTANCE=passenger-ubuntu-1604
 
 before_script:
