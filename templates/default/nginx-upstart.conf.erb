@@ -6,13 +6,13 @@ start on (local-filesystems and net-device-up IFACE=lo and runlevel [<%= node['n
 stop on runlevel [!<%= node['nginx']['upstart']['runlevels'] %>]
 
 env DAEMON=<%= node['nginx']['binary'] %>
-env PID=<%= node['nginx']['pid'] %>
+env PID=<%= @pid_file %>
 env CONFIG=<%= node['nginx']['source']['conf_path'] %>
 
 respawn
-<% if node['nginx']['upstart']['respawn_limit'] %>
+<% if node['nginx']['upstart']['respawn_limit'] -%>
 respawn limit <%= node['nginx']['upstart']['respawn_limit'] %>
-<% end %>
+<% end -%>
 
 pre-start script
   ${DAEMON} -t
@@ -21,19 +21,19 @@ pre-start script
   fi
 end script
 
-<% unless node['nginx']['upstart']['foreground'] %>
+<% unless node['nginx']['upstart']['foreground'] -%>
 expect fork
-<% else %>
+<% else -%>
 console output
-<% end %>
+<% end -%>
 
 exec ${DAEMON} -c "${CONFIG}"
 
-<% if node.recipe?('nginx::passenger') and not node['nginx']['upstart']['foreground'] %>
+<% if node.recipe?('nginx::passenger') && !node['nginx']['upstart']['foreground'] -%>
 # classic example of why pidfiles should have gone away
 # with the advent of fork().  we missed that bus a long
 # time ago so hack around it.
 post-stop script
   start-stop-daemon --stop --pidfile ${PID} --name nginx --exec ${DAEMON} --signal QUIT
 end script
-<% end %>
+<% end -%>

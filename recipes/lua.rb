@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: nginx
-# Recipe:: default
+# Cookbook:: nginx
+# Recipe:: lua
 #
-# Copyright 2013, Chef Software, Inc.
+# Copyright:: 2013-2017, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -24,9 +24,6 @@ luajit_extract_path = "#{Chef::Config['file_cache_path']}/luajit-#{node['nginx']
 remote_file luajit_src_filepath do
   source   node['nginx']['luajit']['url']
   checksum node['nginx']['luajit']['checksum']
-  owner    'root'
-  group    node['root_group']
-  mode     '0644'
 end
 
 bash 'extract_luajit' do
@@ -36,12 +33,14 @@ bash 'extract_luajit' do
     tar xzf #{luajit_src_filename} -C #{luajit_extract_path}
     cd luajit-#{node['nginx']['luajit']['version']}/LuaJIT-#{node['nginx']['luajit']['version']}
     make && make install
-    export LUAJIT_INC="/usr/local/include/luajit-2.0"
-    export LUAJIT_LIB="usr/local/lib"
   EOH
   not_if { ::File.exist?(luajit_extract_path) }
 end
 
-package 'lua-devel' do
-  action :install
-end
+node.run_state['nginx_source_env'].merge!(
+  'LUAJIT_INC' => '/usr/local/include/luajit-2.0',
+  'LUAJIT_LIB' => '/usr/local/lib'
+)
+
+node.run_state['nginx_configure_flags'] =
+  node.run_state['nginx_configure_flags'] | ['--with-ld-opt=-Wl,-rpath,/usr/local/lib']

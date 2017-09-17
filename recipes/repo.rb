@@ -1,9 +1,9 @@
 #
-# Cookbook Name:: nginx
+# Cookbook:: nginx
 # Recipe:: repo
 # Author:: Nick Rycar <nrycar@bluebox.net>
 #
-# Copyright 2008-2013, Chef Software, Inc.
+# Copyright:: 2008-2017, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,23 +19,35 @@
 #
 
 case node['platform_family']
-when 'rhel', 'fedora'
+when 'rhel', 'amazon'
 
   yum_repository 'nginx' do
-    description 'Nginx.org Repository'
-    baseurl         node['nginx']['upstream_repository']
-    gpgkey      'http://nginx.org/keys/nginx_signing.key'
-    action :create
+    description  'Nginx.org Repository'
+    baseurl      node['nginx']['upstream_repository']
+    gpgkey       node['nginx']['repo_signing_key']
+    action       :create
+  end
+
+when 'suse'
+
+  zypper_repo 'nginx' do
+    repo_name 'Nginx.org Repository'
+    uri node['nginx']['upstream_repository']
+    key node['nginx']['repo_signing_key']
   end
 
 when 'debian'
-  include_recipe 'apt::default'
 
   apt_repository 'nginx' do
     uri          node['nginx']['upstream_repository']
     distribution node['lsb']['codename']
     components   %w(nginx)
     deb_src      true
-    key          'http://nginx.org/keys/nginx_signing.key'
+    key          node['nginx']['repo_signing_key']
+  end
+
+else
+  log "nginx.org does not maintain packages for platform #{node['platform']}. Cannot setup the upstream repo!" do
+    level :warn
   end
 end

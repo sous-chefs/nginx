@@ -2,8 +2,8 @@ require 'spec_helper'
 
 # running nginx::default as we need service[nginx] to be defined
 describe 'nginx::commons' do
-  let(:chef_run) do
-    ChefSpec::SoloRunner.new.converge('nginx::default', described_recipe)
+  cached(:chef_run) do
+    ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '16.04').converge('nginx::default', described_recipe)
   end
 
   before do
@@ -24,17 +24,20 @@ describe 'nginx::commons' do
 
   # Describe individual recipes here instead of adding more files
   describe 'commons_dir recipe' do
-    %W(
+    %w(
       /etc/nginx
       /var/log/nginx
-      #{File.dirname('/var/run/nginx.pid')}
       /etc/nginx/sites-available
       /etc/nginx/sites-enabled
       /etc/nginx/conf.d
     ).each do |dir|
-      it 'creates nginx dir' do
+      it "creates directory #{dir}" do
         expect(chef_run).to create_directory(dir)
       end
+    end
+
+    it 'creates pid file directory' do
+      expect(chef_run).to create_directory('pid file directory').with(path: '/var/run')
     end
   end
 
@@ -67,13 +70,13 @@ describe 'nginx::commons' do
     end
 
     it 'enables default site' do
-      expect(chef_run).to run_execute('nxensite default')
+      expect(chef_run).to enable_nginx_site('default')
     end
 
     context 'When the default website is disabled' do
       let(:chef_run) do
-        ChefSpec::SoloRunner.new do |node|
-          node.set['nginx']['default_site_enabled'] = false
+        ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '16.04') do |node|
+          node.normal['nginx']['default_site_enabled'] = false
         end.converge('nginx::default', described_recipe)
       end
 

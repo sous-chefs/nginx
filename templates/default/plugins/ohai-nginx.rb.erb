@@ -1,0 +1,82 @@
+#
+# Author:: Jamie Winsor (<jamie@vialstudios.com>)
+#
+# Copyright 2012, Riot Games
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+Ohai.plugin(:Nginx) do
+  provides "nginx"
+  provides "nginx/version"
+  provides "nginx/configure_arguments"
+  provides "nginx/prefix"
+  provides "nginx/conf_path"
+
+  def parse_flags(flags)
+    prefix = nil
+    conf_path = nil
+
+    flags.each do |flag|
+      case flag
+      when /^--prefix=(.+)$/
+        prefix = Regexp.last_match(1)
+      when /^--conf-path=(.+)$/
+        conf_path = Regexp.last_match(1)
+      end
+    end
+
+    [prefix, conf_path]
+  end
+
+  collect_data do
+    nginx Mash.new unless nginx
+    # if we fail we should still have these values to avoid nil class errors
+    # if people try to use them
+    nginx[:version]             = nil unless nginx[:version]
+    nginx[:configure_arguments] = [] unless nginx[:configure_arguments]
+    nginx[:prefix]              = nil unless nginx[:prefix]
+    nginx[:conf_path]           = nil unless nginx[:conf_path]
+
+    begin
+      so = shell_out("<%= @binary %> -V")
+      # Sample output:
+      # nginx version: nginx/1.10.1
+      # built by clang 7.3.0 (clang-703.0.31)
+      # built with OpenSSL 1.0.2h  3 May 2016
+      # TLS SNI support enabled
+      # configure arguments: --prefix=/usr/local/Cellar/nginx/1.10.1 --with-http_ssl_module --with-pcre --with-ipv6 --sbin-path=/usr/local/Cellar/nginx/1.10.1/bin/nginx --with-cc-opt='-I/usr/local/Cellar/pcre/8.38/include -I/usr/local/Cellar/openssl/1.0.2h_1/include' --with-ld-opt='-L/usr/local/Cellar/pcre/8.38/lib -L/usr/local/Cellar/openssl/1.0.2h_1/lib' --conf-path=/usr/local/etc/nginx/nginx.conf --pid-path=/usr/local/var/run/nginx.pid --lock-path=/usr/local/var/run/nginx.lock --http-client-body-temp-path=/usr/local/var/run/nginx/client_body_temp --http-proxy-temp-path=/usr/local/var/run/nginx/proxy_temp --http-fastcgi-temp-path=/usr/local/var/run/nginx/fastcgi_temp --http-uwsgi-temp-path=/usr/local/var/run/nginx/uwsgi_temp --http-scgi-temp-path=/usr/local/var/run/nginx/scgi_temp --http-log-path=/usr/local/var/log/nginx/access.log --error-log-path=/usr/local/var/log/nginx/error.log --with-http_gzip_static_module
+
+      if so.exitstatus == 0
+        so.stderr.split("\n").each do |line|
+          case line
+          when /^configure arguments:(.+)/
+            # This could be better: I'm splitting on configure arguments which removes them and also
+            # adds a blank string at index 0 of the array. This is why we drop index 0 and map to
+            # add the '--' prefix back to the configure argument.
+            nginx[:configure_arguments] = Regexp.last_match(1).split(/\s--(?!param)/).drop(1).map { |ca| "--#{ca}" }
+
+            prefix, conf_path = parse_flags(nginx[:configure_arguments])
+
+            nginx[:prefix] = prefix
+            nginx[:conf_path] = conf_path
+          when /^nginx version: nginx\/(\d+\.\d+\.\d+)/
+            nginx[:version] = Regexp.last_match(1)
+          end
+        end
+      end
+    rescue
+      Ohai::Log.debug('Nginx plugin: Could not shell_out "<%= @binary %> -V"')
+    end
+  end
+end

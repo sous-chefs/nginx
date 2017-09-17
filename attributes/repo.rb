@@ -1,10 +1,10 @@
 #
-# Cookbook Name:: nginx
+# Cookbook:: nginx
 # Recipe:: repo
 #
 # Author:: Nick Rycar <nrycar@bluebox.net>
 #
-# Copyright 2008-2013, Chef Software, Inc.
+# Copyright:: 2008-2017, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,17 +19,22 @@
 # limitations under the License.
 #
 
-case node['platform_family']
-when 'rhel', 'fedora'
-  case node['platform']
-  when 'centos'
-    # See http://wiki.nginx.org/Install
-    default['nginx']['upstream_repository'] = "http://nginx.org/packages/centos/#{node['platform_version'].to_i}/$basearch/"
-  when 'amazon'
-    default['nginx']['upstream_repository'] = 'http://nginx.org/packages/rhel/6/$basearch/'
-  else
-    default['nginx']['upstream_repository'] = "http://nginx.org/packages/rhel/#{node['platform_version'].to_i}/$basearch/"
+default['nginx']['upstream_repository'] =
+  case node['platform_family']
+  when 'rhel', 'fedora', 'amazon'
+    case node['platform']
+    when 'centos'
+      # See http://wiki.nginx.org/Install
+      "https://nginx.org/packages/centos/#{node['platform_version'].to_i}/$basearch/"
+    when 'amazon' # Chef < 13 on Amazon
+      'https://nginx.org/packages/rhel/6/$basearch/'
+    else
+      "https://nginx.org/packages/rhel/#{node['platform_version'].to_i}/$basearch/"
+    end
+  when 'debian'
+    "https://nginx.org/packages/#{node['platform']}"
+  when 'suse'
+    'https://nginx.org/packages/sles/12'
   end
-when 'debian'
-  default['nginx']['upstream_repository'] = "http://nginx.org/packages/#{node['platform']}"
-end
+
+default['nginx']['repo_signing_key'] = 'https://nginx.org/keys/nginx_signing.key'

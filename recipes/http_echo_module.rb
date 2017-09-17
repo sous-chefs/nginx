@@ -1,10 +1,10 @@
 #
-# Cookbook Name:: nginx
+# Cookbook:: nginx
 # Recipe:: http_echo_module
 #
 # Author:: Danial Pearce (<danial@cushycms.com>)
 #
-# Copyright 2012-2013, CushyCMS
+# Copyright:: 2012-2017, CushyCMS
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -26,9 +26,6 @@ echo_extract_path = "#{Chef::Config['file_cache_path']}/nginx_echo_module/#{node
 remote_file echo_src_filepath do
   source   node['nginx']['echo']['url']
   checksum node['nginx']['echo']['checksum']
-  owner    'root'
-  group    node['root_group']
-  mode     '0644'
 end
 
 bash 'extract_http_echo_module' do

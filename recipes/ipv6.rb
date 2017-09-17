@@ -1,10 +1,10 @@
 #
-# Cookbook Name:: nginx
+# Cookbook:: nginx
 # Recipe:: ipv6
 #
 # Author:: Alan Harper (alan@sct.com.au)
 #
-# Copyright 2013 Alan Harper
+# Copyright:: 2013-2017, Alan Harper
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.

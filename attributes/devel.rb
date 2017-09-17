@@ -1,10 +1,10 @@
 #
-# Cookbook Name:: nginx
+# Cookbook:: nginx
 # Attributes:: devel
 #
 # Author:: Arthur Freyman (<afreyman@riotgames.com>)
 #
-# Copyright 2013, Riot Games
+# Copyright:: 2013-2017, Riot Games
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,6 +19,6 @@
 # limitations under the License.
 #
 
-default['nginx']['devel']['version']  = '0.2.18'
+default['nginx']['devel']['version']  = '0.3.0'
 default['nginx']['devel']['url']      = "https://github.com/simpl/ngx_devel_kit/archive/v#{node['nginx']['devel']['version']}.tar.gz"
-default['nginx']['devel']['checksum'] = 'c9c9f0a1b068d38c6c45b15d9605f1b2344dbcd45abf0764cd8e2ba92d6a3d2c'
+default['nginx']['devel']['checksum'] = '88e05a99a8a7419066f5ae75966fb1efc409bad4522d14986da074554ae61619'

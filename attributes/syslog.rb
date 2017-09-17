@@ -1,11 +1,10 @@
-
 #
-# Cookbook Name:: nginx
+# Cookbook:: nginx
 # Attributes:: syslog
 #
 # Author:: Bob Ziuchkovski (<bob@bz-technology.com>)
 #
-# Copyright 2014, UserTesting
+# Copyright:: 2014-2017, UserTesting
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.

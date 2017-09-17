@@ -1,10 +1,10 @@
 #
-# Cookbook Name:: nginx
+# Cookbook:: nginx
 # Recipe:: http_stub_status_module
 #
 # Author:: Jamie Winsor (<jamie@vialstudios.com>)
 #
-# Copyright 2012-2013, Riot Games
+# Copyright:: 2012-2017, Riot Games
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -24,9 +24,6 @@ include_recipe 'nginx::authorized_ips'
 template 'nginx_status' do
   path "#{node['nginx']['dir']}/sites-available/nginx_status"
   source 'modules/nginx_status.erb'
-  owner  'root'
-  group  node['root_group']
-  mode   '0644'
   notifies :reload, 'service[nginx]', :delayed
 end
 

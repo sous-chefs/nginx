@@ -1,4 +1,4 @@
-# Cookbook Name:: nginx
+# Cookbook:: nginx
 # Recipe:: repo_passenger
 # Author:: Jose Alberto Suarez Lopez <ja@josealberto.org>
 #
@@ -15,16 +15,8 @@
 # limitations under the License.
 #
 
-case node['platform_family']
-when 'rhel', 'fedora'
-
-  log 'There is not official phusion passenger repo for redhat based systems.' do
-    level :info
-  end
-
-when 'debian'
-  include_recipe 'apt::default'
-  package 'apt-transport-https'
+if platform_family?('debian')
+  package 'ca-certificates'
 
   apt_repository 'phusionpassenger' do
     uri 'https://oss-binaries.phusionpassenger.com/apt/passenger'
@@ -36,4 +28,8 @@ when 'debian'
   end
 
   include_recipe 'nginx::passenger'
+else
+  log "There is not official phusion passenger repo platform #{node['platform']}. Skipping repo setup!" do
+    level :warn
+  end
 end

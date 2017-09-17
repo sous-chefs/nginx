@@ -1,10 +1,10 @@
 #
-# Cookbook Name:: nginx
+# Cookbook:: nginx
 # Attributes:: geoip
 #
 # Author:: Jamie Winsor (<jamie@vialstudios.com>)
 #
-# Copyright 2012-2013, Riot Games
+# Copyright:: 2012-2017, Riot Games
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,13 +19,17 @@
 # limitations under the License.
 #
 
+# NOTE: The GeoIP database checksums are nil by default as these files change
+# continuously and are not versioned.
+# If you self host these files you should create a checksum and set these attributes
+
 default['nginx']['geoip']['path']                 = '/srv/geoip'
 default['nginx']['geoip']['enable_city']          = true
 default['nginx']['geoip']['country_dat_url']      = 'http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz'
-default['nginx']['geoip']['country_dat_checksum'] = '79ff1099e96c2dc1c2539c9a18aaa13a9afd085cae477df60d95f1644d42bc07'
+default['nginx']['geoip']['country_dat_checksum'] = nil
 default['nginx']['geoip']['city_dat_url']         = 'http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz'
-default['nginx']['geoip']['city_dat_checksum']    = '8a6467033a528f68b1a97de24d9d0ce86c8e8e83683820e16e433ddbd3f712f7'
-default['nginx']['geoip']['lib_version']          = '1.6.3'
+default['nginx']['geoip']['city_dat_checksum']    = nil
+default['nginx']['geoip']['lib_version']          = '1.6.9'
 lib_version = node['nginx']['geoip']['lib_version'] # convenience variable for line length
 default['nginx']['geoip']['lib_url']              = "https://github.com/maxmind/geoip-api-c/releases/download/v#{lib_version}/GeoIP-#{lib_version}.tar.gz"
-default['nginx']['geoip']['lib_checksum']         = 'e483839a81a91c3c85df89ef409fc7b526c489e0355d537861cfd1ea9534a8f2'
+default['nginx']['geoip']['lib_checksum']         = '4b446491843de67c1af9b887da17a3e5939e0aeed4826923a5f4bf09d845096f'

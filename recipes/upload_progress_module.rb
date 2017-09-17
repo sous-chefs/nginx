@@ -1,10 +1,10 @@
 #
-# Cookbook Name:: nginx
+# Cookbook:: nginx
 # Recipe:: upload_progress_module
 #
 # Author:: Jamie Winsor (<jamie@vialstudios.com>)
 #
-# Copyright 2012-2013, Riot Games
+# Copyright:: 2012-2017, Riot Games
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -26,16 +26,10 @@ upm_extract_path = "#{Chef::Config['file_cache_path']}/nginx_upload_progress/#{n
 remote_file upm_src_filepath do
   source   node['nginx']['upload_progress']['url']
   checksum node['nginx']['upload_progress']['checksum']
-  owner    'root'
-  group    node['root_group']
-  mode     '0644'
 end
 
 template "#{node['nginx']['dir']}/conf.d/upload_progress.conf" do
   source 'modules/upload_progress.erb'
-  owner  'root'
-  group  node['root_group']
-  mode   '0644'
   notifies :reload, 'service[nginx]', :delayed
 end
 

@@ -1,10 +1,10 @@
 #
-# Cookbook Name:: nginx
+# Cookbook:: nginx
 # Recipe:: common/script
 #
 # Author:: AJ Christensen <aj@junglist.gen.nz>
 #
-# Copyright 2008-2013, Chef Software, Inc.
+# Copyright:: 2008-2017, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,7 +23,5 @@
   template "#{node['nginx']['script_dir']}/#{nxscript}" do
     source "#{nxscript}.erb"
     mode   '0755'
-    owner  'root'
-    group  node['root_group']
   end
 end

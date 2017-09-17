@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: nginx
+# Cookbook:: nginx
 # Recipes:: set_misc
 #
 
@@ -10,9 +10,6 @@ set_misc_extract_path = "#{Chef::Config['file_cache_path']}/nginx-set_misc-#{nod
 remote_file set_misc_src_filepath do
   source   node['nginx']['set_misc']['url']
   checksum node['nginx']['set_misc']['checksum']
-  owner    'root'
-  group    'root'
-  mode     '0644'
 end
 
 bash 'extract_set_misc_module' do

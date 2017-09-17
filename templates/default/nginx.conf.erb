@@ -1,15 +1,20 @@
 user <%= node['nginx']['user'] %><% if node['nginx']['user'] != node['nginx']['group'] %> <%= node['nginx']['group'] %><% end %>;
-worker_processes  <%= node['nginx']['worker_processes'] %>;
+worker_processes <%= node['nginx']['worker_processes'] %>;
 <% if node['nginx']['daemon_disable'] -%>
 daemon off;
 <% end -%>
 <% if node['nginx']['worker_rlimit_nofile'] -%>
 worker_rlimit_nofile <%= node['nginx']['worker_rlimit_nofile'] %>;
 <% end -%>
+<% if node['nginx']['worker_shutdown_timeout'] -%>
+worker_shutdown_timeout <%= node['nginx']['worker_shutdown_timeout'] %>;
+<% end -%>
+<% node['nginx']['load_modules'].each do |module_to_load| %>
+load_module <%= module_to_load %>;
+<% end -%>
 
 error_log  <%= node['nginx']['log_dir'] %>/error.log<% if node['nginx']['error_log_options'] %> <%= node['nginx']['error_log_options'] %><% end %>;
-pid        <%= node['nginx']['pid'] %>;
-
+pid        <%= @pid_file %>;
 events {
   worker_connections  <%= node['nginx']['worker_connections'] %>;
 <% if node['nginx']['multi_accept'] -%>
@@ -30,6 +35,7 @@ http {
 
   include       <%= node['nginx']['dir'] %>/mime.types;
   default_type  application/octet-stream;
+  charset_types text/css text/plain text/vnd.wap.wml application/javascript application/json application/rss+xml application/xml;
 
   <% node['nginx']['log_formats'].each do |name, format| %>
   log_format <%= name %> <%= format %>;

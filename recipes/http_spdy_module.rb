@@ -1,10 +1,10 @@
 #
-# Cookbook Name:: nginx
+# Cookbook:: nginx
 # Recipe:: http_spdy_module
 #
 # Author:: Christoph Buente (<christoph@meinekleinefarm.org>)
 #
-# Copyright 2013, MeinekleineFarm.org
+# Copyright:: 2013-2017, MeinekleineFarm.org
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.

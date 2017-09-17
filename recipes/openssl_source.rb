@@ -1,10 +1,10 @@
 #
-# Cookbook Name:: nginx
+# Cookbook:: nginx
 # Recipe:: openssl_source
 #
 # Author:: David Radcliffe (<radcliffe.david@gmail.com>)
 #
-# Copyright 2013, David Radcliffe
+# Copyright:: 2013-2017, David Radcliffe
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -25,9 +25,6 @@ extract_path = "#{Chef::Config['file_cache_path']}/openssl-#{node['nginx']['open
 
 remote_file src_filepath do
   source node['nginx']['openssl_source']['url']
-  owner  'root'
-  group  node['root_group']
-  mode   '0644'
   not_if { ::File.exist?(src_filepath) }
 end
 

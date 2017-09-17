@@ -1,19 +1,19 @@
-name              'nginx'
-maintainer        'Chef Software, Inc.'
-maintainer_email  'cookbooks@chef.io'
-license           'Apache 2.0'
-description       'Installs and configures nginx'
-version           '2.7.6'
+name 'nginx'
+maintainer 'Chef Software, Inc.'
+maintainer_email 'cookbooks@chef.io'
+license 'Apache-2.0'
+description 'Installs and configures nginx'
+long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
+version '6.2.0'
 
-recipe 'nginx',         'Installs nginx package and sets up configuration with Debian apache style with sites-enabled/sites-available'
+recipe 'nginx', 'Installs nginx package and sets up configuration with Debian apache style with sites-enabled/sites-available'
 recipe 'nginx::source', 'Installs nginx from source and sets up configuration with Debian apache style with sites-enabled/sites-available'
 
-depends 'apt',             '~> 2.2'
-depends 'bluepill',        '~> 2.3'
-depends 'build-essential', '~> 2.0'
-depends 'ohai',            '~> 2.0'
-depends 'runit',           '~> 1.2'
-depends 'yum-epel',        '~> 0.3'
+depends 'build-essential'
+depends 'ohai', '>= 4.1.0'
+depends 'yum-epel'
+depends 'compat_resource', '>= 12.16.3'
+depends 'zypper'
 
 supports 'amazon'
 supports 'centos'
@@ -23,103 +23,10 @@ supports 'oracle'
 supports 'redhat'
 supports 'scientific'
 supports 'ubuntu'
+supports 'suse'
+supports 'opensuse'
+supports 'opensuseleap'
 
-attribute 'nginx/dir',
-  :display_name => 'Nginx Directory',
-  :description => 'Location of nginx configuration files',
-  :default => '/etc/nginx'
-
-attribute 'nginx/log_dir',
-  :display_name => 'Nginx Log Directory',
-  :description => 'Location for nginx logs',
-  :default => '/var/log/nginx'
-
-attribute 'nginx/user',
-  :display_name => 'Nginx User',
-  :description => 'User nginx will run as',
-  :default => 'www-data'
-
-attribute 'nginx/binary',
-  :display_name => 'Nginx Binary',
-  :description => 'Location of the nginx server binary',
-  :default => '/usr/sbin/nginx'
-
-attribute 'nginx/gzip',
-  :display_name => 'Nginx Gzip',
-  :description => 'Whether gzip is enabled',
-  :default => 'on'
-
-attribute 'nginx/gzip_http_version',
-  :display_name => 'Nginx Gzip HTTP Version',
-  :description => 'Version of HTTP Gzip',
-  :default => '1.0'
-
-attribute 'nginx/gzip_comp_level',
-  :display_name => 'Nginx Gzip Compression Level',
-  :description => 'Amount of compression to use',
-  :default => '2'
-
-attribute 'nginx/gzip_proxied',
-  :display_name => 'Nginx Gzip Proxied',
-  :description => 'Whether gzip is proxied',
-  :default => 'any'
-
-attribute 'nginx/gzip_types',
-  :display_name => 'Nginx Gzip Types',
-  :description => 'Supported MIME-types for gzip',
-  :type => 'array',
-  :default => ['text/plain', 'text/css', 'application/x-javascript', 'text/xml', 'application/xml', 'application/xml+rss', 'text/javascript', 'application/javascript', 'application/json']
-
-attribute 'nginx/keepalive',
-  :display_name => 'Nginx Keepalive',
-  :description => 'Whether to enable keepalive',
-  :default => 'on'
-
-attribute 'nginx/keepalive_timeout',
-  :display_name => 'Nginx Keepalive Timeout',
-  :default => '65'
-
-attribute 'nginx/worker_processes',
-  :display_name => 'Nginx Worker Processes',
-  :description => 'Number of worker processes',
-  :default => '1'
-
-attribute 'nginx/worker_connections',
-  :display_name => 'Nginx Worker Connections',
-  :description => 'Number of connections per worker',
-  :default => '1024'
-
-attribute 'nginx/server_names_hash_bucket_size',
-  :display_name => 'Nginx Server Names Hash Bucket Size',
-  :default => '64'
-
-attribute 'nginx/types_hash_max_size',
-  :display_name => 'Nginx Types Hash Max Size',
-  :default => '2048'
-
-attribute 'nginx/types_hash_bucket_size',
-  :display_name => 'Nginx Types Hash Bucket Size',
-  :default => '64'
-
-attribute 'nginx/disable_access_log',
-  :display_name => 'Disable Access Log',
-  :default => 'false'
-
-attribute 'nginx/default_site_enabled',
-  :display_name => 'Default site enabled',
-  :default => 'true'
-
-attribute 'nginx/sendfile',
-  :display_name => 'Nginx sendfile',
-  :description => 'Whether to enable sendfile',
-  :default => 'on'
-
-attribute 'nginx/tcp_nopush',
-  :display_name => 'Nginx tcp_nopush',
-  :description => 'Whether to enable tcp_nopush',
-  :default => 'on'
-
-attribute 'nginx/tcp_nodelay',
-  :display_name => 'Nginx tcp_nodelay',
-  :description => 'Whether to enable tcp_nodelay',
-  :default => 'on'
+source_url 'https://github.com/chef-cookbooks/nginx'
+issues_url 'https://github.com/chef-cookbooks/nginx/issues'
+chef_version '>= 12.1' if respond_to?(:chef_version)

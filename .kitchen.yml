@@ -3,52 +3,78 @@ driver:
 
 provisioner:
   name: chef_zero
+  deprecations_as_errors: true
+
+verifier:
+  name: inspec
 
 platforms:
-  - name: centos-5.10
-  - name: centos-6.5
-  - name: ubuntu-10.04
-    run_list:
-        - recipe[apt]
-  - name: ubuntu-12.04
-    run_list:
-        - recipe[apt]
+  - name: centos-6.9
+  - name: centos-7.3
+  - name: debian-7.11
+  - name: debian-8.8
+  - name: fedora-25
+  - name: freebsd-10.3
+  - name: freebsd-11.0
+  - name: opensuse-leap-42.2
+  - name: ubuntu-14.04
+  - name: ubuntu-16.04
+  - name: ubuntu-16.04-chef-12.5
+    driver_config:
+      box: bento/ubuntu-16.04
+    provisioner:
+      require_chef_omnibus: 12.5.1
 
 suites:
-  - name: default
+  - name: distro_packages
     run_list:
-      - recipe[nginx::default]
+      - recipe[test::distro_packages]
+    excludes: # these all lack distro packages
+      - centos-6.9
+      - centos-7.3
   - name: source
     run_list:
-      - recipe[nginx::default]
-    attributes:
-      nginx:
-        install_method: source
+      - recipe[test::source]
+  - name: epel
+    run_list:
+      - recipe[test::epel]
+    includes:
+      - centos-6.9
+      - centos-7.3
+      - freebsd-10.3
+      - freebsd-11.0
+  - name: source
+    run_list:
+      - recipe[test::source]
   - name: upstream_repo
     run_list:
-      - recipe[nginx::repo]
-      - recipe[nginx::default]
-    attributes:
-      nginx:
-        repo_source: nginx
+      - recipe[test::upstream_repo]
+    excludes:
+      - fedora-25 # lacks nginx repo
+      - ubuntu-16.04-chef-12.5
+      - freebsd-10.3
+      - freebsd-11.0
   - name: modules
     run_list:
-      - recipe[nginx::source]
+      - recipe[test::modules]
+    excludes:
+      - ubuntu-16.04-chef-12.5
+      - freebsd-10.3
+      - freebsd-11.0
+  - name: passenger
+    run_list:
+      - recipe[test::passenger_packages]
+    excludes: # passenger distro install is not compatible with these
+      - ubuntu-16.04-chef-12.5
+      - freebsd-10.3
+      - freebsd-11.0
+      - opensuse-leap-42.2
+      - centos-6.9
+      - centos-7.3
+      - fedora-25
     attributes:
       nginx:
-        source:
-          modules:
-            - nginx::headers_more_module
-            - nginx::http_auth_request_module
-            - nginx::http_echo_module
-            - nginx::http_geoip_module
-            - nginx::http_gzip_static_module
-            - nginx::http_realip_module
-            - nginx::http_spdy_module
-            - nginx::http_ssl_module
-            - nginx::http_stub_status_module
-            - nginx::naxsi_module
-            - nginx::ngx_devel_module
-            - nginx::ngx_lua_module
-            - nginx::openssl_source
-            - nginx::upload_progress_module
+        repo_source: 'passenger'
+        package_name: 'nginx-extras'
+        passenger:
+          install_method: 'package'

@@ -1,10 +1,10 @@
 #
-# Cookbook Name:: nginx
+# Cookbook:: nginx
 # Recipe:: http_geoip_module
 #
 # Author:: Jamie Winsor (<jamie@vialstudios.com>)
 #
-# Copyright 2012-2013, Riot Games
+# Copyright:: 2012-2017, Riot Games
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -31,9 +31,6 @@ geolib_filepath      = "#{Chef::Config['file_cache_path']}/#{geolib_filename}"
 remote_file geolib_filepath do
   source   node['nginx']['geoip']['lib_url']
   checksum node['nginx']['geoip']['lib_checksum']
-  owner    'root'
-  group    node['root_group']
-  mode     '0644'
 end
 
 bash 'extract_geolib' do
@@ -50,8 +47,6 @@ bash 'extract_geolib' do
 end
 
 directory node['nginx']['geoip']['path'] do
-  owner     'root'
-  group     node['root_group']
   mode      '0755'
   recursive true
 end
@@ -63,9 +58,6 @@ remote_file country_src_filepath do
   end
   source   node['nginx']['geoip']['country_dat_url']
   checksum node['nginx']['geoip']['country_dat_checksum']
-  owner    'root'
-  group    node['root_group']
-  mode     '0644'
 end
 
 bash 'gunzip_geo_lite_country_dat' do
@@ -76,7 +68,7 @@ bash 'gunzip_geo_lite_country_dat' do
 end
 
 if node['nginx']['geoip']['enable_city']
-  city_dat  = "#{node['nginx']['geoip']['path']}/GeoLiteCity.dat"
+  city_dat = "#{node['nginx']['geoip']['path']}/GeoLiteCity.dat"
 
   remote_file city_src_filepath do
     not_if do
@@ -85,9 +77,6 @@ if node['nginx']['geoip']['enable_city']
     end
     source   node['nginx']['geoip']['city_dat_url']
     checksum node['nginx']['geoip']['city_dat_checksum']
-    owner    'root'
-    group    node['root_group']
-    mode     '0644'
   end
 
   bash 'gunzip_geo_lite_city_dat' do
@@ -100,12 +89,9 @@ end
 
 template "#{node['nginx']['dir']}/conf.d/http_geoip.conf" do
   source 'modules/http_geoip.conf.erb'
-  owner  'root'
-  group  node['root_group']
-  mode   '0644'
   variables(
-    :country_dat => country_dat,
-    :city_dat => city_dat
+    country_dat: country_dat,
+    city_dat: city_dat
   )
 end
 

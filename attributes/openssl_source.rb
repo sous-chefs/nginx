@@ -1,10 +1,10 @@
 #
-# Cookbook Name:: nginx
+# Cookbook:: nginx
 # Attributes:: openssl_source
 #
 # Author:: David Radcliffe (<radcliffe.david@gmail.com>)
 #
-# Copyright 2013, David Radcliffe
+# Copyright:: 2013-2017, David Radcliffe
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,5 +19,5 @@
 # limitations under the License.
 #
 
-default['nginx']['openssl_source']['version']  = '1.0.1h'
+default['nginx']['openssl_source']['version']  = '1.0.2k'
 default['nginx']['openssl_source']['url']      = "http://www.openssl.org/source/openssl-#{node['nginx']['openssl_source']['version']}.tar.gz"
