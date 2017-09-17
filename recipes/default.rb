@@ -19,6 +19,8 @@
 # limitations under the License.
 #
 
+nginx_cleanup_runit 'cleanup' if node['nginx']['cleanup_runit']
+
 include_recipe "chef_nginx::#{node['nginx']['install_method']}"
 
 node['nginx']['default']['modules'].each do |ngx_module|

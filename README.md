@@ -277,6 +277,14 @@ Enable or disable a Server Block in `#{node['nginx']['dir']}/sites-available` by
 - `template` - (optional) Path to the source for the `template` resource.
 - `variables` - (optional) Variables to be used with the `template` resource
 
+### nginx_cleanup_runit
+
+A simple resource to remove existing runit based nginx service installations. This is used in the default nginx recipe to stop runit based nginx services and cleanup runit service configs before setting up nginx under the system's own init system.
+
+### Actions
+
+- `cleanup` - Stop runit based nginx and remove runit configs (default)
+
 ## Usage
 
 This cookbook provides three distinct installation methods, all of which are controlled via attributes and executed using the chef_nginx::default recipe.
