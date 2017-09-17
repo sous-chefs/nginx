@@ -1,5 +1,5 @@
 #
-# Cookbook:: chef_nginx
+# Cookbook:: nginx
 # Attributes:: geoip
 #
 # Author:: Jamie Winsor (<jamie@vialstudios.com>)

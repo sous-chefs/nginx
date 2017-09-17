@@ -33,9 +33,9 @@ user node['nginx']['user'] do
   not_if { node['nginx']['source']['use_existing_user'] }
 end
 
-include_recipe 'chef_nginx::ohai_plugin'
-include_recipe 'chef_nginx::commons_dir'
-include_recipe 'chef_nginx::commons_script'
+include_recipe 'nginx::ohai_plugin'
+include_recipe 'nginx::commons_dir'
+include_recipe 'nginx::commons_script'
 include_recipe 'build-essential::default'
 
 src_filepath = "#{Chef::Config['file_cache_path']}/nginx-#{node['nginx']['source']['version']}.tar.gz"
@@ -60,7 +60,7 @@ node.run_state['nginx_configure_flags'] =
   node['nginx']['source']['default_configure_flags'] | node['nginx']['configure_flags']
 node.run_state['nginx_source_env'] = {}
 
-include_recipe 'chef_nginx::commons_conf'
+include_recipe 'nginx::commons_conf'
 
 cookbook_file "#{node['nginx']['dir']}/mime.types" do
   source 'mime.types'

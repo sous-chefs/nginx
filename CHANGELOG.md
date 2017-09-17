@@ -2,6 +2,12 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## UNRELEASED
+
+### Breaking Changes
+
+- This release of the nginx cookbook merges all changes that occurred within the chef_nginx fork from 2.8 - 6.2\. This includes multiple breaking changes along with a large number of improvements and bug fixes. If you're upgrading from 2.7 to current make sure to read the whole changelog to make sure you're ready.
+
 ## 6.2.0 (2017-09-12)
 
 - Install basic configuration before starting the nginx service
@@ -23,14 +29,13 @@ This file is used to list changes made in each version of the nginx cookbook.
 - Add attributes for setting the repository URLs
 - Fix support for Amazon Linux repos on Chef 13+
 
-
 ## 6.0.3 (2017-06-05)
 
 - Correctly compare nginx versions with multiple digits so 1.10 is properly recognized as coming after 1.2.
 
 ## 6.0.2 (2017-04-27)
 
-- Resolve name conflicts in the resource 
+- Resolve name conflicts in the resource
 
 ## 6.0.1 (2017-04-04)
 
@@ -45,7 +50,7 @@ This file is used to list changes made in each version of the nginx cookbook.
 ### Other changes
 
 - Install nginx 1.10.3 for source based installs
-- Remove freebsd cookbook from testing as it’s not necessary anymore
+- Remove freebsd cookbook from testing as it's not necessary anymore
 - Bump OpenSSL to 1.0.2k
 
 ## 5.1.3 (2017-03-24)
@@ -93,13 +98,14 @@ This file is used to list changes made in each version of the nginx cookbook.
 - Properly disable the default site with nginx.org packages
 
 ## 5.0.2 (2016-12-22)
+
 - Requite the latest compat_resource
 
 ## 5.0.1 (2016-12-13)
 
 - Use multipackage in pagespeed module recipe to speed up installs
 - Simplify the distro repo setup logic to ensure we're using the correct repos under all conditions. Previously the upstream repo was being missed on Suse systems
-- Determine pidfile location correctly via a helper so we correctly set pidfiles when using Upstream packages on Ubuntu 14.04 / 16.04. This involved removing the attribute for the pidfile location, which may cause issues if you relied on that attribute.
+- Determine pidfile location correctly via a helper so we correctly set pidfiles when using Upstream packages on Ubuntu 14.04 / 16.04\. This involved removing the attribute for the pidfile location, which may cause issues if you relied on that attribute.
 - Testing improvements to make sure all suites run and the suites are testing the correct conditions
 
 ## 5.0.0 (2016-12-07)
@@ -115,12 +121,14 @@ This file is used to list changes made in each version of the nginx cookbook.
 - Better document how to compile modules
 
 ## 4.0.2 (2016-12-01)
+
 - Default to openssl 1.0.2j with source installs
 - Add cookbook property to the nginx_site resource to allow using templates defined in other cookbooks
 - Prevent default docroot index.html on bad url in status
 - Readme improvements
 
 ## 4.0.1 (2016-10-31)
+
 - Fix a version check in the realip recipe
 - Align the config with the default config a bit
 - Fix the ChefSpec matchers now that nginx_site is a custom resource

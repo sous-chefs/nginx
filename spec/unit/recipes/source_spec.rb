@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'chef_nginx::source' do
+describe 'nginx::source' do
   shared_examples_for 'all platforms' do
     it 'creates nginx user' do
       expect(chef_run).to create_user('www-data').with(
@@ -17,7 +17,7 @@ describe 'chef_nginx::source' do
       commons_conf
     ).each do |recipe|
       it "includes the #{recipe} recipe" do
-        expect(chef_run).to include_recipe("chef_nginx::#{recipe}")
+        expect(chef_run).to include_recipe("nginx::#{recipe}")
       end
     end
 
@@ -45,8 +45,8 @@ describe 'chef_nginx::source' do
     end
 
     it 'includes all the source modules recipes' do
-      expect(chef_run).to include_recipe('chef_nginx::http_gzip_static_module')
-      expect(chef_run).to include_recipe('chef_nginx::http_ssl_module')
+      expect(chef_run).to include_recipe('nginx::http_gzip_static_module')
+      expect(chef_run).to include_recipe('nginx::http_ssl_module')
     end
 
     it 'compiles nginx source' do
@@ -94,7 +94,7 @@ describe 'chef_nginx::source' do
 
   context 'On Debian 8' do
     let(:chef_run) do
-      ChefSpec::SoloRunner.new(platform: 'debian', version: '8.9').converge('chef_nginx::source')
+      ChefSpec::SoloRunner.new(platform: 'debian', version: '8.9').converge('nginx::source')
     end
 
     it 'creates systemd unit file' do
@@ -104,7 +104,7 @@ describe 'chef_nginx::source' do
 
   context 'On RHEL 6' do
     let(:chef_run) do
-      ChefSpec::SoloRunner.new(platform: 'centos', version: '6.8').converge('chef_nginx::source')
+      ChefSpec::SoloRunner.new(platform: 'centos', version: '6.8').converge('nginx::source')
     end
 
     it 'creates init script' do
@@ -118,7 +118,7 @@ describe 'chef_nginx::source' do
 
   context 'On RHEL 7' do
     let(:chef_run) do
-      ChefSpec::SoloRunner.new(platform: 'centos', version: '7.2.1511').converge('chef_nginx::source')
+      ChefSpec::SoloRunner.new(platform: 'centos', version: '7.2.1511').converge('nginx::source')
     end
 
     it 'creates systemd unit file' do
@@ -128,7 +128,7 @@ describe 'chef_nginx::source' do
 
   context 'On openSUSE Leap' do
     let(:chef_run) do
-      ChefSpec::SoloRunner.new(platform: 'opensuse', version: '13.2').converge('chef_nginx::source')
+      ChefSpec::SoloRunner.new(platform: 'opensuse', version: '13.2').converge('nginx::source')
     end
 
     it 'creates systemd unit file' do

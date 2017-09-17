@@ -1,5 +1,5 @@
 #
-# Cookbook:: chef_nginx
+# Cookbook:: nginx
 # Attributes:: syslog
 #
 # Author:: Bob Ziuchkovski (<bob@bz-technology.com>)

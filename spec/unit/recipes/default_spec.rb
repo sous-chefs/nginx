@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'chef_nginx::default' do
+describe 'nginx::default' do
   before do
     stub_command('which nginx').and_return(nil)
   end
@@ -17,7 +17,7 @@ describe 'chef_nginx::default' do
 
   context 'unmodified attributes' do
     it 'includes the package recipe' do
-      expect(chef_run).to include_recipe('chef_nginx::package')
+      expect(chef_run).to include_recipe('nginx::package')
     end
 
     it 'does not include a module recipe' do
@@ -32,7 +32,7 @@ describe 'chef_nginx::default' do
       chef_run.node.normal['nginx']['install_method'] = 'source'
       chef_run.converge(described_recipe)
 
-      expect(chef_run).to include_recipe('chef_nginx::source')
+      expect(chef_run).to include_recipe('nginx::source')
     end
 
     it_behaves_like 'default recipe'
@@ -43,7 +43,7 @@ describe 'chef_nginx::default' do
       chef_run.node.normal['nginx']['default']['modules'] = ['http_ssl_module']
       chef_run.converge(described_recipe)
 
-      expect(chef_run).to include_recipe('chef_nginx::http_ssl_module')
+      expect(chef_run).to include_recipe('nginx::http_ssl_module')
     end
   end
 end

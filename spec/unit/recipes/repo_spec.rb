@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'chef_nginx::repo' do
+describe 'nginx::repo' do
   context 'Ubuntu' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new(

@@ -1,5 +1,5 @@
 #
-# Cookbook:: chef_nginx
+# Cookbook:: nginx
 # Attributes:: devel
 #
 # Author:: Arthur Freyman (<afreyman@riotgames.com>)

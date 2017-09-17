@@ -40,5 +40,5 @@ end
 node.run_state['nginx_configure_flags'] =
   node.run_state['nginx_configure_flags'] | ["--add-module=#{lua_extract_path}/lua-nginx-module-#{node['nginx']['lua']['version']}"]
 
-include_recipe 'chef_nginx::lua'
-include_recipe 'chef_nginx::ngx_devel_module'
+include_recipe 'nginx::lua'
+include_recipe 'nginx::ngx_devel_module'

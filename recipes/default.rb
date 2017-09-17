@@ -19,8 +19,8 @@
 # limitations under the License.
 #
 
-include_recipe "chef_nginx::#{node['nginx']['install_method']}"
+include_recipe "nginx::#{node['nginx']['install_method']}"
 
 node['nginx']['default']['modules'].each do |ngx_module|
-  include_recipe "chef_nginx::#{ngx_module}"
+  include_recipe "nginx::#{ngx_module}"
 end

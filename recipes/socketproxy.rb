@@ -1,4 +1,4 @@
-include_recipe 'chef_nginx::commons_dir'
+include_recipe 'nginx::commons_dir'
 
 directory node['nginx']['socketproxy']['root'] do
   owner node['nginx']['socketproxy']['app_owner']

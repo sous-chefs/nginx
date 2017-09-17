@@ -1,5 +1,5 @@
 #
-# Cookbook:: chef_nginx
+# Cookbook:: nginx
 # Library:: matchers
 #
 # Author:: Tim Smith (<tsmith@chef.io>)

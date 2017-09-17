@@ -1,5 +1,5 @@
 #
-# Cookbook:: chef_nginx
+# Cookbook:: nginx
 # Attributes:: echo
 #
 # Author:: Danial Pearce (<github@tigris.id.au>)

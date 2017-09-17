@@ -1,5 +1,5 @@
 #
-# Cookbook:: chef_nginx
+# Cookbook:: nginx
 # Attributes:: source
 #
 # Author:: Jamie Winsor (<jamie@vialstudios.com>)
@@ -19,7 +19,7 @@
 # limitations under the License.
 #
 
-include_attribute 'chef_nginx::default'
+include_attribute 'nginx::default'
 
 default['nginx']['init_style'] = if node['platform'] == 'ubuntu' && node['platform_version'].to_f <= 14.04
                                    # init_package identifies 12.04/14.04 as init, but we should be using upstart here
@@ -43,7 +43,7 @@ default['nginx']['source']['version']  = node['nginx']['version']
 default['nginx']['source']['url']      = "http://nginx.org/download/nginx-#{node['nginx']['source']['version']}.tar.gz"
 default['nginx']['source']['checksum'] = '8793bf426485a30f91021b6b945a9fd8a84d87d17b566562c3797aba8fac76fb'
 default['nginx']['source']['modules']  = %w(
-  chef_nginx::http_ssl_module
-  chef_nginx::http_gzip_static_module
+  nginx::http_ssl_module
+  nginx::http_gzip_static_module
 )
 default['nginx']['source']['use_existing_user'] = false

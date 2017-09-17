@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe 'chef_nginx::http_geoip_module' do
+describe 'nginx::http_geoip_module' do
   cached(:chef_run) do
     ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '16.04') do |node|
-      node.normal['nginx']['source']['modules'] = ['chef_nginx::http_geoip_module']
+      node.normal['nginx']['source']['modules'] = ['nginx::http_geoip_module']
     end.converge(described_recipe)
   end
 

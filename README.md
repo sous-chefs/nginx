@@ -1,14 +1,8 @@
 # nginx Cookbook
 
-[![Cookbook](http://img.shields.io/cookbook/v/chef_nginx.svg)](https://supermarket.chef.io/cookbooks/chef_nginx) [![Build Status](https://travis-ci.org/chef-cookbooks/chef_nginx.svg?branch=master)](https://travis-ci.org/chef-cookbooks/chef_nginx)
+[![Cookbook](http://img.shields.io/cookbook/v/nginx.svg)](https://supermarket.chef.io/cookbooks/nginx) [![Build Status](https://travis-ci.org/chef-cookbooks/nginx.svg?branch=master)](https://travis-ci.org/chef-cookbooks/nginx)
 
 Installs nginx from package OR source code and sets up configuration handling similar to Debian's Apache2 scripts.
-
-## nginx vs. chef_nginx
-
-This cookbook is a fork from the 2.7.x branch of the [community nginx cookbook](https://github.com/miketheman/nginx).
-
-This fork will be actively supported by Chef Software and we will continue to migrate the cookbook to a more resource driven model, with incremental changes following the SemVer model.
 
 ## Requirements
 
@@ -42,14 +36,14 @@ Other Debian and RHEL family distributions are assumed to work.
 
 Node attributes for this cookbook are logically separated into different files. Some attributes are set only via a specific recipe.
 
-### chef_nginx::auth_request
+### nginx::auth_request
 
-These attributes are used in the `chef_nginx::auth_request` recipe.
+These attributes are used in the `nginx::auth_request` recipe.
 
 - `node['nginx']['auth_request']['url']` - The url to the auth_request module tar.gz file
 - `node['nginx']['auth_request']['checksum']` - The checksum of the auth_request module tar.gz file
 
-### chef_nginx::default
+### nginx::default
 
 Generally used attributes. Some have platform specific values. See `attributes/default.rb`. "The Config" refers to "nginx.conf" the main config file.
 
@@ -62,7 +56,7 @@ Generally used attributes. Some have platform specific values. See `attributes/d
 - `node['nginx']['group']` - Group for nginx.
 - `node['nginx']['port']` - Port for nginx to listen on.
 - `node['nginx']['binary']` - Path to the nginx binary.
-- `node['nginx']['init_style']` - How to run nginx as a service when using `chef_nginx::source`. Values can be "upstart", "systemd", or "init". This attribute is not used in the `package` recipe because the package manager's init script style for the platform is assumed.
+- `node['nginx']['init_style']` - How to run nginx as a service when using `nginx::source`. Values can be "upstart", "systemd", or "init". This attribute is not used in the `package` recipe because the package manager's init script style for the platform is assumed.
 - `node['nginx']['upstart']['foreground']` - Set this to true if you want upstart to run nginx in the foreground, set to false if you want upstart to detach and track the process via pid.
 - `node['nginx']['upstart']['runlevels']` - String of runlevels in the format '2345' which determines which runlevels nginx will start at when entering and stop at when leaving.
 - `node['nginx']['upstart']['respawn_limit']` - Respawn limit in upstart stanza format, count followed by space followed by interval in seconds.
@@ -92,7 +86,7 @@ Generally used attributes. Some have platform specific values. See `attributes/d
 - `node['nginx']['proxy_read_timeout']` - defines a timeout (between two successive read operations) for reading a response from the proxied server.
 - `node['nginx']['client_body_buffer_size']` - used for config value of `client_body_buffer_size`.
 - `node['nginx']['client_max_body_size']` - specifies the maximum accepted body size of a client request, as indicated by the request header Content-Length.
-- `node['nginx']['repo_source']` - when installed from a package this attribute affects which yum repositories, if any, will be added before installing the nginx package. The default value of 'epel' will use the `yum-epel` cookbook, 'nginx' will use the `chef_nginx::repo` recipe, 'passenger' will use the 'chef_nginx::repo_passenger' recipe, and setting no value will not add any additional repositories.
+- `node['nginx']['repo_source']` - when installed from a package this attribute affects which yum repositories, if any, will be added before installing the nginx package. The default value of 'epel' will use the `yum-epel` cookbook, 'nginx' will use the `nginx::repo` recipe, 'passenger' will use the 'nginx::repo_passenger' recipe, and setting no value will not add any additional repositories.
 - `node['nginx']['sts_max_age']` - Enable Strict Transport Security for all apps (See: <http://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security>). This attribute adds the following header: Strict-Transport-Security max-age=SECONDS to all incoming requests and takes an integer (in seconds) as its argument.
 - `node['nginx']['default']['modules']` - Array specifying which modules to enable via the conf-enabled config include function. Currently the only valid value is "socketproxy".
 - `node['nginx']['load_modules']` - Array of paths to modules to dynamically load on nginx startup using the `load_module` directive. Default is `[]`.
@@ -119,25 +113,25 @@ Generally used attributes. Some have platform specific values. See `attributes/d
 
 - `node['nginx']['extra_configs']` - a Hash of key/values to nginx configuration.
 
-### chef_nginx::devel
+### nginx::devel
 
-These attributes are used in the `chef_nginx::ngx_devel_module` recipe.
+These attributes are used in the `nginx::ngx_devel_module` recipe.
 
 - `node['nginx']['devel']['version']` - The version of the nginx devel module
 - `node['nginx']['devel']['url']` - The URL of the nginx devel module tar.gz file
 - `node['nginx']['devel']['checksum']` - The checksum of the nginx devel module tar.gz file
 
-### chef_nginx::echo
+### nginx::echo
 
-These attributes are used in the `chef_nginx::http_echo_module` recipe.
+These attributes are used in the `nginx::http_echo_module` recipe.
 
 - `node['nginx']['echo']['version']` - The version of `http_echo` you want (default: 0.59)
 - `node['nginx']['echo']['url']` - URL for the tarball.
 - `node['nginx']['echo']['checksum']` - Checksum of the tarball.
 
-### chef_nginx::geoip
+### nginx::geoip
 
-These attributes are used in the `chef_nginx::http_geoip_module` recipe. Please note that the `country_dat_checksum` and `city_dat_checksum` are based on downloads from a datacenter in Fremont, CA, USA. You really should override these with checksums for the geo tarballs from your node location.
+These attributes are used in the `nginx::http_geoip_module` recipe. Please note that the `country_dat_checksum` and `city_dat_checksum` are based on downloads from a datacenter in Fremont, CA, USA. You really should override these with checksums for the geo tarballs from your node location.
 
 **Note** The upstream, maxmind.com, may block access for repeated downloads of the data files. It is recommended that you download and host the data files, and change the URLs in the attributes.
 
@@ -151,7 +145,7 @@ These attributes are used in the `chef_nginx::http_geoip_module` recipe. Please 
 - `node['nginx']['geoip']['lib_url']` - (Versioned) Tarball URL of the GeoIP library
 - `node['nginx']['geoip']['lib_checksum']` - Checksum of the GeoIP library tarball
 
-### chef_nginx::http_realip_module
+### nginx::http_realip_module
 
 From: <http://nginx.org/en/docs/http/ngx_http_realip_module.html>
 
@@ -159,16 +153,16 @@ From: <http://nginx.org/en/docs/http/ngx_http_realip_module.html>
 - `node['nginx']['realip']['addresses']` - Addresses to use for the `http_realip` configuration.
 - `node['nginx']['realip']['real_ip_recursive']` - If recursive search is enabled, the original client address that matches one of the trusted addresses is replaced by the last non-trusted address sent in the request header field. Can be on "on" or "off" (default).
 
-### chef_nginx::openssl_source
+### nginx::openssl_source
 
-These attributes are used in the `chef_nginx::openssl_source` recipe.
+These attributes are used in the `nginx::openssl_source` recipe.
 
 - `node['nginx']['openssl_source']['version']` - The version of OpenSSL you want to download and use (default: 1.0.1t)
 - `node['nginx']['openssl_source']['url']` - The url for the OpenSSL source
 
-### chef_nginx::passenger
+### nginx::passenger
 
-These attributes are used in the `chef_nginx::passenger` recipe.
+These attributes are used in the `nginx::passenger` recipe.
 
 - `node['nginx']['passenger']['version']` - passenger gem version
 - `node['nginx']['passenger']['root']` - passenger gem root path
@@ -191,21 +185,21 @@ Basic configuration to use the official Phusion Passenger repositories:
 - `node['nginx']['package_name']` - 'nginx-extras'
 - `node['nginx']['passenger']['install_method']` - 'package'
 
-### chef_nginx::rate_limiting
+### nginx::rate_limiting
 
 - `node['nginx']['enable_rate_limiting']` - set to true to enable rate limiting (`limit_req_zone` in nginx.conf)
 - `node['nginx']['rate_limiting_zone_name']` - sets the zone in `limit_req_zone`.
 - `node['nginx']['rate_limiting_backoff']` - **Incorrect name, retained for compatibility reasons** - sets the size of the shared memory zone (default=`10m`, 10 megabytes)
 - `node['nginx']['rate_limit']` - set the rate limit amount for `limit_req_zone`.
 
-### chef_nginx::repo
+### nginx::repo
 
 - `node['nginx']['upstream_repository']` - the URL to use for the package repository resource; default is set based on platform type
 - `node['nginx']['repo_signing_key']` - The URL from which package signing/gpg key is retrieved
 
-### chef_nginx::socketproxy
+### nginx::socketproxy
 
-These attributes are used in the `chef_nginx::socketproxy` recipe.
+These attributes are used in the `nginx::socketproxy` recipe.
 
 - `node['nginx']['socketproxy']['root']` - The directory (on your server) where socketproxy apps are deployed.
 - `node['nginx']['socketproxy']['default_app']` - Static assets directory for requests to "/" that don't meet any proxy_pass filter requirements.
@@ -213,34 +207,34 @@ These attributes are used in the `chef_nginx::socketproxy` recipe.
 - `node['nginx']['socketproxy']['apps']['app_name']['context_name']` - URI (e.g. "app_name" in order to achieve "<http://mydomain.com/app_name>") at which to host the application "app_name"
 - `node['nginx']['socketproxy']['apps']['app_name']['subdir']` - Directory (under `node['nginx']['socketproxy']['root']`) in which to find the application.
 
-### chef_nginx::source
+### nginx::source
 
-These attributes are used in the `chef_nginx::source` recipe. Some of them are dynamically modified during the run. See `attributes/source.rb` for default values.
+These attributes are used in the `nginx::source` recipe. Some of them are dynamically modified during the run. See `attributes/source.rb` for default values.
 
 - `node['nginx']['source']['url']` - (versioned) URL for the nginx source code. By default this will use the version specified as `node['nginx']['version']`.
 - `node['nginx']['source']['prefix']` - (versioned) prefix for installing nginx from source
 - `node['nginx']['source']['conf_path']` - location of the main config file, in `node['nginx']['dir']` by default.
-- `node['nginx']['source']['modules']` - Array of modules that should be compiled into nginx by including their recipes in `chef_nginx::source`.
+- `node['nginx']['source']['modules']` - Array of modules that should be compiled into nginx by including their recipes in `nginx::source`.
 - `node['nginx']['source']['default_configure_flags']` - The default flags passed to the configure script when building nginx.
-- `node['nginx']['configure_flags']` - Preserved for compatibility and dynamically generated from the `node['nginx']['source']['default_configure_flags']` in the `chef_nginx::source` recipe.
-- `node['nginx']['source']['use_existing_user']` - set to `true` if you do not want `chef_nginx::source` recipe to create system user with name `node['nginx']['user']`.
+- `node['nginx']['configure_flags']` - Preserved for compatibility and dynamically generated from the `node['nginx']['source']['default_configure_flags']` in the `nginx::source` recipe.
+- `node['nginx']['source']['use_existing_user']` - set to `true` if you do not want `nginx::source` recipe to create system user with name `node['nginx']['user']`.
 
-### chef_nginx::status
+### nginx::status
 
-These attributes are used in the `chef_nginx::http_stub_status_module` recipe.
+These attributes are used in the `nginx::http_stub_status_module` recipe.
 
 - `node['nginx']['status']['port']` - The port on which nginx will serve the status info (default: 8090)
 
-### chef_nginx::syslog
+### nginx::syslog
 
-These attributes are used in the `chef_nginx::syslog_module` recipe.
+These attributes are used in the `nginx::syslog_module` recipe.
 
 - `node['nginx']['syslog']['git_repo']` - The git repository url to use for the syslog patches.
 - `node['nginx']['syslog']['git_revision']` - The revision on the git repository to checkout.
 
-### chef_nginx::upload_progress
+### nginx::upload_progress
 
-These attributes are used in the `chef_nginx::upload_progress_module` recipe.
+These attributes are used in the `nginx::upload_progress_module` recipe.
 
 - `node['nginx']['upload_progress']['url']` - URL for the tarball.
 - `node['nginx']['upload_progress']['checksum']` - Checksum of the tarball.
@@ -278,7 +272,7 @@ In the source recipe, it is used to determine whether control attributes for bui
 
 ## Usage
 
-This cookbook provides three distinct installation methods, all of which are controlled via attributes and executed using the chef_nginx::default recipe.
+This cookbook provides three distinct installation methods, all of which are controlled via attributes and executed using the nginx::default recipe.
 
 ### Package installation using the nginx.org repositories
 

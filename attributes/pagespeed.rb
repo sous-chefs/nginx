@@ -1,5 +1,5 @@
 #
-# Cookbook:: chef_nginx
+# Cookbook:: nginx
 # Recipe:: pagespeed_module
 #
 default['nginx']['pagespeed']['version'] = '1.11.33.2'

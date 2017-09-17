@@ -1,5 +1,5 @@
 #
-# Cookbook:: chef_nginx
+# Cookbook:: nginx
 # Attribute:: passenger
 #
 # Author:: Alex Dergachev (<alex@evolvingweb.ca>)

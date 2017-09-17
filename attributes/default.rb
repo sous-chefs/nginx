@@ -1,5 +1,5 @@
 #
-# Cookbook:: chef_nginx
+# Cookbook:: nginx
 # Attributes:: default
 #
 # Author:: Adam Jacob (<adam@chef.io>)

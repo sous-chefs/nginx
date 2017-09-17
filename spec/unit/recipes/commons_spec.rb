@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-# running chef_nginx::default as we need service[nginx] to be defined
-describe 'chef_nginx::commons' do
+# running nginx::default as we need service[nginx] to be defined
+describe 'nginx::commons' do
   cached(:chef_run) do
-    ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '16.04').converge('chef_nginx::default', described_recipe)
+    ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '16.04').converge('nginx::default', described_recipe)
   end
 
   before do
@@ -17,7 +17,7 @@ describe 'chef_nginx::commons' do
       commons_conf
     ).each do |recipe|
       it "includes the #{recipe} recipe" do
-        expect(chef_run).to include_recipe("chef_nginx::#{recipe}")
+        expect(chef_run).to include_recipe("nginx::#{recipe}")
       end
     end
   end
@@ -77,7 +77,7 @@ describe 'chef_nginx::commons' do
       let(:chef_run) do
         ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '16.04') do |node|
           node.normal['nginx']['default_site_enabled'] = false
-        end.converge('chef_nginx::default', described_recipe)
+        end.converge('nginx::default', described_recipe)
       end
 
       it 'disables default site' do

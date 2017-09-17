@@ -27,7 +27,7 @@ if platform_family?('debian')
     key '561F9B9CAC40B2F7'
   end
 
-  include_recipe 'chef_nginx::passenger'
+  include_recipe 'nginx::passenger'
 else
   log "There is not official phusion passenger repo platform #{node['platform']}. Skipping repo setup!" do
     level :warn

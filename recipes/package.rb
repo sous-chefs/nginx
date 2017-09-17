@@ -18,7 +18,7 @@
 # limitations under the License.
 #
 
-include_recipe 'chef_nginx::ohai_plugin'
+include_recipe 'nginx::ohai_plugin'
 
 case node['nginx']['repo_source']
 when 'epel'
@@ -28,11 +28,11 @@ when 'epel'
     Chef::Log.warn("node['nginx']['repo_source'] set to EPEL, but not running on a RHEL platform so skipping EPEL setup")
   end
 when 'nginx'
-  include_recipe 'chef_nginx::repo'
+  include_recipe 'nginx::repo'
   package_install_opts = '--disablerepo=* --enablerepo=nginx' if platform_family?('rhel')
 when 'passenger'
   if platform_family?('debian')
-    include_recipe 'chef_nginx::repo_passenger'
+    include_recipe 'nginx::repo_passenger'
   else
     Chef::Log.warn("node['nginx']['repo_source'] set to passenger, but not running on a Debian based platform so skipping repo setup")
   end
@@ -45,7 +45,7 @@ package node['nginx']['package_name'] do
   notifies :reload, 'ohai[reload_nginx]', :immediately
 end
 
-include_recipe 'chef_nginx::commons'
+include_recipe 'nginx::commons'
 
 service 'nginx' do
   supports status: true, restart: true, reload: true

@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe 'chef_nginx::headers_more_module' do
+describe 'nginx::headers_more_module' do
   cached(:chef_run) do
     ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '16.04') do |node|
-      node.normal['nginx']['source']['modules'] = ['chef_nginx::headers_more_module']
+      node.normal['nginx']['source']['modules'] = ['nginx::headers_more_module']
     end.converge(described_recipe)
   end
 

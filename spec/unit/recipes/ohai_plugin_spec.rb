@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'chef_nginx::ohai_plugin' do
+describe 'nginx::ohai_plugin' do
   cached(:chef_run) do
     ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '16.04').converge(described_recipe)
   end

@@ -1,5 +1,5 @@
 #
-# Cookbook:: chef_nginx
+# Cookbook:: nginx
 # Attributes:: upload_progress
 #
 # Author:: Jamie Winsor (<jamie@vialstudios.com>)

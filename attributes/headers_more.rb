@@ -1,5 +1,5 @@
 #
-# Cookbook:: chef_nginx
+# Cookbook:: nginx
 # Attributes:: headers_more
 #
 # Author:: Lucas Jandrew (<ljandrew@riotgames.com>)

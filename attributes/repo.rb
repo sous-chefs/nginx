@@ -1,5 +1,5 @@
 #
-# Cookbook:: chef_nginx
+# Cookbook:: nginx
 # Recipe:: repo
 #
 # Author:: Nick Rycar <nrycar@bluebox.net>

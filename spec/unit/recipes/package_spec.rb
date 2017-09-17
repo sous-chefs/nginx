@@ -1,17 +1,17 @@
 require 'spec_helper'
 
-describe 'chef_nginx::package' do
+describe 'nginx::package' do
   before do
     stub_command('which nginx').and_return(nil)
   end
 
   shared_examples_for 'package install' do
     it 'includes the ohai_plugin recipe' do
-      expect(chef_run).to include_recipe('chef_nginx::ohai_plugin')
+      expect(chef_run).to include_recipe('nginx::ohai_plugin')
     end
 
     it 'includes the commons recipe' do
-      expect(chef_run).to include_recipe('chef_nginx::commons')
+      expect(chef_run).to include_recipe('nginx::commons')
     end
 
     it 'enables the nginx service' do
@@ -29,13 +29,13 @@ describe 'chef_nginx::package' do
 
   shared_examples_for 'nginx repo' do
     it 'includes the nginx repo recipe' do
-      expect(chef_run).to include_recipe('chef_nginx::repo')
+      expect(chef_run).to include_recipe('nginx::repo')
     end
   end
 
   shared_examples_for 'distro repo' do
     it 'does not include the nginx repo recipe' do
-      expect(chef_run).to_not include_recipe('chef_nginx::repo')
+      expect(chef_run).to_not include_recipe('nginx::repo')
     end
 
     it 'does not include yum-epel recipe' do
@@ -45,7 +45,7 @@ describe 'chef_nginx::package' do
 
   shared_examples_for 'epel repo' do
     it 'does not include the nginx repo recipe' do
-      expect(chef_run).not_to include_recipe('chef_nginx::repo')
+      expect(chef_run).not_to include_recipe('nginx::repo')
     end
 
     it 'does include yum-epel recipe' do
