@@ -62,6 +62,7 @@ Generally used attributes. Some have platform specific values. See `attributes/d
 - `node['nginx']['group']` - Group for nginx.
 - `node['nginx']['port']` - Port for nginx to listen on.
 - `node['nginx']['binary']` - Path to the nginx binary.
+- `node['nginx']['cleanup_runit']` - Cleanup existing runit based nginx service installation. Uses the `nginx_cleanup_runit` resource. Default: true
 - `node['nginx']['init_style']` - How to run nginx as a service when using `chef_nginx::source`. Values can be "upstart", "systemd", or "init". This attribute is not used in the `package` recipe because the package manager's init script style for the platform is assumed.
 - `node['nginx']['upstart']['foreground']` - Set this to true if you want upstart to run nginx in the foreground, set to false if you want upstart to detach and track the process via pid.
 - `node['nginx']['upstart']['runlevels']` - String of runlevels in the format '2345' which determines which runlevels nginx will start at when entering and stop at when leaving.
@@ -158,6 +159,17 @@ From: <http://nginx.org/en/docs/http/ngx_http_realip_module.html>
 - `node['nginx']['realip']['header']` - Header to use for the RealIp Module; only accepts "X-Forwarded-For" or "X-Real-IP"
 - `node['nginx']['realip']['addresses']` - Addresses to use for the `http_realip` configuration.
 - `node['nginx']['realip']['real_ip_recursive']` - If recursive search is enabled, the original client address that matches one of the trusted addresses is replaced by the last non-trusted address sent in the request header field. Can be on "on" or "off" (default).
+
+### chef_nginx::ohai_plugin
+
+The `ohai_plugin` recipe includes an Ohai plugin. It will be automatically installed and activated, providing the following attributes via ohai, no matter how nginx is installed (source or package):
+
+- `node['nginx']['version']` - version of nginx
+- `node['nginx']['configure_arguments']` - options passed to `./configure` when nginx was built
+- `node['nginx']['prefix']` - installation prefix
+- `node['nginx']['conf_path']` - configuration file path
+
+In the source recipe, it is used to determine whether control attributes for building nginx have changed.
 
 ### chef_nginx::openssl_source
 
@@ -264,17 +276,6 @@ Enable or disable a Server Block in `#{node['nginx']['dir']}/sites-available` by
 - `name` - (optional) Name of the site to enable. By default it's assumed that the name of the nginx_site resource is the site name, but this allows overriding that.
 - `template` - (optional) Path to the source for the `template` resource.
 - `variables` - (optional) Variables to be used with the `template` resource
-
-## Ohai Plugin
-
-The `ohai_plugin` recipe includes an Ohai plugin. It will be automatically installed and activated, providing the following attributes via ohai, no matter how nginx is installed (source or package):
-
-- `node['nginx']['version']` - version of nginx
-- `node['nginx']['configure_arguments']` - options passed to `./configure` when nginx was built
-- `node['nginx']['prefix']` - installation prefix
-- `node['nginx']['conf_path']` - configuration file path
-
-In the source recipe, it is used to determine whether control attributes for building nginx have changed.
 
 ## Usage
 
