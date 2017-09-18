@@ -11,6 +11,7 @@ action :cleanup do
 
   execute 'kill old nginx process' do
     command 'pkill nginx'
+    returns [0, 1] # ignores failures
     not_if { !::File.exist?('/etc/sv/nginx/supervise/pid') || ::File.zero?('/etc/sv/nginx/supervise/pid') }
   end
 
