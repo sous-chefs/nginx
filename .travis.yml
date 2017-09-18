@@ -23,7 +23,7 @@ env:
   - INSTANCE=upstream-repo-centos-7
   - INSTANCE=upstream-repo-debian-7
     #  - INSTANCE=upstream-repo-debian-8 InSpec fails to recognize that the service is actually enabled
-  - INSTANCE=upstream-repo-opensuse-leap
+    #  - INSTANCE=upstream-repo-opensuse-leap # waiting on current build with working zypper_repository
   - INSTANCE=upstream-repo-ubuntu-1404
   - INSTANCE=upstream-repo-ubuntu-1604
   - INSTANCE=epel-centos-6

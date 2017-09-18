@@ -32,10 +32,13 @@ default['nginx']['source']['version']                 = node['nginx']['version']
 default['nginx']['source']['prefix']                  = "/opt/nginx-#{node['nginx']['source']['version']}"
 default['nginx']['source']['conf_path']               = "#{node['nginx']['dir']}/nginx.conf"
 default['nginx']['source']['sbin_path']               = "#{node['nginx']['source']['prefix']}/sbin/nginx"
+
+# Wno-error can be removed when nginx compiles on GCC7: https://trac.nginx.org/nginx/ticket/1259
 default['nginx']['source']['default_configure_flags'] = %W(
   --prefix=#{node['nginx']['source']['prefix']}
   --conf-path=#{node['nginx']['dir']}/nginx.conf
   --sbin-path=#{node['nginx']['source']['sbin_path']}
+  --with-cc-opt="-Wno-error"
 )
 
 default['nginx']['configure_flags']    = []

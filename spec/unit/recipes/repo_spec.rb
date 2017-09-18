@@ -10,8 +10,8 @@ describe 'nginx::repo' do
 
     it 'adds apt repository' do
       expect(chef_run).to add_apt_repository('nginx').with(
-        uri: 'http://nginx.org/packages/ubuntu',
-        key: 'http://nginx.org/keys/nginx_signing.key'
+        uri: 'https://nginx.org/packages/ubuntu',
+        key: ['https://nginx.org/keys/nginx_signing.key']
       )
     end
   end
@@ -25,8 +25,8 @@ describe 'nginx::repo' do
 
     it 'adds apt repository' do
       expect(chef_run).to add_apt_repository('nginx').with(
-        uri: 'http://nginx.org/packages/debian',
-        key: 'http://nginx.org/keys/nginx_signing.key'
+        uri: 'https://nginx.org/packages/debian',
+        key: ['https://nginx.org/keys/nginx_signing.key']
       )
     end
   end
