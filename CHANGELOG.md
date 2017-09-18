@@ -8,6 +8,14 @@ This file is used to list changes made in each version of the nginx cookbook.
 
 - This release of the nginx cookbook merges all changes that occurred within the chef_nginx fork from 2.8 - 6.2\. This includes multiple breaking changes along with a large number of improvements and bug fixes. If you're upgrading from 2.7 to current make sure to read the whole changelog to make sure you're ready.
 
+### Other Changes
+
+- Added a new resource nginx_runit_cleanup has been introduced which stops the existing nginx runit service and removes the init files. This is now called automatically from the default recipe to cleanup an existing installation. This should make it possible for users to migrate from the 2.X release to the current w/o manual steps.
+- Fixed compile failures on Fedora and any other distros released in the future which use GCC 7
+- Added the .m3u8 mimetype
+- Moved all files out of the files/default directory since this isn't required with Chef 12 and later
+- Added ulimit to the nginx sysconfig file for RHEL platforms
+
 ## 6.2.0 (2017-09-12)
 
 - Install basic configuration before starting the nginx service
