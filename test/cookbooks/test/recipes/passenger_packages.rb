@@ -1,4 +1,7 @@
-node.default['nginx']['repo_source'] = 'distro'
+node.default['nginx']['repo_source'] = 'passenger'
+node.default['nginx']['package_name'] = 'nginx-extras'
+node.default['nginx']['install_method'] = 'package'
+
 package 'apt-transport-https' # needed for force apt-get update
 
 include_recipe 'test::_base'

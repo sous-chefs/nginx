@@ -20,6 +20,8 @@
 # limitations under the License.
 #
 
+# this is only used for source installs
+# for package installs you will receive the latest version in the repository
 node.default['nginx']['passenger']['version'] = '4.0.57'
 
 if node['nginx']['repo_source'] == 'passenger'

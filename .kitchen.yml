@@ -73,9 +73,3 @@ suites:
       - centos-6
       - centos-7
       - fedora-26
-    attributes:
-      nginx:
-        repo_source: 'passenger'
-        package_name: 'nginx-extras'
-        passenger:
-          install_method: 'package'
