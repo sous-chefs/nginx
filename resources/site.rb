@@ -22,7 +22,6 @@
 
 provides :nginx_site
 
-property :name, String, name_property: true
 property :variables, Hash, default: {}
 property :cookbook, String
 property :template, [String, Array]
