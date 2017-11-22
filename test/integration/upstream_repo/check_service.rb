@@ -3,7 +3,7 @@ repo_path = if os.debian?
             elsif os.redhat?
               '/etc/yum.repos.d/nginx.repo'
             elsif os.suse?
-              '/etc/zypp/repos.d/Nginx.org Repository.repo'
+              '/etc/zypp/repos.d/Nginx.org\ Repository.repo'
             end
 
 describe service('nginx') do
