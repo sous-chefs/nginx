@@ -38,7 +38,7 @@ default['nginx']['source']['default_configure_flags'] = %W(
   --prefix=#{node['nginx']['source']['prefix']}
   --conf-path=#{node['nginx']['dir']}/nginx.conf
   --sbin-path=#{node['nginx']['source']['sbin_path']}
-  --with-cc-opt="-Wno-error"
+  --with-cc-opt=-Wno-error
 )
 
 default['nginx']['configure_flags']    = []
