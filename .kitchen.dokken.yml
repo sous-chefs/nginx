@@ -1,7 +1,7 @@
 driver:
   name: dokken
   privileged: true # because Docker and SystemD/Upstart
-  chef_version: current
+  chef_version: <%= ENV['CHEF_VERSION'] || 'current' %>
 
 transport:
   name: dokken
@@ -14,67 +14,65 @@ verifier:
   name: inspec
 
 platforms:
+- name: amazonlinux
+  driver:
+    image: dokken/amazonlinux
+    pid_one_command: /sbin/init
+
 - name: debian-7
   driver:
-    image: debian:7
+    image: dokken/debian-7
     pid_one_command: /sbin/init
     intermediate_instructions:
       - RUN /usr/bin/apt-get update
-      - RUN /usr/bin/apt-get install openssl apt-transport-https lsb-release procps net-tools -y
 
 - name: debian-8
   driver:
-    image: debian:8
+    image: dokken/debian-8
     pid_one_command: /bin/systemd
     intermediate_instructions:
       - RUN /usr/bin/apt-get update
-      - RUN /usr/bin/apt-get install openssl apt-transport-https lsb-release procps net-tools -y
+
+- name: debian-9
+  driver:
+    image: dokken/debian-9
+    pid_one_command: /bin/systemd
+    intermediate_instructions:
+      - RUN /usr/bin/apt-get update
 
 - name: centos-6
   driver:
-    image: centos:6
-    platform: rhel
+    image: dokken/centos-6
     pid_one_command: /sbin/init
-    intermediate_instructions:
-      - RUN yum -y install openssl which initscripts net-tools wget
 
 - name: centos-7
   driver:
-    image: centos:7
-    platform: rhel
+    image: dokken/centos-7
     pid_one_command: /usr/lib/systemd/systemd
-    intermediate_instructions:
-      - RUN yum -y install openssl lsof which systemd-sysv initscripts wget net-tools
 
 - name: fedora-latest
   driver:
-    image: fedora:latest
+    image: dokken/fedora-latest
     pid_one_command: /usr/lib/systemd/systemd
-    intermediate_instructions:
-      - RUN dnf -y install which openssl which systemd-sysv initscripts wget net-tools
 
 - name: ubuntu-14.04
   driver:
-    image: ubuntu-upstart:14.04
+    image: dokken/ubuntu-14.04
     pid_one_command: /sbin/init
     intermediate_instructions:
       - RUN /usr/bin/apt-get update
-      - RUN /usr/bin/apt-get install openssl apt-transport-https lsb-release procps net-tools -y
 
 - name: ubuntu-16.04
   driver:
-    image: ubuntu:16.04
+    image: dokken/ubuntu-16.04
     pid_one_command: /bin/systemd
     intermediate_instructions:
       - RUN /usr/bin/apt-get update
-      - RUN /usr/bin/apt-get install openssl apt-transport-https lsb-release procps net-tools -y
 
 - name: opensuse-leap
   driver:
-    image: opensuse:leap
+    image: dokken/opensuse-leap
     pid_one_command: /bin/systemd
-    intermediate_instructions:
-      - RUN zypper --non-interactive install openssl aaa_base perl-Getopt-Long-Descriptive which hostname
 
 suites:
   - name: distro_packages
