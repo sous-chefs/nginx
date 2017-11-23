@@ -22,14 +22,16 @@ env:
   - INSTANCE=upstream-repo-centos-6
   - INSTANCE=upstream-repo-centos-7
   - INSTANCE=upstream-repo-debian-7
-    #  - INSTANCE=upstream-repo-debian-8 InSpec fails to recognize that the service is actually enabled
-  - INSTANCE=upstream-repo-opensuse-leap # waiting on current build with working zypper_repository
+  - INSTANCE=upstream-repo-debian-8
+  - INSTANCE=upstream-repo-debian-9
+  - INSTANCE=upstream-repo-opensuse-leap
   - INSTANCE=upstream-repo-ubuntu-1404
   - INSTANCE=upstream-repo-ubuntu-1604
   - INSTANCE=epel-centos-6
   - INSTANCE=epel-centos-7
   - INSTANCE=distro-packages-debian-7
   - INSTANCE=distro-packages-debian-8
+  - INSTANCE=distro-packages-debian-9
   - INSTANCE=distro-packages-fedora-latest
   - INSTANCE=distro-packages-opensuse-leap
   - INSTANCE=distro-packages-ubuntu-1404
@@ -45,13 +47,12 @@ env:
   - INSTANCE=modules-centos-7
   - INSTANCE=modules-debian-7
   - INSTANCE=modules-debian-8
+  - INSTANCE=modules-debian-9
   - INSTANCE=modules-fedora-latest
   - INSTANCE=modules-opensuse-leap
   - INSTANCE=modules-ubuntu-1404
   - INSTANCE=modules-ubuntu-1604
-#  - INSTANCE=passenger-debian-7 # TODO: does not work on this system
   - INSTANCE=passenger-debian-8
-  - INSTANCE=passenger-ubuntu-1404
   - INSTANCE=passenger-ubuntu-1604
 
 before_script:
