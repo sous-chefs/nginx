@@ -1,0 +1,38 @@
+#!/bin/sh -e
+
+SYSCONFDIR='<%= node['nginx']['dir'] %>'
+
+if [ -z $1 ]; then
+        echo "Which stream would you like to enable?"
+        echo -n "Your choices are: "
+        ls $SYSCONFDIR/streams-available/* | \
+        sed -e "s,$SYSCONFDIR/streams-available/,,g" | xargs echo
+        echo -n "Stream name? "
+        read STREAMNAME
+else
+        STREAMNAME=$1
+fi
+
+if [ $STREAMNAME = "default" ]; then
+        PRIORITY="000"
+fi
+
+if [ -e $SYSCONFDIR/streams-enabled/$STREAMNAME -o \
+     -e $SYSCONFDIR/streams-enabled/"$PRIORITY"-"$STREAMNAME" ]; then
+        echo "This stream is already enabled!"
+        exit 0
+fi
+
+if ! [ -e $SYSCONFDIR/streams-available/$STREAMNAME ]; then
+        echo "This stream does not exist!"
+        exit 1
+fi
+
+if [ $STREAMNAME = "default" ]; then
+        ln -sf $SYSCONFDIR/streams-available/$STREAMNAME \
+               $SYSCONFDIR/streams-enabled/"$PRIORITY"-"$STREAMNAME"
+else
+        ln -sf $SYSCONFDIR/streams-available/$STREAMNAME $SYSCONFDIR/streams-enabled/$STREAMNAME
+fi
+
+echo "Stream $STREAMNAME installed; reload nginx to enable."
