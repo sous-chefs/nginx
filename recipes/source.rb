@@ -44,7 +44,7 @@ src_filepath = "#{Chef::Config['file_cache_path']}/nginx-#{node['nginx']['source
 package value_for_platform_family(
   %w(rhel fedora amazon) => %w(pcre-devel openssl-devel tar),
   %w(suse) => %w(pcre-devel libopenssl-devel tar),
-  %w(debian) => %w(libpcre3 libpcre3-dev libssl-dev tar)
+  %w(debian) => %w(libpcre3 libpcre3-dev libssl-dev tar lib64z1-dev)
 )
 
 remote_file 'nginx source' do
