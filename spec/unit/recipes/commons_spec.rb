@@ -29,6 +29,8 @@ describe 'nginx::commons' do
       /var/log/nginx
       /etc/nginx/sites-available
       /etc/nginx/sites-enabled
+      /etc/nginx/streams-available
+      /etc/nginx/streams-enabled/
       /etc/nginx/conf.d
     ).each do |dir|
       it "creates directory #{dir}" do
@@ -45,6 +47,8 @@ describe 'nginx::commons' do
     %w(
       nxensite
       nxdissite
+      nxenstream
+      nxdisstream
     ).each do |script|
       it "creates #{script} script" do
         expect(chef_run).to render_file("/usr/sbin/#{script}")
