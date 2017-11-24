@@ -30,7 +30,7 @@ describe 'nginx::commons' do
       /etc/nginx/sites-available
       /etc/nginx/sites-enabled
       /etc/nginx/streams-available
-      /etc/nginx/streams-enabled/
+      /etc/nginx/streams-enabled
       /etc/nginx/conf.d
     ).each do |dir|
       it "creates directory #{dir}" do
