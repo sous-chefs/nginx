@@ -12,7 +12,6 @@ The following cookbooks are direct dependencies because they're used for common 
 
 - `build-essential` for source installations
 - `ohai` for setting up the ohai plugin
-- `compat_resource` for setting up the nginx.org repository on Chef 12.1 - 12.13
 - `yum-epel` for setting up the EPEL repository on RHEL platforms
 - `zypper` for setting up the nginx.org repository on Suse platforms
 
@@ -30,7 +29,7 @@ Other Debian and RHEL family distributions are assumed to work.
 
 ### Chef
 
-- Chef 12.7+
+- Chef 12.13+
 
 ## Attributes
 

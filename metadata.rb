@@ -28,4 +28,4 @@ supports 'opensuseleap'
 
 source_url 'https://github.com/chef-cookbooks/nginx'
 issues_url 'https://github.com/chef-cookbooks/nginx/issues'
-chef_version '>= 12.7' if respond_to?(:chef_version)
+chef_version '>= 12.13' if respond_to?(:chef_version)
