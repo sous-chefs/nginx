@@ -1,9 +1,10 @@
-nginx_site 'default' do
+nginx_site 'Disable default site' do
+  site_name 'default'
   enable false # legacy "action"
 end
 
 nginx_site 'Enable the test_site' do
   template 'site.erb'
-  name 'test_site'
+  site_name 'test_site'
   action :enable # modern action
 end
