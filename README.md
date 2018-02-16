@@ -30,7 +30,7 @@ Other Debian and RHEL family distributions are assumed to work.
 
 ### Chef
 
-- Chef 12.1+
+- Chef 12.7+
 
 ## Attributes
 

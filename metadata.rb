@@ -12,7 +12,6 @@ recipe 'nginx::source', 'Installs nginx from source and sets up configuration wi
 depends 'build-essential'
 depends 'ohai', '>= 4.1.0'
 depends 'yum-epel'
-depends 'compat_resource', '>= 12.16.3'
 depends 'zypper'
 
 supports 'amazon'
@@ -29,4 +28,4 @@ supports 'opensuseleap'
 
 source_url 'https://github.com/chef-cookbooks/nginx'
 issues_url 'https://github.com/chef-cookbooks/nginx/issues'
-chef_version '>= 12.1' if respond_to?(:chef_version)
+chef_version '>= 12.7' if respond_to?(:chef_version)
