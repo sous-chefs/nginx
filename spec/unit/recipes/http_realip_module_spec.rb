@@ -20,14 +20,4 @@ describe 'nginx::http_realip_module' do
       'real_ip_recursive off'
     )
   end
-
-  context 'when the nginx version is < 1.2' do
-    let(:nginx_version) { '1.1' }
-
-    it 'does not include the real_ip_recursive configuration directive' do
-      expect(chef_run).to render_file('/etc/nginx/conf.d/http_realip.conf').with_content { |content|
-        expect(content).not_to include('real_ip_recursive')
-      }
-    end
-  end
 end
