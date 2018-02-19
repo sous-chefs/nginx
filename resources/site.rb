@@ -20,8 +20,6 @@
 # limitations under the License.
 #
 
-provides :nginx_site
-
 property :site_name, String, name_property: true
 property :variables, Hash, default: {}
 property :cookbook, String

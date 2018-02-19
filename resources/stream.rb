@@ -20,8 +20,6 @@
 # limitations under the License.
 #
 
-provides :nginx_stream
-
 property :variables, Hash, default: {}
 property :cookbook, String
 property :template, [String, Array]
