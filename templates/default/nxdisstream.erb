@@ -1,0 +1,29 @@
+#!/bin/sh -e
+
+SYSCONFDIR='<%= node['nginx']['dir'] %>'
+
+if [ -z $1 ]; then
+        echo "Which stream would you like to disable?"
+        echo -n "Your choices are: "
+        ls $SYSCONFDIR/streams-enabled/* | \
+        sed -e "s,$SYSCONFDIR/streams-enabled/,,g" | xargs echo
+        echo -n "Stream name? "
+        read STREAMNAME
+else
+        STREAMNAME=$1
+fi
+
+if [ $STREAMNAME = "default" ]; then
+        PRIORITY="000"
+fi
+
+if ! [ -e $SYSCONFDIR/streams-enabled/$STREAMNAME -o \
+       -e $SYSCONFDIR/streams-enabled/"$PRIORITY"-"$STREAMNAME" ]; then
+        echo "This Stream is already disabled, or does not exist!"
+        exit 1
+fi
+
+if ! rm $SYSCONFDIR/streams-enabled/$STREAMNAME 2>/dev/null; then
+        rm -f $SYSCONFDIR/streams-enabled/"$PRIORITY"-"$STREAMNAME"
+fi
+echo "Stream $STREAMNAME disabled; reload nginx to disable."

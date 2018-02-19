@@ -37,7 +37,7 @@ directory 'pid file directory' do
   recursive true
 end
 
-%w(sites-available sites-enabled conf.d).each do |leaf|
+%w(sites-available sites-enabled conf.d streams-available streams-enabled).each do |leaf|
   directory File.join(node['nginx']['dir'], leaf) do
     mode  '0755'
   end

@@ -108,3 +108,6 @@ suites:
         package_name: 'nginx-extras'
         passenger:
           install_method: 'package'
+  - name: stream
+    run_list:
+    - recipe[test::stream]
