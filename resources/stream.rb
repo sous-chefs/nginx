@@ -2,10 +2,7 @@
 # Cookbook:: nginx
 # Resource:: stream
 #
-# Author:: AJ Christensen <aj@junglist.gen.nz>
-# Author:: Tim Smith <tsmith@chef.io>
-#
-# Copyright:: 2008-2017, Chef Software, Inc.
+# Copyright:: 2017-2018, David Sieciński
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
