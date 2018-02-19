@@ -281,7 +281,7 @@ Enable or disable a Stream Block in `#{node['nginx']['dir']}/streams-available` 
 
 ### Properties:
 
-- `name` - (optional) Name of the stream to enable.
+- `stream_name` - (optional) Name of the stream to enable.
 - `template` - (optional) Path to the source for the `template` resource.
 - `variables` - (optional) Variables to be used with the `template` resource
 
