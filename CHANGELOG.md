@@ -2,6 +2,11 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## 8.1.0 (2018-02-19)
+
+- Added a new nginx_stream resource for enabling/disable nginx stream blocks
+- Make sure we install zlib for source installs. This gives us compression support and fixes compilation on Debian 9
+
 ## 8.0.1 (2018-02-16)
 
 - Update the required Chef release to 12.14 since we're using yum/apt repository resources
