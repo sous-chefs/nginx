@@ -62,7 +62,7 @@ describe 'nginx::repo' do
   context 'Fedora' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new(
-        platform: 'fedora', version: '25'
+        platform: 'fedora', version: '26'
       ).converge(described_recipe)
     end
 

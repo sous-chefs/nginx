@@ -87,7 +87,7 @@ describe 'nginx::package' do
       cached(:chef_run) do
         ChefSpec::SoloRunner.new(
           platform: 'centos',
-          version: '6.8'
+          version: '6.9'
         ).converge(described_recipe)
       end
 
@@ -103,7 +103,7 @@ describe 'nginx::package' do
 
     context 'repo_source set to distro' do
       cached(:chef_run) do
-        ChefSpec::SoloRunner.new(platform: 'centos', version: '6.8') do |node|
+        ChefSpec::SoloRunner.new(platform: 'centos', version: '6.9') do |node|
           node.override['nginx']['repo_source'] = 'distro'
         end.converge(described_recipe)
       end

@@ -90,7 +90,7 @@ describe 'nginx::source' do
 
   context 'On Debian 8' do
     let(:chef_run) do
-      ChefSpec::SoloRunner.new(platform: 'debian', version: '8.10').converge('nginx::source')
+      ChefSpec::SoloRunner.new(platform: 'debian', version: '8.9').converge('nginx::source')
     end
 
     it 'installs packages dependencies' do
@@ -118,7 +118,7 @@ describe 'nginx::source' do
 
   context 'On RHEL 7' do
     let(:chef_run) do
-      ChefSpec::SoloRunner.new(platform: 'centos', version: '7.2.1511').converge('nginx::source')
+      ChefSpec::SoloRunner.new(platform: 'centos', version: '7.4.1708').converge('nginx::source')
     end
 
     it 'creates systemd unit file' do
