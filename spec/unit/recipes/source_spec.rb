@@ -67,7 +67,7 @@ describe 'nginx::source' do
   end
 
   let(:chef_run) do
-    ChefSpec::SoloRunner.new(platform: 'debian', version: '7.10').converge(described_recipe)
+    ChefSpec::SoloRunner.new(platform: 'debian', version: '7.11').converge(described_recipe)
   end
 
   before do
@@ -88,13 +88,13 @@ describe 'nginx::source' do
     expect(chef_run).to render_file('/etc/default/nginx')
   end
 
-  it 'installs packages dependencies' do
-    expect(chef_run).to install_package(['libpcre3', 'libpcre3-dev', 'libssl-dev', 'tar'])
-  end
-
   context 'On Debian 8' do
     let(:chef_run) do
-      ChefSpec::SoloRunner.new(platform: 'debian', version: '8.9').converge('nginx::source')
+      ChefSpec::SoloRunner.new(platform: 'debian', version: '8.10').converge('nginx::source')
+    end
+
+    it 'installs packages dependencies' do
+      expect(chef_run).to install_package(['libpcre3', 'libpcre3-dev', 'libssl-dev', 'tar', 'zlib1g-dev'])
     end
 
     it 'creates systemd unit file' do
@@ -104,7 +104,7 @@ describe 'nginx::source' do
 
   context 'On RHEL 6' do
     let(:chef_run) do
-      ChefSpec::SoloRunner.new(platform: 'centos', version: '6.8').converge('nginx::source')
+      ChefSpec::SoloRunner.new(platform: 'centos', version: '6.9').converge('nginx::source')
     end
 
     it 'creates init script' do
@@ -128,7 +128,11 @@ describe 'nginx::source' do
 
   context 'On openSUSE Leap' do
     let(:chef_run) do
-      ChefSpec::SoloRunner.new(platform: 'opensuse', version: '13.2').converge('nginx::source')
+      ChefSpec::SoloRunner.new(platform: 'opensuse', version: '42.3').converge('nginx::source')
+    end
+
+    it 'installs packages dependencies' do
+      expect(chef_run).to install_package(['pcre-devel', 'libopenssl-devel', 'tar'])
     end
 
     it 'creates systemd unit file' do
