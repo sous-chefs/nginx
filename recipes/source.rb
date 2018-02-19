@@ -42,9 +42,9 @@ src_filepath = "#{Chef::Config['file_cache_path']}/nginx-#{node['nginx']['source
 
 # install prereqs
 package value_for_platform_family(
-  %w(rhel fedora amazon) => %w(pcre-devel openssl-devel tar),
+  %w(rhel fedora amazon) => %w(pcre-devel openssl-devel tar zlib-devel),
   %w(suse) => %w(pcre-devel libopenssl-devel tar),
-  %w(debian) => %w(libpcre3 libpcre3-dev libssl-dev tar)
+  %w(debian) => %w(libpcre3 libpcre3-dev libssl-dev tar zlib1g-dev)
 )
 
 remote_file 'nginx source' do
