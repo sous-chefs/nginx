@@ -13,7 +13,7 @@ describe service('nginx') do
 end
 
 describe file(repo_path) do
-  it { should_not be_a_file }
+  it { should exist }
 end
 
 describe package('nginx') do
