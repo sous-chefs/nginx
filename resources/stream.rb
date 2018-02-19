@@ -20,19 +20,8 @@
 property :variables, Hash, default: {}
 property :cookbook, String
 property :template, [String, Array]
-property :enable, [String, true, false]
 
 action :enable do
-  # this is pretty evil, but gives us backwards compat with the old
-  # definition where there was an enable property vs a true action
-  if new_resource.enable
-    Chef::Log.warn('The "enable" property in nginx_stream is deprecated. Use "action :enable" instead.')
-  elsif new_resource.enable == false || new_resource.enable == 'false'
-    Chef::Log.warn('The "enable" property in nginx_stream is deprecated. Use "action :disable" instead.')
-    action_disable
-    return # don't perform the actual enable action afterwards
-  end
-
   if new_resource.template
     # use declare_resource so we can have a property also named template
     declare_resource(:template, "#{node['nginx']['dir']}/streams-available/#{new_resource.name}") do
