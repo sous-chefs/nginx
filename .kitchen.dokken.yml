@@ -19,13 +19,6 @@ platforms:
     image: dokken/amazonlinux
     pid_one_command: /sbin/init
 
-- name: debian-7
-  driver:
-    image: dokken/debian-7
-    pid_one_command: /sbin/init
-    intermediate_instructions:
-      - RUN /usr/bin/apt-get update
-
 - name: debian-8
   driver:
     image: dokken/debian-8

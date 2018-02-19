@@ -2,6 +2,4 @@
 set_real_ip_from <%= address %>;
 <% end -%>
 real_ip_header <%= node['nginx']['realip']['header'] %>;
-<% if NginxVersion.new(node['nginx']['version']) >= NginxVersion.new('1.2') -%>
 real_ip_recursive <%= node['nginx']['realip']['real_ip_recursive'] %>;
-<% end -%>

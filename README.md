@@ -12,7 +12,6 @@ The following cookbooks are direct dependencies because they're used for common 
 
 - `build-essential` for source installations
 - `ohai` for setting up the ohai plugin
-- `compat_resource` for setting up the nginx.org repository on Chef 12.1 - 12.13
 - `yum-epel` for setting up the EPEL repository on RHEL platforms
 - `zypper` for setting up the nginx.org repository on Suse platforms
 
@@ -30,7 +29,7 @@ Other Debian and RHEL family distributions are assumed to work.
 
 ### Chef
 
-- Chef 12.1+
+- Chef 12.14+
 
 ## Attributes
 
@@ -267,7 +266,7 @@ Enable or disable a Server Block in `#{node['nginx']['dir']}/sites-available` by
 
 ### Properties:
 
-- `name` - (optional) Name of the site to enable. By default it's assumed that the name of the nginx_site resource is the site name, but this allows overriding that.
+- `site_name` - (optional) Name of the site to enable. By default it's assumed that the name of the nginx_site resource is the site name, but this allows overriding that.
 - `template` - (optional) Path to the source for the `template` resource.
 - `variables` - (optional) Variables to be used with the `template` resource
 

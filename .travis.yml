@@ -21,7 +21,6 @@ env:
   matrix:
   - INSTANCE=upstream-repo-centos-6
   - INSTANCE=upstream-repo-centos-7
-  - INSTANCE=upstream-repo-debian-7
   - INSTANCE=upstream-repo-debian-8
   - INSTANCE=upstream-repo-debian-9
   - INSTANCE=upstream-repo-opensuse-leap
@@ -29,7 +28,6 @@ env:
   - INSTANCE=upstream-repo-ubuntu-1604
   - INSTANCE=epel-centos-6
   - INSTANCE=epel-centos-7
-  - INSTANCE=distro-packages-debian-7
   - INSTANCE=distro-packages-debian-8
   - INSTANCE=distro-packages-debian-9
   - INSTANCE=distro-packages-fedora-latest
@@ -38,14 +36,13 @@ env:
   - INSTANCE=distro-packages-ubuntu-1604
   - INSTANCE=source-centos-6
   - INSTANCE=source-centos-7
-  - INSTANCE=source-debian-7
   - INSTANCE=source-debian-8
+  - INSTANCE=source-debian-9
   - INSTANCE=source-fedora-latest
   - INSTANCE=source-opensuse-leap
   - INSTANCE=source-ubuntu-1404
   - INSTANCE=source-ubuntu-1604
   - INSTANCE=modules-centos-7
-  - INSTANCE=modules-debian-7
   - INSTANCE=modules-debian-8
   - INSTANCE=modules-debian-9
   - INSTANCE=modules-fedora-latest
