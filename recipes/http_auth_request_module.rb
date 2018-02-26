@@ -21,7 +21,7 @@
 
 # Documentation:
 #   http://nginx.org/en/docs/http/ngx_http_auth_request_module.html
-if node['nginx']['source']['version'] >= '1.5.4'
+if Chef::VersionConstraint.new('>= 1.5.4').include?(node['nginx']['source']['version'])
   node.run_state['nginx_configure_flags'] =
     node.run_state['nginx_configure_flags'] | ['--with-http_auth_request_module']
 else
