@@ -95,6 +95,9 @@ http {
   <% if node['nginx']['large_client_header_buffers'] -%>
   large_client_header_buffers <%= node['nginx']['large_client_header_buffers'] %>;
   <% end -%>
+  <% if node['nginx']['map_hash_max_size'] -%>
+  map_hash_max_size <%= node['nginx']['map_hash_max_size'] %>;
+  <% end -%>
 
   <% if node['nginx']['enable_rate_limiting'] -%>
   limit_req_zone $binary_remote_addr zone=<%= node['nginx']['rate_limiting_zone_name'] %>:<%= node['nginx']['rate_limiting_backoff'] %> rate=<%= node['nginx']['rate_limit'] %>;
