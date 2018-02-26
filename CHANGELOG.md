@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## 8.1.2 (2018-02-26)
+
+- Add map_hash_max_size as configuration option
+
 ## 8.1.1 (2018-02-26)
 
 - Use Chef::VersionConstraint in auth request module so we properly compare versions
