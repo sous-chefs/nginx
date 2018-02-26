@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## 8.1.1 (2018-02-26)
+
+- Use Chef::VersionConstraint in auth request module so we properly compare versions
+
 ## 8.1.0 (2018-02-19)
 
 - Added a new nginx_stream resource for enabling/disable nginx stream blocks
