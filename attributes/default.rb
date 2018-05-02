@@ -126,3 +126,6 @@ default['nginx']['default']['modules']          = []
 default['nginx']['extra_configs'] = {}
 
 default['nginx']['load_modules'] = []
+
+#service flag controls intallation of the services in container which dont have systemd
+default['nginx']['require_service'] = 'false'

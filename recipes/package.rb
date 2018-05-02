@@ -48,6 +48,7 @@ end
 include_recipe 'nginx::commons'
 
 service 'nginx' do
+  only_if { node['nginx']['require_service'] }
   supports status: true, restart: true, reload: true
   action   [:start, :enable]
 end
