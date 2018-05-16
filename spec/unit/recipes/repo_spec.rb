@@ -35,7 +35,7 @@ describe 'nginx::repo' do
   # context 'SUSE' do
   #   let(:chef_run) do
   #     ChefSpec::SoloRunner.new(
-  #       platform: 'opensuse', version: '42.2'
+  #       platform: 'opensuse', version: '42.3'
   #     ).converge(described_recipe)
   #   end
   #
