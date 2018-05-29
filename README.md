@@ -161,6 +161,7 @@ The `ohai_plugin` recipe includes an Ohai plugin. It will be automatically insta
 - `node['nginx']['configure_arguments']` - options passed to `./configure` when nginx was built
 - `node['nginx']['prefix']` - installation prefix
 - `node['nginx']['conf_path']` - configuration file path
+- `node['nginx']['ohai_plugin_enabled']` - Toggles ohai_plugin recipe. Defaults to true.
 
 In the source recipe, it is used to determine whether control attributes for building nginx have changed.
 
