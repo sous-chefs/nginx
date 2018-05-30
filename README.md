@@ -52,6 +52,7 @@ Generally used attributes. Some have platform specific values. See `attributes/d
 - `node['nginx']['log_dir']` - Location for nginx logs.
 - `node['nginx']['log_dir_perm']` - Permissions for nginx logs folder.
 - `node['nginx']['user']` - User that nginx will run as.
+- `node['nginx']['user_home']` - User home path, used during user creation.
 - `node['nginx']['group']` - Group for nginx.
 - `node['nginx']['port']` - Port for nginx to listen on.
 - `node['nginx']['binary']` - Path to the nginx binary.
@@ -228,7 +229,7 @@ These attributes are used in the `nginx::source` recipe. Some of them are dynami
 - `node['nginx']['source']['modules']` - Array of modules that should be compiled into nginx by including their recipes in `nginx::source`.
 - `node['nginx']['source']['default_configure_flags']` - The default flags passed to the configure script when building nginx.
 - `node['nginx']['configure_flags']` - Preserved for compatibility and dynamically generated from the `node['nginx']['source']['default_configure_flags']` in the `nginx::source` recipe.
-- `node['nginx']['source']['use_existing_user']` - set to `true` if you do not want `nginx::source` recipe to create system user with name `node['nginx']['user']`.
+- `node['nginx']['source']['use_existing_user']` - set to `true` if you do not want `nginx::source` recipe to create system user with name `node['nginx']['user']` and `node['nginx']['user_home']`.
 
 ### nginx::status
 
