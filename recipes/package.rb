@@ -18,7 +18,7 @@
 # limitations under the License.
 #
 
-include_recipe 'nginx::ohai_plugin'
+include_recipe 'nginx::ohai_plugin' if node['nginx']['ohai_plugin_enabled']
 
 case node['nginx']['repo_source']
 when 'epel'
@@ -42,7 +42,7 @@ end
 
 package node['nginx']['package_name'] do
   options package_install_opts
-  notifies :reload, 'ohai[reload_nginx]', :immediately
+  notifies :reload, 'ohai[reload_nginx]', :immediately if node['nginx']['ohai_plugin_enabled']
 end
 
 include_recipe 'nginx::commons'
