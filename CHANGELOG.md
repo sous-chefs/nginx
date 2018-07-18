@@ -2,6 +2,11 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## 8.1.4 (2018-07-18)
+
+- Adds the ability to toggle Ohai Plugin
+- Use build_essential resource instead of the cookbook so we can use the built in resource on Chef 14+
+
 ## 8.1.2 (2018-02-26)
 
 - Add map_hash_max_size as configuration option
