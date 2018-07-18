@@ -36,7 +36,7 @@ end
 include_recipe 'nginx::ohai_plugin'
 include_recipe 'nginx::commons_dir'
 include_recipe 'nginx::commons_script'
-include_recipe 'build-essential::default'
+build_essential 'install compilation tools'
 
 src_filepath = "#{Chef::Config['file_cache_path']}/nginx-#{node['nginx']['source']['version']}.tar.gz"
 
