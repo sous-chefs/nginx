@@ -2,6 +2,11 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## 8.1.5 (2018-07-23)
+
+- Fixes cookbook fails when installing repo passenger because there is no service declaration inline
+- Add proxy buffers options
+
 ## 8.1.4 (2018-07-18)
 
 - Adds the ability to toggle Ohai Plugin
