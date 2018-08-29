@@ -26,15 +26,9 @@ if platform_family?('debian')
     keyserver 'keyserver.ubuntu.com'
     key '561F9B9CAC40B2F7'
   end
-
-  include_recipe 'nginx::passenger'
 else
   log "There is not official phusion passenger repo platform #{node['platform']}. Skipping repo setup!" do
     level :warn
   end
 end
 
-service 'nginx' do
-  supports status: true, restart: true, reload: true
-  action   [:start, :enable]
-end
