@@ -51,7 +51,7 @@ elsif node['nginx']['passenger']['install_method'] == 'source'
 
 end
 
-template "#{node['nginx']['dir']}/conf.d/passenger.conf" do
+template node['nginx']['passenger']['conf_file'] do
   source 'modules/passenger.conf.erb'
   notifies :reload, 'service[nginx]', :delayed
 end

@@ -12,6 +12,9 @@ worker_shutdown_timeout <%= node['nginx']['worker_shutdown_timeout'] %>;
 <% node['nginx']['load_modules'].each do |module_to_load| %>
 load_module <%= module_to_load %>;
 <% end -%>
+<% if node['platform'] == 'ubuntu' && node['platform_version'].to_i >= 18 %>
+include /etc/nginx/modules-enabled/*.conf;
+<% end -%>
 
 error_log  <%= node['nginx']['log_dir'] %>/error.log<% if node['nginx']['error_log_options'] %> <%= node['nginx']['error_log_options'] %><% end %>;
 pid        <%= @pid_file %>;
