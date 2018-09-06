@@ -33,7 +33,7 @@ user node['nginx']['user'] do
   not_if { node['nginx']['source']['use_existing_user'] }
 end
 
-include_recipe 'nginx::ohai_plugin'
+include_recipe 'nginx::ohai_plugin' if node['nginx']['ohai_plugin_enabled']
 include_recipe 'nginx::commons_dir'
 include_recipe 'nginx::commons_script'
 build_essential 'install compilation tools'
@@ -102,7 +102,7 @@ bash 'compile_nginx_source' do
   end
 
   notifies :restart, 'service[nginx]'
-  notifies :reload,  'ohai[reload_nginx]', :immediately
+  notifies :reload,  'ohai[reload_nginx]', :immediately if node['nginx']['ohai_plugin_enabled']
 end
 
 case node['nginx']['init_style']
