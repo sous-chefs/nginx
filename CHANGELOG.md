@@ -2,6 +2,13 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## 8.1.6 (2018-10-05)
+
+- passenger: fixed install order
+- passenger Ubuntu 18.04 support
+- Evaluate ohai_plugin_enabled in the source recipe
+- Abstract nginx users home path to attribute
+
 ## 8.1.5 (2018-07-23)
 
 - Fixes cookbook fails when installing repo passenger because there is no service declaration inline

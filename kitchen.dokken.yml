@@ -64,7 +64,7 @@ platforms:
 
 - name: opensuse-leap
   driver:
-    image: dokken/opensuse-leap
+    image: dokken/opensuse-leap-42
     pid_one_command: /bin/systemd
 
 suites:
