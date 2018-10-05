@@ -29,7 +29,8 @@ node.normal['nginx']['daemon_disable'] = true
 user node['nginx']['user'] do
   system true
   shell  '/bin/false'
-  home   '/var/www'
+  home   node['nginx']['user_home']
+  manage_home true
   not_if { node['nginx']['source']['use_existing_user'] }
 end
 

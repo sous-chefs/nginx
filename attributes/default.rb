@@ -60,6 +60,8 @@ else # debian probably
   default['nginx']['user']       = 'www-data'
 end
 
+default['nginx']['user_home'] = '/var/www'
+
 default['nginx']['upstart']['runlevels']     = '2345'
 default['nginx']['upstart']['respawn_limit'] = nil
 default['nginx']['upstart']['foreground']    = true
