@@ -122,7 +122,7 @@ http {
   include <%= node['nginx']['dir'] %>/conf.d/*.conf;
   include <%= node['nginx']['dir'] %>/sites-enabled/*;
 }
-<% if node['nginx']['install_method'] == 'source' and  node['nginx']['configure_flags'].include? '--with-stream'  %>
+<% if node['nginx']['configure_flags'].include? '--with-stream'  %>
 stream{
   include <%= node['nginx']['dir'] %>/streams-enabled/*;
 }

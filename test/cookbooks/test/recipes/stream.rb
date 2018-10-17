@@ -1,4 +1,3 @@
-node.default['nginx']['install_method'] = 'source'
 node.default['nginx']['configure_flags'] = ['--with-stream']
 node.default['nginx']['default_site_enabled'] = false
 
