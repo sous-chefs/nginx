@@ -2,6 +2,9 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## 9.x.x (2019-01-10)
+- Ensure systemd unit file is reloaded (specifically for upgrade or downgrade) source install method.
+
 ## 9.0.0 (2018-11-13)
 
 - This cookbook now requires Chef 13.3 or later, but no longer requires the zypper cookbook. This cookbook was throwing deprecation warnings for users of current Chef 14 releases.
