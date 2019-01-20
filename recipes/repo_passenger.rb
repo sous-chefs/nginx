@@ -31,4 +31,3 @@ else
     level :warn
   end
 end
-

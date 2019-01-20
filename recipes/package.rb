@@ -47,9 +47,7 @@ end
 
 include_recipe 'nginx::commons'
 
-if node['nginx']['repo_source'] == 'passenger'
-  include_recipe 'nginx::passenger'
-end
+include_recipe 'nginx::passenger' if node['nginx']['repo_source'] == 'passenger'
 
 service 'nginx' do
   supports status: true, restart: true, reload: true
