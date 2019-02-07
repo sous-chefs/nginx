@@ -133,7 +133,7 @@ when 'systemd'
   service 'nginx' do
     provider Chef::Provider::Service::Systemd
     supports status: true, restart: true, reload: true
-    action   [:start, :enable]
+    action   [:reload, :start, :enable]
   end
 else
   node.normal['nginx']['daemon_disable'] = false
