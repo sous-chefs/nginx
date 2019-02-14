@@ -5,6 +5,7 @@ This file is used to list changes made in each version of the nginx cookbook.
 ## Unreleased
 
 - Add CircleCI testings
+- http_realip_module: Move inline attributes out so that they can be overridden in the environment.
 
 ## 9.0.0 (2018-11-13)
 
