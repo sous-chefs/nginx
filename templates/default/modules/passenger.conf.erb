@@ -11,6 +11,10 @@ passenger_show_version_in_header <%= node['nginx']['passenger']['show_version_in
 <%- if node['nginx']['passenger']['passenger_log_file'] %>
   passenger_log_file <%= node['nginx']['passenger']['passenger_log_file'] %>;
 <% end %>
+passenger_disable_anonymous_telemetry <%= node['nginx']['passenger']['disable_anonymous_telemetry'] %>;
+<%- if node['nginx']['passenger']['anonymous_telemetry_proxy'] %>
+  passenger_anonymous_telemetry_proxy <%= node['nginx']['passenger']['anonymous_telemetry_proxy'] %>;
+<% end %>
 
 <%- if node['nginx']['passenger']['nodejs'] %>
   passenger_nodejs <%= node['nginx']['passenger']['nodejs'] %>;
