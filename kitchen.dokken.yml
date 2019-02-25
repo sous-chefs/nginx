@@ -2,10 +2,6 @@
 driver:
   name: dokken
   privileged: true  # because Docker and SystemD/Upstart
-<<<<<<< Updated upstream
-  chef_version: <%= ENV['CHEF_VERSION'] || 'current' %>
-=======
->>>>>>> Stashed changes
 
 transport:
   name: dokken
@@ -17,31 +13,12 @@ provisioner:
   install_strategy: once
 
 platforms:
-<<<<<<< Updated upstream
-- name: amazonlinux
-  driver:
-    image: dokken/amazonlinux
-    pid_one_command: /sbin/init
-
-- name: amazonlinux-2
-  driver:
-    image: dokken/amazonlinux-2
-    pid_one_command: /usr/lib/systemd/systemd
-
-- name: debian-8
-  driver:
-    image: dokken/debian-8
-    pid_one_command: /bin/systemd
-    intermediate_instructions:
-      - RUN /usr/bin/apt-get update
-=======
   - name: debian-8
     driver:
       image: dokken/debian-8
       pid_one_command: /bin/systemd
       intermediate_instructions:
         - RUN /usr/bin/apt-get update
->>>>>>> Stashed changes
 
   - name: debian-9
     driver:
