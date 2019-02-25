@@ -1,0 +1,25 @@
+---
+lint_and_unit: &lint_and_unit
+  - delivery
+  - danger
+  - lint-yaml
+  - lint-markdown
+
+version: 2.1
+
+orbs:
+  kitchen: sous-chefs/kitchen@1.0.2
+
+workflows:
+  kitchen:
+    jobs:
+      # Lint and Unit Test
+      - kitchen/yamllint:
+          name: lint-yaml
+      - kitchen/mdlint:
+          name: lint-markdown
+      - kitchen/danger:
+          name: danger
+          context: Danger
+      - kitchen/delivery:
+          name: delivery

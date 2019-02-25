@@ -87,7 +87,7 @@ configure_flags       = node.run_state['nginx_configure_flags']
 nginx_force_recompile = node.run_state['nginx_force_recompile']
 
 bash 'compile_nginx_source' do
-  cwd  ::File.dirname(src_filepath)
+  cwd ::File.dirname(src_filepath)
   environment node.run_state['nginx_source_env']
   code <<-EOH
     cd nginx-#{node['nginx']['source']['version']} &&
