@@ -1,3 +1,4 @@
+---
 driver:
   name: vagrant
 
@@ -36,7 +37,7 @@ suites:
   - name: distro_packages
     run_list:
       - recipe[test::distro_packages]
-    excludes: # these all lack distro packages
+    excludes:  # these all lack distro packages
       - centos-6
       - centos-7
       - centos-7-chef-13.3
@@ -57,7 +58,7 @@ suites:
     run_list:
       - recipe[test::upstream_repo]
     excludes:
-      - fedora-28 # lacks nginx repo
+      - fedora-28  # lacks nginx repo
       - centos-7-chef-13.3
       - ubuntu-16.04-chef-13.3
       - freebsd-11
@@ -71,7 +72,7 @@ suites:
   - name: passenger
     run_list:
       - recipe[test::passenger_packages]
-    excludes: # passenger distro install is not compatible with these
+    excludes:  # passenger distro install is not compatible with these
       - centos-7-chef-13.3
       - ubuntu-16.04-chef-13.3
       - freebsd-11
@@ -81,4 +82,4 @@ suites:
       - fedora-28
   - name: stream
     run_list:
-    - recipe[test::stream]
+      - recipe[test::stream]

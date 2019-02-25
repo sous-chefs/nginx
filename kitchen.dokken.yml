@@ -1,7 +1,7 @@
 ---
 driver:
   name: dokken
-  privileged: true # because Docker and SystemD/Upstart
+  privileged: true  # because Docker and SystemD/Upstart
   chef_version: <%= ENV['CHEF_VERSION'] || 'current' %>
 
 transport:
@@ -77,7 +77,7 @@ suites:
   - name: distro_packages
     run_list:
       - recipe[test::distro_packages]
-    excludes: # these all lack distro packages
+    excludes:  # these all lack distro packages
       - centos-6
       - centos-7
   - name: source
@@ -103,7 +103,7 @@ suites:
   - name: passenger
     run_list:
       - recipe[test::passenger_packages]
-    excludes: # passenger distro install is not compatible with these
+    excludes:  # passenger distro install is not compatible with these
       - fedora-latest
       - centos-6
       - centos-7
@@ -116,4 +116,4 @@ suites:
           install_method: 'package'
   - name: stream
     run_list:
-    - recipe[test::stream]
+      - recipe[test::stream]
