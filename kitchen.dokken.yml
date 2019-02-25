@@ -1,3 +1,4 @@
+---
 driver:
   name: dokken
   privileged: true # because Docker and SystemD/Upstart
@@ -18,6 +19,11 @@ platforms:
   driver:
     image: dokken/amazonlinux
     pid_one_command: /sbin/init
+
+- name: amazonlinux-2
+  driver:
+    image: dokken/amazonlinux-2
+    pid_one_command: /usr/lib/systemd/systemd
 
 - name: debian-8
   driver:
@@ -48,16 +54,16 @@ platforms:
     image: dokken/fedora-latest
     pid_one_command: /usr/lib/systemd/systemd
 
-- name: ubuntu-14.04
-  driver:
-    image: dokken/ubuntu-14.04
-    pid_one_command: /sbin/init
-    intermediate_instructions:
-      - RUN /usr/bin/apt-get update
-
 - name: ubuntu-16.04
   driver:
     image: dokken/ubuntu-16.04
+    pid_one_command: /bin/systemd
+    intermediate_instructions:
+      - RUN /usr/bin/apt-get update
+
+- name: ubuntu-18.04
+  driver:
+    image: dokken/ubuntu-18.04
     pid_one_command: /bin/systemd
     intermediate_instructions:
       - RUN /usr/bin/apt-get update
