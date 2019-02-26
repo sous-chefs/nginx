@@ -1,25 +1,3 @@
-#
-# Cookbook:: nginx
-# Attributes:: default
-#
-# Author:: Adam Jacob (<adam@chef.io>)
-# Author:: Joshua Timberman (<joshua@chef.io>)
-#
-# Copyright:: 2009-2017, Chef Software, Inc.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
-
 # In order to update the version, the checksum attribute must be changed too.
 # This attribute is defined in the source.rb attribute file
 default['nginx']['version']      = '1.12.1'
@@ -59,6 +37,8 @@ when 'suse'
 else # debian probably
   default['nginx']['user']       = 'www-data'
 end
+
+default['nginx']['user_home'] = '/var/www'
 
 default['nginx']['upstart']['runlevels']     = '2345'
 default['nginx']['upstart']['respawn_limit'] = nil
@@ -121,9 +101,13 @@ default['nginx']['client_body_buffer_size']     = nil
 default['nginx']['client_max_body_size']        = nil
 default['nginx']['large_client_header_buffers'] = nil
 default['nginx']['map_hash_max_size']           = nil
+default['nginx']['proxy_buffer_size']           = nil
+default['nginx']['proxy_buffers']               = nil
+default['nginx']['proxy_busy_buffers_size']     = nil
 default['nginx']['default']['modules']          = []
 
 default['nginx']['extra_configs'] = {}
+default['nginx']['ohai_plugin_enabled'] = true
 
 default['nginx']['load_modules'] = []
 

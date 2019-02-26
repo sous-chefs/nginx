@@ -1,3 +1,4 @@
+---
 driver:
   name: vagrant
 
@@ -16,31 +17,30 @@ platforms:
   - name: centos-7
   - name: debian-8
   - name: debian-9
-  - name: fedora-27
-  - name: freebsd-10
+  - name: fedora-28
   - name: freebsd-11
   - name: opensuse-leap-42
-  - name: ubuntu-14.04
   - name: ubuntu-16.04
-  - name: centos-7-chef-12.14
+  - name: ubuntu-18.04
+  - name: centos-7-chef-13.3
     driver_config:
       box: bento/centos-7
     provisioner:
-      require_chef_omnibus: 12.14.89
-  - name: ubuntu-16.04-chef-12.14
+      require_chef_omnibus: 13.3
+  - name: ubuntu-16.04-chef-13.3
     driver_config:
       box: bento/ubuntu-16.04
     provisioner:
-      require_chef_omnibus: 12.14.89
+      require_chef_omnibus: 13.3
 
 suites:
   - name: distro_packages
     run_list:
       - recipe[test::distro_packages]
-    excludes: # these all lack distro packages
+    excludes:  # these all lack distro packages
       - centos-6
       - centos-7
-      - centos-7-chef-12.14
+      - centos-7-chef-13.3
   - name: source
     run_list:
       - recipe[test::source]
@@ -50,7 +50,6 @@ suites:
     includes:
       - centos-6
       - centos-7
-      - freebsd-10
       - freebsd-11
   - name: source
     run_list:
@@ -59,31 +58,28 @@ suites:
     run_list:
       - recipe[test::upstream_repo]
     excludes:
-      - fedora-27 # lacks nginx repo
-      - centos-7-chef-12.14
-      - ubuntu-16.04-chef-12.14
-      - freebsd-10
+      - fedora-28  # lacks nginx repo
+      - centos-7-chef-13.3
+      - ubuntu-16.04-chef-13.3
       - freebsd-11
   - name: modules
     run_list:
       - recipe[test::modules]
     excludes:
-      - centos-7-chef-12.14
-      - ubuntu-16.04-chef-12.14
-      - freebsd-10
+      - centos-7-chef-13.3
+      - ubuntu-16.04-chef-13.3
       - freebsd-11
   - name: passenger
     run_list:
       - recipe[test::passenger_packages]
-    excludes: # passenger distro install is not compatible with these
-      - centos-7-chef-12.14
-      - ubuntu-16.04-chef-12.14
-      - freebsd-10
+    excludes:  # passenger distro install is not compatible with these
+      - centos-7-chef-13.3
+      - ubuntu-16.04-chef-13.3
       - freebsd-11
       - opensuse-leap-42
       - centos-6
       - centos-7
-      - fedora-27
+      - fedora-28
   - name: stream
     run_list:
-    - recipe[test::stream]
+      - recipe[test::stream]

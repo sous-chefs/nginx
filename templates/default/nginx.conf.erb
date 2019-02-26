@@ -12,6 +12,9 @@ worker_shutdown_timeout <%= node['nginx']['worker_shutdown_timeout'] %>;
 <% node['nginx']['load_modules'].each do |module_to_load| %>
 load_module <%= module_to_load %>;
 <% end -%>
+<% if node['platform'] == 'ubuntu' && node['platform_version'].to_i >= 18 %>
+include /etc/nginx/modules-enabled/*.conf;
+<% end -%>
 
 error_log  <%= node['nginx']['log_dir'] %>/error.log<% if node['nginx']['error_log_options'] %> <%= node['nginx']['error_log_options'] %><% end %>;
 pid        <%= @pid_file %>;
@@ -97,6 +100,15 @@ http {
   <% end -%>
   <% if node['nginx']['map_hash_max_size'] -%>
   map_hash_max_size <%= node['nginx']['map_hash_max_size'] %>;
+  <% end -%>
+  <% if node['nginx']['proxy_buffer_size'] -%>
+  proxy_buffer_size <%= node['nginx']['proxy_buffer_size'] %>;
+  <% end -%>
+  <% if node['nginx']['proxy_buffers'] -%>
+  proxy_buffers <%= node['nginx']['proxy_buffers'] %>;
+  <% end -%>
+  <% if node['nginx']['proxy_busy_buffers_size'] -%>
+  proxy_busy_buffers_size <%= node['nginx']['proxy_busy_buffers_size'] %>;
   <% end -%>
 
   <% if node['nginx']['enable_rate_limiting'] -%>

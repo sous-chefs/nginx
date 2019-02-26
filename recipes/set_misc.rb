@@ -1,8 +1,3 @@
-#
-# Cookbook:: nginx
-# Recipes:: set_misc
-#
-
 set_misc_src_filename = ::File.basename(node['nginx']['set_misc']['url'])
 set_misc_src_filepath = "#{Chef::Config['file_cache_path']}/#{set_misc_src_filename}"
 set_misc_extract_path = "#{Chef::Config['file_cache_path']}/nginx-set_misc-#{node['nginx']['set_misc']['version']}"

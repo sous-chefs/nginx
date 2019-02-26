@@ -2,6 +2,31 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## Unreleased
+
+- Add CircleCI testings
+
+## 9.0.0 (2018-11-13)
+
+- This cookbook now requires Chef 13.3 or later, but no longer requires the zypper cookbook. This cookbook was throwing deprecation warnings for users of current Chef 14 releases.
+
+## 8.1.6 (2018-10-05)
+
+- passenger: fixed install order
+- passenger Ubuntu 18.04 support
+- Evaluate ohai_plugin_enabled in the source recipe
+- Abstract nginx users home path to attribute
+
+## 8.1.5 (2018-07-23)
+
+- Fixes cookbook fails when installing repo passenger because there is no service declaration inline
+- Add proxy buffers options
+
+## 8.1.4 (2018-07-18)
+
+- Adds the ability to toggle Ohai Plugin
+- Use build_essential resource instead of the cookbook so we can use the built in resource on Chef 14+
+
 ## 8.1.2 (2018-02-26)
 
 - Add map_hash_max_size as configuration option

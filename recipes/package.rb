@@ -1,24 +1,4 @@
-#
-# Cookbook:: nginx
-# Recipe:: package
-# Author:: AJ Christensen <aj@junglist.gen.nz>
-#
-# Copyright:: 2008-2017, Chef Software, Inc.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
-
-include_recipe 'nginx::ohai_plugin'
+include_recipe 'nginx::ohai_plugin' if node['nginx']['ohai_plugin_enabled']
 
 case node['nginx']['repo_source']
 when 'epel'
@@ -42,10 +22,12 @@ end
 
 package node['nginx']['package_name'] do
   options package_install_opts
-  notifies :reload, 'ohai[reload_nginx]', :immediately
+  notifies :reload, 'ohai[reload_nginx]', :immediately if node['nginx']['ohai_plugin_enabled']
 end
 
 include_recipe 'nginx::commons'
+
+include_recipe 'nginx::passenger' if node['nginx']['repo_source'] == 'passenger'
 
 service 'nginx' do
   only_if { node['nginx']['require_service'] }
