@@ -5,6 +5,7 @@ This file is used to list changes made in each version of the nginx cookbook.
 ## Unreleased
 
 - Add CircleCI testings
+- Add support to deactivate anonymous telemetry reporting when using Passenger.
 
 ## 9.0.0 (2018-11-13)
 
