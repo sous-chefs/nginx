@@ -1,2 +1,4 @@
-Layout/ExtraSpacing:
-  Enabled: false
+---
+AllCops:
+  Exclude:
+    - 'Dangerfile'
