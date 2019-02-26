@@ -266,7 +266,7 @@ Enable or disable a Server Block in `#{node['nginx']['dir']}/sites-available` by
 - `enable` - Enable the nginx site (default)
 - `disable` - Disable the nginx site
 
-### Properties:
+### Properties
 
 - `site_name` - (optional) Name of the site to enable. By default it's assumed that the name of the nginx_site resource is the site name, but this allows overriding that.
 - `template` - (optional) Path to the source for the `template` resource.
@@ -281,7 +281,7 @@ Enable or disable a Stream Block in `#{node['nginx']['dir']}/streams-available` 
 - `enable` - Enable the nginx stream (default)
 - `disable` - Disable the nginx stream
 
-### Properties:
+### Properties
 
 - `stream_name` - (optional) Name of the stream to enable.
 - `template` - (optional) Path to the source for the `template` resource.
@@ -350,7 +350,7 @@ Enable or disable a Server Block in `#{node['nginx']['dir']}/sites-available` by
 - `enable` - Enable the nginx site (default)
 - `disable` - Disable the nginx site
 
-### Properties:
+### Properties
 
 - `name` - (optional) Name of the site to enable. By default it's assumed that the name of the nginx_site resource is the site name, but this allows overriding that.
 - `template` - (optional) Path to the source for the `template` resource.
