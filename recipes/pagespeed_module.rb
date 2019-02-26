@@ -1,8 +1,3 @@
-#
-# Cookbook:: nginx
-# Recipe:: pagespeed_module
-#
-
 src_filename = ::File.basename(node['nginx']['pagespeed']['url'])
 src_filepath = "#{Chef::Config['file_cache_path']}/#{src_filename}"
 extract_path = "#{Chef::Config['file_cache_path']}/nginx_pagespeed-#{node['nginx']['pagespeed']['version']}"
