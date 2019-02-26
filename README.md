@@ -1,6 +1,6 @@
 # nginx Cookbook
 
-[![Cookbook](http://img.shields.io/cookbook/v/nginx.svg)](https://supermarket.chef.io/cookbooks/nginx) [![Build Status](https://travis-ci.org/chef-cookbooks/nginx.svg?branch=master)](https://travis-ci.org/chef-cookbooks/nginx)
+[![Cookbook](http://img.shields.io/cookbook/v/nginx.svg)](https://supermarket.chef.io/cookbooks/nginx)
 
 Installs nginx from package OR source code and sets up configuration handling similar to Debian's Apache2 scripts.
 
@@ -29,7 +29,7 @@ Other Debian and RHEL family distributions are assumed to work.
 
 ### Chef
 
-- Chef 12.14+
+- Chef 13.3+
 
 ## Attributes
 
@@ -266,7 +266,7 @@ Enable or disable a Server Block in `#{node['nginx']['dir']}/sites-available` by
 - `enable` - Enable the nginx site (default)
 - `disable` - Disable the nginx site
 
-### Properties:
+### Properties
 
 - `site_name` - (optional) Name of the site to enable. By default it's assumed that the name of the nginx_site resource is the site name, but this allows overriding that.
 - `template` - (optional) Path to the source for the `template` resource.
@@ -281,7 +281,7 @@ Enable or disable a Stream Block in `#{node['nginx']['dir']}/streams-available` 
 - `enable` - Enable the nginx stream (default)
 - `disable` - Disable the nginx stream
 
-### Properties:
+### Properties
 
 - `stream_name` - (optional) Name of the stream to enable.
 - `template` - (optional) Path to the source for the `template` resource.
@@ -350,7 +350,7 @@ Enable or disable a Server Block in `#{node['nginx']['dir']}/sites-available` by
 - `enable` - Enable the nginx site (default)
 - `disable` - Disable the nginx site
 
-### Properties:
+### Properties
 
 - `name` - (optional) Name of the site to enable. By default it's assumed that the name of the nginx_site resource is the site name, but this allows overriding that.
 - `template` - (optional) Path to the source for the `template` resource.
@@ -366,13 +366,9 @@ node.run_state['nginx_configure_flags'] =
   node.run_state['nginx_configure_flags'] | ['--with-SOMETHING', "--with-SOME_OPT='things'"]
 ```
 
-## Maintainers
-
-This cookbook is maintained by Chef's Community Cookbook Engineering team. Our goal is to improve cookbook quality and to aid the community in contributing to cookbooks. To learn more about our team, process, and design goals see our [team documentation](https://github.com/chef-cookbooks/community_cookbook_documentation/blob/master/COOKBOOK_TEAM.MD). To learn more about contributing to cookbooks like this see our [contributing documentation](https://github.com/chef-cookbooks/community_cookbook_documentation/blob/master/CONTRIBUTING.MD), or if you have general questions about this cookbook come chat with us in #cookbok-engineering on the [Chef Community Slack](http://community-slack.chef.io/)
-
 ## License
 
-```
+```text
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
