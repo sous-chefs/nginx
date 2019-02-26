@@ -1,26 +1,3 @@
-#
-# Cookbook:: nginx
-# Recipe:: source
-#
-# Author:: Adam Jacob (<adam@chef.io>)
-# Author:: Joshua Timberman (<joshua@chef.io>)
-# Author:: Jamie Winsor (<jamie@vialstudios.com>)
-#
-# Copyright:: 2009-2017, Chef Software, Inc.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
-
 raise "#{node['platform']} is not a supported platform in the nginx::source recipe" unless platform_family?('rhel', 'amazon', 'fedora', 'debian', 'suse')
 
 node.normal['nginx']['binary'] = node['nginx']['source']['sbin_path']
@@ -87,7 +64,7 @@ configure_flags       = node.run_state['nginx_configure_flags']
 nginx_force_recompile = node.run_state['nginx_force_recompile']
 
 bash 'compile_nginx_source' do
-  cwd  ::File.dirname(src_filepath)
+  cwd ::File.dirname(src_filepath)
   environment node.run_state['nginx_source_env']
   code <<-EOH
     cd nginx-#{node['nginx']['source']['version']} &&
