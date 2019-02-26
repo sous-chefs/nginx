@@ -1,0 +1,296 @@
+---
+lint_and_unit: &lint_and_unit
+  - delivery
+  - danger
+  - lint-yaml
+  - lint-markdown
+
+version: 2.1
+
+orbs:
+  kitchen: sous-chefs/kitchen@1.1.0
+
+workflows:
+  kitchen:
+    jobs:
+      # Lint and Unit Test
+      - kitchen/yamllint:
+          name: lint-yaml
+      - kitchen/mdlint:
+          name: lint-markdown
+      - kitchen/danger:
+          name: danger
+          context: Danger
+      - kitchen/delivery:
+          name: delivery
+
+      - kitchen/dokken-single:
+          name: distro-packages-debian-8
+          suite: distro-packages-debian-8
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: distro-packages-debian-9
+          suite: distro-packages-debian-9
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: distro-packages-ubuntu-1604
+          suite: distro-packages-ubuntu-1604
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: distro-packages-ubuntu-1604
+          suite: distro-packages-ubuntu-1604
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: distro-packages-ubuntu-1804
+          suite: distro-packages-ubuntu-1804
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: distro-packages-amazonlinux
+          suite: distro-packages-amazonlinux
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: source-debian-8
+          suite: source-debian-8
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: source-debian-9
+          suite: source-debian-9
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: source-centos-6
+          suite: source-centos-6
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: source-centos-7
+          suite: source-centos-7
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: source-ubuntu-1604
+          suite: source-ubuntu-1604
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: source-ubuntu-1604
+          suite: source-ubuntu-1604
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: source-ubuntu-1804
+          suite: source-ubuntu-1804
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: source-amazonlinux
+          suite: source-amazonlinux
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: epel-centos-6
+          suite: epel-centos-6
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: epel-centos-7
+          suite: epel-centos-7
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: source-debian-8
+          suite: source-debian-8
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: source-debian-9
+          suite: source-debian-9
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: source-centos-6
+          suite: source-centos-6
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: source-centos-7
+          suite: source-centos-7
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: source-ubuntu-1604
+          suite: source-ubuntu-1604
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: source-ubuntu-1604
+          suite: source-ubuntu-1604
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: source-ubuntu-1804
+          suite: source-ubuntu-1804
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: source-amazonlinux
+          suite: source-amazonlinux
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: upstream-repo-debian-8
+          suite: upstream-repo-debian-8
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: upstream-repo-debian-9
+          suite: upstream-repo-debian-9
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: upstream-repo-centos-6
+          suite: upstream-repo-centos-6
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: upstream-repo-centos-7
+          suite: upstream-repo-centos-7
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: upstream-repo-ubuntu-1604
+          suite: upstream-repo-ubuntu-1604
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: upstream-repo-ubuntu-1604
+          suite: upstream-repo-ubuntu-1604
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: upstream-repo-ubuntu-1804
+          suite: upstream-repo-ubuntu-1804
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: upstream-repo-amazonlinux
+          suite: upstream-repo-amazonlinux
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: modules-debian-8
+          suite: modules-debian-8
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: modules-debian-9
+          suite: modules-debian-9
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: modules-centos-6
+          suite: modules-centos-6
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: modules-centos-7
+          suite: modules-centos-7
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: modules-ubuntu-1604
+          suite: modules-ubuntu-1604
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: modules-ubuntu-1604
+          suite: modules-ubuntu-1604
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: modules-ubuntu-1804
+          suite: modules-ubuntu-1804
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: modules-amazonlinux
+          suite: modules-amazonlinux
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: passenger-debian-8
+          suite: passenger-debian-8
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: passenger-debian-9
+          suite: passenger-debian-9
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: passenger-ubuntu-1604
+          suite: passenger-ubuntu-1604
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: passenger-ubuntu-1604
+          suite: passenger-ubuntu-1604
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: passenger-ubuntu-1804
+          suite: passenger-ubuntu-1804
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: passenger-amazonlinux
+          suite: passenger-amazonlinux
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: stream-debian-8
+          suite: stream-debian-8
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: stream-debian-9
+          suite: stream-debian-9
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: stream-centos-6
+          suite: stream-centos-6
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: stream-centos-7
+          suite: stream-centos-7
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: stream-ubuntu-1604
+          suite: stream-ubuntu-1604
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: stream-ubuntu-1604
+          suite: stream-ubuntu-1604
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: stream-ubuntu-1804
+          suite: stream-ubuntu-1804
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: stream-amazonlinux
+          suite: stream-amazonlinux
+          requires:
+            *lint_and_unit
