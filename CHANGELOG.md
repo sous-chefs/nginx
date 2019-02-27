@@ -5,6 +5,7 @@ This file is used to list changes made in each version of the nginx cookbook.
 ## Unreleased
 
 - Add CircleCI testings
+- Ensure apt-transport-https package is installed on Debian/Ubuntu for apt_repository resource
 
 ## 9.0.0 (2018-11-13)
 
