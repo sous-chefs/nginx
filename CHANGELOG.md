@@ -4,7 +4,8 @@ This file is used to list changes made in each version of the nginx cookbook.
 
 ## Unreleased
 
-- Add CircleCI testings
+- Add CircleCI testing
+- Removes deprecated enable property on the site resource
 
 ## 9.0.0 (2018-11-13)
 
