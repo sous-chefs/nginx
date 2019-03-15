@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## 10.0.0-dev (2019-04-09)
+
+- Update kitchen to use chef solo
+
 ## Unreleased
 
 - Add CircleCI testing
