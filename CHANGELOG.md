@@ -8,6 +8,7 @@ This file is used to list changes made in each version of the nginx cookbook.
 - Ensure systemd unit file is reloaded (specifically for upgrade or downgrade) source complile install method.
 - Ensure apt-transport-https package is installed on Debian/Ubuntu for apt_repository resource
 - http_realip_module: Move inline attributes out so that they can be overridden in the environment.
+- Add support to deactivate anonymous telemetry reporting when using Passenger.
 
 ## 9.0.0 (2018-11-13)
 
