@@ -18,6 +18,8 @@ when 'suse'
 
 when 'debian'
 
+  apt_package 'apt-transport-https'
+
   apt_repository 'nginx' do
     uri          node['nginx']['upstream_repository']
     distribution node['lsb']['codename']
