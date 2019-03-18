@@ -4,7 +4,9 @@ This file is used to list changes made in each version of the nginx cookbook.
 
 ## Unreleased
 
-- Add CircleCI testings
+- Add CircleCI testing
+- Ensure systemd unit file is reloaded (specifically for upgrade or downgrade) source complile install method.
+- Ensure apt-transport-https package is installed on Debian/Ubuntu for apt_repository resource
 - http_realip_module: Move inline attributes out so that they can be overridden in the environment.
 
 ## 9.0.0 (2018-11-13)
