@@ -8,6 +8,10 @@ describe 'nginx::repo' do
       ).converge(described_recipe)
     end
 
+    it 'ensures apt-transport-https package is installed' do
+      expect(chef_run).to install_apt_package('apt-transport-https')
+    end
+
     it 'adds apt repository' do
       expect(chef_run).to add_apt_repository('nginx').with(
         uri: 'https://nginx.org/packages/ubuntu',
@@ -21,6 +25,10 @@ describe 'nginx::repo' do
       ChefSpec::SoloRunner.new(
         platform: 'debian', version: '8.9'
       ).converge(described_recipe)
+    end
+
+    it 'ensures apt-transport-https package is installed' do
+      expect(chef_run).to install_apt_package('apt-transport-https')
     end
 
     it 'adds apt repository' do
