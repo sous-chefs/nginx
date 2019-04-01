@@ -107,10 +107,22 @@ when 'systemd'
     source 'nginx.service.erb'
   end
 
+  # This ensures the systemd unit file is reload in the case of a nginx version downgrade/upgrade
+  # And previous version (newer or older) is stopped so service resource starts the newly compiled version
+  execute 'nginx - systemctl daemon-reload' do
+    action :nothing
+    command 'systemctl daemon-reload'
+    # Subscribes to unit file and systemctl daemon-reload
+    subscribes :run, "template[#{systemd_prefix}/systemd/system/nginx.service]", :immediately
+    # Notifies service to :stop in case a nginx version is running so service resource below starts the right version
+    # newer version if upgrade, older version if downgrade
+    notifies :stop, 'service[nginx]', :immediately
+  end
+
   service 'nginx' do
     provider Chef::Provider::Service::Systemd
     supports status: true, restart: true, reload: true
-    action   [:start, :enable]
+    action   [:reload, :start, :enable]
   end
 else
   node.normal['nginx']['daemon_disable'] = false

@@ -113,3 +113,5 @@ default['nginx']['load_modules'] = []
 
 #service flag controls intallation of the services in container which dont have systemd
 default['nginx']['require_service'] = true
+default['nginx']['pcre_jit'] = false
+

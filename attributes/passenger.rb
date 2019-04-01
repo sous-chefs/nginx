@@ -48,6 +48,8 @@ node.default['nginx']['passenger']['gem_binary'] = nil
 node.default['nginx']['passenger']['show_version_in_header'] = 'on'
 # By default, the Passenger log file is the global Nginx error log file. Set this attribute to write passenger log to another location.
 node.default['nginx']['passenger']['passenger_log_file'] = nil
+node.default['nginx']['passenger']['disable_anonymous_telemetry'] = 'off'
+node.default['nginx']['passenger']['anonymous_telemetry_proxy'] = nil
 
 # NodeJs disable by default
 node.default['nginx']['passenger']['nodejs'] = nil
