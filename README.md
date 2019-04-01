@@ -91,6 +91,7 @@ Generally used attributes. Some have platform specific values. See `attributes/d
 - `node['nginx']['sts_max_age']` - Enable Strict Transport Security for all apps (See: <http://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security>). This attribute adds the following header: Strict-Transport-Security max-age=SECONDS to all incoming requests and takes an integer (in seconds) as its argument.
 - `node['nginx']['default']['modules']` - Array specifying which modules to enable via the conf-enabled config include function. Currently the only valid value is "socketproxy".
 - `node['nginx']['load_modules']` - Array of paths to modules to dynamically load on nginx startup using the `load_module` directive. Default is `[]`.
+- `node['nginx']['pcre_jit']` - Enables or disables the use of “just-in-time compilation” (PCRE JIT) for the regular expressions known by the time of configuration parsing. . Default is false.
 
 #### authorized_ips module
 
@@ -191,6 +192,10 @@ These attributes are used in the `nginx::passenger` recipe.
 - `node['nginx']['passenger']['max_requests']` - maximum requests (default=`0`)
 - `node['nginx']['passenger']['nodejs']` - Nodejs path for Passenger to use (default=nil)
 - `node['nginx']['passenger']['show_version_in_header']` - Show passenger version in HTTP headers (default=`on`)
+- `node['nginx']['passenger']['disable_anonymous_telemetry']` - Turn on disabling of anonymous telemetry (default=`off`, this will send telemetry data. Since Passenger 6.0)
+- `node['nginx']['passenger']['anonymous_telemetry_proxy']` - Set an intermediate proxy for anonymous telemetry (default=`nil`. Syntax: `scheme://user:password@proxy_host:proxy_port`. Since Passenger 6.0)
+
+Read more about the anonymous telemetry reporting [here](https://www.phusionpassenger.com/docs/advanced_guides/in_depth/ruby/anonymous_telemetry_reporting.html).
 
 Basic configuration to use the official Phusion Passenger repositories:
 

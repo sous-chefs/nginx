@@ -110,3 +110,5 @@ default['nginx']['extra_configs'] = {}
 default['nginx']['ohai_plugin_enabled'] = true
 
 default['nginx']['load_modules'] = []
+
+default['nginx']['pcre_jit'] = false

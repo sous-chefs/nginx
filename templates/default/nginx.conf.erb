@@ -16,6 +16,10 @@ load_module <%= module_to_load %>;
 include /etc/nginx/modules-enabled/*.conf;
 <% end -%>
 
+<% if node['nginx']['pcre_jit'] -%>
+pcre_jit on;
+<% end -%>
+
 error_log  <%= node['nginx']['log_dir'] %>/error.log<% if node['nginx']['error_log_options'] %> <%= node['nginx']['error_log_options'] %><% end %>;
 pid        <%= @pid_file %>;
 events {
