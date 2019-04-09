@@ -1,3 +1,7 @@
-source 'https://rubygems.org'
+# This gemfile provides additional gems for testing and releasing this cookbook
+# It is meant to be installed on top of ChefDK which provides the majority
+# of the necessary gems for testing this cookbook
+#
+# Run 'chef exec bundle install' to install these dependencies
 
-gem 'community_cookbook_releaser'
+source 'https://rubygems.org'
