@@ -10,6 +10,7 @@ This file is used to list changes made in each version of the nginx cookbook.
 - Add support for Amazon Linux 2
 - Remove community_cookbook_releaser gem
 - Move spec/libraries to spec/unit/libraries
+- Bump ohai dependency to ~> 5.2
 
 ## Unreleased
 
