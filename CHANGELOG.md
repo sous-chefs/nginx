@@ -9,6 +9,7 @@ This file is used to list changes made in each version of the nginx cookbook.
 - Drop support for Amazon Linux, CentOS 6
 - Add support for Amazon Linux 2
 - Remove community_cookbook_releaser gem
+- Move spec/libraries to spec/unit/libraries
 
 ## Unreleased
 
