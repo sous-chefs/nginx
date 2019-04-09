@@ -1,5 +1,6 @@
 require 'chefspec'
 require 'chefspec/berkshelf'
+require_relative '../libraries/nginx_version'
 
 RSpec.configure do |config|
   config.color = true               # Use color in STDOUT

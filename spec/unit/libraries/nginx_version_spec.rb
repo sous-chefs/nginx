@@ -1,5 +1,4 @@
 require 'spec_helper'
-require_relative '../../libraries/nginx_version'
 
 describe NginxVersion do
   let(:version) { '1.10.3' }
