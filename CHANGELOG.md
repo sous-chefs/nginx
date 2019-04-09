@@ -8,6 +8,7 @@ This file is used to list changes made in each version of the nginx cookbook.
 - Support only OS with systemd
 - Drop support for Amazon Linux, CentOS 6
 - Add support for Amazon Linux 2
+- Remove community_cookbook_releaser gem
 
 ## Unreleased
 
