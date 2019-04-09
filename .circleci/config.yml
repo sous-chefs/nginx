@@ -50,8 +50,8 @@ workflows:
           requires:
             *lint_and_unit
       - kitchen/dokken-single:
-          name: distro-packages-amazonlinux
-          suite: distro-packages-amazonlinux
+          name: distro-packages-amazonlinux-2
+          suite: distro-packages-amazonlinux-2
           requires:
             *lint_and_unit
       - kitchen/dokken-single:
@@ -62,11 +62,6 @@ workflows:
       - kitchen/dokken-single:
           name: source-debian-9
           suite: source-debian-9
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: source-centos-6
-          suite: source-centos-6
           requires:
             *lint_and_unit
       - kitchen/dokken-single:
@@ -90,58 +85,13 @@ workflows:
           requires:
             *lint_and_unit
       - kitchen/dokken-single:
-          name: source-amazonlinux
-          suite: source-amazonlinux
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: epel-centos-6
-          suite: epel-centos-6
+          name: source-amazonlinux-2
+          suite: source-amazonlinux-2
           requires:
             *lint_and_unit
       - kitchen/dokken-single:
           name: epel-centos-7
           suite: epel-centos-7
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: source-debian-8
-          suite: source-debian-8
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: source-debian-9
-          suite: source-debian-9
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: source-centos-6
-          suite: source-centos-6
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: source-centos-7
-          suite: source-centos-7
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: source-ubuntu-1604
-          suite: source-ubuntu-1604
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: source-ubuntu-1604
-          suite: source-ubuntu-1604
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: source-ubuntu-1804
-          suite: source-ubuntu-1804
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: source-amazonlinux
-          suite: source-amazonlinux
           requires:
             *lint_and_unit
       - kitchen/dokken-single:
@@ -152,11 +102,6 @@ workflows:
       - kitchen/dokken-single:
           name: upstream-repo-debian-9
           suite: upstream-repo-debian-9
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: upstream-repo-centos-6
-          suite: upstream-repo-centos-6
           requires:
             *lint_and_unit
       - kitchen/dokken-single:
@@ -180,8 +125,8 @@ workflows:
           requires:
             *lint_and_unit
       - kitchen/dokken-single:
-          name: upstream-repo-amazonlinux
-          suite: upstream-repo-amazonlinux
+          name: upstream-repo-amazonlinux-2
+          suite: upstream-repo-amazonlinux-2
           requires:
             *lint_and_unit
       - kitchen/dokken-single:
@@ -192,11 +137,6 @@ workflows:
       - kitchen/dokken-single:
           name: modules-debian-9
           suite: modules-debian-9
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: modules-centos-6
-          suite: modules-centos-6
           requires:
             *lint_and_unit
       - kitchen/dokken-single:
@@ -220,8 +160,8 @@ workflows:
           requires:
             *lint_and_unit
       - kitchen/dokken-single:
-          name: modules-amazonlinux
-          suite: modules-amazonlinux
+          name: modules-amazonlinux-2
+          suite: modules-amazonlinux-2
           requires:
             *lint_and_unit
       - kitchen/dokken-single:
@@ -250,8 +190,8 @@ workflows:
           requires:
             *lint_and_unit
       - kitchen/dokken-single:
-          name: passenger-amazonlinux
-          suite: passenger-amazonlinux
+          name: passenger-amazonlinux-2
+          suite: passenger-amazonlinux-2
           requires:
             *lint_and_unit
       - kitchen/dokken-single:
@@ -262,11 +202,6 @@ workflows:
       - kitchen/dokken-single:
           name: stream-debian-9
           suite: stream-debian-9
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: stream-centos-6
-          suite: stream-centos-6
           requires:
             *lint_and_unit
       - kitchen/dokken-single:
@@ -290,7 +225,7 @@ workflows:
           requires:
             *lint_and_unit
       - kitchen/dokken-single:
-          name: stream-amazonlinux
-          suite: stream-amazonlinux
+          name: stream-amazonlinux-2
+          suite: stream-amazonlinux-2
           requires:
             *lint_and_unit

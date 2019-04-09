@@ -19,11 +19,11 @@ The following cookbooks are direct dependencies because they're used for common 
 
 The following platforms are supported and tested with Test Kitchen:
 
-- Ubuntu 14.04+
-- CentOS 6+
-- Debian 7+
+- Amazon Linux 2
+- CentOS 7
+- Debian 8+
 - openSUSE
-- FreeBSD
+- Ubuntu 16.04+
 
 Other Debian and RHEL family distributions are assumed to work.
 

@@ -12,15 +12,13 @@ verifier:
   name: inspec
 
 platforms:
-  - name: amazonlinux
+  - name: amazonlinux-2
     driver_config:
-      box: mvbcoding/awslinux
-  - name: centos-6
+      box: ywatase/amzn2
   - name: centos-7
   - name: debian-8
   - name: debian-9
   - name: fedora-28
-  - name: freebsd-11
   - name: opensuse-leap-42
   - name: ubuntu-16.04
   - name: ubuntu-18.04
@@ -40,7 +38,7 @@ suites:
     run_list:
       - recipe[test::distro_packages]
     excludes:  # these all lack distro packages
-      - centos-6
+      - amazonlinux-2
       - centos-7
       - centos-7-chef-13.3
   - name: source
@@ -50,9 +48,8 @@ suites:
     run_list:
       - recipe[test::epel]
     includes:
-      - centos-6
+      - amazonlinux-2
       - centos-7
-      - freebsd-11
   - name: source
     run_list:
       - recipe[test::source]
@@ -63,23 +60,20 @@ suites:
       - fedora-28  # lacks nginx repo
       - centos-7-chef-13.3
       - ubuntu-16.04-chef-13.3
-      - freebsd-11
   - name: modules
     run_list:
       - recipe[test::modules]
     excludes:
       - centos-7-chef-13.3
       - ubuntu-16.04-chef-13.3
-      - freebsd-11
   - name: passenger
     run_list:
       - recipe[test::passenger_packages]
     excludes:  # passenger distro install is not compatible with these
+      - amazonlinux-2
       - centos-7-chef-13.3
       - ubuntu-16.04-chef-13.3
-      - freebsd-11
       - opensuse-leap-42
-      - centos-6
       - centos-7
       - fedora-28
   - name: stream

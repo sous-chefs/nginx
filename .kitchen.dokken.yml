@@ -1,18 +1,22 @@
 ---
 driver:
   name: dokken
-  privileged: true  # because Docker and SystemD/Upstart
+  # because Docker and SystemD/Upstart
+  privileged: true
+  chef_version: <%= ENV['CHEF_VERSION'] || 'current' %>
 
 transport:
   name: dokken
 
 provisioner:
   name: dokken
-  product_name: chef
-  product_version: <%= ENV['CHEF_VERSION'] || 'latest' %>
-  install_strategy: once
 
 platforms:
+  - name: amazonlinux-2
+    driver:
+      image: dokken/amazonlinux-2
+      pid_one_command: /usr/lib/systemd/systemd
+
   - name: debian-8
     driver:
       image: dokken/debian-8
@@ -27,24 +31,15 @@ platforms:
       intermediate_instructions:
         - RUN /usr/bin/apt-get update
 
-  - name: centos-6
-    driver:
-      image: dokken/centos-6
-      platform: rhel
-      pid_one_command: /sbin/init
-
   - name: centos-7
     driver:
       image: dokken/centos-7
-      platform: rhel
       pid_one_command: /usr/lib/systemd/systemd
 
-  - name: ubuntu-16.04
+  - name: fedora-28
     driver:
-      image: dokken/ubuntu-16.04
-      pid_one_command: /sbin/init
-      intermediate_instructions:
-        - RUN /usr/bin/apt-get update
+      image: dokken/fedora-28
+      pid_one_command: /usr/lib/systemd/systemd
 
   - name: ubuntu-16.04
     driver:
@@ -60,7 +55,7 @@ platforms:
       intermediate_instructions:
         - RUN /usr/bin/apt-get update
 
-  - name: amazonlinux
+  - name: opensuse-leap-42
     driver:
-      image: dokken/amazonlinux
-      pid_one_command: /sbin/init
+      image: dokken/opensuse-leap-42
+      pid_one_command: /bin/systemd
