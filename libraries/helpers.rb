@@ -12,8 +12,13 @@ module Nginx
           '/var/run/nginx.pid'
         end
       end
+
+      def nginx_binary
+        '/usr/sbin/nginx'
+      end
     end
   end
 end
 
+Chef::Provider.send(:include, Nginx::Cookbook::Helpers)
 Chef::Resource.send(:include, Nginx::Cookbook::Helpers)
