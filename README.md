@@ -258,6 +258,7 @@ These attributes are used in the `nginx::upload_progress_module` recipe.
 ## Resources
 
 - [nginx_install](./documentation/resources/install.md)
+- [nginx_config](./documentation/resources/config.md)
 
 ### nginx_site
 

@@ -1,129 +1,36 @@
-user <%= node['nginx']['user'] %><% if node['nginx']['user'] != node['nginx']['group'] %> <%= node['nginx']['group'] %><% end %>;
-worker_processes <%= node['nginx']['worker_processes'] %>;
-<% if node['nginx']['daemon_disable'] -%>
-daemon off;
-<% end -%>
-<% if node['nginx']['worker_rlimit_nofile'] -%>
-worker_rlimit_nofile <%= node['nginx']['worker_rlimit_nofile'] %>;
-<% end -%>
-<% if node['nginx']['worker_shutdown_timeout'] -%>
-worker_shutdown_timeout <%= node['nginx']['worker_shutdown_timeout'] %>;
-<% end -%>
-<% node['nginx']['load_modules'].each do |module_to_load| %>
-load_module <%= module_to_load %>;
-<% end -%>
-<% if node['platform'] == 'ubuntu' && node['platform_version'].to_i >= 18 %>
+user <%= @nginx_user %><% if @nginx_user != @group %> <%= @group %><% end %>;
+worker_processes <%= @worker_processes %>;
+error_log <%= @nginx_log_dir %>/error.log;
+pid <%= @pid %>;
+
+<% if (node['platform'] == 'debian' && node['platform_version'].to_i >= 9) || (node['platform'] == 'ubuntu' && node['platform_version'].to_i >= 18) %>
 include /etc/nginx/modules-enabled/*.conf;
 <% end -%>
+<% if %w(amazon centos fedora).include?(node['platform']) -%>
+include /usr/share/nginx/modules/*.conf;
+<% end -%>
 
-error_log  <%= node['nginx']['log_dir'] %>/error.log<% if node['nginx']['error_log_options'] %> <%= node['nginx']['error_log_options'] %><% end %>;
-pid        <%= @pid_file %>;
 events {
-  worker_connections  <%= node['nginx']['worker_connections'] %>;
-<% if node['nginx']['multi_accept'] -%>
-  multi_accept on;
-<% end -%>
-<% if node['nginx']['event'] -%>
-  use <%= node['nginx']['event'] %>;
-<% end -%>
-<% if node['nginx']['accept_mutex_delay'] -%>
-  accept_mutex_delay <%= node['nginx']['accept_mutex_delay'] %>ms;
-<% end -%>
+  worker_connections <%= @worker_connections %>;
 }
 
 http {
-  <% if node.recipe?('nginx::naxsi_module') %>
-  include       <%= node['nginx']['dir'] %>/naxsi_core.rules;
-  <% end %>
+  log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                    '$status $body_bytes_sent "$http_referer" '
+                    '"$http_user_agent" "$http_x_forwarded_for"';
 
-  include       <%= node['nginx']['dir'] %>/mime.types;
+  access_log  <%= @nginx_log_dir %>/access.log main;
+
+  sendfile            <%= @sendfile %>;
+  tcp_nopush          <%= @tcp_nopush %>;
+  tcp_nodelay         <%= @tcp_nodelay %>;
+  keepalive_timeout   <%= @keepalive_timeout %>;
+  types_hash_max_size <%= @types_hash_max_size %>;
+
+  include       <%= @nginx_dir %>/mime.types;
   default_type  application/octet-stream;
-  charset_types text/css text/plain text/vnd.wap.wml application/javascript application/json application/rss+xml application/xml;
 
-  <% node['nginx']['log_formats'].each do |name, format| %>
-  log_format <%= name %> <%= format %>;
-  <% end -%>
-
-  <% if node['nginx']['disable_access_log'] -%>
-  access_log    off;
-  <% else -%>
-  access_log    <%= node['nginx']['log_dir'] %>/access.log<% if node['nginx']['access_log_options'] %> <%= node['nginx']['access_log_options'] %><% end %>;
-  <% end %>
-  <% if node['nginx']['server_tokens'] -%>
-  server_tokens <%= node['nginx']['server_tokens'] %>;
-  <% end -%>
-
-  sendfile <%= node['nginx']['sendfile'] %>;
-  tcp_nopush <%= node['nginx']['tcp_nopush'] %>;
-  tcp_nodelay <%= node['nginx']['tcp_nodelay'] %>;
-
-  <% if node['nginx']['keepalive'] == 'on' %>
-  keepalive_requests <%= node['nginx']['keepalive_requests'] %>;
-  keepalive_timeout  <%= node['nginx']['keepalive_timeout'] %>;
-  <% end %>
-
-  <% unless node['nginx']['underscores_in_headers'].nil? %>
-  underscores_in_headers <%= node['nginx']['underscores_in_headers'] %>;
-  <% end %>
-
-  gzip  <%= node['nginx']['gzip'] %>;
-  <% if node['nginx']['gzip'] == 'on' %>
-  gzip_http_version <%= node['nginx']['gzip_http_version'] %>;
-  gzip_comp_level <%= node['nginx']['gzip_comp_level'] %>;
-  gzip_proxied <%= node['nginx']['gzip_proxied'] %>;
-  gzip_vary <%= node['nginx']['gzip_vary'] %>;
-  <% if node['nginx']['gzip_buffers'] -%>
-  gzip_buffers <%= node['nginx']['gzip_buffers'] %>;
-  <% end -%>
-  gzip_types <%= node['nginx']['gzip_types'].join(' ') %>;
-  gzip_min_length  <%= node['nginx']['gzip_min_length'] %>;
-  gzip_disable     "<%= node['nginx']['gzip_disable'] %>";
-  <% end %>
-
-
-  variables_hash_max_size <%= node['nginx']['variables_hash_max_size'] %>;
-  variables_hash_bucket_size <%= node['nginx']['variables_hash_bucket_size'] %>;
-  server_names_hash_bucket_size <%= node['nginx']['server_names_hash_bucket_size'] %>;
-  types_hash_max_size <%= node['nginx']['types_hash_max_size'] %>;
-  types_hash_bucket_size <%= node['nginx']['types_hash_bucket_size'] %>;
-  <% if node['nginx']['proxy_read_timeout'] -%>
-  proxy_read_timeout <%= node['nginx']['proxy_read_timeout'] %>;
-  <% end -%>
-  <% if node['nginx']['client_body_buffer_size'] -%>
-  client_body_buffer_size <%= node['nginx']['client_body_buffer_size'] %>;
-  <% end -%>
-  <% if node['nginx']['client_max_body_size'] -%>
-  client_max_body_size <%= node['nginx']['client_max_body_size'] %>;
-  <% end -%>
-  <% if node['nginx']['large_client_header_buffers'] -%>
-  large_client_header_buffers <%= node['nginx']['large_client_header_buffers'] %>;
-  <% end -%>
-  <% if node['nginx']['map_hash_max_size'] -%>
-  map_hash_max_size <%= node['nginx']['map_hash_max_size'] %>;
-  <% end -%>
-  <% if node['nginx']['proxy_buffer_size'] -%>
-  proxy_buffer_size <%= node['nginx']['proxy_buffer_size'] %>;
-  <% end -%>
-  <% if node['nginx']['proxy_buffers'] -%>
-  proxy_buffers <%= node['nginx']['proxy_buffers'] %>;
-  <% end -%>
-  <% if node['nginx']['proxy_busy_buffers_size'] -%>
-  proxy_busy_buffers_size <%= node['nginx']['proxy_busy_buffers_size'] %>;
-  <% end -%>
-
-  <% if node['nginx']['enable_rate_limiting'] -%>
-  limit_req_zone $binary_remote_addr zone=<%= node['nginx']['rate_limiting_zone_name'] %>:<%= node['nginx']['rate_limiting_backoff'] %> rate=<%= node['nginx']['rate_limit'] %>;
-  <% end -%>
-
-  <% node['nginx']['extra_configs'].each do |key, value| -%>
-  <%= key %> <%= value %>;
-  <% end -%>
-
-  include <%= node['nginx']['dir'] %>/conf.d/*.conf;
-  include <%= node['nginx']['dir'] %>/sites-enabled/*;
+  include <%= @nginx_dir %>/conf.d/*.conf;
+  include <%= @nginx_dir %>/sites-enabled/*;
 }
-<% if node['nginx']['install_method'] == 'source' and  node['nginx']['configure_flags'].include? '--with-stream'  %>
-stream{
-  include <%= node['nginx']['dir'] %>/streams-enabled/*;
-}
-<% end %>
+
