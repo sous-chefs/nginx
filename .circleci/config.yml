@@ -56,6 +56,43 @@ workflows:
           requires:
             *lint_and_unit
 
+      # repo
+      - kitchen/dokken-single:
+          name: repo-amazonlinux-2
+          suite: repo-amazonlinux-2
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: repo-centos-7
+          suite: repo-centos-7
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: repo-debian-8
+          suite: repo-debian-8
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: repo-debian-9
+          suite: repo-debian-9
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: repo-opensuse-leap-42
+          suite: repo-opensuse-leap-42
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: repo-ubuntu-1604
+          suite: repo-ubuntu-1604
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: repo-ubuntu-1804
+          suite: repo-ubuntu-1804
+          requires:
+            *lint_and_unit
+
       - kitchen/dokken-single:
           name: source-debian-8
           suite: source-debian-8
@@ -94,41 +131,6 @@ workflows:
       - kitchen/dokken-single:
           name: epel-centos-7
           suite: epel-centos-7
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: upstream-repo-debian-8
-          suite: upstream-repo-debian-8
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: upstream-repo-debian-9
-          suite: upstream-repo-debian-9
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: upstream-repo-centos-7
-          suite: upstream-repo-centos-7
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: upstream-repo-ubuntu-1604
-          suite: upstream-repo-ubuntu-1604
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: upstream-repo-ubuntu-1604
-          suite: upstream-repo-ubuntu-1604
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: upstream-repo-ubuntu-1804
-          suite: upstream-repo-ubuntu-1804
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: upstream-repo-amazonlinux-2
-          suite: upstream-repo-amazonlinux-2
           requires:
             *lint_and_unit
       - kitchen/dokken-single:

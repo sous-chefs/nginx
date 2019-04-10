@@ -3,6 +3,8 @@ require 'chefspec/berkshelf'
 require_relative '../libraries/helpers'
 require_relative '../libraries/nginx_version'
 
+Dir['./spec/support/**/*.rb'].sort.each { |f| require f }
+
 RSpec.configure do |config|
   config.color = true               # Use color in STDOUT
   config.formatter = :documentation # Use the specified formatter

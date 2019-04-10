@@ -35,4 +35,4 @@ Source for installation.
 | -------------- | --------------- |
 | Type           | String          |
 | Default        | `name_property` |
-| Allowed Values | distro          |
+| Allowed Values | distro, repo    |

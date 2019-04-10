@@ -41,6 +41,13 @@ suites:
       - amazonlinux-2
       - centos-7
       - centos-7-chef-13.3
+  - name: repo
+    run_list:
+      - recipe[test::repo]
+    excludes:
+      - fedora-28
+      - centos-7-chef-13.3
+      - ubuntu-16.04-chef-13.3
 
   - name: source
     run_list:
@@ -54,13 +61,6 @@ suites:
   - name: source
     run_list:
       - recipe[test::source]
-  - name: upstream_repo
-    run_list:
-      - recipe[test::upstream_repo]
-    excludes:
-      - fedora-28  # lacks nginx repo
-      - centos-7-chef-13.3
-      - ubuntu-16.04-chef-13.3
   - name: modules
     run_list:
       - recipe[test::modules]
