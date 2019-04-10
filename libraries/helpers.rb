@@ -16,6 +16,24 @@ module Nginx
       def nginx_binary
         '/usr/sbin/nginx'
       end
+
+      def repo_url
+        case node['platform_family']
+        when 'amazon', 'fedora', 'rhel'
+          case node['platform']
+          when 'amazon', 'fedora'
+            'https://nginx.org/packages/rhel/7/$basearch'
+          when 'centos'
+            "https://nginx.org/packages/centos/#{node['platform_version'].to_i}/$basearch"
+          else
+            "https://nginx.org/packages/rhel/#{node['platform_version'].to_i}/$basearch"
+          end
+        when 'debian'
+          "https://nginx.org/packages/#{node['platform']}"
+        when 'suse'
+          'https://nginx.org/packages/sles/12'
+        end
+      end
     end
   end
 end
