@@ -50,6 +50,10 @@ module Nginx
       def nginx_user
         platform_family?('debian') ? 'www-data' : 'nginx'
       end
+
+      def nginx_pid_file
+        '/run/nginx.pid'
+      end
     end
   end
 end
