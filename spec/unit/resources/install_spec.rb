@@ -75,6 +75,20 @@ describe 'nginx_install' do
         nginx_install 'distro'
       end
 
+      context 'with amazon platform' do
+        platform 'amazon'
+
+        include_examples 'ohai is enabled'
+        include_examples 'common directories are created'
+        include_examples 'common scripts are created'
+        include_examples 'common conf is created'
+
+        it { is_expected.to run_execute('amazon-linux-extras install nginx1.12') }
+        it { expect(chef_run.execute('amazon-linux-extras install nginx1.12')).to notify('ohai[reload_nginx]').to(:reload).immediately }
+        it { is_expected.to delete_file('/etc/nginx/conf.d/default.conf') }
+        it { is_expected.to delete_file('/etc/nginx/conf.d/example_ssl.conf') }
+      end
+
       context 'with debian platform' do
         platform 'debian'
 
