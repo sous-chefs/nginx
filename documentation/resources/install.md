@@ -1,10 +1,11 @@
 # install
 
-Installs nginx.
+Installs nginx via distro source.
 
 ```ruby
 nginx_install 'default' do
   ohai_plugin_enabled [true, false]
+  source              String
 end
 ```
 
@@ -25,3 +26,13 @@ Whether or not ohai_plugin is enabled.
 | Type           | [true, false] |
 | Default        | `true`        |
 | Allowed Values | true, false   |
+
+### `source`
+
+Source for installation.
+
+| property       | value           |
+| -------------- | --------------- |
+| Type           | String          |
+| Default        | `name_property` |
+| Allowed Values | distro          |

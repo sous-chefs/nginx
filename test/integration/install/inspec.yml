@@ -1,0 +1,7 @@
+---
+name: install
+title: Integration tests for nginx_install
+summary: This InSpec profile contains integration tests for nginx cookbook
+version: 0.1.0
+supports:
+  - os-family: linux

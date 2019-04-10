@@ -34,13 +34,14 @@ platforms:
       require_chef_omnibus: 13.3
 
 suites:
-  - name: distro_packages
+  - name: distro
     run_list:
-      - recipe[test::distro_packages]
-    excludes:  # these all lack distro packages
+      - recipe[test::distro]
+    excludes:
       - amazonlinux-2
       - centos-7
       - centos-7-chef-13.3
+
   - name: source
     run_list:
       - recipe[test::source]

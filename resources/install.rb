@@ -3,6 +3,11 @@ property :ohai_plugin_enabled, [true, false],
          equal_to: [true, false],
          default: true
 
+property :source, String,
+         description: 'Source for installation.',
+         equal_to: %w(distro),
+         name_property: true
+
 action :install do
   if ohai_plugin_enabled?
     ohai 'reload_nginx' do
@@ -18,6 +23,20 @@ action :install do
         binary: nginx_binary
       )
     end
+  end
+
+  case new_resource.source
+  when 'distro'
+    log 'Using distro provided packages.'
+  end
+
+  package 'nginx' do
+    notifies :reload, 'ohai[reload_nginx]', :immediately if ohai_plugin_enabled?
+  end
+
+  service 'nginx' do
+    supports status: true, restart: true, reload: true
+    action   [:start, :enable]
   end
 end
 

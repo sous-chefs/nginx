@@ -262,6 +262,8 @@ These attributes are used in the `nginx::upload_progress_module` recipe.
 
 ## Resources
 
+- [nginx_install](./documentation/resources/install.md)
+
 ### nginx_site
 
 Enable or disable a Server Block in `#{node['nginx']['dir']}/sites-available` by calling nxensite or nxdissite (introduced by this cookbook) to manage the symbolic link in `#{node['nginx']['dir']}/sites-enabled`.

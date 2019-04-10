@@ -24,36 +24,38 @@ workflows:
       - kitchen/delivery:
           name: delivery
 
+      # distro
       - kitchen/dokken-single:
-          name: distro-packages-debian-8
-          suite: distro-packages-debian-8
+          name: distro-debian-8
+          suite: distro-debian-8
           requires:
             *lint_and_unit
       - kitchen/dokken-single:
-          name: distro-packages-debian-9
-          suite: distro-packages-debian-9
+          name: distro-debian-9
+          suite: distro-debian-9
           requires:
             *lint_and_unit
       - kitchen/dokken-single:
-          name: distro-packages-ubuntu-1604
-          suite: distro-packages-ubuntu-1604
+          name: distro-fedora-28
+          suite: distro-fedora-28
           requires:
             *lint_and_unit
       - kitchen/dokken-single:
-          name: distro-packages-ubuntu-1604
-          suite: distro-packages-ubuntu-1604
+          name: distro-opensuse-leap-42
+          suite: distro-opensuse-leap-42
           requires:
             *lint_and_unit
       - kitchen/dokken-single:
-          name: distro-packages-ubuntu-1804
-          suite: distro-packages-ubuntu-1804
+          name: distro-ubuntu-1604
+          suite: distro-ubuntu-1604
           requires:
             *lint_and_unit
       - kitchen/dokken-single:
-          name: distro-packages-amazonlinux-2
-          suite: distro-packages-amazonlinux-2
+          name: distro-ubuntu-1804
+          suite: distro-ubuntu-1804
           requires:
             *lint_and_unit
+
       - kitchen/dokken-single:
           name: source-debian-8
           suite: source-debian-8
