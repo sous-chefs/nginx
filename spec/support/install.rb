@@ -25,3 +25,12 @@ def platform_distribution
     'bionic'
   end
 end
+
+def nginx_user
+  case chefspec_platform
+  when 'debian', 'ubuntu'
+    'www-data'
+  else
+    'nginx'
+  end
+end
