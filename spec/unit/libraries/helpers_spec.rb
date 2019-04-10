@@ -90,4 +90,8 @@ RSpec.describe Nginx::Cookbook::Helpers do
   describe '#repo_signing_key' do
     it { expect(subject.repo_signing_key).to eq 'https://nginx.org/keys/nginx_signing.key' }
   end
+
+  describe '#nginx_dir' do
+    it { expect(subject.nginx_dir).to eq '/etc/nginx' }
+  end
 end
