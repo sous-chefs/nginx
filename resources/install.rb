@@ -119,6 +119,22 @@ action :install do
     end
   end
 
+  %w(
+    nxensite
+    nxdissite
+    nxenstream
+    nxdisstream
+  ).each do |nxscript|
+    template ::File.join(nginx_script_dir, nxscript) do
+      cookbook 'nginx'
+      source   "#{nxscript}.erb"
+      mode     '0755'
+      variables(
+        lazy { { nginx_dir: nginx_dir } }
+      )
+    end
+  end
+
   service 'nginx' do
     supports status: true, restart: true, reload: true
     action   [:start, :enable]
