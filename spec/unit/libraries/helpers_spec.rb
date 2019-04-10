@@ -94,4 +94,8 @@ RSpec.describe Nginx::Cookbook::Helpers do
   describe '#nginx_dir' do
     it { expect(subject.nginx_dir).to eq '/etc/nginx' }
   end
+
+  describe '#nginx_log_dir' do
+    it { expect(subject.nginx_log_dir).to eq '/var/log/nginx' }
+  end
 end

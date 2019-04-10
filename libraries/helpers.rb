@@ -42,6 +42,10 @@ module Nginx
       def nginx_dir
         '/etc/nginx'
       end
+
+      def nginx_log_dir
+        '/var/log/nginx'
+      end
     end
   end
 end
