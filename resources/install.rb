@@ -5,7 +5,7 @@ property :ohai_plugin_enabled, [true, false],
 
 property :source, String,
          description: 'Source for installation.',
-         equal_to: %w(distro repo),
+         equal_to: %w(distro repo epel),
          name_property: true
 
 action :install do
@@ -57,6 +57,17 @@ action :install do
     end
 
     package_install_opts = '--disablerepo=* --enablerepo=nginx' if platform_family?('amazon', 'rhel')
+  when 'epel'
+    case node['platform_family']
+    when 'amazon'
+      execute 'amazon-linux-extras install epel'
+    when 'rhel'
+      package 'epel-release'
+    else
+      log 'nginx_install `source` property set to epel, but not running on a RHEL platform so skipping epel setup' do
+        level :warn
+      end
+    end
   end
 
   package 'nginx' do

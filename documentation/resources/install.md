@@ -31,8 +31,8 @@ Whether or not ohai_plugin is enabled.
 
 Source for installation.
 
-| property       | value           |
-| -------------- | --------------- |
-| Type           | String          |
-| Default        | `name_property` |
-| Allowed Values | distro, repo    |
+| property       | value              |
+| -------------- | ------------------ |
+| Type           | String             |
+| Default        | `name_property`    |
+| Allowed Values | distro, repo, epel |
