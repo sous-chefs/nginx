@@ -38,7 +38,6 @@ suites:
     run_list:
       - recipe[test::distro]
     excludes:
-      - amazonlinux-2
       - centos-7
       - centos-7-chef-13.3
   - name: repo

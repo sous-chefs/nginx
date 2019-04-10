@@ -26,6 +26,11 @@ workflows:
 
       # distro
       - kitchen/dokken-single:
+          name: distro-amazonlinux-2
+          suite: distro-amazonlinux-2
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
           name: distro-debian-8
           suite: distro-debian-8
           requires:

@@ -147,9 +147,16 @@ action :install do
     end
   end
 
-  package 'nginx' do
-    options package_install_opts
-    notifies :reload, 'ohai[reload_nginx]', :immediately if ohai_plugin_enabled?
+  if source?('distro') && platform?('amazon')
+    execute 'install nginx from amazon extras library' do
+      command 'amazon-linux-extras install nginx1.12'
+      notifies :reload, 'ohai[reload_nginx]', :immediately if ohai_plugin_enabled?
+    end
+  else
+    package 'nginx' do
+      options package_install_opts
+      notifies :reload, 'ohai[reload_nginx]', :immediately if ohai_plugin_enabled?
+    end
   end
 
   directory nginx_dir do
@@ -250,5 +257,9 @@ action_class do
 
   def default_site_enabled?
     new_resource.default_site_enabled
+  end
+
+  def source?(source)
+    new_resource.source == source
   end
 end
