@@ -46,6 +46,10 @@ module Nginx
       def nginx_log_dir
         '/var/log/nginx'
       end
+
+      def nginx_user
+        platform_family?('debian') ? 'www-data' : 'nginx'
+      end
     end
   end
 end

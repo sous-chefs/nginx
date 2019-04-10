@@ -98,4 +98,40 @@ RSpec.describe Nginx::Cookbook::Helpers do
   describe '#nginx_log_dir' do
     it { expect(subject.nginx_log_dir).to eq '/var/log/nginx' }
   end
+
+  describe '#nginx_user' do
+    before do
+      allow(subject).to receive(:[]).with(:platform_family).and_return(platform_family)
+    end
+
+    context 'with amazon family' do
+      let(:platform_family) { 'amazon' }
+
+      it { expect(subject.nginx_user).to eq 'nginx' }
+    end
+
+    context 'with debian family' do
+      let(:platform_family) { 'debian' }
+
+      it { expect(subject.nginx_user).to eq 'www-data' }
+    end
+
+    context 'with fedora family' do
+      let(:platform_family) { 'fedora' }
+
+      it { expect(subject.nginx_user).to eq 'nginx' }
+    end
+
+    context 'with rhel family' do
+      let(:platform_family) { 'rhel' }
+
+      it { expect(subject.nginx_user).to eq 'nginx' }
+    end
+
+    context 'with suse family' do
+      let(:platform_family) { 'suse' }
+
+      it { expect(subject.nginx_user).to eq 'nginx' }
+    end
+  end
 end
