@@ -38,6 +38,38 @@ describe 'nginx_install' do
       it { is_expected.to create_template('/usr/sbin/nxdisstream').with_mode('0755').with_variables(nginx_dir: '/etc/nginx') }
     end
 
+    shared_examples_for 'common conf is created' do
+      it do
+        is_expected.to create_nginx_config('/etc/nginx/nginx.conf')
+          .with_conf_cookbook('nginx')
+          .with_conf_template('nginx.conf.erb')
+          .with_conf_variables({})
+          .with_group(nginx_user)
+          .with_worker_processes('auto')
+          .with_worker_connections('1024')
+          .with_sendfile('on')
+          .with_tcp_nopush('on')
+          .with_tcp_nodelay('on')
+          .with_keepalive_timeout('65')
+          .with_types_hash_max_size('2048')
+      end
+
+      it do
+        is_expected.to create_template('/etc/nginx/sites-available/default')
+          .with_cookbook('nginx')
+          .with_source('default-site.erb')
+          .with_variables(
+            nginx_log_dir: '/var/log/nginx',
+            port:          '80',
+            server_name:   'Fauxhai',
+            default_root:  '/var/www/nginx-default'
+          )
+      end
+
+      it { expect(chef_run.template('/etc/nginx/sites-available/default')).to notify('service[nginx]').to(:reload).delayed }
+      it { is_expected.to enable_nginx_site('default') }
+    end
+
     context 'with distro source' do
       recipe do
         nginx_install 'distro'
@@ -50,6 +82,7 @@ describe 'nginx_install' do
         include_examples 'nginx package is installed'
         include_examples 'common directories are created'
         include_examples 'common scripts are created'
+        include_examples 'common conf is created'
       end
 
       context 'with fedora platform' do
@@ -59,6 +92,7 @@ describe 'nginx_install' do
         include_examples 'nginx package is installed'
         include_examples 'common directories are created'
         include_examples 'common scripts are created'
+        include_examples 'common conf is created'
       end
 
       context 'with opensuse platform' do
@@ -68,6 +102,7 @@ describe 'nginx_install' do
         include_examples 'nginx package is installed'
         include_examples 'common directories are created'
         include_examples 'common scripts are created'
+        include_examples 'common conf is created'
       end
 
       context 'with ubuntu platform' do
@@ -77,6 +112,7 @@ describe 'nginx_install' do
         include_examples 'nginx package is installed'
         include_examples 'common directories are created'
         include_examples 'common scripts are created'
+        include_examples 'common conf is created'
       end
     end
 
@@ -115,6 +151,7 @@ describe 'nginx_install' do
         include_examples 'common directories are created'
         include_examples 'delete conf.d files'
         include_examples 'common scripts are created'
+        include_examples 'common conf is created'
       end
 
       context 'with centos platform' do
@@ -128,6 +165,7 @@ describe 'nginx_install' do
         include_examples 'common directories are created'
         include_examples 'delete conf.d files'
         include_examples 'common scripts are created'
+        include_examples 'common conf is created'
       end
 
       context 'with debian platform' do
@@ -138,6 +176,7 @@ describe 'nginx_install' do
         include_examples 'nginx package is installed'
         include_examples 'common directories are created'
         include_examples 'common scripts are created'
+        include_examples 'common conf is created'
       end
 
       context 'with fedora platform' do
@@ -149,6 +188,7 @@ describe 'nginx_install' do
         include_examples 'common directories are created'
         include_examples 'delete conf.d files'
         include_examples 'common scripts are created'
+        include_examples 'common conf is created'
       end
 
       context 'with opensuse platform' do
@@ -158,6 +198,7 @@ describe 'nginx_install' do
         include_examples 'nginx package is installed'
         include_examples 'common directories are created'
         include_examples 'common scripts are created'
+        include_examples 'common conf is created'
 
         it do
           is_expected.to create_zypper_repository('nginx')
@@ -174,6 +215,7 @@ describe 'nginx_install' do
         include_examples 'nginx package is installed'
         include_examples 'common directories are created'
         include_examples 'common scripts are created'
+        include_examples 'common conf is created'
       end
     end
 
@@ -190,6 +232,7 @@ describe 'nginx_install' do
         include_examples 'common directories are created'
         include_examples 'delete conf.d files'
         include_examples 'common scripts are created'
+        include_examples 'common conf is created'
 
         it { is_expected.to run_execute('amazon-linux-extras install epel') }
       end
@@ -202,6 +245,7 @@ describe 'nginx_install' do
         include_examples 'common directories are created'
         include_examples 'delete conf.d files'
         include_examples 'common scripts are created'
+        include_examples 'common conf is created'
 
         it { is_expected.to install_package('epel-release') }
       end

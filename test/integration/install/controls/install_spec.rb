@@ -63,6 +63,32 @@ control 'install' do
     end
   end
 
+  describe file('/etc/nginx/nginx.conf') do
+    it { should exist }
+    it { should be_file }
+    its('content') { should include 'worker_processes auto;' }
+    its('content') { should include 'pid /run/nginx.pid;' }
+    its('content') { should include 'worker_connections 1024;' }
+    its('content') { should include 'sendfile            on;' }
+    its('content') { should include 'tcp_nopush          on;' }
+    its('content') { should include 'tcp_nodelay         on;' }
+    its('content') { should include 'keepalive_timeout   65;' }
+    its('content') { should include 'types_hash_max_size 2048;' }
+  end
+
+  describe file('/etc/nginx/sites-available/default') do
+    it { should exist }
+    it { should be_file }
+    its('content') { should include 'listen       80;' }
+    its('content') { should include 'access_log   /var/log/nginx/localhost.access.log;' }
+    its('content') { should include 'root   /var/www/nginx-default;' }
+  end
+
+  describe file('/etc/nginx/sites-enabled/000-default') do
+    it { should be_symlink }
+    it { should be_linked_to '/etc/nginx/sites-available/default' }
+  end
+
   describe service('nginx') do
     it { should be_installed }
     it { should be_enabled }
