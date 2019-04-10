@@ -61,3 +61,7 @@ def passenger_conf_file
     '/etc/nginx/conf.d/passenger.conf'
   end
 end
+
+def passenger_nginx_package
+  debian_9? || ubuntu_18? ? 'nginx' : 'nginx-extras'
+end

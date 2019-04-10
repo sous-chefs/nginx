@@ -1,17 +1,16 @@
-passenger_root <%= node['nginx']['passenger']['root'] %>;
-passenger_ruby <%= node['nginx']['passenger']['ruby'] %>;
-passenger_max_pool_size <%= node['nginx']['passenger']['max_pool_size'] %>;
-passenger_spawn_method <%= node['nginx']['passenger']['spawn_method'] %>;
-passenger_buffer_response <%= node['nginx']['passenger']['buffer_response'] %>;
-passenger_min_instances <%= node['nginx']['passenger']['min_instances'] %>;
-passenger_max_instances_per_app <%= node['nginx']['passenger']['max_instances_per_app'] %>;
-passenger_pool_idle_time <%= node['nginx']['passenger']['pool_idle_time'] %>;
-passenger_max_requests <%= node['nginx']['passenger']['max_requests'] %>;
-passenger_show_version_in_header <%= node['nginx']['passenger']['show_version_in_header'] %>;
-<%- if node['nginx']['passenger']['passenger_log_file'] %>
-  passenger_log_file <%= node['nginx']['passenger']['passenger_log_file'] %>;
+passenger_root <%= @passenger_root %>;
+passenger_ruby <%= @passenger_ruby %>;
+passenger_max_pool_size <%= @passenger_max_pool_size %>;
+passenger_spawn_method <%= @passenger_spawn_method %>;
+passenger_buffer_response <%= @passenger_buffer_response %>;
+passenger_min_instances <%= @passenger_min_instances %>;
+passenger_max_instances_per_app <%= @passenger_max_instances_per_app %>;
+passenger_pool_idle_time <%= @passenger_pool_idle_time %>;
+passenger_max_requests <%= @passenger_max_requests %>;
+passenger_show_version_in_header <%= @passenger_show_version_in_header %>;
+<%- if @passenger_passenger_log_file %>
+passenger_log_file <%= @passenger_passenger_log_file %>;
 <% end %>
-
-<%- if node['nginx']['passenger']['nodejs'] %>
-  passenger_nodejs <%= node['nginx']['passenger']['nodejs'] %>;
+<%- if @passenger_nodejs %>
+passenger_nodejs <%= @passenger_nodejs %>;
 <% end %>

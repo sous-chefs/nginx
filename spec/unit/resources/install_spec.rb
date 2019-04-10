@@ -264,5 +264,70 @@ describe 'nginx_install' do
         it { is_expected.to install_package('epel-release') }
       end
     end
+
+    context 'with passenger source' do
+      recipe do
+        nginx_install 'passenger'
+      end
+
+      shared_examples_for 'passenger is installed' do
+        it do
+          is_expected.to add_apt_repository('phusionpassenger')
+            .with_uri('https://oss-binaries.phusionpassenger.com/apt/passenger')
+            .with_distribution(platform_distribution)
+            .with_components(%w(main))
+            .with_deb_src(true)
+            .with_keyserver('keyserver.ubuntu.com')
+            .with_key(%w(561F9B9CAC40B2F7))
+        end
+
+        it { is_expected.to install_package(%w(apt-transport-https ca-certificates)) }
+        it { is_expected.to install_gem_package('rake') }
+        it { is_expected.to install_package(passenger_packages) }
+        it { is_expected.to install_package(passenger_nginx_package) }
+        it { expect(chef_run.package(passenger_nginx_package)).to notify('ohai[reload_nginx]').to(:reload).immediately }
+
+        it do
+          is_expected.to create_template(passenger_conf_file)
+            .with_source('modules/passenger.conf.erb')
+            .with_variables(
+              passenger_root:                   '/usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini',
+              passenger_ruby:                   '/usr/bin/ruby',
+              passenger_max_pool_size:          '6',
+              passenger_spawn_method:           'smart-lv2',
+              passenger_buffer_response:        'on',
+              passenger_min_instances:          '1',
+              passenger_max_instances_per_app:  '0',
+              passenger_pool_idle_time:         '300',
+              passenger_max_requests:           '0',
+              passenger_show_version_in_header: 'on',
+              passenger_log_file:               nil,
+              passenger_nodejs:                 nil
+            )
+        end
+
+        it { expect(chef_run.template(passenger_conf_file)).to notify('service[nginx]').to(:reload).delayed }
+      end
+
+      context 'with debian platform' do
+        platform 'debian', '9'
+
+        include_examples 'ohai is enabled'
+        include_examples 'common directories are created'
+        include_examples 'common scripts are created'
+        include_examples 'common conf is created'
+        include_examples 'passenger is installed'
+      end
+
+      context 'with ubuntu platform' do
+        platform 'ubuntu', '18.04'
+
+        include_examples 'ohai is enabled'
+        include_examples 'common directories are created'
+        include_examples 'common scripts are created'
+        include_examples 'common conf is created'
+        include_examples 'passenger is installed'
+      end
+    end
   end
 end
