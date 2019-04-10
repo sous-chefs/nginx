@@ -14,6 +14,7 @@ This file is used to list changes made in each version of the nginx cookbook.
 - Create nginx_install custom resource with source properties distro, repo and epel
 - Create nginx_config custom resource
 - Update nginx_site resource
+- Update default-site.erb template
 
 ## Unreleased
 
