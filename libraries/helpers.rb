@@ -54,6 +54,10 @@ module Nginx
       def nginx_pid_file
         '/run/nginx.pid'
       end
+
+      def nginx_script_dir
+        '/usr/sbin'
+      end
     end
   end
 end

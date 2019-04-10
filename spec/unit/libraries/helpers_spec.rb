@@ -138,4 +138,8 @@ RSpec.describe Nginx::Cookbook::Helpers do
   describe '#nginx_pid_file' do
     it { expect(subject.nginx_pid_file).to eq '/run/nginx.pid' }
   end
+
+  describe '#nginx_script_dir' do
+    it { expect(subject.nginx_script_dir).to eq '/usr/sbin' }
+  end
 end
