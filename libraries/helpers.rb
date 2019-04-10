@@ -38,6 +38,10 @@ module Nginx
       def repo_signing_key
         'https://nginx.org/keys/nginx_signing.key'
       end
+
+      def nginx_dir
+        '/etc/nginx'
+      end
     end
   end
 end
