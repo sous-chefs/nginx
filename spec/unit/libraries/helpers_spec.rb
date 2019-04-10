@@ -164,4 +164,48 @@ RSpec.describe Nginx::Cookbook::Helpers do
       expect(subject.site_available?('default')).to eq true
     end
   end
+
+  describe '#passenger_packages' do
+    context 'with debian family' do
+      before do
+        allow(subject).to receive(:[]).with(:platform_family).and_return(platform_family)
+        allow(subject).to receive(:[]).with(:platform).and_return(platform)
+        allow(subject).to receive(:[]).with('platform_version').and_return(platform_version)
+      end
+
+      let(:platform_family) { 'debian' }
+
+      context 'with debian platform' do
+        let(:platform) { 'debian' }
+
+        context 'with version 8' do
+          let(:platform_version) { '8' }
+
+          it { expect(subject.passenger_packages).to eq ['ruby-dev', 'libcurl4-gnutls-dev', 'passenger'] }
+        end
+
+        context 'with version 9' do
+          let(:platform_version) { '9' }
+
+          it { expect(subject.passenger_packages).to eq ['ruby-dev', 'libcurl4-gnutls-dev', 'libnginx-mod-http-passenger'] }
+        end
+      end
+
+      context 'with ubuntu platform' do
+        let(:platform) { 'ubuntu' }
+
+        context 'with version 16.04' do
+          let(:platform_version) { '16.04' }
+
+          it { expect(subject.passenger_packages).to eq ['ruby-dev', 'libcurl4-gnutls-dev', 'passenger'] }
+        end
+
+        context 'with version 18.04' do
+          let(:platform_version) { '18.04' }
+
+          it { expect(subject.passenger_packages).to eq ['ruby-dev', 'libcurl4-gnutls-dev', 'libnginx-mod-http-passenger'] }
+        end
+      end
+    end
+  end
 end

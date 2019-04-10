@@ -70,6 +70,27 @@ module Nginx
       def site_available?(site_name)
         ::File.exist?("#{nginx_dir}/sites-available/#{site_name}")
       end
+
+      def debian_9?
+        platform?('debian') && node['platform_version'].to_i == 9
+      end
+
+      def ubuntu_18?
+        platform?('ubuntu') && node['platform_version'].to_f == 18.04
+      end
+
+      def passenger_packages
+        if platform_family?('debian')
+          packages = %w(ruby-dev libcurl4-gnutls-dev)
+          packages << if debian_9? || ubuntu_18?
+                        'libnginx-mod-http-passenger'
+                      else
+                        'passenger'
+                      end
+
+          packages
+        end
+      end
     end
   end
 end
