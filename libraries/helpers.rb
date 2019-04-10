@@ -58,6 +58,10 @@ module Nginx
       def nginx_script_dir
         '/usr/sbin'
       end
+
+      def default_root
+        '/var/www/nginx-default'
+      end
     end
   end
 end

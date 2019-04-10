@@ -142,4 +142,8 @@ RSpec.describe Nginx::Cookbook::Helpers do
   describe '#nginx_script_dir' do
     it { expect(subject.nginx_script_dir).to eq '/usr/sbin' }
   end
+
+  describe '#default_root' do
+    it { expect(subject.default_root).to eq '/var/www/nginx-default' }
+  end
 end
