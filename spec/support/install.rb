@@ -34,3 +34,22 @@ def nginx_user
     'nginx'
   end
 end
+
+def debian_9?
+  chefspec_platform == 'debian' && chefspec_platform_version.to_i == 9
+end
+
+def ubuntu_18?
+  chefspec_platform == 'ubuntu' && chefspec_platform_version.to_f == 18.04
+end
+
+def passenger_packages
+  packages = %w(ruby-dev libcurl4-gnutls-dev)
+  packages << if debian_9? || ubuntu_18?
+                'libnginx-mod-http-passenger'
+              else
+                'passenger'
+              end
+
+  packages
+end
