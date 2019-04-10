@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-SYSCONFDIR='<%= node['nginx']['dir'] %>'
+SYSCONFDIR='<%= @nginx_dir %>'
 
 if [ -z $1 ]; then
         echo "Which stream would you like to disable?"

@@ -49,6 +49,20 @@ control 'install' do
     end
   end
 
+  %w(
+    nxensite
+    nxdissite
+    nxenstream
+    nxdisstream
+  ).each do |nxscript|
+    describe file("/usr/sbin/#{nxscript}") do
+      it { should exist }
+      it { should be_file }
+      its('mode') { should cmp '0755' }
+      its('content') { should include "SYSCONFDIR='/etc/nginx'" }
+    end
+  end
+
   describe service('nginx') do
     it { should be_installed }
     it { should be_enabled }
