@@ -146,4 +146,13 @@ RSpec.describe Nginx::Cookbook::Helpers do
   describe '#default_root' do
     it { expect(subject.default_root).to eq '/var/www/nginx-default' }
   end
+
+  describe '#site_enabled?' do
+    it do
+      allow(File).to receive(:symlink?).and_call_original
+      allow(File).to receive(:symlink?).with('/etc/nginx/sites-enabled/000-default').and_return(true)
+
+      expect(subject.site_enabled?('default')).to eq true
+    end
+  end
 end
