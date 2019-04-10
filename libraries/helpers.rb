@@ -91,6 +91,16 @@ module Nginx
           packages
         end
       end
+
+      def passenger_conf_file
+        if platform_family?('debian')
+          if debian_9? || ubuntu_18?
+            ::File.join(nginx_dir, 'conf.d/mod-http-passenger.conf')
+          else
+            ::File.join(nginx_dir, 'conf.d/passenger.conf')
+          end
+        end
+      end
     end
   end
 end

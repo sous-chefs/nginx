@@ -53,3 +53,11 @@ def passenger_packages
 
   packages
 end
+
+def passenger_conf_file
+  if debian_9? || ubuntu_18?
+    '/etc/nginx/conf.d/mod-http-passenger.conf'
+  else
+    '/etc/nginx/conf.d/passenger.conf'
+  end
+end

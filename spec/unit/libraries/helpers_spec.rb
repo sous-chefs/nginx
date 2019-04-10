@@ -208,4 +208,48 @@ RSpec.describe Nginx::Cookbook::Helpers do
       end
     end
   end
+
+  describe '#passenger_conf_file' do
+    context 'with debian family' do
+      before do
+        allow(subject).to receive(:[]).with(:platform_family).and_return(platform_family)
+        allow(subject).to receive(:[]).with(:platform).and_return(platform)
+        allow(subject).to receive(:[]).with('platform_version').and_return(platform_version)
+      end
+
+      let(:platform_family) { 'debian' }
+
+      context 'with debian platform' do
+        let(:platform) { 'debian' }
+
+        context 'with version 8' do
+          let(:platform_version) { '8' }
+
+          it { expect(subject.passenger_conf_file).to eq '/etc/nginx/conf.d/passenger.conf' }
+        end
+
+        context 'with version 9' do
+          let(:platform_version) { '9' }
+
+          it { expect(subject.passenger_conf_file).to eq '/etc/nginx/conf.d/mod-http-passenger.conf' }
+        end
+      end
+
+      context 'with ubuntu platform' do
+        let(:platform) { 'ubuntu' }
+
+        context 'with version 16.04' do
+          let(:platform_version) { '16.04' }
+
+          it { expect(subject.passenger_conf_file).to eq '/etc/nginx/conf.d/passenger.conf' }
+        end
+
+        context 'with version 18.04' do
+          let(:platform_version) { '18.04' }
+
+          it { expect(subject.passenger_conf_file).to eq '/etc/nginx/conf.d/mod-http-passenger.conf' }
+        end
+      end
+    end
+  end
 end
