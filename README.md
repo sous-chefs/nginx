@@ -259,21 +259,7 @@ These attributes are used in the `nginx::upload_progress_module` recipe.
 
 - [nginx_install](./documentation/resources/install.md)
 - [nginx_config](./documentation/resources/config.md)
-
-### nginx_site
-
-Enable or disable a Server Block in `#{node['nginx']['dir']}/sites-available` by calling nxensite or nxdissite (introduced by this cookbook) to manage the symbolic link in `#{node['nginx']['dir']}/sites-enabled`.
-
-### Actions
-
-- `enable` - Enable the nginx site (default)
-- `disable` - Disable the nginx site
-
-### Properties
-
-- `site_name` - (optional) Name of the site to enable. By default it's assumed that the name of the nginx_site resource is the site name, but this allows overriding that.
-- `template` - (optional) Path to the source for the `template` resource.
-- `variables` - (optional) Variables to be used with the `template` resource
+- [nginx_site](./documentation/resources/site.md)
 
 ### nginx_stream
 
@@ -341,24 +327,6 @@ The following recipes are used to build module support into nginx. To compile a 
 - `set_misc` -
 - `syslog_module` - enables syslog support for nginx. This only works with source builds. See <https://github.com/yaoweibin/nginx_syslog_patch> -
 - `upload_progress_module.rb` - builds the `upload_progress` module and enables it as a module when compiling nginx.
-
-## Resources
-
-### nginx_site
-
-Enable or disable a Server Block in `#{node['nginx']['dir']}/sites-available` by calling nxensite or nxdissite (introduced by this cookbook) to manage the symbolic link in `#{node['nginx']['dir']}/sites-enabled`.
-
-### Actions
-
-- `enable` - Enable the nginx site (default)
-- `disable` - Disable the nginx site
-
-### Properties
-
-- `name` - (optional) Name of the site to enable. By default it's assumed that the name of the nginx_site resource is the site name, but this allows overriding that.
-- `template` - (optional) Path to the source for the `template` resource.
-- `cookbook` - (optional) The cookbook that contains the template source.
-- `variables` - (optional) Variables to be used with the `template` resource
 
 ## Adding New Modules
 
