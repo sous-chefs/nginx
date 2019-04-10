@@ -34,6 +34,10 @@ module Nginx
           'https://nginx.org/packages/sles/12'
         end
       end
+
+      def repo_signing_key
+        'https://nginx.org/keys/nginx_signing.key'
+      end
     end
   end
 end
