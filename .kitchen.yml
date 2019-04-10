@@ -48,16 +48,16 @@ suites:
       - fedora-28
       - centos-7-chef-13.3
       - ubuntu-16.04-chef-13.3
-
-  - name: source
-    run_list:
-      - recipe[test::source]
   - name: epel
     run_list:
       - recipe[test::epel]
     includes:
       - amazonlinux-2
       - centos-7
+
+  - name: source
+    run_list:
+      - recipe[test::source]
   - name: source
     run_list:
       - recipe[test::source]

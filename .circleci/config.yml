@@ -93,6 +93,18 @@ workflows:
           requires:
             *lint_and_unit
 
+      # epel
+      - kitchen/dokken-single:
+          name: epel-amazonlinux-2
+          suite: epel-amazonlinux-2
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: epel-centos-7
+          suite: epel-centos-7
+          requires:
+            *lint_and_unit
+
       - kitchen/dokken-single:
           name: source-debian-8
           suite: source-debian-8
@@ -126,11 +138,6 @@ workflows:
       - kitchen/dokken-single:
           name: source-amazonlinux-2
           suite: source-amazonlinux-2
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: epel-centos-7
-          suite: epel-centos-7
           requires:
             *lint_and_unit
       - kitchen/dokken-single:

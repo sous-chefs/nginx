@@ -1,4 +1,3 @@
-node.default['nginx']['repo_source'] = 'epel'
+apt_update 'update' if platform_family?('debian')
 
-include_recipe 'test::_base'
-include_recipe 'test::_test_site'
+nginx_install 'epel'

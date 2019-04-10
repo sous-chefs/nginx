@@ -131,5 +131,29 @@ describe 'nginx_install' do
         include_examples 'nginx package is installed'
       end
     end
+
+    context 'with epel source' do
+      recipe do
+        nginx_install 'epel'
+      end
+
+      context 'with amazon platform' do
+        platform 'amazon'
+
+        include_examples 'ohai is enabled'
+        include_examples 'nginx package is installed'
+
+        it { is_expected.to run_execute('amazon-linux-extras install epel') }
+      end
+
+      context 'with centos platform' do
+        platform 'centos'
+
+        include_examples 'ohai is enabled'
+        include_examples 'nginx package is installed'
+
+        it { is_expected.to install_package('epel-release') }
+      end
+    end
   end
 end
