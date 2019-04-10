@@ -62,6 +62,10 @@ module Nginx
       def default_root
         '/var/www/nginx-default'
       end
+
+      def site_enabled?(site_name)
+        ::File.symlink?("#{nginx_dir}/sites-enabled/#{site_name}") || ::File.symlink?("#{nginx_dir}/sites-enabled/000-#{site_name}")
+      end
     end
   end
 end
