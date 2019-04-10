@@ -66,6 +66,10 @@ module Nginx
       def site_enabled?(site_name)
         ::File.symlink?("#{nginx_dir}/sites-enabled/#{site_name}") || ::File.symlink?("#{nginx_dir}/sites-enabled/000-#{site_name}")
       end
+
+      def site_available?(site_name)
+        ::File.exist?("#{nginx_dir}/sites-available/#{site_name}")
+      end
     end
   end
 end
