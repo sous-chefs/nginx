@@ -8,6 +8,11 @@ property :source, String,
          equal_to: %w(distro repo epel),
          name_property: true
 
+property :default_site_enabled, [true, false],
+         description: 'Whether or not the default site is enabled.',
+         equal_to: [true, false],
+         default: true
+
 action :install do
   if ohai_plugin_enabled?
     ohai 'reload_nginx' do
@@ -75,6 +80,45 @@ action :install do
     notifies :reload, 'ohai[reload_nginx]', :immediately if ohai_plugin_enabled?
   end
 
+  directory nginx_dir do
+    mode      '0755'
+    recursive true
+  end
+
+  directory nginx_log_dir do
+    mode      '0750'
+    owner     nginx_user
+    recursive true
+  end
+
+  directory ::File.dirname(nginx_pid_file) do
+    mode      '0755'
+    recursive true
+  end
+
+  %w(
+    sites-available
+    sites-enabled
+    conf.d
+    streams-available
+    streams-enabled
+  ).each do |leaf|
+    directory ::File.join(nginx_dir, leaf) do
+      mode '0755'
+    end
+  end
+
+  if default_site_enabled? && platform_family?('amazon', 'fedora', 'rhel')
+    %w(
+      default.conf
+      example_ssl.conf
+    ).each do |config|
+      file ::File.join(nginx_dir, "conf.d/#{config}") do
+        action :delete
+      end
+    end
+  end
+
   service 'nginx' do
     supports status: true, restart: true, reload: true
     action   [:start, :enable]
@@ -84,5 +128,9 @@ end
 action_class do
   def ohai_plugin_enabled?
     new_resource.ohai_plugin_enabled
+  end
+
+  def default_site_enabled?
+    new_resource.default_site_enabled
   end
 end

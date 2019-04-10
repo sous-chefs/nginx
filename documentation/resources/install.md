@@ -4,8 +4,9 @@ Installs nginx via distro source.
 
 ```ruby
 nginx_install 'default' do
-  ohai_plugin_enabled [true, false]
-  source              String
+  ohai_plugin_enabled  [true, false]
+  source               String
+  default_site_enabled [true, false]
 end
 ```
 
@@ -36,3 +37,13 @@ Source for installation.
 | Type           | String             |
 | Default        | `name_property`    |
 | Allowed Values | distro, repo, epel |
+
+### `default_site_enabled`
+
+Whether or not the default site is enabled.
+
+| property       | value         |
+| -------------- | ------------- |
+| Type           | [true, false] |
+| Default        | `true`        |
+| Allowed Values | true, false   |

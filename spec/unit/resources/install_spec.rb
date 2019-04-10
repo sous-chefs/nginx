@@ -16,6 +16,21 @@ describe 'nginx_install' do
       it { expect(chef_run.package('nginx')).to notify('ohai[reload_nginx]').to(:reload).immediately }
     end
 
+    shared_examples_for 'common directories are created' do
+      it { is_expected.to create_directory('/etc/nginx').with_mode('0755') }
+      it { is_expected.to create_directory('/var/log/nginx').with_mode('0750').with_owner(nginx_user) }
+      it { is_expected.to create_directory('/etc/nginx/sites-available').with_mode('0755') }
+      it { is_expected.to create_directory('/etc/nginx/sites-enabled').with_mode('0755') }
+      it { is_expected.to create_directory('/etc/nginx/conf.d').with_mode('0755') }
+      it { is_expected.to create_directory('/etc/nginx/streams-available').with_mode('0755') }
+      it { is_expected.to create_directory('/etc/nginx/streams-enabled').with_mode('0755') }
+    end
+
+    shared_examples_for 'delete conf.d files' do
+      it { is_expected.to delete_file('/etc/nginx/conf.d/default.conf') }
+      it { is_expected.to delete_file('/etc/nginx/conf.d/example_ssl.conf') }
+    end
+
     context 'with distro source' do
       recipe do
         nginx_install 'distro'
@@ -26,6 +41,7 @@ describe 'nginx_install' do
 
         include_examples 'ohai is enabled'
         include_examples 'nginx package is installed'
+        include_examples 'common directories are created'
       end
 
       context 'with fedora platform' do
@@ -33,6 +49,7 @@ describe 'nginx_install' do
 
         include_examples 'ohai is enabled'
         include_examples 'nginx package is installed'
+        include_examples 'common directories are created'
       end
 
       context 'with opensuse platform' do
@@ -40,6 +57,7 @@ describe 'nginx_install' do
 
         include_examples 'ohai is enabled'
         include_examples 'nginx package is installed'
+        include_examples 'common directories are created'
       end
 
       context 'with ubuntu platform' do
@@ -47,6 +65,7 @@ describe 'nginx_install' do
 
         include_examples 'ohai is enabled'
         include_examples 'nginx package is installed'
+        include_examples 'common directories are created'
       end
     end
 
@@ -82,6 +101,8 @@ describe 'nginx_install' do
         include_examples 'ohai is enabled'
         include_examples 'yum repository is created'
         include_examples 'nginx package is installed'
+        include_examples 'common directories are created'
+        include_examples 'delete conf.d files'
       end
 
       context 'with centos platform' do
@@ -92,6 +113,8 @@ describe 'nginx_install' do
         include_examples 'ohai is enabled'
         include_examples 'yum repository is created'
         include_examples 'nginx package is installed'
+        include_examples 'common directories are created'
+        include_examples 'delete conf.d files'
       end
 
       context 'with debian platform' do
@@ -100,6 +123,7 @@ describe 'nginx_install' do
         include_examples 'ohai is enabled'
         include_examples 'apt repository is added'
         include_examples 'nginx package is installed'
+        include_examples 'common directories are created'
       end
 
       context 'with fedora platform' do
@@ -108,6 +132,8 @@ describe 'nginx_install' do
         include_examples 'ohai is enabled'
         include_examples 'yum repository is created'
         include_examples 'nginx package is installed'
+        include_examples 'common directories are created'
+        include_examples 'delete conf.d files'
       end
 
       context 'with opensuse platform' do
@@ -115,6 +141,7 @@ describe 'nginx_install' do
 
         include_examples 'ohai is enabled'
         include_examples 'nginx package is installed'
+        include_examples 'common directories are created'
 
         it do
           is_expected.to create_zypper_repository('nginx')
@@ -129,6 +156,7 @@ describe 'nginx_install' do
         include_examples 'ohai is enabled'
         include_examples 'apt repository is added'
         include_examples 'nginx package is installed'
+        include_examples 'common directories are created'
       end
     end
 
@@ -142,6 +170,8 @@ describe 'nginx_install' do
 
         include_examples 'ohai is enabled'
         include_examples 'nginx package is installed'
+        include_examples 'common directories are created'
+        include_examples 'delete conf.d files'
 
         it { is_expected.to run_execute('amazon-linux-extras install epel') }
       end
@@ -151,6 +181,8 @@ describe 'nginx_install' do
 
         include_examples 'ohai is enabled'
         include_examples 'nginx package is installed'
+        include_examples 'common directories are created'
+        include_examples 'delete conf.d files'
 
         it { is_expected.to install_package('epel-release') }
       end
