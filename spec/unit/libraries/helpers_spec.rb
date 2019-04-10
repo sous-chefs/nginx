@@ -155,4 +155,13 @@ RSpec.describe Nginx::Cookbook::Helpers do
       expect(subject.site_enabled?('default')).to eq true
     end
   end
+
+  describe '#site_available?' do
+    it do
+      allow(File).to receive(:exist?).and_call_original
+      allow(File).to receive(:exist?).with('/etc/nginx/sites-available/default').and_return(true)
+
+      expect(subject.site_available?('default')).to eq true
+    end
+  end
 end
