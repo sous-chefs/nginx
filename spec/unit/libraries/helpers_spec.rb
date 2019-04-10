@@ -134,4 +134,8 @@ RSpec.describe Nginx::Cookbook::Helpers do
       it { expect(subject.nginx_user).to eq 'nginx' }
     end
   end
+
+  describe '#nginx_pid_file' do
+    it { expect(subject.nginx_pid_file).to eq '/run/nginx.pid' }
+  end
 end
