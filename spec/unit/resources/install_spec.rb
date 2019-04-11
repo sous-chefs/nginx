@@ -99,16 +99,6 @@ describe 'nginx_install' do
         include_examples 'common conf is created'
       end
 
-      context 'with fedora platform' do
-        platform 'fedora'
-
-        include_examples 'ohai is enabled'
-        include_examples 'nginx package is installed'
-        include_examples 'common directories are created'
-        include_examples 'common scripts are created'
-        include_examples 'common conf is created'
-      end
-
       context 'with opensuse platform' do
         platform 'opensuse'
 
@@ -189,18 +179,6 @@ describe 'nginx_install' do
         include_examples 'apt repository is added'
         include_examples 'nginx package is installed'
         include_examples 'common directories are created'
-        include_examples 'common scripts are created'
-        include_examples 'common conf is created'
-      end
-
-      context 'with fedora platform' do
-        platform 'fedora'
-
-        include_examples 'ohai is enabled'
-        include_examples 'yum repository is created'
-        include_examples 'nginx package is installed'
-        include_examples 'common directories are created'
-        include_examples 'delete conf.d files'
         include_examples 'common scripts are created'
         include_examples 'common conf is created'
       end

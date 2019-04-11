@@ -41,11 +41,6 @@ workflows:
           requires:
             *lint_and_unit
       - kitchen/dokken-single:
-          name: distro-fedora-28
-          suite: distro-fedora-28
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
           name: distro-ubuntu-1604
           suite: distro-ubuntu-1604
           requires:
