@@ -46,11 +46,6 @@ workflows:
           requires:
             *lint_and_unit
       - kitchen/dokken-single:
-          name: distro-opensuse-leap-42
-          suite: distro-opensuse-leap-42
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
           name: distro-ubuntu-1604
           suite: distro-ubuntu-1604
           requires:
@@ -80,11 +75,6 @@ workflows:
       - kitchen/dokken-single:
           name: repo-debian-9
           suite: repo-debian-9
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: repo-opensuse-leap-42
-          suite: repo-opensuse-leap-42
           requires:
             *lint_and_unit
       - kitchen/dokken-single:

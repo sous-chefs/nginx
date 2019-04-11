@@ -19,7 +19,7 @@ platforms:
   - name: debian-8
   - name: debian-9
   - name: fedora-28
-  - name: opensuse-leap-42
+  - name: opensuse-leap-15
   - name: ubuntu-16.04
   - name: ubuntu-18.04
   - name: centos-7-chef-13.3
@@ -61,7 +61,7 @@ suites:
       - centos-7
       - centos-7-chef-13.3
       - fedora-28
-      - opensuse-leap-42
+      - opensuse-leap-15
       - ubuntu-16.04-chef-13.3
 
   - name: source

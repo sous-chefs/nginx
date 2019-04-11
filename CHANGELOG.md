@@ -22,6 +22,7 @@ This file is used to list changes made in each version of the nginx cookbook.
 - Update nginx_site resource
 - Update default-site.erb template
 - Default recipe calls nginx_install resource
+- Drop support for openSUSE Leap 42 and add support for openSUSE Leap 15
 
 ## 9.0.0 (2018-11-13)
 

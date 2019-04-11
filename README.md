@@ -22,7 +22,7 @@ The following platforms are supported and tested with Test Kitchen:
 - Amazon Linux 2
 - CentOS 7
 - Debian 8+
-- openSUSE
+- openSUSE Leap 15
 - Ubuntu 16.04+
 
 Other Debian and RHEL family distributions are assumed to work.

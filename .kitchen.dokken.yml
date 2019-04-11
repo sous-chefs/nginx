@@ -56,6 +56,11 @@ platforms:
       intermediate_instructions:
         - RUN /usr/bin/apt-get update
 
+  - name: opensuse-leap-15
+    driver:
+      image: dokken/opensuse-leap-15
+      pid_one_command: /bin/systemd
+
   - name: opensuse-leap-42
     driver:
       image: dokken/opensuse-leap-42
