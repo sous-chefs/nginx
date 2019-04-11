@@ -1,15 +1,16 @@
 ---
 driver:
   name: dokken
-  # because Docker and SystemD/Upstart
-  privileged: true
-  chef_version: <%= ENV['CHEF_VERSION'] || 'current' %>
+  privileged: true  # because Docker and SystemD
 
 transport:
   name: dokken
 
 provisioner:
   name: dokken
+  product_name: chef
+  product_version: <%= ENV['CHEF_VERSION'] || 'latest' %>
+  install_strategy: once
 
 platforms:
   - name: amazonlinux-2
