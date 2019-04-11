@@ -1,6 +1,6 @@
 def repo_url
   case chefspec_platform
-  when 'amazon', 'fedora'
+  when 'amazon', 'fedora', 'redhat'
     'https://nginx.org/packages/rhel/7/$basearch'
   when 'centos'
     'https://nginx.org/packages/centos/7/$basearch'
