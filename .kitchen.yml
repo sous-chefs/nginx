@@ -22,16 +22,6 @@ platforms:
   - name: opensuse-leap-15
   - name: ubuntu-16.04
   - name: ubuntu-18.04
-  - name: centos-7-chef-13.3
-    driver_config:
-      box: bento/centos-7
-    provisioner:
-      require_chef_omnibus: 13.3
-  - name: ubuntu-16.04-chef-13.3
-    driver_config:
-      box: bento/ubuntu-16.04
-    provisioner:
-      require_chef_omnibus: 13.3
 
 suites:
   - name: distro
@@ -39,14 +29,11 @@ suites:
       - recipe[test::distro]
     excludes:
       - centos-7
-      - centos-7-chef-13.3
   - name: repo
     run_list:
       - recipe[test::repo]
     excludes:
       - fedora-28
-      - centos-7-chef-13.3
-      - ubuntu-16.04-chef-13.3
   - name: epel
     run_list:
       - recipe[test::epel]
@@ -59,10 +46,8 @@ suites:
     excludes:
       - amazonlinux-2
       - centos-7
-      - centos-7-chef-13.3
       - fedora-28
       - opensuse-leap-15
-      - ubuntu-16.04-chef-13.3
 
   - name: source
     run_list:
@@ -73,9 +58,6 @@ suites:
   - name: modules
     run_list:
       - recipe[test::modules]
-    excludes:
-      - centos-7-chef-13.3
-      - ubuntu-16.04-chef-13.3
   - name: stream
     run_list:
       - recipe[test::stream]

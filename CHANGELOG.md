@@ -24,6 +24,7 @@ This file is used to list changes made in each version of the nginx cookbook.
 - Default recipe calls nginx_install resource
 - Drop support for openSUSE Leap 42 and add support for openSUSE Leap 15
 - Drop support for Fedora
+- Cookbook now requires Chef >= 14
 
 ## 9.0.0 (2018-11-13)
 
