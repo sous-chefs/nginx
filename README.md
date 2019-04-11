@@ -257,9 +257,9 @@ These attributes are used in the `nginx::upload_progress_module` recipe.
 
 ## Resources
 
-- [nginx_install](./documentation/resources/install.md)
-- [nginx_config](./documentation/resources/config.md)
-- [nginx_site](./documentation/resources/site.md)
+- [nginx_install](https://github.com/sous-chefs/nginx/blob/master/documentation/resources/install.md)
+- [nginx_config](https://github.com/sous-chefs/nginx/blob/master/documentation/resources/config.md)
+- [nginx_site](https://github.com/sous-chefs/nginx/blob/master/documentation/resources/site.md)
 
 ### nginx_stream
 
