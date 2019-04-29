@@ -5,7 +5,7 @@ default['nginx']['upstream_repository'] =
     when 'centos'
       # See http://wiki.nginx.org/Install
       "https://nginx.org/packages/centos/#{node['platform_version'].to_i}/$basearch/"
-    when 'amazon' # Chef < 13 on Amazon
+    when 'amazon'
       'https://nginx.org/packages/rhel/6/$basearch/'
     else
       "https://nginx.org/packages/rhel/#{node['platform_version'].to_i}/$basearch/"
