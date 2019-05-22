@@ -11,7 +11,6 @@ Installs nginx from package and sets up configuration handling similar to Debian
 The following cookbooks are direct dependencies because they're used for common "default" functionality.
 
 - `ohai` for setting up the ohai plugin
-- `yum-epel` for setting up the EPEL repository on RHEL platforms
 - `zypper` for setting up the nginx.org repository on Suse platforms
 
 ### Platforms
