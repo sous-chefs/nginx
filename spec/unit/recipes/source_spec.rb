@@ -12,7 +12,6 @@ describe 'nginx::source' do
 
     %w(
       ohai_plugin
-      commons_script
     ).each do |recipe|
       it "includes the #{recipe} recipe" do
         expect(chef_run).to include_recipe("nginx::#{recipe}")
