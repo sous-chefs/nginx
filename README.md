@@ -96,7 +96,6 @@ Generally used attributes. Some have platform specific values. See `attributes/d
 - `node['nginx']['gzip_types']` - used for config value of `gzip_types` - must be an Array.
 - `node['nginx']['gzip_min_length']` - used for config value of `gzip_min_length`.
 - `node['nginx']['gzip_disable']` - used for config value of `gzip_disable`.
-- `node['nginx']['gzip_static']` - used for config value of `gzip_static` (`http_gzip_static_module` must be enabled)
 
 #### Other configurations
 
@@ -269,7 +268,6 @@ If you need control over how nginx is built, or you need non-dynamic modules to 
 The following recipes are used to build module support into nginx. To compile a module, add its recipe name to the array attribute `node['nginx']['source']['modules']`.
 
 - `ipv6.rb` - enables IPv6 support
-- `http_gzip_static_module.rb` - enables the module for compilation. Be sure to set `node['nginx']['gzip_static'] = 'yes'`.
 - `http_mp4_module` -
 - `http_perl_module.rb` - enables embedded Perl for compilation.
 - `http_realip_module.rb` - enables the module for compilation and creates the configuration.

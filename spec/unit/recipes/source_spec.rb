@@ -42,7 +42,6 @@ describe 'nginx::source' do
     end
 
     it 'includes all the source modules recipes' do
-      expect(chef_run).to include_recipe('nginx::http_gzip_static_module')
       expect(chef_run).to include_recipe('nginx::http_ssl_module')
     end
 
