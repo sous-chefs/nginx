@@ -82,7 +82,7 @@ Generally used attributes. Some have platform specific values. See `attributes/d
 - `node['nginx']['client_max_body_size']` - specifies the maximum accepted body size of a client request, as indicated by the request header Content-Length.
 - `node['nginx']['repo_source']` - when installed from a package this attribute affects which yum repositories, if any, will be added before installing the nginx package. The default value of 'epel' will use the `yum-epel` cookbook, 'nginx' will use the `nginx::repo` recipe, 'passenger' will use the 'nginx::repo_passenger' recipe, and setting no value will not add any additional repositories.
 - `node['nginx']['sts_max_age']` - Enable Strict Transport Security for all apps (See: <http://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security>). This attribute adds the following header: Strict-Transport-Security max-age=SECONDS to all incoming requests and takes an integer (in seconds) as its argument.
-- `node['nginx']['default']['modules']` - Array specifying which modules to enable via the conf-enabled config include function. Currently the only valid value is "socketproxy".
+- `node['nginx']['default']['modules']` - Array specifying which modules to enable via the conf-enabled config include function.
 - `node['nginx']['load_modules']` - Array of paths to modules to dynamically load on nginx startup using the `load_module` directive. Default is `[]`.
 
 #### gzip module
@@ -149,16 +149,6 @@ Basic configuration to use the official Phusion Passenger repositories:
 
 - `node['nginx']['upstream_repository']` - the URL to use for the package repository resource; default is set based on platform type
 - `node['nginx']['repo_signing_key']` - The URL from which package signing/gpg key is retrieved
-
-### nginx::socketproxy
-
-These attributes are used in the `nginx::socketproxy` recipe.
-
-- `node['nginx']['socketproxy']['root']` - The directory (on your server) where socketproxy apps are deployed.
-- `node['nginx']['socketproxy']['default_app']` - Static assets directory for requests to "/" that don't meet any proxy_pass filter requirements.
-- `node['nginx']['socketproxy']['apps']['app_name']['prepend_slash']` - Prepend a slash to requests to app "app_name" before sending them to the socketproxy socket.
-- `node['nginx']['socketproxy']['apps']['app_name']['context_name']` - URI (e.g. "app_name" in order to achieve "<http://mydomain.com/app_name>") at which to host the application "app_name"
-- `node['nginx']['socketproxy']['apps']['app_name']['subdir']` - Directory (under `node['nginx']['socketproxy']['root']`) in which to find the application.
 
 ### nginx::source
 
