@@ -179,16 +179,6 @@ These attributes are used in the `nginx::source` recipe. Some of them are dynami
 - `node['nginx']['configure_flags']` - Preserved for compatibility and dynamically generated from the `node['nginx']['source']['default_configure_flags']` in the `nginx::source` recipe.
 - `node['nginx']['source']['use_existing_user']` - set to `true` if you do not want `nginx::source` recipe to create system user with name `node['nginx']['user']` and `node['nginx']['user_home']`.
 
-### nginx::upload_progress
-
-These attributes are used in the `nginx::upload_progress_module` recipe.
-
-- `node['nginx']['upload_progress']['url']` - URL for the tarball.
-- `node['nginx']['upload_progress']['checksum']` - Checksum of the tarball.
-- `node['nginx']['upload_progress']['javascript_output']` - Output in javascript. Default is `true` for backwards compatibility.
-- `node['nginx']['upload_progress']['zone_name']` - Zone name which will be used to store the per-connection tracking information. Default is `proxied`.
-- `node['nginx']['upload_progress']['zone_size']` - Zone size in bytes. Default is `1m` (1 megabyte).
-
 ## Resources
 
 - [nginx_install](https://github.com/sous-chefs/nginx/blob/master/documentation/resources/install.md)
@@ -243,7 +233,6 @@ The following recipes are used to build module support into nginx. To compile a 
 - `openssl_source.rb` - downloads and uses custom OpenSSL source when compiling nginx
 - `passenger` - builds the passenger gem and configuration for "`mod_passenger`".
 - `set_misc` -
-- `upload_progress_module.rb` - builds the `upload_progress` module and enables it as a module when compiling nginx.
 
 ## Adding New Modules
 
