@@ -37,8 +37,6 @@ node.run_state['nginx_configure_flags'] =
   node['nginx']['source']['default_configure_flags'] | node['nginx']['configure_flags']
 node.run_state['nginx_source_env'] = {}
 
-include_recipe 'nginx::commons_conf'
-
 cookbook_file "#{node['nginx']['dir']}/mime.types" do
   source 'mime.types'
   notifies :reload, 'service[nginx]', :delayed
