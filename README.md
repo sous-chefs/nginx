@@ -92,11 +92,6 @@ Generally used attributes. Some have platform specific values. See `attributes/d
 - `node['nginx']['default']['modules']` - Array specifying which modules to enable via the conf-enabled config include function. Currently the only valid value is "socketproxy".
 - `node['nginx']['load_modules']` - Array of paths to modules to dynamically load on nginx startup using the `load_module` directive. Default is `[]`.
 
-#### authorized_ips module
-
-- `node['nginx']['remote_ip_var']` - The remote ip variable name to use.
-- `node['nginx']['authorized_ips']` - IPs authorized by the module
-
 #### gzip module
 
 - `node['nginx']['gzip']` - Whether to use gzip, can be "on" or "off"

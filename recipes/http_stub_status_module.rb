@@ -1,5 +1,3 @@
-include_recipe 'nginx::authorized_ips'
-
 template 'nginx_status' do
   path "#{node['nginx']['dir']}/sites-available/nginx_status"
   source 'modules/nginx_status.erb'
