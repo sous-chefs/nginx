@@ -247,7 +247,6 @@ The following recipes are used to build module support into nginx. To compile a 
 
 - `ipv6.rb` - enables IPv6 support
 - `ipv6` -
-- `ngx_lua_module` -
 - `openssl_source.rb` - downloads and uses custom OpenSSL source when compiling nginx
 - `pagespeed_module`-
 - `passenger` - builds the passenger gem and configuration for "`mod_passenger`".
