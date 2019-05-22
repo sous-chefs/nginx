@@ -1,5 +1,3 @@
-include_recipe 'nginx::commons_dir'
-
 directory node['nginx']['socketproxy']['root'] do
   owner node['nginx']['socketproxy']['app_owner']
   group node['nginx']['socketproxy']['app_owner']

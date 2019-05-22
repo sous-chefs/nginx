@@ -12,7 +12,6 @@ describe 'nginx::source' do
 
     %w(
       ohai_plugin
-      commons_dir
       commons_script
       commons_conf
     ).each do |recipe|

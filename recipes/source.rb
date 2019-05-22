@@ -12,7 +12,6 @@ user node['nginx']['user'] do
 end
 
 include_recipe 'nginx::ohai_plugin' if node['nginx']['ohai_plugin_enabled']
-include_recipe 'nginx::commons_dir'
 include_recipe 'nginx::commons_script'
 build_essential 'install compilation tools'
 
