@@ -222,7 +222,6 @@ If you need control over how nginx is built, or you need non-dynamic modules to 
 The following recipes are used to build module support into nginx. To compile a module, add its recipe name to the array attribute `node['nginx']['source']['modules']`.
 
 - `passenger` - builds the passenger gem and configuration for "`mod_passenger`".
-- `set_misc` -
 
 ## Adding New Modules
 
