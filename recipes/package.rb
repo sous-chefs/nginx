@@ -25,8 +25,6 @@ package node['nginx']['package_name'] do
   notifies :reload, 'ohai[reload_nginx]', :immediately if node['nginx']['ohai_plugin_enabled']
 end
 
-include_recipe 'nginx::commons'
-
 include_recipe 'nginx::passenger' if node['nginx']['repo_source'] == 'passenger'
 
 service 'nginx' do
