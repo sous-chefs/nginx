@@ -187,12 +187,6 @@ These attributes are used in the `nginx::source` recipe. Some of them are dynami
 - `node['nginx']['configure_flags']` - Preserved for compatibility and dynamically generated from the `node['nginx']['source']['default_configure_flags']` in the `nginx::source` recipe.
 - `node['nginx']['source']['use_existing_user']` - set to `true` if you do not want `nginx::source` recipe to create system user with name `node['nginx']['user']` and `node['nginx']['user_home']`.
 
-### nginx::status
-
-These attributes are used in the `nginx::http_stub_status_module` recipe.
-
-- `node['nginx']['status']['port']` - The port on which nginx will serve the status info (default: 8090)
-
 ### nginx::syslog
 
 These attributes are used in the `nginx::syslog_module` recipe.
@@ -260,7 +254,6 @@ If you need control over how nginx is built, or you need non-dynamic modules to 
 The following recipes are used to build module support into nginx. To compile a module, add its recipe name to the array attribute `node['nginx']['source']['modules']`.
 
 - `ipv6.rb` - enables IPv6 support
-- `http_stub_status_module.rb` - provides `nginx_status` configuration and enables the module for compilation.
 - `http_v2_module`
 - `ipv6` -
 - `naxsi_module` - enables the naxsi module for the web application firewall for nginx.
