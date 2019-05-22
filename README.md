@@ -110,22 +110,6 @@ These attributes are used in the `nginx::ngx_devel_module` recipe.
 - `node['nginx']['devel']['url']` - The URL of the nginx devel module tar.gz file
 - `node['nginx']['devel']['checksum']` - The checksum of the nginx devel module tar.gz file
 
-### nginx::geoip
-
-These attributes are used in the `nginx::http_geoip_module` recipe. Please note that the `country_dat_checksum` and `city_dat_checksum` are based on downloads from a datacenter in Fremont, CA, USA. You really should override these with checksums for the geo tarballs from your node location.
-
-**Note** The upstream, maxmind.com, may block access for repeated downloads of the data files. It is recommended that you download and host the data files, and change the URLs in the attributes.
-
-- `node['nginx']['geoip']['path']` - Location where to install the geoip libraries.
-- `node['nginx']['geoip']['enable_city']` - Whether to enable City data
-- `node['nginx']['geoip']['country_dat_url']` - Country data tarball URL
-- `node['nginx']['geoip']['country_dat_checksum']` - Country data tarball checksum
-- `node['nginx']['geoip']['city_dat_url']` - City data tarball URL
-- `node['nginx']['geoip']['city_dat_checksum']` - City data tarball checksum
-- `node['nginx']['geoip']['lib_version']` - Version of the GeoIP library to install
-- `node['nginx']['geoip']['lib_url']` - (Versioned) Tarball URL of the GeoIP library
-- `node['nginx']['geoip']['lib_checksum']` - Checksum of the GeoIP library tarball
-
 ### nginx::http_realip_module
 
 From: <http://nginx.org/en/docs/http/ngx_http_realip_module.html>
@@ -285,7 +269,6 @@ If you need control over how nginx is built, or you need non-dynamic modules to 
 The following recipes are used to build module support into nginx. To compile a module, add its recipe name to the array attribute `node['nginx']['source']['modules']`.
 
 - `ipv6.rb` - enables IPv6 support
-- `http_geoip_module.rb` - installs the GeoIP libraries and data files and enables the module for compilation.
 - `http_gzip_static_module.rb` - enables the module for compilation. Be sure to set `node['nginx']['gzip_static'] = 'yes'`.
 - `http_mp4_module` -
 - `http_perl_module.rb` - enables embedded Perl for compilation.

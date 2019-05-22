@@ -1,6 +1,5 @@
 node.default['nginx']['install_method'] = 'source'
 node.default['nginx']['source']['modules'] = %w(
-  nginx::http_geoip_module
   nginx::http_gzip_static_module
   nginx::http_realip_module
   nginx::http_v2_module
