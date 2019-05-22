@@ -255,7 +255,6 @@ The following recipes are used to build module support into nginx. To compile a 
 
 - `ipv6.rb` - enables IPv6 support
 - `ipv6` -
-- `naxsi_module` - enables the naxsi module for the web application firewall for nginx.
 - `ngx_devel_module` -
 - `ngx_lua_module` -
 - `openssl_source.rb` - downloads and uses custom OpenSSL source when compiling nginx
