@@ -300,7 +300,6 @@ If you need control over how nginx is built, or you need non-dynamic modules to 
 The following recipes are used to build module support into nginx. To compile a module, add its recipe name to the array attribute `node['nginx']['source']['modules']`.
 
 - `ipv6.rb` - enables IPv6 support
-- `headers_more_module` -
 - `http_auth_request_module``
 - `http_echo_module.rb` - downloads the `http_echo_module` module and enables it as a module when compiling nginx.
 - `http_geoip_module.rb` - installs the GeoIP libraries and data files and enables the module for compilation.
