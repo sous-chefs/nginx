@@ -165,21 +165,6 @@ These attributes are used in the `nginx::source` recipe. Some of them are dynami
 - [nginx_config](https://github.com/sous-chefs/nginx/blob/master/documentation/resources/config.md)
 - [nginx_site](https://github.com/sous-chefs/nginx/blob/master/documentation/resources/site.md)
 
-### nginx_stream
-
-Enable or disable a Stream Block in `#{node['nginx']['dir']}/streams-available` by calling nxenstream or nxdisstream (introduced by this cookbook) to manage the symbolic link in `#{node['nginx']['dir']}/streams-enabled`.
-
-### Actions
-
-- `enable` - Enable the nginx stream (default)
-- `disable` - Disable the nginx stream
-
-### Properties
-
-- `stream_name` - (optional) Name of the stream to enable.
-- `template` - (optional) Path to the source for the `template` resource.
-- `variables` - (optional) Variables to be used with the `template` resource
-
 ### nginx_cleanup_runit
 
 A simple resource to remove existing runit based nginx service installations. This is used in the default nginx recipe to stop runit based nginx services and cleanup runit service configs before setting up nginx under the system's own init system.

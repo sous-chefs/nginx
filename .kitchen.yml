@@ -55,6 +55,3 @@ suites:
   - name: source
     run_list:
       - recipe[test::source]
-  - name: stream
-    run_list:
-      - recipe[test::stream]

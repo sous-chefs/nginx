@@ -152,38 +152,3 @@ workflows:
           suite: source-amazonlinux-2
           requires:
             *lint_and_unit
-      - kitchen/dokken-single:
-          name: stream-debian-8
-          suite: stream-debian-8
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: stream-debian-9
-          suite: stream-debian-9
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: stream-centos-7
-          suite: stream-centos-7
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: stream-ubuntu-1604
-          suite: stream-ubuntu-1604
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: stream-ubuntu-1604
-          suite: stream-ubuntu-1604
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: stream-ubuntu-1804
-          suite: stream-ubuntu-1804
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: stream-amazonlinux-2
-          suite: stream-amazonlinux-2
-          requires:
-            *lint_and_unit
