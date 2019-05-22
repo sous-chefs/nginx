@@ -101,14 +101,6 @@ Generally used attributes. Some have platform specific values. See `attributes/d
 
 - `node['nginx']['extra_configs']` - a Hash of key/values to nginx configuration.
 
-### nginx::devel
-
-These attributes are used in the `nginx::ngx_devel_module` recipe.
-
-- `node['nginx']['devel']['version']` - The version of the nginx devel module
-- `node['nginx']['devel']['url']` - The URL of the nginx devel module tar.gz file
-- `node['nginx']['devel']['checksum']` - The checksum of the nginx devel module tar.gz file
-
 ### nginx::ohai_plugin
 
 The `ohai_plugin` recipe includes an Ohai plugin. It will be automatically installed and activated, providing the following attributes via ohai, no matter how nginx is installed (source or package):
@@ -255,7 +247,6 @@ The following recipes are used to build module support into nginx. To compile a 
 
 - `ipv6.rb` - enables IPv6 support
 - `ipv6` -
-- `ngx_devel_module` -
 - `ngx_lua_module` -
 - `openssl_source.rb` - downloads and uses custom OpenSSL source when compiling nginx
 - `pagespeed_module`-
