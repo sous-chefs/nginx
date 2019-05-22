@@ -35,13 +35,6 @@ Other Debian and RHEL family distributions are assumed to work.
 
 Node attributes for this cookbook are logically separated into different files. Some attributes are set only via a specific recipe.
 
-### nginx::auth_request
-
-These attributes are used in the `nginx::auth_request` recipe.
-
-- `node['nginx']['auth_request']['url']` - The url to the auth_request module tar.gz file
-- `node['nginx']['auth_request']['checksum']` - The checksum of the auth_request module tar.gz file
-
 ### nginx::default
 
 Generally used attributes. Some have platform specific values. See `attributes/default.rb`. "The Config" refers to "nginx.conf" the main config file.
@@ -300,7 +293,6 @@ If you need control over how nginx is built, or you need non-dynamic modules to 
 The following recipes are used to build module support into nginx. To compile a module, add its recipe name to the array attribute `node['nginx']['source']['modules']`.
 
 - `ipv6.rb` - enables IPv6 support
-- `http_auth_request_module``
 - `http_echo_module.rb` - downloads the `http_echo_module` module and enables it as a module when compiling nginx.
 - `http_geoip_module.rb` - installs the GeoIP libraries and data files and enables the module for compilation.
 - `http_gzip_static_module.rb` - enables the module for compilation. Be sure to set `node['nginx']['gzip_static'] = 'yes'`.
