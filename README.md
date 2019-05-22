@@ -248,7 +248,6 @@ The following recipes are used to build module support into nginx. To compile a 
 - `ipv6.rb` - enables IPv6 support
 - `ipv6` -
 - `openssl_source.rb` - downloads and uses custom OpenSSL source when compiling nginx
-- `pagespeed_module`-
 - `passenger` - builds the passenger gem and configuration for "`mod_passenger`".
 - `set_misc` -
 - `syslog_module` - enables syslog support for nginx. This only works with source builds. See <https://github.com/yaoweibin/nginx_syslog_patch> -
