@@ -82,8 +82,6 @@ Generally used attributes. Some have platform specific values. See `attributes/d
 - `node['nginx']['client_max_body_size']` - specifies the maximum accepted body size of a client request, as indicated by the request header Content-Length.
 - `node['nginx']['repo_source']` - when installed from a package this attribute affects which yum repositories, if any, will be added before installing the nginx package. The default value of 'epel' will use the `yum-epel` cookbook, 'nginx' will use the `nginx::repo` recipe, 'passenger' will use the 'nginx::repo_passenger' recipe, and setting no value will not add any additional repositories.
 - `node['nginx']['sts_max_age']` - Enable Strict Transport Security for all apps (See: <http://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security>). This attribute adds the following header: Strict-Transport-Security max-age=SECONDS to all incoming requests and takes an integer (in seconds) as its argument.
-- `node['nginx']['default']['modules']` - Array specifying which modules to enable via the conf-enabled config include function.
-- `node['nginx']['load_modules']` - Array of paths to modules to dynamically load on nginx startup using the `load_module` directive. Default is `[]`.
 
 #### gzip module
 
@@ -157,7 +155,6 @@ These attributes are used in the `nginx::source` recipe. Some of them are dynami
 - `node['nginx']['source']['url']` - (versioned) URL for the nginx source code. By default this will use the version specified as `node['nginx']['version']`.
 - `node['nginx']['source']['prefix']` - (versioned) prefix for installing nginx from source
 - `node['nginx']['source']['conf_path']` - location of the main config file, in `node['nginx']['dir']` by default.
-- `node['nginx']['source']['modules']` - Array of modules that should be compiled into nginx by including their recipes in `nginx::source`.
 - `node['nginx']['source']['default_configure_flags']` - The default flags passed to the configure script when building nginx.
 - `node['nginx']['configure_flags']` - Preserved for compatibility and dynamically generated from the `node['nginx']['source']['default_configure_flags']` in the `nginx::source` recipe.
 - `node['nginx']['source']['use_existing_user']` - set to `true` if you do not want `nginx::source` recipe to create system user with name `node['nginx']['user']` and `node['nginx']['user_home']`.
@@ -212,15 +209,6 @@ If you need control over how nginx is built, or you need non-dynamic modules to 
 The following recipes are used to build module support into nginx. To compile a module, add its recipe name to the array attribute `node['nginx']['source']['modules']`.
 
 - `passenger` - builds the passenger gem and configuration for "`mod_passenger`".
-
-## Adding New Modules
-
-Previously we'd add each possible module to this cookbook itself. That's not necessary using wrapper cookbooks and we'd prefer to not add any addition module recipes at this time. Instead in your nginx wrapper cookbook setup any necessary packages and then include the follow code to add the module to the list of modules to compile:
-
-```ruby
-node.run_state['nginx_configure_flags'] =
-  node.run_state['nginx_configure_flags'] | ['--with-SOMETHING', "--with-SOME_OPT='things'"]
-```
 
 ## License
 

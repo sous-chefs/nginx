@@ -153,41 +153,6 @@ workflows:
           requires:
             *lint_and_unit
       - kitchen/dokken-single:
-          name: modules-debian-8
-          suite: modules-debian-8
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: modules-debian-9
-          suite: modules-debian-9
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: modules-centos-7
-          suite: modules-centos-7
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: modules-ubuntu-1604
-          suite: modules-ubuntu-1604
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: modules-ubuntu-1604
-          suite: modules-ubuntu-1604
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: modules-ubuntu-1804
-          suite: modules-ubuntu-1804
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: modules-amazonlinux-2
-          suite: modules-amazonlinux-2
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
           name: stream-debian-8
           suite: stream-debian-8
           requires:
