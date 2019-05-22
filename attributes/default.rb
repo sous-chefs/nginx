@@ -13,9 +13,6 @@ default['nginx']['binary']       = '/usr/sbin/nginx'
 default['nginx']['default_root'] = '/var/www/nginx-default'
 default['nginx']['ulimit']       = '1024'
 
-# cleanup runit install of previous cookbooks
-default['nginx']['cleanup_runit'] = true
-
 # use the upstream nginx repo vs. distro packages
 # this enables the use of modern nginx releases
 # set this to nil to use the distro packages

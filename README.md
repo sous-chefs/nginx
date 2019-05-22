@@ -49,7 +49,6 @@ Generally used attributes. Some have platform specific values. See `attributes/d
 - `node['nginx']['port']` - Port for nginx to listen on.
 - `node['nginx']['binary']` - Path to the nginx binary.
 - `node['nginx']['init_style']` - How to run nginx as a service when using `nginx::source`. Values can be "upstart", "systemd", or "init". This attribute is not used in the `package` recipe because the package manager's init script style for the platform is assumed.
-- `node['nginx']['cleanup_runit']` - Cleanup existing runit based nginx service installation. Uses the `nginx_cleanup_runit` resource. Default: true
 - `node['nginx']['upstart']['foreground']` - Set this to true if you want upstart to run nginx in the foreground, set to false if you want upstart to detach and track the process via pid.
 - `node['nginx']['upstart']['runlevels']` - String of runlevels in the format '2345' which determines which runlevels nginx will start at when entering and stop at when leaving.
 - `node['nginx']['upstart']['respawn_limit']` - Respawn limit in upstart stanza format, count followed by space followed by interval in seconds.
@@ -143,14 +142,6 @@ Basic configuration to use the official Phusion Passenger repositories:
 - [nginx_install](https://github.com/sous-chefs/nginx/blob/master/documentation/resources/install.md)
 - [nginx_config](https://github.com/sous-chefs/nginx/blob/master/documentation/resources/config.md)
 - [nginx_site](https://github.com/sous-chefs/nginx/blob/master/documentation/resources/site.md)
-
-### nginx_cleanup_runit
-
-A simple resource to remove existing runit based nginx service installations. This is used in the default nginx recipe to stop runit based nginx services and cleanup runit service configs before setting up nginx under the system's own init system.
-
-### Actions
-
-- `cleanup` - Stop runit based nginx and remove runit configs (default)
 
 ## Usage
 
