@@ -1,6 +1,5 @@
 node.default['nginx']['install_method'] = 'source'
 node.default['nginx']['source']['modules'] = %w(
-  nginx::http_v2_module
   nginx::naxsi_module
   nginx::ngx_devel_module
   nginx::ngx_lua_module
