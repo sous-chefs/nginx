@@ -9,8 +9,6 @@ description      'Installs and configures nginx'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '9.0.0'
 
-recipe   'nginx', 'Installs nginx package and sets up configuration with Debian apache style with sites-enabled/sites-available'
-
 depends  'ohai', '~> 5.2'
 depends  'yum-epel'
 

@@ -1,5 +1,5 @@
 def code_changes?
-  code = %w(libraries attributes recipes resources)
+  code = %w(libraries resources)
   code.each do |location|
     return true unless git.modified_files.grep(/#{location}/).empty?
   end
