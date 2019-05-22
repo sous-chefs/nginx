@@ -260,7 +260,6 @@ If you need control over how nginx is built, or you need non-dynamic modules to 
 The following recipes are used to build module support into nginx. To compile a module, add its recipe name to the array attribute `node['nginx']['source']['modules']`.
 
 - `ipv6.rb` - enables IPv6 support
-- `http_ssl_module.rb` - enables SSL for compilation.
 - `http_stub_status_module.rb` - provides `nginx_status` configuration and enables the module for compilation.
 - `http_v2_module`
 - `ipv6` -

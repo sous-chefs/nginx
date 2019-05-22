@@ -41,10 +41,6 @@ describe 'nginx::source' do
       expect(chef_run).to run_bash('unarchive_source')
     end
 
-    it 'includes all the source modules recipes' do
-      expect(chef_run).to include_recipe('nginx::http_ssl_module')
-    end
-
     it 'compiles nginx source' do
       expect(chef_run).to run_bash('compile_nginx_source')
     end
