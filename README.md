@@ -107,31 +107,6 @@ The `ohai_plugin` recipe includes an Ohai plugin. It will be automatically insta
 - `node['nginx']['conf_path']` - configuration file path
 - `node['nginx']['ohai_plugin_enabled']` - Toggles ohai_plugin recipe. Defaults to true.
 
-### nginx::passenger
-
-These attributes are used in the `nginx::passenger` recipe.
-
-- `node['nginx']['passenger']['version']` - passenger gem version
-- `node['nginx']['passenger']['root']` - passenger gem root path
-- `node['nginx']['passenger']['install_rake']` - set to false if rake already present on system
-- `node['nginx']['passenger']['max_pool_size']` - maximum passenger pool size (default=10)
-- `node['nginx']['passenger']['ruby']` - Ruby path for Passenger to use (default=`$(which ruby)`)
-- `node['nginx']['passenger']['spawn_method']` - passenger spawn method to use (default=`smart-lv2`)
-- `node['nginx']['passenger']['buffer_response']` - turns on or off response buffering (default=`on`)
-- `node['nginx']['passenger']['max_pool_size']` - passenger maximum pool size (default=`6`)
-- `node['nginx']['passenger']['min_instances']` - minimum instances (default=`1`)
-- `node['nginx']['passenger']['max_instances_per_app']` - maximum instances per app (default=`0`)
-- `node['nginx']['passenger']['pool_idle_time']` - passenger pool idle time (default=`300`)
-- `node['nginx']['passenger']['max_requests']` - maximum requests (default=`0`)
-- `node['nginx']['passenger']['nodejs']` - Nodejs path for Passenger to use (default=nil)
-- `node['nginx']['passenger']['show_version_in_header']` - Show passenger version in HTTP headers (default=`on`)
-
-Basic configuration to use the official Phusion Passenger repositories:
-
-- `node['nginx']['repo_source']` - 'passenger'
-- `node['nginx']['package_name']` - 'nginx-extras'
-- `node['nginx']['passenger']['install_method']` - 'package'
-
 ### nginx::repo
 
 - `node['nginx']['upstream_repository']` - the URL to use for the package repository resource; default is set based on platform type
