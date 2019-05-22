@@ -97,16 +97,6 @@ Generally used attributes. Some have platform specific values. See `attributes/d
 
 - `node['nginx']['extra_configs']` - a Hash of key/values to nginx configuration.
 
-### nginx::ohai_plugin
-
-The `ohai_plugin` recipe includes an Ohai plugin. It will be automatically installed and activated, providing the following attributes via ohai, no matter how nginx is installed:
-
-- `node['nginx']['version']` - version of nginx
-- `node['nginx']['configure_arguments']` - options passed to `./configure` when nginx was built
-- `node['nginx']['prefix']` - installation prefix
-- `node['nginx']['conf_path']` - configuration file path
-- `node['nginx']['ohai_plugin_enabled']` - Toggles ohai_plugin recipe. Defaults to true.
-
 ### nginx::repo
 
 - `node['nginx']['upstream_repository']` - the URL to use for the package repository resource; default is set based on platform type
