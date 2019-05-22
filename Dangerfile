@@ -7,7 +7,7 @@ def code_changes?
 end
 
 def test_changes?
-  tests = %w(spec test .kitchen.yml .kitchen.dokken.yml)
+  tests = %w(spec test kitchen.yml kitchen.dokken.yml)
   tests.each do |location|
     return true unless git.modified_files.grep(/#{location}/).empty?
   end
