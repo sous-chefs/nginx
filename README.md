@@ -110,14 +110,6 @@ These attributes are used in the `nginx::ngx_devel_module` recipe.
 - `node['nginx']['devel']['url']` - The URL of the nginx devel module tar.gz file
 - `node['nginx']['devel']['checksum']` - The checksum of the nginx devel module tar.gz file
 
-### nginx::echo
-
-These attributes are used in the `nginx::http_echo_module` recipe.
-
-- `node['nginx']['echo']['version']` - The version of `http_echo` you want (default: 0.59)
-- `node['nginx']['echo']['url']` - URL for the tarball.
-- `node['nginx']['echo']['checksum']` - Checksum of the tarball.
-
 ### nginx::geoip
 
 These attributes are used in the `nginx::http_geoip_module` recipe. Please note that the `country_dat_checksum` and `city_dat_checksum` are based on downloads from a datacenter in Fremont, CA, USA. You really should override these with checksums for the geo tarballs from your node location.
@@ -293,7 +285,6 @@ If you need control over how nginx is built, or you need non-dynamic modules to 
 The following recipes are used to build module support into nginx. To compile a module, add its recipe name to the array attribute `node['nginx']['source']['modules']`.
 
 - `ipv6.rb` - enables IPv6 support
-- `http_echo_module.rb` - downloads the `http_echo_module` module and enables it as a module when compiling nginx.
 - `http_geoip_module.rb` - installs the GeoIP libraries and data files and enables the module for compilation.
 - `http_gzip_static_module.rb` - enables the module for compilation. Be sure to set `node['nginx']['gzip_static'] = 'yes'`.
 - `http_mp4_module` -
