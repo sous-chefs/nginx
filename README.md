@@ -179,13 +179,6 @@ These attributes are used in the `nginx::source` recipe. Some of them are dynami
 - `node['nginx']['configure_flags']` - Preserved for compatibility and dynamically generated from the `node['nginx']['source']['default_configure_flags']` in the `nginx::source` recipe.
 - `node['nginx']['source']['use_existing_user']` - set to `true` if you do not want `nginx::source` recipe to create system user with name `node['nginx']['user']` and `node['nginx']['user_home']`.
 
-### nginx::syslog
-
-These attributes are used in the `nginx::syslog_module` recipe.
-
-- `node['nginx']['syslog']['git_repo']` - The git repository url to use for the syslog patches.
-- `node['nginx']['syslog']['git_revision']` - The revision on the git repository to checkout.
-
 ### nginx::upload_progress
 
 These attributes are used in the `nginx::upload_progress_module` recipe.
@@ -250,7 +243,6 @@ The following recipes are used to build module support into nginx. To compile a 
 - `openssl_source.rb` - downloads and uses custom OpenSSL source when compiling nginx
 - `passenger` - builds the passenger gem and configuration for "`mod_passenger`".
 - `set_misc` -
-- `syslog_module` - enables syslog support for nginx. This only works with source builds. See <https://github.com/yaoweibin/nginx_syslog_patch> -
 - `upload_progress_module.rb` - builds the `upload_progress` module and enables it as a module when compiling nginx.
 
 ## Adding New Modules
