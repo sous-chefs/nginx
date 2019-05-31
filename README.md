@@ -109,14 +109,6 @@ These attributes are used in the `nginx::ngx_devel_module` recipe.
 - `node['nginx']['devel']['url']` - The URL of the nginx devel module tar.gz file
 - `node['nginx']['devel']['checksum']` - The checksum of the nginx devel module tar.gz file
 
-### nginx::http_realip_module
-
-From: <http://nginx.org/en/docs/http/ngx_http_realip_module.html>
-
-- `node['nginx']['realip']['header']` - Header to use for the RealIp Module; only accepts "X-Forwarded-For" or "X-Real-IP"
-- `node['nginx']['realip']['addresses']` - Addresses to use for the `http_realip` configuration.
-- `node['nginx']['realip']['real_ip_recursive']` - If recursive search is enabled, the original client address that matches one of the trusted addresses is replaced by the last non-trusted address sent in the request header field. Can be on "on" or "off" (default).
-
 ### nginx::ohai_plugin
 
 The `ohai_plugin` recipe includes an Ohai plugin. It will be automatically installed and activated, providing the following attributes via ohai, no matter how nginx is installed (source or package):
@@ -268,7 +260,6 @@ If you need control over how nginx is built, or you need non-dynamic modules to 
 The following recipes are used to build module support into nginx. To compile a module, add its recipe name to the array attribute `node['nginx']['source']['modules']`.
 
 - `ipv6.rb` - enables IPv6 support
-- `http_realip_module.rb` - enables the module for compilation and creates the configuration.
 - `http_spdy_module` -
 - `http_ssl_module.rb` - enables SSL for compilation.
 - `http_stub_status_module.rb` - provides `nginx_status` configuration and enables the module for compilation.
