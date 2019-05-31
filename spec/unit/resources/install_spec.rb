@@ -280,6 +280,8 @@ describe 'nginx_install' do
               passenger_max_requests: '0',
               passenger_show_version_in_header: 'on',
               passenger_log_file: nil,
+              passenger_disable_anonymous_telemetry: 'off',
+              passenger_anonymous_telemetry_proxy: nil,
               passenger_nodejs: nil
             )
         end
