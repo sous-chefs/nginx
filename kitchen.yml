@@ -37,7 +37,7 @@ suites:
       - centos-7
   - name: passenger
     run_list:
-      - recipe[test::passenger_packages]
+      - recipe[test::passenger]
     excludes:  # passenger distro install is not compatible with these
       - opensuse-leap-42
       - centos-6
