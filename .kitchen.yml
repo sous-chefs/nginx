@@ -53,6 +53,16 @@ suites:
     includes:
       - amazonlinux-2
       - centos-7
+  - name: passenger
+    run_list:
+      - recipe[test::passenger]
+    excludes:
+      - amazonlinux-2
+      - centos-7
+      - centos-7-chef-13.3
+      - fedora-28
+      - opensuse-leap-42
+      - ubuntu-16.04-chef-13.3
 
   - name: source
     run_list:
@@ -66,16 +76,6 @@ suites:
     excludes:
       - centos-7-chef-13.3
       - ubuntu-16.04-chef-13.3
-  - name: passenger
-    run_list:
-      - recipe[test::passenger_packages]
-    excludes:  # passenger distro install is not compatible with these
-      - amazonlinux-2
-      - centos-7-chef-13.3
-      - ubuntu-16.04-chef-13.3
-      - opensuse-leap-42
-      - centos-7
-      - fedora-28
   - name: stream
     run_list:
       - recipe[test::stream]

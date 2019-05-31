@@ -191,10 +191,6 @@ These attributes are used in the `nginx::passenger` recipe.
 - `node['nginx']['passenger']['max_requests']` - maximum requests (default=`0`)
 - `node['nginx']['passenger']['nodejs']` - Nodejs path for Passenger to use (default=nil)
 - `node['nginx']['passenger']['show_version_in_header']` - Show passenger version in HTTP headers (default=`on`)
-- `node['nginx']['passenger']['disable_anonymous_telemetry']` - Turn on disabling of anonymous telemetry (default=`off`, this will send telemetry data. Since Passenger 6.0)
-- `node['nginx']['passenger']['anonymous_telemetry_proxy']` - Set an intermediate proxy for anonymous telemetry (default=`nil`. Syntax: `scheme://user:password@proxy_host:proxy_port`. Since Passenger 6.0)
-
-Read more about the anonymous telemetry reporting [here](https://www.phusionpassenger.com/docs/advanced_guides/in_depth/ruby/anonymous_telemetry_reporting.html).
 
 Basic configuration to use the official Phusion Passenger repositories:
 

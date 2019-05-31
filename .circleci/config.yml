@@ -110,6 +110,28 @@ workflows:
           requires:
             *lint_and_unit
 
+      # passenger
+      - kitchen/dokken-single:
+          name: passenger-debian-8
+          suite: passenger-debian-8
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: passenger-debian-9
+          suite: passenger-debian-9
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: passenger-ubuntu-1604
+          suite: passenger-ubuntu-1604
+          requires:
+            *lint_and_unit
+      - kitchen/dokken-single:
+          name: passenger-ubuntu-1804
+          suite: passenger-ubuntu-1804
+          requires:
+            *lint_and_unit
+
       - kitchen/dokken-single:
           name: source-debian-8
           suite: source-debian-8
@@ -178,36 +200,6 @@ workflows:
       - kitchen/dokken-single:
           name: modules-amazonlinux-2
           suite: modules-amazonlinux-2
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: passenger-debian-8
-          suite: passenger-debian-8
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: passenger-debian-9
-          suite: passenger-debian-9
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: passenger-ubuntu-1604
-          suite: passenger-ubuntu-1604
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: passenger-ubuntu-1604
-          suite: passenger-ubuntu-1604
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: passenger-ubuntu-1804
-          suite: passenger-ubuntu-1804
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: passenger-amazonlinux-2
-          suite: passenger-amazonlinux-2
           requires:
             *lint_and_unit
       - kitchen/dokken-single:

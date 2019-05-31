@@ -2,10 +2,6 @@ control 'install' do
   desc   'Ensure nginx is installed.'
   impact 1.0
 
-  describe package('nginx') do
-    it { should be_installed }
-  end
-
   describe directory('/etc/nginx') do
     it { should exist }
     it { should be_directory }
@@ -18,9 +14,7 @@ control 'install' do
     its('mode') { should cmp '0750' }
   end
 
-  nginx_pid_dir = os[:family] == 'debian' ? '/run' : '/var/run'
-
-  describe directory(nginx_pid_dir) do
+  describe directory('/run') do
     it { should exist }
     it { should be_directory }
     its('mode') { should cmp '0755' }
@@ -84,9 +78,16 @@ control 'install' do
     its('content') { should include 'root   /var/www/nginx-default;' }
   end
 
-  describe file('/etc/nginx/sites-enabled/000-default') do
-    it { should be_symlink }
-    it { should be_linked_to '/etc/nginx/sites-available/default' }
+  describe.one do
+    describe file('/etc/nginx/sites-enabled/000-default') do
+      it { should be_symlink }
+      it { should be_linked_to '/etc/nginx/sites-available/default' }
+    end
+
+    describe file('/etc/nginx/sites-enabled/default') do
+      it { should be_symlink }
+      it { should be_linked_to '/etc/nginx/sites-available/default' }
+    end
   end
 
   describe service('nginx') do

@@ -5,7 +5,7 @@ property :ohai_plugin_enabled, [true, false],
 
 property :source, String,
          description: 'Source for installation.',
-         equal_to: %w(distro repo epel),
+         equal_to: %w(distro repo epel passenger),
          name_property: true
 
 property :default_site_enabled, [true, false],
@@ -85,6 +85,72 @@ property :server_name, String,
          description: 'Sets the server_name directive.',
          default: lazy { node['hostname'] }
 
+property :install_rake, [true, false],
+         description: 'Whether or not to install rake.',
+         equal_to: [true, false],
+         default: true
+
+property :passenger_root, String,
+         description: 'Passenger root.',
+         default: '/usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini'
+
+property :passenger_ruby, String,
+         description: 'Passenger ruby.',
+         default: '/usr/bin/ruby'
+
+property :passenger_max_pool_size, [Integer, String],
+         description: 'Passenger max pool size.',
+         coerce: proc { |v| v.is_a?(Integer) ? v.to_s : v },
+         default: 6
+
+property :passenger_spawn_method, String,
+         description: 'Passenger spawn method.',
+         default: 'smart-lv2'
+
+property :passenger_buffer_response, String,
+         description: 'Passenger buffer response.',
+         equal_to: %w(on off),
+         default: 'on'
+
+property :passenger_min_instances, [Integer, String],
+         description: 'Passenger minimum instances.',
+         coerce: proc { |v| v.is_a?(Integer) ? v.to_s : v },
+         default: 1
+
+property :passenger_max_instances_per_app, [Integer, String],
+         description: 'Passenger maximum instances per app.',
+         coerce: proc { |v| v.is_a?(Integer) ? v.to_s : v },
+         default: 0
+
+property :passenger_pool_idle_time, [Integer, String],
+         description: 'Passenger pool idle time.',
+         coerce: proc { |v| v.is_a?(Integer) ? v.to_s : v },
+         default: 300
+
+property :passenger_max_requests, [Integer, String],
+         description: 'Passenger maximum requests.',
+         coerce: proc { |v| v.is_a?(Integer) ? v.to_s : v },
+         default: 0
+
+property :passenger_show_version_in_header, String,
+         description: 'Passenger show version in header.',
+         equal_to: %w(on off),
+         default: 'on'
+
+property :passenger_log_file, String,
+         description: 'Passenger log file.'
+
+property :passenger_disable_anonymous_telemetry, String,
+         description: 'Passenger turn disabling of anonymous telemetry on or off.',
+         equal_to: %w(on off),
+         default: 'off'
+
+property :passenger_anonymous_telemetry_proxy, String,
+         description: 'Passenger set an intermediate proxy for anonymous telemetry.'
+
+property :passenger_nodejs, String,
+         description: 'Passenger nodejs.'
+
 action :install do
   if ohai_plugin_enabled?
     ohai 'reload_nginx' do
@@ -145,6 +211,24 @@ action :install do
         level :warn
       end
     end
+  when 'passenger'
+    if platform_family?('debian')
+      apt_repository 'phusionpassenger' do
+        uri 'https://oss-binaries.phusionpassenger.com/apt/passenger'
+        distribution node['lsb']['codename']
+        components %w(main)
+        deb_src true
+        keyserver 'keyserver.ubuntu.com'
+        key '561F9B9CAC40B2F7'
+      end
+
+      package %w(apt-transport-https ca-certificates)
+      apt_update 'update'
+    else
+      log 'nginx_install `source` property set to passenger, but not running on a Debian based platform so skipping passenger setup' do
+        level :warn
+      end
+    end
   end
 
   if source?('distro') && platform?('amazon')
@@ -153,7 +237,7 @@ action :install do
       notifies :reload, 'ohai[reload_nginx]', :immediately if ohai_plugin_enabled?
     end
   else
-    package 'nginx' do
+    package nginx_package do
       options package_install_opts
       notifies :reload, 'ohai[reload_nginx]', :immediately if ohai_plugin_enabled?
     end
@@ -244,6 +328,33 @@ action :install do
     action default_site_enabled? ? :enable : :disable
   end
 
+  if source?('passenger') && platform_family?('debian')
+    gem_package 'rake' if install_rake?
+    package     passenger_packages
+
+    template passenger_conf_file do
+      cookbook 'nginx'
+      source   'modules/passenger.conf.erb'
+      notifies :reload, 'service[nginx]', :delayed
+      variables(
+        passenger_root:                        new_resource.passenger_root,
+        passenger_ruby:                        new_resource.passenger_ruby,
+        passenger_max_pool_size:               new_resource.passenger_max_pool_size,
+        passenger_spawn_method:                new_resource.passenger_spawn_method,
+        passenger_buffer_response:             new_resource.passenger_buffer_response,
+        passenger_min_instances:               new_resource.passenger_min_instances,
+        passenger_max_instances_per_app:       new_resource.passenger_max_instances_per_app,
+        passenger_pool_idle_time:              new_resource.passenger_pool_idle_time,
+        passenger_max_requests:                new_resource.passenger_max_requests,
+        passenger_show_version_in_header:      new_resource.passenger_show_version_in_header,
+        passenger_log_file:                    new_resource.passenger_log_file,
+        passenger_disable_anonymous_telemetry: new_resource.passenger_disable_anonymous_telemetry,
+        passenger_anonymous_telemetry_proxy:   new_resource.passenger_anonymous_telemetry_proxy,
+        passenger_nodejs:                      new_resource.passenger_nodejs
+      )
+    end
+  end
+
   service 'nginx' do
     supports status: true, restart: true, reload: true
     action   [:start, :enable]
@@ -261,5 +372,17 @@ action_class do
 
   def source?(source)
     new_resource.source == source
+  end
+
+  def nginx_package
+    if source?('passenger') && !(debian_9? || ubuntu_18?)
+      'nginx-extras'
+    else
+      'nginx'
+    end
+  end
+
+  def install_rake?
+    new_resource.install_rake
   end
 end

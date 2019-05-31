@@ -1,28 +1,43 @@
 # install
 
-Installs nginx via distro source.
+Installs nginx via distro, repo, epel or passenger source.
 
 ```ruby
 nginx_install 'default' do
-  ohai_plugin_enabled    [true, false]
-  source                 String
-  default_site_enabled   [true, false]
-  conf_cookbook          String
-  conf_template          String
-  conf_variables         Hash
-  group                  String
-  worker_processes       [Integer, String]
-  worker_connections     [Integer, String]
-  sendfile               String
-  tcp_nopush             String
-  tcp_nodelay            String
-  keepalive_timeout      [Integer, String]
-  types_hash_max_size    [Integer, String]
-  default_site_cookbook  String
-  default_site_template  String
-  default_site_variables Hash
-  port                   [Integer, String]
-  server_name            String
+  ohai_plugin_enabled                   [true, false]
+  source                                String
+  default_site_enabled                  [true, false]
+  conf_cookbook                         String
+  conf_template                         String
+  conf_variables                        Hash
+  group                                 String
+  worker_processes                      [Integer, String]
+  worker_connections                    [Integer, String]
+  sendfile                              String
+  tcp_nopush                            String
+  tcp_nodelay                           String
+  keepalive_timeout                     [Integer, String]
+  types_hash_max_size                   [Integer, String]
+  default_site_cookbook                 String
+  default_site_template                 String
+  default_site_variables                Hash
+  port                                  [Integer, String]
+  server_name                           String
+  install_rake                          String
+  passenger_root                        String
+  passenger_ruby                        String
+  passenger_max_pool_size               [Integer, String]
+  passenger_spawn_method                String
+  passenger_buffer_response             String
+  passenger_min_instances               String
+  passenger_max_instances_per_app       String
+  passenger_pool_idle_time              [Integer, String]
+  passenger_max_requests                [Integer, String]
+  passenger_show_version_in_header      String
+  passenger_log_file                    String
+  passenger_disable_anonymous_telemetry String
+  passenger_anonymous_telemetry_proxy   String
+  passenger_nodejs                      String
 end
 ```
 
@@ -211,3 +226,147 @@ Sets the server_name directive.
 | -------- | --------------------------- |
 | Type     | String                      |
 | Default  | `lazy { node['hostname'] }` |
+
+### `install_rake`
+
+Whether or not to install rake.
+
+| property       | value         |
+| -------------- | ------------- |
+| Type           | [true, false] |
+| Default        | `true`        |
+| Allowed Values | true, false   |
+
+### `passenger_root`
+
+Passenger root.
+
+| property | value                                                       |
+| -------- | ----------------------------------------------------------- |
+| Type     | String                                                      |
+| Default  | `/usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini` |
+
+### `passenger_ruby`
+
+Passenger ruby.
+
+| property | value           |
+| -------- | --------------- |
+| Type     | String          |
+| Default  | `/usr/bin/ruby` |
+
+### `passenger_max_pool_size`
+
+Passenger max pool size.
+
+| property | value                                        |
+| -------- | -------------------------------------------- |
+| Type     | [Integer, String ]                           |
+| Default  | `6`                                          |
+| Coerce   | `proc { |v| v.is_a?(Integer) ? v.to_s : v }` |
+
+### `passenger_spawn_method`
+
+Passenger spawn method.
+
+| property | value       |
+| -------- | ----------- |
+| Type     | String      |
+| Default  | `smart-lv2` |
+
+### `passenger_buffer_response`
+
+Passenger buffer response.
+
+| property       | value   |
+| -------------- | ------- |
+| Type           | String  |
+| Default        | `on`    |
+| Allowed Values | on, off |
+
+### `passenger_min_instances`
+
+Passenger minimum instances.
+
+| property | value                                        |
+| -------- | -------------------------------------------- |
+| Type     | [Integer, String ]                           |
+| Default  | `1`                                          |
+| Coerce   | `proc { |v| v.is_a?(Integer) ? v.to_s : v }` |
+
+### `passenger_max_instances_per_app`
+
+Passenger minimum instances.
+
+| property | value                                        |
+| -------- | -------------------------------------------- |
+| Type     | [Integer, String ]                           |
+| Default  | `0`                                          |
+| Coerce   | `proc { |v| v.is_a?(Integer) ? v.to_s : v }` |
+
+### `passenger_pool_idle_time`
+
+Passenger pool idle time.
+
+| property | value                                        |
+| -------- | -------------------------------------------- |
+| Type     | [Integer, String ]                           |
+| Default  | `300`                                        |
+| Coerce   | `proc { |v| v.is_a?(Integer) ? v.to_s : v }` |
+
+### `passenger_max_requests`
+
+Passenger maximum requests.
+
+| property | value                                        |
+| -------- | -------------------------------------------- |
+| Type     | [Integer, String ]                           |
+| Default  | `0`                                          |
+| Coerce   | `proc { |v| v.is_a?(Integer) ? v.to_s : v }` |
+
+### `passenger_show_version_in_header`
+
+Passenger show version in header.
+
+| property       | value   |
+| -------------- | ------- |
+| Type           | String  |
+| Default        | `on`    |
+| Allowed Values | on, off |
+
+### `passenger_log_file`
+
+Passenger log file.
+
+| property | value  |
+| -------- | ------ |
+| Type     | String |
+| Default  | `nil`  |
+
+### `passenger_disable_anonymous_telemetry`
+
+Passenger turn disabling of anonymous telemetry on or off.
+
+| property       | value   |
+| -------------- | ------- |
+| Type           | String  |
+| Default        | `off`   |
+| Allowed Values | on, off |
+
+### `passenger_anonymous_telemetry_proxy`
+
+Passenger set an intermediate proxy for anonymous telemetry.
+
+| property | value  |
+| -------- | ------ |
+| Type     | String |
+| Default  | `nil`  |
+
+### `passenger_nodejs`
+
+Passenger nodejs.
+
+| property | value  |
+| -------- | ------ |
+| Type     | String |
+| Default  | `nil`  |

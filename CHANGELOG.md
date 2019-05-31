@@ -11,7 +11,7 @@ This file is used to list changes made in each version of the nginx cookbook.
 - Remove community_cookbook_releaser gem
 - Move spec/libraries to spec/unit/libraries
 - Bump ohai dependency to ~> 5.2
-- Create nginx_install custom resource with source properties distro, repo and epel
+- Create nginx_install custom resource with source properties distro, repo, epel and passenger
 - Create nginx_config custom resource
 - Update nginx_site resource
 - Update default-site.erb template
