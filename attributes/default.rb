@@ -1,5 +1,3 @@
-default['nginx']['install_source'] = 'repo'
-
 # In order to update the version, the checksum attribute must be changed too.
 # This attribute is defined in the source.rb attribute file
 default['nginx']['version']      = '1.12.1'

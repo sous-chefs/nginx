@@ -97,11 +97,6 @@ Generally used attributes. Some have platform specific values. See `attributes/d
 
 - `node['nginx']['extra_configs']` - a Hash of key/values to nginx configuration.
 
-### nginx::repo
-
-- `node['nginx']['upstream_repository']` - the URL to use for the package repository resource; default is set based on platform type
-- `node['nginx']['repo_signing_key']` - The URL from which package signing/gpg key is retrieved
-
 ## Resources
 
 - [nginx_install](https://github.com/sous-chefs/nginx/blob/master/documentation/resources/install.md)
