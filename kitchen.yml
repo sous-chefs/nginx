@@ -18,69 +18,28 @@ platforms:
   - name: centos-7
   - name: debian-8
   - name: debian-9
-  - name: fedora-28
-  - name: freebsd-11
   - name: opensuse-leap-42
   - name: ubuntu-16.04
   - name: ubuntu-18.04
-  - name: centos-7-chef-13.3
-    driver_config:
-      box: bento/centos-7
-    provisioner:
-      require_chef_omnibus: 13.3
-  - name: ubuntu-16.04-chef-13.3
-    driver_config:
-      box: bento/ubuntu-16.04
-    provisioner:
-      require_chef_omnibus: 13.3
 
 suites:
-  - name: distro_packages
+  - name: distro
     run_list:
-      - recipe[test::distro_packages]
+      - recipe[test::distro]
     excludes:  # these all lack distro packages
       - centos-6
       - centos-7
-      - centos-7-chef-13.3
-  - name: source
-    run_list:
-      - recipe[test::source]
   - name: epel
     run_list:
       - recipe[test::epel]
     includes:
       - centos-6
       - centos-7
-      - freebsd-11
-  - name: source
-    run_list:
-      - recipe[test::source]
-  - name: upstream_repo
-    run_list:
-      - recipe[test::upstream_repo]
-    excludes:
-      - fedora-28  # lacks nginx repo
-      - centos-7-chef-13.3
-      - ubuntu-16.04-chef-13.3
-      - freebsd-11
-  - name: modules
-    run_list:
-      - recipe[test::modules]
-    excludes:
-      - centos-7-chef-13.3
-      - ubuntu-16.04-chef-13.3
-      - freebsd-11
   - name: passenger
     run_list:
-      - recipe[test::passenger_packages]
+      - recipe[test::passenger]
     excludes:  # passenger distro install is not compatible with these
-      - centos-7-chef-13.3
-      - ubuntu-16.04-chef-13.3
-      - freebsd-11
       - opensuse-leap-42
       - centos-6
       - centos-7
-      - fedora-28
-  - name: stream
-    run_list:
-      - recipe[test::stream]
+      - amazonlinux-2

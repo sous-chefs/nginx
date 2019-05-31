@@ -1,9 +1,0 @@
-
-  upstream example_backend {
-        server 1.2.3.4:<%= node['nginx']['port'] %>;
-        server 1.2.3.5:<%= node['nginx']['port'] %>;
-    }
-  server {
-        listen      <%= node['nginx']['port'] %>;
-        proxy_pass example_backend;
-    }

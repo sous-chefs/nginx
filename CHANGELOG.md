@@ -10,6 +10,24 @@ This file is used to list changes made in each version of the nginx cookbook.
 - http_realip_module: Move inline attributes out so that they can be overridden in the environment.
 - Add support to deactivate anonymous telemetry reporting when using Passenger.
 - compiling nginx from source triggers systemd to reload services to avoid systemd run 'systemctl daemon-reload' related errors
+- Update kitchen to use chef solo
+- Support only OS with systemd
+- Drop support for Amazon Linux, CentOS 6
+- Add support for Amazon Linux 2
+- Remove community_cookbook_releaser gem
+- Move spec/libraries to spec/unit/libraries
+- Bump ohai dependency to ~> 5.2
+- Create nginx_install custom resource with source properties distro, repo, epel and passenger
+- Create nginx_config custom resource
+- Update nginx_site resource
+- Update default-site.erb template
+- Default recipe calls nginx_install resource
+- Drop support for openSUSE Leap 42 and add support for openSUSE Leap 15
+- Drop support for Fedora
+- Cookbook now requires Chef >= 14
+- Remove source install
+- Remove modules
+- Update circleci sous-chefs orb to version 2
 
 ## 9.0.0 (2018-11-13)
 

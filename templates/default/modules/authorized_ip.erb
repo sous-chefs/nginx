@@ -1,6 +1,0 @@
-geo $<%= node['nginx']['remote_ip_var'] %> $authorized_ip {
-  default no;
-  <% node['nginx']['authorized_ips'].each do |ip| %>
-  <%= "#{ip} yes;" %>
-  <% end %>
-}

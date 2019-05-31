@@ -1,11 +1,11 @@
 server {
-  listen   <%= node['nginx']['port'] -%>;
-  server_name  <%= node['hostname'] %>;
+  listen       <%= @port -%>;
+  server_name  <%= @server_name %>;
 
-  access_log  <%= node['nginx']['log_dir'] %>/localhost.access.log;
+  access_log   <%= @nginx_log_dir %>/localhost.access.log;
 
   location / {
-    root   <%= node['nginx']['default_root'] %>;
+    root   <%= @default_root %>;
     index  index.html index.htm;
   }
 }
