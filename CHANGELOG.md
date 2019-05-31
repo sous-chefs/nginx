@@ -2,8 +2,14 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
-## 10.0.0-dev (2019-04-09)
+## Unreleased
 
+- Add CircleCI testing
+- Ensure systemd unit file is reloaded (specifically for upgrade or downgrade) source complile install method.
+- Ensure apt-transport-https package is installed on Debian/Ubuntu for apt_repository resource
+- http_realip_module: Move inline attributes out so that they can be overridden in the environment.
+- Add support to deactivate anonymous telemetry reporting when using Passenger.
+- compiling nginx from source triggers systemd to reload services to avoid systemd run 'systemctl daemon-reload' related errors
 - Update kitchen to use chef solo
 - Support only OS with systemd
 - Drop support for Amazon Linux, CentOS 6
@@ -16,15 +22,6 @@ This file is used to list changes made in each version of the nginx cookbook.
 - Update nginx_site resource
 - Update default-site.erb template
 - Default recipe calls nginx_install resource
-
-## Unreleased
-
-- Add CircleCI testing
-- Ensure systemd unit file is reloaded (specifically for upgrade or downgrade) source complile install method.
-- Ensure apt-transport-https package is installed on Debian/Ubuntu for apt_repository resource
-- http_realip_module: Move inline attributes out so that they can be overridden in the environment.
-- Add support to deactivate anonymous telemetry reporting when using Passenger.
-- compiling nginx from source triggers systemd to reload services to avoid systemd run 'systemctl daemon-reload' related errors
 
 ## 9.0.0 (2018-11-13)
 
