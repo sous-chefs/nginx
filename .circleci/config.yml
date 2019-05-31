@@ -60,11 +60,6 @@ workflows:
           requires:
             *lint_and_unit
       - kitchen/dokken-single:
-          name: passenger-amazonlinux-2
-          suite: passenger-amazonlinux-2
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
           name: passenger-debian-8
           suite: passenger-debian-8
           requires:

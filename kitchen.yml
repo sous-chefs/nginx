@@ -42,3 +42,4 @@ suites:
       - opensuse-leap-42
       - centos-6
       - centos-7
+      - amazonlinux-2
