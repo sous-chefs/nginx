@@ -15,17 +15,17 @@ describe 'nginx_config' do
         .with_cookbook('nginx')
         .with_source('nginx.conf.erb')
         .with_variables(
-          nginx_dir:           '/etc/nginx',
-          nginx_log_dir:       '/var/log/nginx',
-          nginx_user:          'www-data',
-          group:               'www-data',
-          worker_processes:    'auto',
-          pid:                 '/run/nginx.pid',
-          worker_connections:  '1024',
-          sendfile:            'on',
-          tcp_nopush:          'on',
-          tcp_nodelay:         'on',
-          keepalive_timeout:   '65',
+          nginx_dir: '/etc/nginx',
+          nginx_log_dir: '/var/log/nginx',
+          nginx_user: 'www-data',
+          group: 'www-data',
+          worker_processes: 'auto',
+          pid: '/run/nginx.pid',
+          worker_connections: '1024',
+          sendfile: 'on',
+          tcp_nopush: 'on',
+          tcp_nodelay: 'on',
+          keepalive_timeout: '65',
           types_hash_max_size: '2048'
         )
     end

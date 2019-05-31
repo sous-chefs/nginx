@@ -318,9 +318,9 @@ action :install do
     notifies :reload, 'service[nginx]', :delayed
     variables(
       nginx_log_dir: nginx_log_dir,
-      port:          new_resource.port,
-      server_name:   new_resource.server_name,
-      default_root:  default_root
+      port: new_resource.port,
+      server_name: new_resource.server_name,
+      default_root: default_root
     ).merge!(new_resource.default_site_variables)
   end
 
@@ -337,20 +337,20 @@ action :install do
       source   'modules/passenger.conf.erb'
       notifies :reload, 'service[nginx]', :delayed
       variables(
-        passenger_root:                        new_resource.passenger_root,
-        passenger_ruby:                        new_resource.passenger_ruby,
-        passenger_max_pool_size:               new_resource.passenger_max_pool_size,
-        passenger_spawn_method:                new_resource.passenger_spawn_method,
-        passenger_buffer_response:             new_resource.passenger_buffer_response,
-        passenger_min_instances:               new_resource.passenger_min_instances,
-        passenger_max_instances_per_app:       new_resource.passenger_max_instances_per_app,
-        passenger_pool_idle_time:              new_resource.passenger_pool_idle_time,
-        passenger_max_requests:                new_resource.passenger_max_requests,
-        passenger_show_version_in_header:      new_resource.passenger_show_version_in_header,
-        passenger_log_file:                    new_resource.passenger_log_file,
+        passenger_root: new_resource.passenger_root,
+        passenger_ruby: new_resource.passenger_ruby,
+        passenger_max_pool_size: new_resource.passenger_max_pool_size,
+        passenger_spawn_method: new_resource.passenger_spawn_method,
+        passenger_buffer_response: new_resource.passenger_buffer_response,
+        passenger_min_instances: new_resource.passenger_min_instances,
+        passenger_max_instances_per_app: new_resource.passenger_max_instances_per_app,
+        passenger_pool_idle_time: new_resource.passenger_pool_idle_time,
+        passenger_max_requests: new_resource.passenger_max_requests,
+        passenger_show_version_in_header: new_resource.passenger_show_version_in_header,
+        passenger_log_file: new_resource.passenger_log_file,
         passenger_disable_anonymous_telemetry: new_resource.passenger_disable_anonymous_telemetry,
-        passenger_anonymous_telemetry_proxy:   new_resource.passenger_anonymous_telemetry_proxy,
-        passenger_nodejs:                      new_resource.passenger_nodejs
+        passenger_anonymous_telemetry_proxy: new_resource.passenger_anonymous_telemetry_proxy,
+        passenger_nodejs: new_resource.passenger_nodejs
       )
     end
   end

@@ -60,9 +60,9 @@ describe 'nginx_install' do
           .with_source('default-site.erb')
           .with_variables(
             nginx_log_dir: '/var/log/nginx',
-            port:          '80',
-            server_name:   'Fauxhai',
-            default_root:  '/var/www/nginx-default'
+            port: '80',
+            server_name: 'Fauxhai',
+            default_root: '/var/www/nginx-default'
           )
       end
 
@@ -269,18 +269,18 @@ describe 'nginx_install' do
           is_expected.to create_template(passenger_conf_file)
             .with_source('modules/passenger.conf.erb')
             .with_variables(
-              passenger_root:                   '/usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini',
-              passenger_ruby:                   '/usr/bin/ruby',
-              passenger_max_pool_size:          '6',
-              passenger_spawn_method:           'smart-lv2',
-              passenger_buffer_response:        'on',
-              passenger_min_instances:          '1',
-              passenger_max_instances_per_app:  '0',
-              passenger_pool_idle_time:         '300',
-              passenger_max_requests:           '0',
+              passenger_root: '/usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini',
+              passenger_ruby: '/usr/bin/ruby',
+              passenger_max_pool_size: '6',
+              passenger_spawn_method: 'smart-lv2',
+              passenger_buffer_response: 'on',
+              passenger_min_instances: '1',
+              passenger_max_instances_per_app: '0',
+              passenger_pool_idle_time: '300',
+              passenger_max_requests: '0',
               passenger_show_version_in_header: 'on',
-              passenger_log_file:               nil,
-              passenger_nodejs:                 nil
+              passenger_log_file: nil,
+              passenger_nodejs: nil
             )
         end
 

@@ -55,17 +55,17 @@ action :create do
     source   new_resource.conf_template
     notifies :reload, 'service[nginx]', :delayed
     variables(
-      nginx_dir:           nginx_dir,
-      nginx_log_dir:       nginx_log_dir,
-      nginx_user:          nginx_user,
-      group:               new_resource.group,
-      worker_processes:    new_resource.worker_processes,
-      pid:                 nginx_pid_file,
-      worker_connections:  new_resource.worker_connections,
-      sendfile:            new_resource.sendfile,
-      tcp_nopush:          new_resource.tcp_nopush,
-      tcp_nodelay:         new_resource.tcp_nodelay,
-      keepalive_timeout:   new_resource.keepalive_timeout,
+      nginx_dir: nginx_dir,
+      nginx_log_dir: nginx_log_dir,
+      nginx_user: nginx_user,
+      group: new_resource.group,
+      worker_processes: new_resource.worker_processes,
+      pid: nginx_pid_file,
+      worker_connections: new_resource.worker_connections,
+      sendfile: new_resource.sendfile,
+      tcp_nopush: new_resource.tcp_nopush,
+      tcp_nodelay: new_resource.tcp_nodelay,
+      keepalive_timeout: new_resource.keepalive_timeout,
       types_hash_max_size: new_resource.types_hash_max_size
     ).merge!(new_resource.conf_variables)
   end
