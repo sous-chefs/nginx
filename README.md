@@ -2,7 +2,7 @@
 
 [![Cookbook](http://img.shields.io/cookbook/v/nginx.svg)](https://supermarket.chef.io/cookbooks/nginx)
 
-Installs nginx from package OR source code and sets up configuration handling similar to Debian's Apache2 scripts.
+Installs nginx from package and sets up configuration handling similar to Debian's Apache2 scripts.
 
 ## Requirements
 
@@ -10,7 +10,6 @@ Installs nginx from package OR source code and sets up configuration handling si
 
 The following cookbooks are direct dependencies because they're used for common "default" functionality.
 
-- `build-essential` for source installations
 - `ohai` for setting up the ohai plugin
 - `yum-epel` for setting up the EPEL repository on RHEL platforms
 - `zypper` for setting up the nginx.org repository on Suse platforms
@@ -101,15 +100,13 @@ Generally used attributes. Some have platform specific values. See `attributes/d
 
 ### nginx::ohai_plugin
 
-The `ohai_plugin` recipe includes an Ohai plugin. It will be automatically installed and activated, providing the following attributes via ohai, no matter how nginx is installed (source or package):
+The `ohai_plugin` recipe includes an Ohai plugin. It will be automatically installed and activated, providing the following attributes via ohai, no matter how nginx is installed:
 
 - `node['nginx']['version']` - version of nginx
 - `node['nginx']['configure_arguments']` - options passed to `./configure` when nginx was built
 - `node['nginx']['prefix']` - installation prefix
 - `node['nginx']['conf_path']` - configuration file path
 - `node['nginx']['ohai_plugin_enabled']` - Toggles ohai_plugin recipe. Defaults to true.
-
-In the source recipe, it is used to determine whether control attributes for building nginx have changed.
 
 ### nginx::passenger
 
@@ -148,17 +145,6 @@ Basic configuration to use the official Phusion Passenger repositories:
 - `node['nginx']['upstream_repository']` - the URL to use for the package repository resource; default is set based on platform type
 - `node['nginx']['repo_signing_key']` - The URL from which package signing/gpg key is retrieved
 
-### nginx::source
-
-These attributes are used in the `nginx::source` recipe. Some of them are dynamically modified during the run. See `attributes/source.rb` for default values.
-
-- `node['nginx']['source']['url']` - (versioned) URL for the nginx source code. By default this will use the version specified as `node['nginx']['version']`.
-- `node['nginx']['source']['prefix']` - (versioned) prefix for installing nginx from source
-- `node['nginx']['source']['conf_path']` - location of the main config file, in `node['nginx']['dir']` by default.
-- `node['nginx']['source']['default_configure_flags']` - The default flags passed to the configure script when building nginx.
-- `node['nginx']['configure_flags']` - Preserved for compatibility and dynamically generated from the `node['nginx']['source']['default_configure_flags']` in the `nginx::source` recipe.
-- `node['nginx']['source']['use_existing_user']` - set to `true` if you do not want `nginx::source` recipe to create system user with name `node['nginx']['user']` and `node['nginx']['user_home']`.
-
 ## Resources
 
 - [nginx_install](https://github.com/sous-chefs/nginx/blob/master/documentation/resources/install.md)
@@ -184,16 +170,6 @@ Nginx provides repositories for RHEL, Debian/Ubuntu, and Suse platforms with up 
 ### Package installation using distro repositories
 
 If you prefer to use the packages included in your distro or to roll your own packages you'll want to set `node['nginx']['repo_source']` to `nil` or `distro` to skip the repository setup. The default recipe will still install nginx from packages, but you'll retain control over the package location.
-
-### Source installation to compile non-dynamic modules
-
-If you need control over how nginx is built, or you need non-dynamic modules to be included you'll need to compile nginx from source. We highly recommend against using this method as it requires the installation of a full compilation toolchain and development dependencies on your nodes. Creating your own packages with nginx compiled as necessary is a preferred option. If that's not possible you can set `node['nginx']['install_method']` to `source` and provide a version in `node['nginx']['version']`.
-
-#### Specifying Modules to compile
-
-The following recipes are used to build module support into nginx. To compile a module, add its recipe name to the array attribute `node['nginx']['source']['modules']`.
-
-- `passenger` - builds the passenger gem and configuration for "`mod_passenger`".
 
 ## License
 

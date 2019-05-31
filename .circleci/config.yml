@@ -116,39 +116,3 @@ workflows:
           suite: passenger-ubuntu-1804
           requires:
             *lint_and_unit
-
-      - kitchen/dokken-single:
-          name: source-debian-8
-          suite: source-debian-8
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: source-debian-9
-          suite: source-debian-9
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: source-centos-7
-          suite: source-centos-7
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: source-ubuntu-1604
-          suite: source-ubuntu-1604
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: source-ubuntu-1604
-          suite: source-ubuntu-1604
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: source-ubuntu-1804
-          suite: source-ubuntu-1804
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: source-amazonlinux-2
-          suite: source-amazonlinux-2
-          requires:
-            *lint_and_unit
