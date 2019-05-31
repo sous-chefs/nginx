@@ -25,6 +25,9 @@ This file is used to list changes made in each version of the nginx cookbook.
 - Drop support for openSUSE Leap 42 and add support for openSUSE Leap 15
 - Drop support for Fedora
 - Cookbook now requires Chef >= 14
+- Remove source install
+- Remove modules
+- Update circleci sous-chefs orb to version 2
 
 ## 9.0.0 (2018-11-13)
 
