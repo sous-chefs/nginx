@@ -23,30 +23,18 @@ platforms:
   - name: ubuntu-18.04
 
 suites:
-  - name: distro_packages
+  - name: distro
     run_list:
-      - recipe[test::distro_packages]
+      - recipe[test::distro]
     excludes:  # these all lack distro packages
       - centos-6
       - centos-7
-  - name: source
-    run_list:
-      - recipe[test::source]
   - name: epel
     run_list:
       - recipe[test::epel]
     includes:
       - centos-6
       - centos-7
-  - name: source
-    run_list:
-      - recipe[test::source]
-  - name: upstream_repo
-    run_list:
-      - recipe[test::upstream_repo]
-  - name: modules
-    run_list:
-      - recipe[test::modules]
   - name: passenger
     run_list:
       - recipe[test::passenger_packages]
@@ -54,6 +42,3 @@ suites:
       - opensuse-leap-42
       - centos-6
       - centos-7
-  - name: stream
-    run_list:
-      - recipe[test::stream]
