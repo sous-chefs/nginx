@@ -8,7 +8,7 @@ lint_and_unit: &lint_and_unit
 version: 2.1
 
 orbs:
-  kitchen: sous-chefs/kitchen@1.1.0
+  kitchen: sous-chefs/kitchen@2.0.2
 
 workflows:
   kitchen:
