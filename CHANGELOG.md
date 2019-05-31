@@ -12,6 +12,7 @@ This file is used to list changes made in each version of the nginx cookbook.
 - Move spec/libraries to spec/unit/libraries
 - Bump ohai dependency to ~> 5.2
 - Create nginx_install custom resource with source properties distro, repo and epel
+- Create nginx_config custom resource
 
 ## Unreleased
 
