@@ -106,7 +106,7 @@ Enable or disable a Server Block in `#{node['nginx']['dir']}/sites-available` by
 
 ## Adding New Modules
 
-Previously we'd add each possible module to this cookbook itself. That's not necessary using wrapper cookbooks and we'd prefer to not add any addition module recipes at this time. Instead in your nginx wrapper cookbook setup any necessary packages and then include the follow code to add the module to the list of modules to compile:
+Previously we'd add each possible module to this cookbook itself. That's not necessary using wrapper cookbooks and we'd prefer to not add any addition module recipes at this time. Instead in your nginx wrapper cookbook set up any necessary packages and then include the follow code to add the module to the list of modules to compile:
 
 ```ruby
 node.run_state['nginx_configure_flags'] =
