@@ -14,6 +14,23 @@ property :variables, Hash,
          default: {}
 
 action :enable do
+  # install `nxensite` before calling it
+  %w(
+   nxensite
+   nxdissite
+   nxenstream
+   nxdisstream
+ ).each do |nxscript|
+   template ::File.join('/usr/sbin', nxscript) do
+     cookbook 'nginx'
+     source   "#{nxscript}.erb"
+     mode     '0755'
+     variables(
+       lazy { { nginx_dir: "#{node['nginx']['dir']}" } }
+     )
+   end
+end
+         
   if new_resource.template
     template ::File.join(nginx_dir, "/sites-available/#{new_resource.site_name}") do
       cookbook new_resource.cookbook
