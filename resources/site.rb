@@ -19,9 +19,7 @@ action :enable do
       cookbook new_resource.cookbook
       source   new_resource.template
       notifies :reload, 'service[nginx]'
-      variables(
-        new_resource.variables
-      )
+      variables(new_resource.variables)
     end
   end
 
