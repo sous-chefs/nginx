@@ -28,6 +28,7 @@ This file is used to list changes made in each version of the nginx cookbook.
 - Remove source install
 - Remove modules
 - Update circleci sous-chefs orb to version 2
+- Remove unused file from the repository
 
 ## 9.0.0 (2018-11-13)
 
