@@ -4,31 +4,31 @@ This file is used to list changes made in each version of the nginx cookbook.
 
 ## Unreleased
 
-- Add CircleCI testing
-- Ensure systemd unit file is reloaded (specifically for upgrade or downgrade) source complile install method.
-- Ensure apt-transport-https package is installed on Debian/Ubuntu for apt_repository resource
-- http_realip_module: Move inline attributes out so that they can be overridden in the environment.
-- Add support to deactivate anonymous telemetry reporting when using Passenger.
-- compiling nginx from source triggers systemd to reload services to avoid systemd run 'systemctl daemon-reload' related errors
-- Update kitchen to use chef solo
-- Support only OS with systemd
-- Drop support for Amazon Linux, CentOS 6
-- Add support for Amazon Linux 2
-- Remove community_cookbook_releaser gem
-- Move spec/libraries to spec/unit/libraries
-- Bump ohai dependency to ~> 5.2
-- Create nginx_install custom resource with source properties distro, repo, epel and passenger
-- Create nginx_config custom resource
-- Update nginx_site resource
-- Update default-site.erb template
-- Default recipe calls nginx_install resource
-- Drop support for openSUSE Leap 42 and add support for openSUSE Leap 15
-- Drop support for Fedora
-- Cookbook now requires Chef >= 14
-- Remove source install
-- Remove modules
-- Update circleci sous-chefs orb to version 2
-- Remove unused file from the repository
+## 10.0.0 (2019-08-04)
+
+- *Breaking Change:* Remove all attributes
+- *Breaking Change:* Remove all recipes
+- *Breaking Change:* Remove source install
+- *Breaking Change:* Remove modules
+- *Breaking Change:* Remove community_cookbook_releaser gem
+- *Breaking Change:* Support only Operating Systems with systemd
+  - Remove support for Fedora, Amazon Linux, CentOS 6, openSUSE Leap 42
+- *Breaking Change:* Cookbook now requires Chef >= 14
+- Feature: Add resources for all recipes
+- Feature: Add nginx_install custom resource with source properties distro, repo, epel and passenger
+- Feature: Add nginx_config custom resource
+- Feature: Add support for openSUSE Leap 15
+- Feature: Add support for Amazon Linux 2
+- Feature: Add support to deactivate anonymous telemetry reporting when using Passenger.
+- Bug Fix: Ensure systemd unit file is reloaded (specifically for upgrade or downgrade) source complile install method.
+- Bug Fix: Ensure apt-transport-https package is installed on Debian/Ubuntu for apt_repository resource
+- Bug Fix: compiling nginx from source triggers systemd to reload services to avoid systemd run 'systemctl daemon-reload' related errors
+- Maintenance: Move spec/libraries to spec/unit/libraries
+- Maintenance: Bump ohai dependency to ~> 5.2
+- CI: Update kitchen to use chef solo
+- CI: Add CircleCI testing
+- CI: Update circleci sous-chefs orb to version 2
+- Tidy: Remove unused files from the repository
 
 ## 9.0.0 (2018-11-13)
 
