@@ -46,6 +46,36 @@ Other Debian and RHEL family distributions are assumed to work.
 
 This cookbook provides three distinct installation methods, all of which are controlled via attributes and executed using the nginx::default recipe.
 
+
+## Usage Note
+
+It is recommended to create a project or organization specific [wrapper cookbook](https://www.chef.io/blog/2013/12/03/doing-wrapper-cookbooks-right/) and add the desired custom resources to the run list of a node. Depending on your environment, you may have multiple roles that use different recipes from this cookbook. Adjust any attributes as desired.
+
+```ruby
+# service['nginx'] is defined in the nginx_install resource but other resources are currently unable to reference it.  To work around this issue, define the following helper in your cookbook:
+service 'nginx' do
+  extend Nginx::Cookbook::Helpers
+  supports restart: true, status: true, reload: true
+  action :nothing
+end
+
+nginx_install 'distro'
+
+siteconfig = { 'port': 80,
+               'server_name': 'test_site',
+               'default_root': '/var/www/test_site',
+               'nginx_log_dir': '/var/log/nginx',
+}
+nginx_site 'test_site' do
+  site_name 'test_site'
+  template 'custom-nginx-site-template.erb'
+  cookbook 'my-wrapper-cookbook'
+  variables siteconfig
+  action :enable
+end
+```
+
+
 ### Package installation using the nginx.org repositories
 
 Nginx provides repositories for RHEL, Debian/Ubuntu, and Suse platforms with up to date packages available on older distributions. Due to the age of many nginx packages shipping with distros we believe this is the ideal installation method. With no attributes set the nginx.org repositories will be added to your system and nginx will be installed via package. This provides a solid out of the box install for most users.
