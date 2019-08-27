@@ -46,7 +46,6 @@ Other Debian and RHEL family distributions are assumed to work.
 
 This cookbook provides three distinct installation methods, all of which are controlled via attributes and executed using the nginx::default recipe.
 
-
 ## Usage Note
 
 It is recommended to create a project or organization specific [wrapper cookbook](https://www.chef.io/blog/2013/12/03/doing-wrapper-cookbooks-right/) and add the desired custom resources to the run list of a node. Depending on your environment, you may have multiple roles that use different recipes from this cookbook. Adjust any attributes as desired.
@@ -74,7 +73,6 @@ nginx_site 'test_site' do
   action :enable
 end
 ```
-
 
 ### Package installation using the nginx.org repositories
 
