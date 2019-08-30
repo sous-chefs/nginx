@@ -12,6 +12,7 @@ depends  'ohai', '~> 5.2'
 
 supports 'amazon'
 supports 'centos'
+supports 'fedora'
 supports 'debian'
 supports 'oracle'
 supports 'redhat'
