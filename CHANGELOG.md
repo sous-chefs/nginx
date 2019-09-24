@@ -4,6 +4,10 @@ This file is used to list changes made in each version of the nginx cookbook.
 
 ## Unreleased
 
+## 10.0.2 (2019-09-24)
+
+- Bug Fix: Missing service resource in `nginx_site` resource. [Issue #505](https://github.com/sous-chefs/nginx/issues/505))
+
 ## 10.0.1 (2019-08-04)
 
 - Maintenance: Add contributing.md file for cookbook health metrics
