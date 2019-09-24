@@ -32,7 +32,7 @@ action :enable do
 
   service 'nginx' do
     supports status: true, restart: true, reload: true
-    action   [:start, :enable]
+    action   :nothing
   end
 end
 
@@ -55,6 +55,6 @@ action :disable do
 
   service 'nginx' do
     supports status: true, restart: true, reload: true
-    action   [:start, :enable]
+    action   :nothing
   end
 end
