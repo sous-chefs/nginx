@@ -12,8 +12,7 @@ describe 'nginx_site' do
   shared_examples_for 'enable default site' do
     it { is_expected.to run_execute('nxensite default') }
     it { expect(chef_run.execute('nxensite default')).to notify('service[nginx]').to(:reload).delayed }
-    it { is_expected.to enable_service('nginx') }
-    it { is_expected.to start_service('nginx') }
+    it { is_expected.to reload_service('nginx') }
   end
 
   context 'with default properties' do
@@ -54,7 +53,6 @@ describe 'nginx_site' do
 
     it { is_expected.to run_execute('nxdissite default') }
     it { expect(chef_run.execute('nxdissite default')).to notify('service[nginx]').to(:reload).delayed }
-    it { is_expected.to enable_service('nginx') }
-    it { is_expected.to start_service('nginx') }
+    it { is_expected.to reload_service('nginx') }
   end
 end
