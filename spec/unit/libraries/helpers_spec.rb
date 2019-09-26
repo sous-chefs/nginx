@@ -181,13 +181,13 @@ RSpec.describe Nginx::Cookbook::Helpers do
         context 'with version 8' do
           let(:platform_version) { '8' }
 
-          it { expect(subject.passenger_packages).to eq ['ruby-dev', 'libcurl4-gnutls-dev', 'passenger'] }
+          it { expect(subject.passenger_packages).to eq %w(ruby-dev libcurl4-gnutls-dev passenger) }
         end
 
         context 'with version 9' do
           let(:platform_version) { '9' }
 
-          it { expect(subject.passenger_packages).to eq ['ruby-dev', 'libcurl4-gnutls-dev', 'libnginx-mod-http-passenger'] }
+          it { expect(subject.passenger_packages).to eq %w(ruby-dev libcurl4-gnutls-dev libnginx-mod-http-passenger) }
         end
       end
 
@@ -197,13 +197,13 @@ RSpec.describe Nginx::Cookbook::Helpers do
         context 'with version 16.04' do
           let(:platform_version) { '16.04' }
 
-          it { expect(subject.passenger_packages).to eq ['ruby-dev', 'libcurl4-gnutls-dev', 'passenger'] }
+          it { expect(subject.passenger_packages).to eq %w(ruby-dev libcurl4-gnutls-dev passenger) }
         end
 
         context 'with version 18.04' do
           let(:platform_version) { '18.04' }
 
-          it { expect(subject.passenger_packages).to eq ['ruby-dev', 'libcurl4-gnutls-dev', 'libnginx-mod-http-passenger'] }
+          it { expect(subject.passenger_packages).to eq %w(ruby-dev libcurl4-gnutls-dev libnginx-mod-http-passenger) }
         end
       end
     end

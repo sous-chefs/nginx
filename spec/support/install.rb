@@ -17,7 +17,16 @@ def repo_signing_key
   'https://nginx.org/keys/nginx_signing.key'
 end
 
-def platform_distribution
+def platform_distribution_nginx
+  case chefspec_platform
+  when 'debian'
+    'buster'
+  when 'ubuntu'
+    'bionic'
+  end
+end
+
+def platform_distribution_passenger
   case chefspec_platform
   when 'debian'
     'stretch'
