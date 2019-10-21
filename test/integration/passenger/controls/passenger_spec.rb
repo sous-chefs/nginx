@@ -6,10 +6,10 @@ control 'passenger' do
     it { should be_installed }
   end
 
-  describe apt('https://oss-binaries.phusionpassenger.com/apt/passenger') do
-    it { should exist }
-    it { should be_enabled }
-  end
+  # describe apt('https://oss-binaries.phusionpassenger.com/apt/passenger') do
+  #   it { should exist }
+  #   it { should be_enabled }
+  # end
 
   if os.debian? && (os[:name ] == 'debian' && os[:release].to_i < 9) || (os[:name] == 'ubuntu' && os[:release].to_f < 18.04)
     describe package('nginx-extras') do
