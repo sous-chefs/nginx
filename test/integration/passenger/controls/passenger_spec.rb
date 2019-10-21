@@ -17,9 +17,9 @@ control 'passenger' do
     end
   end
 
-  describe gem('rake') do
-    it { should be_installed }
-  end
+  # describe gem('rake') do
+  #   it { should be_installed }
+  # end
 
   describe package('passenger') do
     it { should be_installed }
