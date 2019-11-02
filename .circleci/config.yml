@@ -1,19 +1,23 @@
 ---
+jobs:
+  final:
+    docker:
+      - image: bash:latest
+    steps:
+      - run:
+          name: Finish cooking
+          command: echo "Finished cooking"
 lint_and_unit: &lint_and_unit
   - delivery
   - danger
   - lint-yaml
   - lint-markdown
-
 version: 2.1
-
 orbs:
   kitchen: sous-chefs/kitchen@2
-
 workflows:
   kitchen:
     jobs:
-      # Lint and Unit Test
       - kitchen/yamllint:
           name: lint-yaml
       - kitchen/mdlint:
@@ -23,59 +27,60 @@ workflows:
           context: Danger
       - kitchen/delivery:
           name: delivery
-
       - kitchen/dokken-single:
           name: distro-amazonlinux-2
           suite: distro-amazonlinux-2
-          requires:
-            *lint_and_unit
+          requires: *lint_and_unit
       - kitchen/dokken-single:
           name: distro-debian-8
           suite: distro-debian-8
-          requires:
-            *lint_and_unit
+          requires: *lint_and_unit
       - kitchen/dokken-single:
           name: distro-debian-9
           suite: distro-debian-9
-          requires:
-            *lint_and_unit
+          requires: *lint_and_unit
       - kitchen/dokken-single:
           name: distro-ubuntu-1604
           suite: distro-ubuntu-1604
-          requires:
-            *lint_and_unit
+          requires: *lint_and_unit
       - kitchen/dokken-single:
           name: distro-ubuntu-1804
           suite: distro-ubuntu-1804
-          requires:
-            *lint_and_unit
+          requires: *lint_and_unit
       - kitchen/dokken-single:
           name: distro-opensuse-leap-42
           suite: distro-opensuse-leap-42
-          requires:
-            *lint_and_unit
+          requires: *lint_and_unit
       - kitchen/dokken-single:
           name: epel-centos-7
           suite: epel-centos-7
-          requires:
-            *lint_and_unit
+          requires: *lint_and_unit
       - kitchen/dokken-single:
           name: passenger-debian-8
           suite: passenger-debian-8
-          requires:
-            *lint_and_unit
+          requires: *lint_and_unit
       - kitchen/dokken-single:
           name: passenger-debian-9
           suite: passenger-debian-9
-          requires:
-            *lint_and_unit
+          requires: *lint_and_unit
       - kitchen/dokken-single:
           name: passenger-ubuntu-1604
           suite: passenger-ubuntu-1604
-          requires:
-            *lint_and_unit
+          requires: *lint_and_unit
       - kitchen/dokken-single:
           name: passenger-ubuntu-1804
           suite: passenger-ubuntu-1804
+          requires: *lint_and_unit
+      - final:
           requires:
-            *lint_and_unit
+            - distro-amazonlinux-2
+            - distro-debian-8
+            - distro-debian-9
+            - distro-ubuntu-1604
+            - distro-ubuntu-1804
+            - distro-opensuse-leap-42
+            - epel-centos-7
+            - passenger-debian-8
+            - passenger-debian-9
+            - passenger-ubuntu-1604
+            - passenger-ubuntu-1804
