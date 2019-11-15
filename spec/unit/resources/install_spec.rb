@@ -137,7 +137,7 @@ describe 'nginx_install' do
         it do
           is_expected.to add_apt_repository('nginx')
             .with_uri(repo_url)
-            .with_distribution(platform_distribution)
+            .with_distribution(platform_distribution_nginx)
             .with_components(%w(nginx))
             .with_deb_src(true)
             .with_key([repo_signing_key])
@@ -252,7 +252,7 @@ describe 'nginx_install' do
         it do
           is_expected.to add_apt_repository('phusionpassenger')
             .with_uri('https://oss-binaries.phusionpassenger.com/apt/passenger')
-            .with_distribution(platform_distribution)
+            .with_distribution(platform_distribution_passenger)
             .with_components(%w(main))
             .with_deb_src(true)
             .with_keyserver('keyserver.ubuntu.com')

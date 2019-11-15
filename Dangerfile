@@ -25,13 +25,13 @@ def test_changes?
   false
 end
 
-fail 'Please provide a summary of your Pull Request.' if github.pr_body.length < 10
+failure 'Please provide a summary of your Pull Request.' if github.pr_body.length < 10
 
 warn 'This is a big Pull Request.' if git.lines_of_code > 400
 
 # Require a CHANGELOG entry for non-test changes.
 if !git.modified_files.include?('CHANGELOG.md') && code_changes?
-  fail 'Please include a CHANGELOG entry.'
+  failure 'Please include a CHANGELOG entry.'
 end
 
 # A sanity check for tests.

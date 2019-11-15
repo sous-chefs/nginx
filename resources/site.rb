@@ -29,6 +29,11 @@ action :enable do
     not_if   { site_enabled?(new_resource.site_name) }
     only_if  { site_available?(new_resource.site_name) }
   end
+
+  service 'nginx' do
+    supports status: true, restart: true, reload: true
+    action   :nothing
+  end
 end
 
 action :disable do
@@ -46,5 +51,10 @@ action :disable do
       user 'root'
       notifies :reload, 'service[nginx]'
     end
+  end
+
+  service 'nginx' do
+    supports status: true, restart: true, reload: true
+    action   :nothing
   end
 end
