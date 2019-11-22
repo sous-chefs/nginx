@@ -27,7 +27,7 @@ The following platforms are supported and tested with Test Kitchen:
 - Amazon Linux 2
 - CentOS 7
 - Debian 8+
-- openSUSE Leap 15
+- openSuSE Leap 15
 - Ubuntu 16.04+
 
 Other Debian and RHEL family distributions are assumed to work.
@@ -44,74 +44,57 @@ Other Debian and RHEL family distributions are assumed to work.
 
 ## Usage
 
-This cookbook provides three distinct installation methods, all of which are controlled via attributes and executed using the nginx::default recipe.
-
-### Package installation using the nginx.org repositories
-
-Nginx provides repositories for RHEL, Debian/Ubuntu, and Suse platforms with up to date packages available on older distributions. Due to the age of many nginx packages shipping with distros we believe this is the ideal installation method. With no attributes set the nginx.org repositories will be added to your system and nginx will be installed via package. This provides a solid out of the box install for most users.
-
-### Package installation using distro repositories
-
-If you prefer to use the packages included in your distro or to roll your own packages you'll want to set `node['nginx']['repo_source']` to `nil` or `distro` to skip the repository setup. The default recipe will still install nginx from packages, but you'll retain control over the package location.
-
-### Source installation to compile non-dynamic modules
-
-If you need control over how nginx is built, or you need non-dynamic modules to be included you'll need to compile nginx from source. We highly recommend against using this method as it requires t  he installation of a full compilation toolchain and development dependencies on your nodes. Creating your own packages with nginx compiled as necessary is a preferred option. If that's not possible you can set `node['nginx']['install_method']` to `source` and provide a version in `node['nginx']['version']`.
-
-#### Specifying Modules to compile
-
-The following recipes are used to build module support into nginx. To compile a module, add its recipe name to the array attribute `node['nginx']['source']['modules']`.
-
-- `ipv6.rb` - enables IPv6 support
-- `headers_more_module` -
-- `http_auth_request_module``
-- `http_echo_module.rb` - downloads the `http_echo_module` module and enables it as a module when compiling nginx.
-- `http_geoip_module.rb` - installs the GeoIP libraries and data files and enables the module for compilation.
-- `http_gzip_static_module.rb` - enables the module for compilation. Be sure to set `node['nginx']['gzip_static'] = 'yes'`.
-- `http_mp4_module` -
-- `http_perl_module.rb` - enables embedded Perl for compilation.
-- `http_realip_module.rb` - enables the module for compilation and creates the configuration.
-- `http_spdy_module` -
-- `http_ssl_module.rb` - enables SSL for compilation.
-- `http_stub_status_module.rb` - provides `nginx_status` configuration and enables the module for compilation.
-- `http_v2_module`
-- `ipv6` -
-- `naxsi_module` - enables the naxsi module for the web application firewall for nginx.
-- `ngx_devel_module` -
-- `ngx_lua_module` -
-- `openssl_source.rb` - downloads and uses custom OpenSSL source when compiling nginx
-- `pagespeed_module`-
-- `passenger` - builds the passenger gem and configuration for "`mod_passenger`".
-- `set_misc` -
-- `syslog_module` - enables syslog support for nginx. This only works with source builds. See <https://github.com/yaoweibin/nginx_syslog_patch> -
-- `upload_progress_module.rb` - builds the `upload_progress` module and enables it as a module when compiling nginx.
+This cookbook is now resource-based. Use the resources described below in your recipes.
 
 ## Resources
 
-### nginx_site
+### nginx_install
 
-Enable or disable a Server Block in `#{node['nginx']['dir']}/sites-available` by calling nxensite or nxdissite (introduced by this cookbook) to manage the symbolic link in `#{node['nginx']['dir']}/sites-enabled`.
+The `install` resource in this cookbook provides four methods for installing nginx via the `source` property, `distro`, `repo`, `epel`, `passenger`.
 
-### Actions
+### Package installation using distro repositories
 
-- `enable` - Enable the nginx site (default)
-- `disable` - Disable the nginx site
-
-### Properties
-
-- `name` - (optional) Name of the site to enable. By default it's assumed that the name of the nginx_site resource is the site name, but this allows overriding that.
-- `template` - (optional) Path to the source for the `template` resource.
-- `cookbook` - (optional) The cookbook that contains the template source.
-- `variables` - (optional) Variables to be used with the `template` resource
-
-## Adding New Modules
-
-Previously we'd add each possible module to this cookbook itself. That's not necessary using wrapper cookbooks and we'd prefer to not add any addition module recipes at this time. Instead in your nginx wrapper cookbook set up any necessary packages and then include the follow code to add the module to the list of modules to compile:
-
-```ruby
-node.run_state['nginx_configure_flags'] =
-  node.run_state['nginx_configure_flags'] | ['--with-SOMETHING', "--with-SOME_OPT='things'"]
+If you prefer to use the packages included in your distro or to roll your own packages you'll want to use `distro` as the `source` of your install to skip setting up additional repositories. This will give you control over the package locations, as the install will default to what repos are already set up on your node.
 ```
+nginx_install 'MySite' do
+  source 'distro'
+end
+```
+
+Note: if your distro has no candidate version of nginx available, this resource will fail.
+
+### Package installation using the nginx.org repositories
+
+Nginx provides repositories for RHEL, Debian/Ubuntu, and SuSE platforms with up to date packages available on older distributions. Due to the age of many nginx packages shipping with distros we believe this is the ideal installation method. With no attributes set the nginx.org repositories will be added to your system and nginx will be installed via package. This provides a solid out of the box install for most users.
+```
+nginx_install 'MySite' do
+  source 'repo'
+end
+```
+
+### Package installation using EPEL
+
+The Extra Packages for Enterprise Linux repositories provide nginx packages for RPM-based Linux systems. These are packaged differently from the nginx packages in the nginx repo, but may be suitable for your needs. Using the `epel` source will configure your `yum` for the `epel` and `epel-testing` repos, and install nginx packages from that origin.
+```
+nginx_install 'MySite' do
+  source 'epel'
+end
+```
+
+For more information about EPEL, see the [EPEL website](https://fedoraproject.org/wiki/EPEL). 
+
+### Package installation for nginx with Passenger
+
+To install nginx with Phusion Passenger runtime support, use the `passenger` source. **NOTE** This cookbook only supports installing Passenger on Debian/Ubuntu systems. To install Passenger on other systems, please refer to the [Passenger website](https://www.phusionpassenger.com). 
+
+``` 
+nginx_install 'MySite' do
+  source 'passenger'
+end
+```
+
+### Additional documentation
+The `nginx_install`, `nginx_site`, and `nginx_config` resources have their own documentation in the `documentation/resources` directory of this cookbook. 
 
 ## Contributors
 
