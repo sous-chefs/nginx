@@ -93,8 +93,12 @@ nginx_install 'MySite' do
 end
 ```
 
-### Additional documentation
-The `nginx_install`, `nginx_site`, and `nginx_config` resources have their own documentation in the [`documentation/resources`](documentation/resources) directory of this cookbook. 
+### Additional documentation for Resources
+Each resource has its own documentation in the [`documentation/resources`](documentation/resources) directory of this cookbook:
+
+- [install](documentation/resources/install.md)
+- [site](documentation/resources/site.md)
+- [config](documentation/resources/config.md)
 
 ## Contributors
 
