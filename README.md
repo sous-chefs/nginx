@@ -44,61 +44,7 @@ Other Debian and RHEL family distributions are assumed to work.
 
 ## Usage
 
-This cookbook is now resource-based. Use the resources described below in your recipes.
-
-## Resources
-
-### nginx_install
-
-The `install` resource in this cookbook provides four methods for installing nginx via the `source` property, `distro`, `repo`, `epel`, `passenger`.
-
-### Package installation using distro repositories
-
-If you prefer to use the packages included in your distro or to roll your own packages you'll want to use `distro` as the `source` of your install to skip setting up additional repositories. This will give you control over the package locations, as the install will default to what repos are already set up on your node.
-```
-nginx_install 'MySite' do
-  source 'distro'
-end
-```
-
-Note: if your distro has no candidate version of nginx available, this resource will fail.
-
-### Package installation using the nginx.org repositories
-
-Nginx provides repositories for RHEL, Debian/Ubuntu, and SuSE platforms with up to date packages available on older distributions. Due to the age of many nginx packages shipping with distros we believe this is the ideal installation method. With no attributes set the nginx.org repositories will be added to your system and nginx will be installed via package. This provides a solid out of the box install for most users.
-```
-nginx_install 'MySite' do
-  source 'repo'
-end
-```
-
-### Package installation using EPEL
-
-The Extra Packages for Enterprise Linux repositories provide nginx packages for RPM-based Linux systems. These are packaged differently from the nginx packages in the nginx repo, but may be suitable for your needs. Using the `epel` source will configure your `yum` for the `epel` and `epel-testing` repos, and install nginx packages from that origin.
-```
-nginx_install 'MySite' do
-  source 'epel'
-end
-```
-
-For more information about EPEL, see the [EPEL website](https://fedoraproject.org/wiki/EPEL). 
-
-### Package installation for nginx with Passenger
-
-To install nginx with Phusion Passenger runtime support, use the `passenger` source. **NOTE** This cookbook only supports installing Passenger on Debian/Ubuntu systems. To install Passenger on other systems, please refer to the [Passenger website](https://www.phusionpassenger.com). 
-
-``` 
-nginx_install 'MySite' do
-  source 'passenger'
-end
-```
-
-### Additional documentation for Resources
-Each resource has its own documentation in the [`documentation/resources`](documentation/resources) directory of this cookbook:
-
-- [install](documentation/resources/install.md)
-- [site](documentation/resources/site.md)
-- [config](documentation/resources/config.md)
+This cookbook is now resource-based. Use the resources described above in wrapper cookbooks or recipes.
 
 ## Contributors
 
