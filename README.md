@@ -94,7 +94,7 @@ end
 ```
 
 ### Additional documentation
-The `nginx_install`, `nginx_site`, and `nginx_config` resources have their own documentation in the `documentation/resources` directory of this cookbook. 
+The `nginx_install`, `nginx_site`, and `nginx_config` resources have their own documentation in the [`documentation/resources`](documentation/resources) directory of this cookbook. 
 
 ## Contributors
 
