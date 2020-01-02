@@ -5,6 +5,7 @@ This file is used to list changes made in each version of the nginx cookbook.
 ## Unreleased
 
 - Install packages we need for https passenger repos before we set them up
+- Remove redundant apt_repository distribution logic
 
 ## 10.0.2 (2019-09-24)
 

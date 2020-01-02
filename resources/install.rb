@@ -182,7 +182,6 @@ action :install do
     when 'debian'
       apt_repository 'nginx' do
         uri          repo_url
-        distribution node['lsb']['codename']
         components   %w(nginx)
         deb_src      true
         key          repo_signing_key
@@ -219,7 +218,6 @@ action :install do
 
       apt_repository 'phusionpassenger' do
         uri 'https://oss-binaries.phusionpassenger.com/apt/passenger'
-        distribution node['lsb']['codename']
         components %w(main)
         deb_src true
         keyserver 'keyserver.ubuntu.com'
