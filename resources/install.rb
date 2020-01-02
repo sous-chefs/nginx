@@ -213,6 +213,10 @@ action :install do
     end
   when 'passenger'
     if platform_family?('debian')
+      apt_update 'update'
+
+      package %w(apt-transport-https ca-certificates)
+
       apt_repository 'phusionpassenger' do
         uri 'https://oss-binaries.phusionpassenger.com/apt/passenger'
         distribution node['lsb']['codename']
@@ -221,9 +225,6 @@ action :install do
         keyserver 'keyserver.ubuntu.com'
         key '561F9B9CAC40B2F7'
       end
-
-      package %w(apt-transport-https ca-certificates)
-      apt_update 'update'
     else
       log 'nginx_install `source` property set to passenger, but not running on a Debian based platform so skipping passenger setup' do
         level :warn
