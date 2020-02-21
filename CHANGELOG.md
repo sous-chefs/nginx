@@ -15,6 +15,7 @@ This file is used to list changes made in each version of the nginx cookbook.
 ## 10.0.1 (2019-08-04)
 
 - Maintenance: Add contributing.md file for cookbook health metrics
+- Feature: Add support for Fedora
 
 ## 10.0.0 (2019-08-04)
 

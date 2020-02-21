@@ -18,6 +18,7 @@ platforms:
   - name: centos-7
   - name: debian-8
   - name: debian-9
+  - name: fedora-31
   - name: opensuse-leap-42
   - name: ubuntu-16.04
   - name: ubuntu-18.04
@@ -29,6 +30,9 @@ suites:
     excludes:  # these all lack distro packages
       - centos-6
       - centos-7
+  - name: repo
+    run_list:
+      - recipe[test::repo]
   - name: epel
     run_list:
       - recipe[test::epel]
@@ -43,3 +47,4 @@ suites:
       - centos-6
       - centos-7
       - amazonlinux-2
+      - fedora-30

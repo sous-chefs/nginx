@@ -45,6 +45,7 @@ jobs:
           - 'ubuntu-1604'
           - 'ubuntu-1804'
           - 'centos-7'
+          - 'fedora-31'
         suite:
           - 'distro'
           - 'epel'
