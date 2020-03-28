@@ -7,4 +7,4 @@ workflows:
     jobs:
       - kitchen/danger:
           name: danger
-          context: Danger-XorimaBot
+          context: Danger-Minimal
