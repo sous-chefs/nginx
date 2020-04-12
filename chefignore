@@ -55,18 +55,12 @@ examples/*
 Guardfile
 Procfile
 .kitchen*
-kitchen*
-*.yml
-.circleci/*.yml
-.delivery/project.toml
-.github/*
-documentation/*
+.rubocop.yml
 spec/*
 Rakefile
+.travis.yml
 .foodcritic
-.mdlrc
-Dangerfile
-
+.codeclimate.yml
 
 # SCM #
 #######
@@ -99,3 +93,14 @@ CONTRIBUTING*
 CHANGELOG*
 TESTING*
 
+# Strainer #
+############
+Colanderfile
+Strainerfile
+.colander
+.strainer
+
+# Vagrant #
+###########
+.vagrant
+Vagrantfile

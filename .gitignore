@@ -9,7 +9,7 @@ spec/reports
 test/tmp
 test/version_tmp
 tmp
-*_Store
+_Store
 *~
 *#
 .#*
@@ -37,11 +37,13 @@ doc/
 # chef stuff
 Berksfile.lock
 .kitchen
-kitchen.local.yml
+.kitchen.local.yml
 vendor/
 .coverage/
 .zero-knife.rb
 Policyfile.lock.json
+Cheffile.lock
+.librarian/
 
 # vagrant stuff
 .vagrant/
