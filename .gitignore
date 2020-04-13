@@ -9,7 +9,7 @@ spec/reports
 test/tmp
 test/version_tmp
 tmp
-*_Store
+_Store
 *~
 *#
 .#*
@@ -46,4 +46,3 @@ Policyfile.lock.json
 # vagrant stuff
 .vagrant/
 .vagrant.d/
-.kitchen/
