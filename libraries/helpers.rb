@@ -105,5 +105,5 @@ module Nginx
   end
 end
 
-Chef::Provider.send(:include, Nginx::Cookbook::Helpers)
-Chef::Resource.send(:include, Nginx::Cookbook::Helpers)
+Chef::Provider.include Nginx::Cookbook::Helpers
+Chef::Resource.include Nginx::Cookbook::Helpers
