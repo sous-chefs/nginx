@@ -4,8 +4,11 @@ This file is used to list changes made in each version of the nginx cookbook.
 
 ## Unreleased
 
+- Remove CentOS 6 from the test matrix
+- Update testing platforms
+- Fix markdown for the install resource
 - Install packages we need for https passenger repos before we set them up
-- Remove redundant apt_repository distribution logic
+- Remove redundant `apt_repository` distribution logic
 - Migrate to actions
 
 ## 10.0.2 (2019-09-24)
