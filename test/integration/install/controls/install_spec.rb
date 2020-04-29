@@ -24,8 +24,6 @@ control 'install' do
     sites-available
     sites-enabled
     conf.d
-    streams-available
-    streams-enabled
   ).each do |leaf|
     directory("/etc/nginx/#{leaf}") do
       it { should exist }
@@ -46,8 +44,6 @@ control 'install' do
   %w(
     nxensite
     nxdissite
-    nxenstream
-    nxdisstream
   ).each do |nxscript|
     describe file("/usr/sbin/#{nxscript}") do
       it { should exist }
