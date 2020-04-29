@@ -61,13 +61,15 @@ jobs:
             suite: 'passenger'
           - os: 'fedora-31'
             suite: 'passenger'
-          - os: opensuse-leap-15
+          - os: 'amazonlinux-2'
             suite: 'epel'
-          - os: centos-7
+          - os: 'debian-9'
             suite: 'epel'
-          - os: amazonlinux-2
+          - os: 'ubuntu-1604'
             suite: 'epel'
-          - os: fedora-30
+          - os: 'ubuntu-1804'
+            suite: 'epel'
+          - os: 'fedora-31'
             suite: 'epel'
       fail-fast: false
 
