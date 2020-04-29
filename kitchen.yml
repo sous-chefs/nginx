@@ -14,7 +14,6 @@ platforms:
     driver_config:
       box: mvbcoding/awslinux
   - name: amazonlinux-2
-  - name: centos-6
   - name: centos-7
   - name: debian-8
   - name: debian-9
@@ -27,24 +26,19 @@ suites:
   - name: distro
     run_list:
       - recipe[test::distro]
-    excludes:  # these all lack distro packages
-      - centos-6
-      - centos-7
+    excludes: [centos-7]
   - name: repo
     run_list:
       - recipe[test::repo]
   - name: epel
     run_list:
       - recipe[test::epel]
-    includes:
-      - centos-6
-      - centos-7
+    includes: [centos-7]
   - name: passenger
     run_list:
       - recipe[test::passenger]
     excludes:  # passenger distro install is not compatible with these
       - opensuse-leap-15
-      - centos-6
       - centos-7
       - amazonlinux-2
       - fedora-30
