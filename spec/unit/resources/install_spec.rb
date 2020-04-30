@@ -22,8 +22,6 @@ describe 'nginx_install' do
       it { is_expected.to create_directory('/etc/nginx/sites-available').with_mode('0755') }
       it { is_expected.to create_directory('/etc/nginx/sites-enabled').with_mode('0755') }
       it { is_expected.to create_directory('/etc/nginx/conf.d').with_mode('0755') }
-      it { is_expected.to create_directory('/etc/nginx/streams-available').with_mode('0755') }
-      it { is_expected.to create_directory('/etc/nginx/streams-enabled').with_mode('0755') }
     end
 
     shared_examples_for 'delete conf.d files' do
@@ -34,8 +32,6 @@ describe 'nginx_install' do
     shared_examples_for 'common scripts are created' do
       it { is_expected.to create_template('/usr/sbin/nxensite').with_mode('0755').with_variables(nginx_dir: '/etc/nginx') }
       it { is_expected.to create_template('/usr/sbin/nxdissite').with_mode('0755').with_variables(nginx_dir: '/etc/nginx') }
-      it { is_expected.to create_template('/usr/sbin/nxenstream').with_mode('0755').with_variables(nginx_dir: '/etc/nginx') }
-      it { is_expected.to create_template('/usr/sbin/nxdisstream').with_mode('0755').with_variables(nginx_dir: '/etc/nginx') }
     end
 
     shared_examples_for 'common conf is created' do

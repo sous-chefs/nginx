@@ -264,8 +264,6 @@ action :install do
     sites-available
     sites-enabled
     conf.d
-    streams-available
-    streams-enabled
   ).each do |leaf|
     directory ::File.join(nginx_dir, leaf) do
       mode '0755'
@@ -286,8 +284,6 @@ action :install do
   %w(
     nxensite
     nxdissite
-    nxenstream
-    nxdisstream
   ).each do |nxscript|
     template ::File.join(nginx_script_dir, nxscript) do
       cookbook 'nginx'
