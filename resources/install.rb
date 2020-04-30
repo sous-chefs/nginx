@@ -170,7 +170,9 @@ action :install do
 
   case new_resource.source
   when 'distro'
-    log 'Using distro provided packages.'
+    log 'Using distro provided packages.' do
+      level :info
+    end
   when 'repo'
     case node['platform_family']
     when 'amazon', 'fedora', 'rhel'

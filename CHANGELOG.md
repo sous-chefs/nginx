@@ -4,6 +4,7 @@ This file is used to list changes made in each version of the nginx cookbook.
 
 ## Unreleased
 
+- Log distro installation only on log level info
 - Remove leftovers from nginx stream functions
 - resolved cookstyle error: libraries/helpers.rb:108:16 warning: `Lint/SendWithMixinArgument`
 - resolved cookstyle error: libraries/helpers.rb:109:16 warning: `Lint/SendWithMixinArgument`
