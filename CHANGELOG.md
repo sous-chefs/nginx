@@ -4,6 +4,7 @@ This file is used to list changes made in each version of the nginx cookbook.
 
 ## Unreleased
 
+- Remove leftovers from nginx stream functions
 - resolved cookstyle error: libraries/helpers.rb:108:16 warning: `Lint/SendWithMixinArgument`
 - resolved cookstyle error: libraries/helpers.rb:109:16 warning: `Lint/SendWithMixinArgument`
 - Remove CentOS 6 from the test matrix
