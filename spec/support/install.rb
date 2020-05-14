@@ -3,7 +3,7 @@ def repo_url
   when 'amazon', 'fedora', 'redhat'
     'https://nginx.org/packages/rhel/7/$basearch'
   when 'centos'
-    'https://nginx.org/packages/centos/7/$basearch'
+    'https://nginx.org/packages/centos/8/$basearch'
   when 'debian'
     'https://nginx.org/packages/debian'
   when 'opensuse'

@@ -371,12 +371,13 @@ Passenger nodejs.
 | Type     | String |
 | Default  | `nil`  |
 
-
 ## Examples
+
 ### Package installation using distro repositories
 
 If you prefer to use the packages included in your distro or to roll your own packages you'll want to use `distro` as the `source` of your install to skip setting up additional repositories. This will give you control over the package locations, as the install will default to what repos are already set up on your node.
-```
+
+```ruby
 nginx_install 'MySite' do
   source 'distro'
 end
@@ -387,7 +388,8 @@ Note: if your distro has no candidate version of nginx available, this resource 
 ### Package installation using the nginx.org repositories
 
 Nginx provides repositories for RHEL, Debian/Ubuntu, and SuSE platforms with up to date packages available on older distributions. Due to the age of many nginx packages shipping with distros we believe this is the ideal installation method. With no attributes set the nginx.org repositories will be added to your system and nginx will be installed via package. This provides a solid out of the box install for most users.
-```
+
+```ruby
 nginx_install 'MySite' do
   source 'repo'
 end
@@ -396,7 +398,8 @@ end
 ### Package installation using EPEL
 
 The Extra Packages for Enterprise Linux repositories provide nginx packages for RPM-based Linux systems. These are packaged differently from the nginx packages in the nginx repo, but may be suitable for your needs. Using the `epel` source will configure your `yum` for the `epel` and `epel-testing` repos, and install nginx packages from that origin.
-```
+
+```ruby
 nginx_install 'MySite' do
   source 'epel'
 end
@@ -408,7 +411,7 @@ For more information about EPEL, see the [EPEL website](https://fedoraproject.or
 
 To install nginx with Phusion Passenger runtime support, use the `passenger` source. **NOTE** This cookbook only supports installing Passenger on Debian/Ubuntu systems. To install Passenger on other systems, please refer to the [Passenger website](https://www.phusionpassenger.com).
 
-```
+```ruby
 nginx_install 'MySite' do
   source 'passenger'
 end

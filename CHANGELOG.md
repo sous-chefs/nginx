@@ -2,11 +2,18 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
-## Unreleased
+## 10.1.0
 
+- Log distro installation only on log level info
+- Remove leftovers from nginx stream functions
+- resolved cookstyle error: libraries/helpers.rb:108:16 warning: `Lint/SendWithMixinArgument`
+- resolved cookstyle error: libraries/helpers.rb:109:16 warning: `Lint/SendWithMixinArgument`
+- Remove CentOS 6 from the test matrix
+- Update testing platforms
+- Fix markdown for the install resource
 - Install packages we need for https passenger repos before we set them up
-- Remove redundant apt_repository distribution logic
-- Migrate to actions
+- Remove redundant `apt_repository` distribution logic
+- Migrate to Github actions
 
 ## 10.0.2 (2019-09-24)
 

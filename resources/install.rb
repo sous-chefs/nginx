@@ -170,7 +170,9 @@ action :install do
 
   case new_resource.source
   when 'distro'
-    log 'Using distro provided packages.'
+    log 'Using distro provided packages.' do
+      level :info
+    end
   when 'repo'
     case node['platform_family']
     when 'amazon', 'fedora', 'rhel'
@@ -262,8 +264,6 @@ action :install do
     sites-available
     sites-enabled
     conf.d
-    streams-available
-    streams-enabled
   ).each do |leaf|
     directory ::File.join(nginx_dir, leaf) do
       mode '0755'
@@ -284,8 +284,6 @@ action :install do
   %w(
     nxensite
     nxdissite
-    nxenstream
-    nxdisstream
   ).each do |nxscript|
     template ::File.join(nginx_script_dir, nxscript) do
       cookbook 'nginx'
