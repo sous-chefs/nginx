@@ -36,6 +36,11 @@ if !git.modified_files.include?('CHANGELOG.md') && code_changes?
   failure 'Please include a CHANGELOG entry.'
 end
 
+# Require Major Minor Patch version labels
+unless github.pr_labels.grep /minor|major|patch/i
+  failure 'Please add a release label to this pull request'
+end
+
 # A sanity check for tests.
 if git.lines_of_code > 5 && code_changes? && !test_changes?
   warn 'This Pull Request is probably missing tests.'
