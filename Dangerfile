@@ -18,7 +18,7 @@ def code_changes?
 end
 
 def test_changes?
-  tests = %w(spec test .kitchen.yml .kitchen.dokken.yml)
+  tests = %w(spec test kitchen.yml kitchen.dokken.yml)
   tests.each do |location|
     return true unless git.modified_files.grep(/#{location}/).empty?
   end
@@ -38,7 +38,7 @@ end
 
 # Require Major Minor Patch version labels
 unless github.pr_labels.grep /minor|major|patch/i
-  failure 'Please add a release label to this pull request'
+  warn 'Please add a release label to this pull request'
 end
 
 # A sanity check for tests.
