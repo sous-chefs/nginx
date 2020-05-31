@@ -22,7 +22,7 @@ def platform_distribution_nginx
   when 'debian'
     'buster'
   when 'ubuntu'
-    'bionic'
+    'focal'
   end
 end
 
