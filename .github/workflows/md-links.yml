@@ -16,5 +16,6 @@ jobs:
       - name: markdown-link-check
         uses: gaurav-nelson/github-action-markdown-link-check@1.0.2
         with:
-          use-quiet-mode: 'yes'
+          use-verbose-mode: 'yes'
           folder-path: 'documentation'
+          config-file: .github/workflows/mlc_config.json
