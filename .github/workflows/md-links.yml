@@ -13,7 +13,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@master
       - name: markdown-link-check
-        uses: gaurav-nelson/github-action-markdown-link-check@1
+        uses: gaurav-nelson/github-action-markdown-link-check@v1
         with:
           use-verbose-mode: "yes"
           folder-path: "documentation"
