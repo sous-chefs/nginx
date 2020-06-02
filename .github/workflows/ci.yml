@@ -55,6 +55,8 @@ jobs:
           - 'epel'
           - 'passenger'
         exclude:
+          - os: 'opensuse-leap-15' # broken, see https://github.com/chef/chef/issues/9947
+            suite: 'repo'
           - os: 'centos-7'
             suite: 'distro'
           - os: 'amazonlinux'
