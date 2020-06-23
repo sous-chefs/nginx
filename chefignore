@@ -95,7 +95,7 @@ Policyfile.lock.json
 
 # Documentation #
 #############
-CHANGELOG*
+# CHANGELOG*
 CONTRIBUTING*
 TESTING*
 CODE_OF_CONDUCT*
