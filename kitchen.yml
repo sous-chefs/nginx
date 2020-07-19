@@ -26,14 +26,20 @@ suites:
   - name: distro
     run_list:
       - recipe[test::distro]
-    excludes: [centos-7]
+      - recipe[test::test_site]
+    excludes:  # these all lack distro packages
+      - centos-6
+      - centos-7
   - name: repo
     run_list:
       - recipe[test::repo]
   - name: epel
     run_list:
       - recipe[test::epel]
-    includes: [centos-7]
+      - recipe[test::test_site]
+    includes:
+      - centos-6
+      - centos-7
   - name: passenger
     run_list:
       - recipe[test::passenger]
