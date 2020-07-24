@@ -2,6 +2,12 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## Unpublished
+
+- Change resource logging to use Chef::Log instead of the log resource. Resource update
+ status reporting may change. The log resource always implies the surrounding resource
+ was updated.
+
 ## 10.1.0
 
 - Log distro installation only on log level info
