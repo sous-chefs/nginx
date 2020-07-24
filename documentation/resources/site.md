@@ -50,7 +50,12 @@ Which template to use for the site.
 
 ### `variables`
 
-Additional variables to include in site template.
+Additional variables to include in the site template.
+
+This property is intended to allow specifying variables in
+a template specified by the template or cookbook properties.
+The variables that can be set in the default template
+may all be set using the resource properties.
 
 | property       | value |
 | -------------- | ----- |

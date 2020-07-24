@@ -48,6 +48,11 @@ Which template to use for the conf.
 
 Additional variables to include in conf template.
 
+This property is intended to allow specifying variables in
+a template specified by the conf_template or conf_cookbook
+properties. The variables that can be set in the default
+template may all be set using the resource properties.
+
 | property       | value |
 | -------------- | ----- |
 | Type           | Hash  |

@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## Unpublished
+
+- Update the resource documentation to clarify extra variables properties
+
 ## 10.1.0
 
 - Log distro installation only on log level info

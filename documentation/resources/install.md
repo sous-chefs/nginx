@@ -101,6 +101,11 @@ Which template to use for the conf.
 
 Additional variables to include in conf template.
 
+This property is intended to allow specifying variables in
+a template specified by the conf_template or conf_cookbook
+properties. The variables that can be set in the default
+template may all be set using the resource properties.
+
 | property | value |
 | -------- | ----- |
 | Type     | Hash  |
@@ -201,7 +206,14 @@ Which template to use for the default site.
 
 ### `default_site_variables`
 
-Additional variables to include in default site template.
+Additional variables to include in the site template.
+
+This property is intended to allow specifying variables in
+a template specified by the default_site_template or
+default_conf_cookbook properties. The variables that can
+be set in the default template may mostly be set using the
+resource properties. The defaults for the nginx_log_dir
+and default_root variables may be overridden by this property.
 
 | property | value |
 | -------- | ----- |
