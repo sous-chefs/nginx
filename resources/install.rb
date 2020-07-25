@@ -170,7 +170,7 @@ action :install do
 
   case new_resource.source
   when 'distro'
-    Chef::Log.debug 'Using distro provided packages.'
+    Chef::Log.info 'Using distro provided packages.'
   when 'repo'
     case node['platform_family']
     when 'amazon', 'fedora', 'rhel'
