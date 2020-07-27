@@ -2,14 +2,15 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
-## Unpublished
+## 10.1.1 (2020-07-27)
 
 - Change resource logging to use Chef::Log instead of the log resource. Resource update
  status reporting may change. The log resource always implies the surrounding resource
- was updated.
-- Update the resource documentation to clarify extra variables properties
+ was updated. #551
+- Update the resource documentation to clarify extra variables properties #550
+- Automated PR: Standardising Files #544 #547 #548
 
-## 10.1.0
+## 10.1.0 (2020-05-05)
 
 - Log distro installation only on log level info
 - Remove leftovers from nginx stream functions
