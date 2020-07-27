@@ -170,9 +170,7 @@ action :install do
 
   case new_resource.source
   when 'distro'
-    log 'Using distro provided packages.' do
-      level :info
-    end
+    Chef::Log.info 'Using distro provided packages.'
   when 'repo'
     case node['platform_family']
     when 'amazon', 'fedora', 'rhel'
@@ -195,9 +193,7 @@ action :install do
         gpgkey      repo_signing_key
       end
     else
-      log "nginx.org does not maintain packages for platform #{node['platform']}. Cannot setup the repo!" do
-        level :warn
-      end
+      Chef::Log.warn "nginx.org does not maintain packages for platform #{node['platform']}. Cannot setup the repo!"
     end
 
     package_install_opts = '--disablerepo=* --enablerepo=nginx' if platform_family?('amazon', 'rhel')
@@ -208,9 +204,7 @@ action :install do
     when 'rhel'
       package 'epel-release'
     else
-      log 'nginx_install `source` property set to epel, but not running on a RHEL platform so skipping epel setup' do
-        level :warn
-      end
+      Chef::Log.warn 'nginx_install `source` property set to epel, but not running on a RHEL platform so skipping epel setup'
     end
   when 'passenger'
     if platform_family?('debian')
@@ -226,9 +220,7 @@ action :install do
         key '561F9B9CAC40B2F7'
       end
     else
-      log 'nginx_install `source` property set to passenger, but not running on a Debian based platform so skipping passenger setup' do
-        level :warn
-      end
+      Chef::Log.warn 'nginx_install `source` property set to passenger, but not running on a Debian based platform so skipping passenger setup'
     end
   end
 
