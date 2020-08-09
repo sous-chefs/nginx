@@ -151,6 +151,9 @@ property :passenger_anonymous_telemetry_proxy, String,
 property :passenger_nodejs, String,
          description: 'Passenger nodejs.'
 
+property :override_package_name, String,
+         description: 'forcefully specify a package name such as nginx-extras, nginx-full, etc'
+
 action :install do
   if ohai_plugin_enabled?
     ohai 'reload_nginx' do
@@ -364,7 +367,9 @@ action_class do
   end
 
   def nginx_package
-    if source?('passenger') && !(debian_9? || ubuntu_18?)
+    if !new_resource.nil?
+      new_resource.override_package_name
+    elsif source?('passenger') && !(debian_9? || ubuntu_18?)
       'nginx-extras'
     else
       'nginx'
