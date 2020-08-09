@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## Unreleased
+
+- added `override_package_name` to `nginx_install` to allow overriding the name of the package requesting to be installed.
+
 ## 10.1.1 (2020-07-27)
 
 - Change resource logging to use Chef::Log instead of the log resource. Resource update
