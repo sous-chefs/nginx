@@ -1,5 +1,5 @@
 ---
-name: distro
+name: distro-nginx-full
 title: Integration tests for nginx_install
 summary: This InSpec profile contains integration tests for nginx cookbook
 version: 0.1.0
