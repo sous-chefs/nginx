@@ -86,7 +86,7 @@ jobs:
             suite: 'passenger'
           - os: 'fedora-31'
             suite: 'passenger'
-          # nginx-full is only tested on ubuntu-18.04\
+          # nginx-full is only tested on ubuntu-18.04
           - os: 'amazonlinux'
             suite: 'nginx-full'
           - os: 'amazonlinux-2'
