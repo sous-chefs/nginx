@@ -172,25 +172,17 @@ action :install do
   when 'distro'
     Chef::Log.info 'Using distro provided packages.'
   when 'repo'
-    puts 'AAAAAAAAAAAAAAA'
     case node['platform_family']
     when 'amazon', 'fedora', 'rhel'
-      uses_dnf = if platform_family?('fedora')
-                   node['platform_version'].to_i > 22
-                 elsif platform_family?('rhel')
-                   node['platform_version'].to_i > 7
-                 else
-                   false
-                 end
       yum_repository 'nginx' do
         description  'Nginx.org Repository'
         baseurl      repo_url
         gpgkey       repo_signing_key
-        notifies :run, 'execute[disable-nginx-module]' if uses_dnf
       end
       execute 'disable-nginx-module' do
         command 'dnf -y module disable nginx'
-        action :nothing
+        only_if { node['platform_version'].to_i >= 8 && platform_family?('rhel') || platform_family?('fedora') }
+        not_if 'dnf module list nginx | grep -q "^nginx.*\[x\]"'
       end
     when 'debian'
       apt_repository 'nginx' do

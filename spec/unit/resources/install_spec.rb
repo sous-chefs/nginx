@@ -3,6 +3,10 @@ require 'spec_helper'
 describe 'nginx_install' do
   step_into :nginx_install
 
+  before do
+    stub_command('dnf module list nginx | grep -q "^nginx.*\\[x\\]"').and_return(false)
+  end
+
   context 'with default properties' do
     shared_examples_for 'ohai is enabled' do
       it { is_expected.to nothing_ohai('reload_nginx').with_plugin('nginx') }
@@ -166,6 +170,16 @@ describe 'nginx_install' do
         include_examples 'delete conf.d files'
         include_examples 'common scripts are created'
         include_examples 'common conf is created'
+
+        it { is_expected.to run_execute('disable-nginx-module') }
+
+        context 'with nginx disabled' do
+          before do
+            stub_command('dnf module list nginx | grep -q "^nginx.*\\[x\\]"').and_return(true)
+          end
+
+          it { is_expected.to_not run_execute('disable-nginx-module') }
+        end
       end
 
       context 'with debian platform' do

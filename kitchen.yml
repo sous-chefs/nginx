@@ -44,5 +44,6 @@ suites:
     excludes:  # passenger distro install is not compatible with these
       - opensuse-leap-15
       - centos-7
+      - centos-8
       - amazonlinux-2
-      - fedora-30
+      - fedora-31
