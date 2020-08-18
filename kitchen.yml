@@ -38,6 +38,7 @@ suites:
       - recipe[test::test_site]
     includes:
       - centos-7
+      - centos-8
   - name: passenger
     run_list:
       - recipe[test::passenger]

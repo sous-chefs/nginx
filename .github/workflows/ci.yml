@@ -43,6 +43,7 @@ jobs:
           - 'amazonlinux'
           - 'amazonlinux-2'
           - 'centos-7'
+          - 'centos-8'
           - 'debian-8'
           - 'debian-9'
           - 'fedora-31'
@@ -58,6 +59,8 @@ jobs:
           - os: 'opensuse-leap-15' # broken, see https://github.com/chef/chef/issues/9947
             suite: 'repo'
           - os: 'centos-7'
+            suite: 'distro'
+          - os: 'centos-8'
             suite: 'distro'
           - os: 'amazonlinux'
             suite: 'epel'
