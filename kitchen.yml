@@ -15,6 +15,7 @@ platforms:
       box: mvbcoding/awslinux
   - name: amazonlinux-2
   - name: centos-7
+  - name: centos-8
   - name: debian-8
   - name: debian-9
   - name: fedora-31

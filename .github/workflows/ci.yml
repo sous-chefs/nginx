@@ -82,6 +82,8 @@ jobs:
             suite: 'passenger'
           - os: 'centos-7'
             suite: 'passenger'
+          - os: 'centos-8'
+            suite: 'passenger'
           - os: 'amazonlinux'
             suite: 'passenger'
           - os: 'amazonlinux-2'
