@@ -2,6 +2,12 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## Unreleased
+
+- Add centos 8 support to cookbook
+- Disable nginx dnf module when installing from repo
+- Added 'provides' to the resources
+
 ## 10.1.1 (2020-07-27)
 
 - Change resource logging to use Chef::Log instead of the log resource. Resource update

@@ -171,14 +171,14 @@ describe 'nginx_install' do
         include_examples 'common scripts are created'
         include_examples 'common conf is created'
 
-        it { is_expected.to run_execute('disable-nginx-module') }
+        it { is_expected.to run_execute('dnf -qy module disable nginx') }
 
         context 'with nginx disabled' do
           before do
             stub_command('dnf module list nginx | grep -q "^nginx.*\\[x\\]"').and_return(true)
           end
 
-          it { is_expected.to_not run_execute('disable-nginx-module') }
+          it { is_expected.to_not run_execute('dnf -qy module disable nginx') }
         end
       end
 
