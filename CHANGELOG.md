@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
-## Unreleased
+## 10.2.0 (2020-08-20)
 
 - Add centos 8 support to cookbook
 - Disable nginx dnf module when installing from repo
