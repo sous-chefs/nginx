@@ -1,3 +1,5 @@
+provides :nginx_site
+
 property :site_name, String,
          description: 'Which site to enable or disable.',
          name_property: true

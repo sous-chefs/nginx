@@ -1,3 +1,5 @@
+provides :nginx_config
+
 property :conf_cookbook, String,
          description: 'Which cookbook to use for the conf template.',
          default: 'nginx'

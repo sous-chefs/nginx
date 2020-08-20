@@ -15,6 +15,7 @@ platforms:
       box: mvbcoding/awslinux
   - name: amazonlinux-2
   - name: centos-7
+  - name: centos-8
   - name: debian-8
   - name: debian-9
   - name: fedora-31
@@ -38,11 +39,13 @@ suites:
       - recipe[test::test_site]
     includes:
       - centos-7
+      - centos-8
   - name: passenger
     run_list:
       - recipe[test::passenger]
     excludes:  # passenger distro install is not compatible with these
       - opensuse-leap-15
       - centos-7
+      - centos-8
       - amazonlinux-2
-      - fedora-30
+      - fedora-31
