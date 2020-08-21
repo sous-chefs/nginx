@@ -98,6 +98,8 @@ jobs:
             suite: 'nginx-full'
           - os: 'centos-7'
             suite: 'nginx-full'
+          - os: 'centos-8'
+            suite: 'nginx-full'
           - os: 'amazonlinux'
             suite: 'nginx-full'
           - os: 'debian-8'
