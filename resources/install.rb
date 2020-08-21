@@ -1,3 +1,5 @@
+provides :nginx_install
+
 property :ohai_plugin_enabled, [true, false],
          description: 'Whether or not ohai_plugin is enabled.',
          equal_to: [true, false],
@@ -181,6 +183,10 @@ action :install do
         description  'Nginx.org Repository'
         baseurl      repo_url
         gpgkey       repo_signing_key
+      end
+      execute 'dnf -qy module disable nginx' do
+        only_if { node['platform_version'].to_i >= 8 && platform_family?('rhel') || platform_family?('fedora') }
+        not_if 'dnf module list nginx | grep -q "^nginx.*\[x\]"'
       end
     when 'debian'
       apt_repository 'nginx' do
