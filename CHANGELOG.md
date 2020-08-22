@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
-## Unreleased
+## 10.3.0 (2020-08-22)
 
 - added `override_package_name` to `nginx_install` to allow overriding the name of the package requesting to be installed.
 
