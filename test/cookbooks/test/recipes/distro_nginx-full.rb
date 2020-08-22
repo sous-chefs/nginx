@@ -1,4 +1,4 @@
-apt_update 'update' if platform_family?('debian')
+apt_update 'update'
 
 nginx_install 'distro' do
   override_package_name 'nginx-full'
