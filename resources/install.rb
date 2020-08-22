@@ -373,7 +373,7 @@ action_class do
   end
 
   def nginx_package
-    if !new_resource.override_package_name.nil?
+    if new_resource.override_package_name
       new_resource.override_package_name
     elsif source?('passenger') && !(debian_9? || ubuntu_18?)
       'nginx-extras'
