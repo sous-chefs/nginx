@@ -38,6 +38,7 @@ nginx_install 'default' do
   passenger_disable_anonymous_telemetry String
   passenger_anonymous_telemetry_proxy   String
   passenger_nodejs                      String
+  override_package_name                 String
 end
 ```
 
@@ -248,6 +249,16 @@ Whether or not to install rake.
 | Type           | [true, false] |
 | Default        | `true`        |
 | Allowed Values | true, false   |
+
+### `override_package_name`
+
+Sets a manual override on the package name used. For example you might want `nginx-full` rather than `nginx-extras` or `nginx`.
+
+| property       | value         |
+| -------------- | ------------- |
+| Type           | String        |
+| Default        | `nil`         |
+| Allowed Values | `nginx`, `nginx-full`, `nginx-extra`, or any other valid package that is a drop in replacement   |
 
 ### `passenger_root`
 

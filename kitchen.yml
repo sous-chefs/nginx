@@ -30,6 +30,15 @@ suites:
       - recipe[test::test_site]
     excludes:  # these all lack distro packages
       - centos-7
+  - name: distro-nginx-full
+    run_list:
+      - recipe[test::distro_nginx-full]
+      - recipe[test::test_site]
+    includes:  # this may be platform specific
+      - ubuntu-18.04
+    verifier:
+      inputs:
+        nginx_package_name: nginx-full
   - name: repo
     run_list:
       - recipe[test::repo]

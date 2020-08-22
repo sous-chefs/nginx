@@ -55,6 +55,7 @@ jobs:
           - 'repo'
           - 'epel'
           - 'passenger'
+          - 'nginx-full'
         exclude:
           - os: 'opensuse-leap-15' # broken, see https://github.com/chef/chef/issues/9947
             suite: 'repo'
@@ -90,6 +91,27 @@ jobs:
             suite: 'passenger'
           - os: 'fedora-31'
             suite: 'passenger'
+          # nginx-full is only tested on ubuntu-18.04
+          - os: 'amazonlinux'
+            suite: 'nginx-full'
+          - os: 'amazonlinux-2'
+            suite: 'nginx-full'
+          - os: 'centos-7'
+            suite: 'nginx-full'
+          - os: 'centos-8'
+            suite: 'nginx-full'
+          - os: 'amazonlinux'
+            suite: 'nginx-full'
+          - os: 'debian-8'
+            suite: 'nginx-full'
+          - os: 'debian-9'
+            suite: 'nginx-full'
+          - os: 'fedora-31'
+            suite: 'nginx-full'
+          - os: 'opensuse-leap-15'
+            suite: 'nginx-full'
+          - os: 'ubuntu-1604'
+            suite: 'nginx-full'
       fail-fast: false
 
     steps:
