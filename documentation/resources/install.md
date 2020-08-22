@@ -258,7 +258,7 @@ Sets a manual override on the package name used. For example you might want `ngi
 | -------------- | ------------- |
 | Type           | String        |
 | Default        | `nil`         |
-| Allowed Values | true, false   |
+| Allowed Values | `nginx`, `nginx-full`, `nginx-extra`, or any other valid package that is a drop in replacement   |
 
 ### `passenger_root`
 
