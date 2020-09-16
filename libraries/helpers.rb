@@ -105,5 +105,5 @@ module Nginx
   end
 end
 
-Chef::Provider.include Nginx::Cookbook::Helpers
+Chef::DSL::Recipe.include Nginx::Cookbook::Helpers
 Chef::Resource.include Nginx::Cookbook::Helpers
