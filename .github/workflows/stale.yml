@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - uses: actions/stale@v3
-      - with:
+        with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         close-issue-message: >
           Closing due to inactivity.
