@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## Unreleased
+
+- Add nginx namespace for `site_available?` and `site_enabled?` helper methods
+
 ## 10.3.1 (2020-09-16)
 
 - resolved cookstyle error: libraries/helpers.rb:108:1 refactor: `ChefCorrectness/IncorrectLibraryInjection`

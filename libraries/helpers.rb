@@ -63,11 +63,11 @@ module Nginx
         '/var/www/nginx-default'
       end
 
-      def site_enabled?(site_name)
+      def nginx_site_enabled?(site_name)
         ::File.symlink?("#{nginx_dir}/sites-enabled/#{site_name}") || ::File.symlink?("#{nginx_dir}/sites-enabled/000-#{site_name}")
       end
 
-      def site_available?(site_name)
+      def nginx_site_available?(site_name)
         ::File.exist?("#{nginx_dir}/sites-available/#{site_name}")
       end
 
