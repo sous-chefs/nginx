@@ -28,8 +28,8 @@ action :enable do
   execute "nxensite #{new_resource.site_name}" do
     command  ::File.join(nginx_script_dir, "/nxensite #{new_resource.site_name}")
     notifies :reload, 'service[nginx]', :delayed
-    not_if   { site_enabled?(new_resource.site_name) }
-    only_if  { site_available?(new_resource.site_name) }
+    not_if   { nginx_site_enabled?(new_resource.site_name) }
+    only_if  { nginx_site_available?(new_resource.site_name) }
   end
 
   service 'nginx' do
@@ -42,7 +42,7 @@ action :disable do
   execute "nxdissite #{new_resource.site_name}" do
     command  ::File.join(nginx_script_dir, "/nxdissite #{new_resource.site_name}")
     notifies :reload, 'service[nginx]', :delayed
-    only_if  { site_enabled?(new_resource.site_name) }
+    only_if  { nginx_site_enabled?(new_resource.site_name) }
   end
 
   # The nginx.org packages store the default site at /etc/nginx/conf.d/default.conf and our
