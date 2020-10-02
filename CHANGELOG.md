@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
-## Unreleased
+## 10.3.2 (2020-10-02)
 
 - Add nginx namespace for `site_available?` and `site_enabled?` helper methods
 
