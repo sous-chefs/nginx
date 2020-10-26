@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
-## Unreleased
+## 10.4.0 (2020-10-26)
 
 - Allow list of template source for site resource (template property)
 - Allow list of template source for install and config resource (conf_template property)
