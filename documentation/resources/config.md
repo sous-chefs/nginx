@@ -41,7 +41,7 @@ Which template to use for the conf.
 
 | property       | value            |
 | -------------- | ---------------- |
-| Type           | String           |
+| Type           | String, Array    |
 | Default        | `nginx.conf.erb` |
 
 ### `conf_variables`
