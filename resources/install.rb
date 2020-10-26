@@ -19,7 +19,7 @@ property :conf_cookbook, String,
          description: 'Which cookbook to use for the conf template.',
          default: 'nginx'
 
-property :conf_template, String,
+property :conf_template, [String, Array],
          description: 'Which template to use for the conf.',
          default: 'nginx.conf.erb'
 

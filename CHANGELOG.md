@@ -2,6 +2,11 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## 10.3.3 (2020-10-26)
+
+- Allow list of template source for site resource (template property)
+- Allow list of template source for install and config resource (conf_template property)
+
 ## 10.3.2 (2020-10-02)
 
 - Add nginx namespace for `site_available?` and `site_enabled?` helper methods

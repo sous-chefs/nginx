@@ -8,7 +8,7 @@ property :cookbook, String,
          description: 'Which cookbook to use for the template.',
          default: 'nginx'
 
-property :template, String,
+property :template, [String, Array],
          description: 'Which template to use for the site.'
 
 property :variables, Hash,

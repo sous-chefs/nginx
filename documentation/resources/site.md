@@ -43,10 +43,10 @@ Which cookbook to use for the template.
 
 Which template to use for the site.
 
-| property       | value  |
-| -------------- | ------ |
-| Type           | String |
-| Default        | `nil`  |
+| property       | value         |
+| -------------- | ------------- |
+| Type           | String, Array |
+| Default        | `nil`         |
 
 ### `variables`
 
