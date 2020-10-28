@@ -35,6 +35,14 @@ action :enable do
   service 'nginx' do
     supports status: true, restart: true, reload: true
     action   :nothing
+    only_if "#{nginx_binary} -t"
+    notifies :write, 'log[nginx config invalid]', :delayed
+  end
+
+  log 'nginx config invalid' do
+    level :error
+    not_if "#{nginx_binary} -t"
+    action :nothing
   end
 end
 
@@ -58,5 +66,13 @@ action :disable do
   service 'nginx' do
     supports status: true, restart: true, reload: true
     action   :nothing
+    only_if "#{nginx_binary} -t"
+    notifies :write, 'log[nginx config invalid]', :delayed
+  end
+
+  log 'nginx config invalid' do
+    level :error
+    not_if "#{nginx_binary} -t"
+    action :nothing
   end
 end

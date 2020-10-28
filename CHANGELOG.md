@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## Unreleased
+
+- Added a guard and log message to prevent starting/restarting/reloading the service when the config is invalid (#559)
+
 ## 10.4.0 (2020-10-26)
 
 - Allow list of template source for site resource (template property)
