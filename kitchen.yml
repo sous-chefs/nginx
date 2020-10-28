@@ -61,5 +61,3 @@ suites:
   - name: invalid-conf
     run_list:
       - recipe[test::invalid-conf]
-    includes:  # testing invalid config logic works, no need to run on all platforms
-      - ubuntu-18.04
