@@ -4,6 +4,10 @@ describe 'nginx_config' do
   step_into :nginx_config, :nginx_install
   platform  'ubuntu'
 
+  before do
+    stub_command('/usr/sbin/nginx -t').and_return(true)
+  end
+
   context 'with default properties' do
     recipe do
       nginx_install 'distro'

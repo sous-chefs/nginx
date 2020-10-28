@@ -5,6 +5,7 @@ describe 'nginx_site' do
   platform  'ubuntu'
 
   before do
+    stub_command('/usr/sbin/nginx -t').and_return(true)
     allow(File).to receive(:exist?).and_call_original
     allow(File).to receive(:exist?).with('/etc/nginx/sites-available/default').and_return(true)
   end
