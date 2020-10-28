@@ -56,6 +56,7 @@ jobs:
           - 'epel'
           - 'passenger'
           - 'nginx-full'
+          - 'invalid-conf'
         exclude:
           - os: 'opensuse-leap-15' # broken, see https://github.com/chef/chef/issues/9947
             suite: 'repo'
@@ -112,6 +113,27 @@ jobs:
             suite: 'nginx-full'
           - os: 'ubuntu-1604'
             suite: 'nginx-full'
+          # invalid-conf is only tested on ubuntu-18.04
+          - os: 'amazonlinux'
+            suite: 'invalid-conf'
+          - os: 'amazonlinux-2'
+            suite: 'invalid-conf'
+          - os: 'centos-7'
+            suite: 'invalid-conf'
+          - os: 'centos-8'
+            suite: 'invalid-conf'
+          - os: 'amazonlinux'
+            suite: 'invalid-conf'
+          - os: 'debian-8'
+            suite: 'invalid-conf'
+          - os: 'debian-9'
+            suite: 'invalid-conf'
+          - os: 'fedora-31'
+            suite: 'invalid-conf'
+          - os: 'opensuse-leap-15'
+            suite: 'invalid-conf'
+          - os: 'ubuntu-1604'
+            suite: 'invalid-conf'
       fail-fast: false
 
     steps:
