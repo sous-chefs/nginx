@@ -58,3 +58,6 @@ suites:
       - centos-8
       - amazonlinux-2
       - fedora-31
+  - name: invalid-conf
+    run_list:
+      - recipe[test::invalid-conf]

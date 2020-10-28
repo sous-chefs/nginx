@@ -5,6 +5,7 @@ describe 'nginx_install' do
 
   before do
     stub_command('dnf module list nginx | grep -q "^nginx.*\\[x\\]"').and_return(false)
+    stub_command('/usr/sbin/nginx -t').and_return(true)
   end
 
   context 'with default properties' do

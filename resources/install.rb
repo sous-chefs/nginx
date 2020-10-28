@@ -356,6 +356,13 @@ action :install do
   service 'nginx' do
     supports status: true, restart: true, reload: true
     action   [:start, :enable]
+    only_if "#{nginx_binary} -t"
+  end
+
+  log 'Validate nginx config' do
+    message 'nginx config is invalid'
+    level :error
+    not_if "#{nginx_binary} -t"
   end
 end
 
