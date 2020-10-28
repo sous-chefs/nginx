@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
-## Unreleased
+## 10.5.0 (2020-10-28)
 
 - Added a guard and log message to prevent starting/restarting/reloading the service when the config is invalid (#559)
 
