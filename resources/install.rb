@@ -153,7 +153,7 @@ property :passenger_anonymous_telemetry_proxy, String,
 property :passenger_nodejs, String,
          description: 'Passenger nodejs.'
 
-property :override_package_name, String,
+property :override_package_name, [String, Array],
          description: 'forcefully specify a package name such as nginx-extras, nginx-full, etc'
 
 action :install do
