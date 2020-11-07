@@ -1,160 +1,113 @@
-provides :nginx_install
+#
+# Cookbook:: nginx
+# Resource:: install
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
 
 property :ohai_plugin_enabled, [true, false],
-         description: 'Whether or not ohai_plugin is enabled.',
-         equal_to: [true, false],
-         default: true
+          description: 'Whether or not ohai_plugin is enabled.',
+          default: true
 
 property :source, String,
-         description: 'Source for installation.',
-         equal_to: %w(distro repo epel passenger),
-         name_property: true
-
-property :default_site_enabled, [true, false],
-         description: 'Whether or not the default site is enabled.',
-         equal_to: [true, false],
-         default: true
-
-property :conf_cookbook, String,
-         description: 'Which cookbook to use for the conf template.',
-         default: 'nginx'
-
-property :conf_template, [String, Array],
-         description: 'Which template to use for the conf.',
-         default: 'nginx.conf.erb'
-
-property :conf_variables, Hash,
-         description: 'Additional variables to include in conf template.',
-         default: {}
-
-property :group, String,
-         description: 'Nginx group, if different than user.',
-         default: lazy { nginx_user }
-
-property :worker_processes, [Integer, String],
-         description: 'The number of worker processes.',
-         coerce: proc { |v| v.is_a?(Integer) ? v.to_s : v },
-         default: 'auto'
-
-property :worker_connections, [Integer, String],
-         description: 'The maximum number of simultaneous connections that can be opened by a worker process.',
-         coerce: proc { |v| v.is_a?(Integer) ? v.to_s : v },
-         default: 1_024
-
-property :sendfile, String,
-         description: 'Enables or disables the use of sendfile().',
-         equal_to: %w(on off),
-         default: 'on'
-
-property :tcp_nopush, String,
-         description: 'Enables or disables the use of the TCP_CORK socket option on Linux.',
-         equal_to: %w(on off),
-         default: 'on'
-
-property :tcp_nodelay, String,
-         description: 'Enables or disables the use of the TCP_NODELAY option.',
-         equal_to: %w(on off),
-         default: 'on'
-
-property :keepalive_timeout, [Integer, String],
-         description: 'Timeout during which a keep-alive client connection will stay open on the server side.',
-         coerce: proc { |v| v.is_a?(Integer) ? v.to_s : v },
-         default: 65
-
-property :types_hash_max_size, [Integer, String],
-         description: 'Sets the maximum size of the types hash tables.',
-         coerce: proc { |v| v.is_a?(Integer) ? v.to_s : v },
-         default: 2_048
-
-property :default_site_cookbook, String,
-         description: 'Which cookbook to use for the default site template.',
-         default: 'nginx'
-
-property :default_site_template, String,
-         description: 'Which template to use for the default site.',
-         default: 'default-site.erb'
-
-property :default_site_variables, Hash,
-         description: 'Additional variables to include in default site template.',
-         default: {}
-
-property :port, [Integer, String],
-         description: 'Port to listen on.',
-         coerce: proc { |v| v.is_a?(Integer) ? v.to_s : v },
-         default: 80
-
-property :server_name, String,
-         description: 'Sets the server_name directive.',
-         default: lazy { node['hostname'] }
+          description: 'Source for installation.',
+          equal_to: %w(distro repo epel passenger),
+          default: 'distro'
 
 property :install_rake, [true, false],
-         description: 'Whether or not to install rake.',
-         equal_to: [true, false],
-         default: true
+          description: 'Whether or not to install rake.',
+          equal_to: [true, false],
+          default: true
 
 property :passenger_root, String,
-         description: 'Passenger root.',
-         default: '/usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini'
+          description: 'Passenger root.',
+          default: '/usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini'
 
 property :passenger_ruby, String,
-         description: 'Passenger ruby.',
-         default: '/usr/bin/ruby'
+          description: 'Passenger ruby.',
+          default: '/usr/bin/ruby'
 
 property :passenger_max_pool_size, [Integer, String],
-         description: 'Passenger max pool size.',
-         coerce: proc { |v| v.is_a?(Integer) ? v.to_s : v },
-         default: 6
+          description: 'Passenger max pool size.',
+          coerce: proc { |v| v.is_a?(Integer) ? v.to_s : v },
+          default: 6
 
 property :passenger_spawn_method, String,
-         description: 'Passenger spawn method.',
-         default: 'smart-lv2'
+          description: 'Passenger spawn method.',
+          default: 'smart-lv2'
 
 property :passenger_buffer_response, String,
-         description: 'Passenger buffer response.',
-         equal_to: %w(on off),
-         default: 'on'
+          description: 'Passenger buffer response.',
+          equal_to: %w(on off),
+          default: 'on'
 
 property :passenger_min_instances, [Integer, String],
-         description: 'Passenger minimum instances.',
-         coerce: proc { |v| v.is_a?(Integer) ? v.to_s : v },
-         default: 1
+          description: 'Passenger minimum instances.',
+          coerce: proc { |v| v.is_a?(Integer) ? v.to_s : v },
+          default: 1
 
 property :passenger_max_instances_per_app, [Integer, String],
-         description: 'Passenger maximum instances per app.',
-         coerce: proc { |v| v.is_a?(Integer) ? v.to_s : v },
-         default: 0
+          description: 'Passenger maximum instances per app.',
+          coerce: proc { |v| v.is_a?(Integer) ? v.to_s : v },
+          default: 0
 
 property :passenger_pool_idle_time, [Integer, String],
-         description: 'Passenger pool idle time.',
-         coerce: proc { |v| v.is_a?(Integer) ? v.to_s : v },
-         default: 300
+          description: 'Passenger pool idle time.',
+          coerce: proc { |v| v.is_a?(Integer) ? v.to_s : v },
+          default: 300
 
 property :passenger_max_requests, [Integer, String],
-         description: 'Passenger maximum requests.',
-         coerce: proc { |v| v.is_a?(Integer) ? v.to_s : v },
-         default: 0
+          description: 'Passenger maximum requests.',
+          coerce: proc { |v| v.is_a?(Integer) ? v.to_s : v },
+          default: 0
 
 property :passenger_show_version_in_header, String,
-         description: 'Passenger show version in header.',
-         equal_to: %w(on off),
-         default: 'on'
+          description: 'Passenger show version in header.',
+          equal_to: %w(on off),
+          default: 'on'
 
 property :passenger_log_file, String,
-         description: 'Passenger log file.'
+          description: 'Passenger log file.'
 
 property :passenger_disable_anonymous_telemetry, String,
-         description: 'Passenger turn disabling of anonymous telemetry on or off.',
-         equal_to: %w(on off),
-         default: 'off'
+          description: 'Passenger turn disabling of anonymous telemetry on or off.',
+          equal_to: %w(on off),
+          default: 'off'
 
 property :passenger_anonymous_telemetry_proxy, String,
-         description: 'Passenger set an intermediate proxy for anonymous telemetry.'
+          description: 'Passenger set an intermediate proxy for anonymous telemetry.'
 
 property :passenger_nodejs, String,
-         description: 'Passenger nodejs.'
+          description: 'Passenger nodejs.'
 
-property :override_package_name, [String, Array],
-         description: 'forcefully specify a package name such as nginx-extras, nginx-full, etc'
+property :packages, [String, Array],
+          description: 'Override the default installation packages for the platform.',
+          default: lazy { nginx_default_packages },
+          coerce: proc { |p| p.is_a?(Array) ? p : [p] }
+
+action_class do
+  def ohai_plugin_enabled?
+    new_resource.ohai_plugin_enabled
+  end
+
+  def source?(source)
+    new_resource.source == source
+  end
+
+  def install_rake?
+    new_resource.install_rake
+  end
+end
 
 action :install do
   if ohai_plugin_enabled?
@@ -239,91 +192,12 @@ action :install do
       notifies :reload, 'ohai[reload_nginx]', :immediately if ohai_plugin_enabled?
     end
   else
-    package nginx_package do
-      options package_install_opts
-      notifies :reload, 'ohai[reload_nginx]', :immediately if ohai_plugin_enabled?
-    end
-  end
-
-  directory nginx_dir do
-    mode      '0755'
-    recursive true
-  end
-
-  directory nginx_log_dir do
-    mode      '0750'
-    owner     nginx_user
-    recursive true
-  end
-
-  directory ::File.dirname(nginx_pid_file) do
-    mode      '0755'
-    recursive true
-  end
-
-  %w(
-    sites-available
-    sites-enabled
-    conf.d
-  ).each do |leaf|
-    directory ::File.join(nginx_dir, leaf) do
-      mode '0755'
-    end
-  end
-
-  if default_site_enabled? && platform_family?('amazon', 'fedora', 'rhel')
-    %w(
-      default.conf
-      example_ssl.conf
-    ).each do |config|
-      file ::File.join(nginx_dir, "conf.d/#{config}") do
-        action :delete
+    new_resource.packages.each do |pkg|
+      package pkg do
+        options package_install_opts
+        notifies :reload, 'ohai[reload_nginx]', :immediately if ohai_plugin_enabled?
       end
     end
-  end
-
-  %w(
-    nxensite
-    nxdissite
-  ).each do |nxscript|
-    template ::File.join(nginx_script_dir, nxscript) do
-      cookbook 'nginx'
-      source   "#{nxscript}.erb"
-      mode     '0755'
-      variables(
-        lazy { { nginx_dir: nginx_dir } }
-      )
-    end
-  end
-
-  nginx_config ::File.join(nginx_dir, 'nginx.conf') do
-    conf_cookbook       new_resource.conf_cookbook
-    conf_template       new_resource.conf_template
-    conf_variables      new_resource.conf_variables
-    group               new_resource.group
-    worker_processes    new_resource.worker_processes
-    worker_connections  new_resource.worker_connections
-    sendfile            new_resource.sendfile
-    tcp_nopush          new_resource.tcp_nopush
-    tcp_nodelay         new_resource.tcp_nodelay
-    keepalive_timeout   new_resource.keepalive_timeout
-    types_hash_max_size new_resource.types_hash_max_size
-  end
-
-  template ::File.join(nginx_dir, 'sites-available/default') do
-    cookbook new_resource.default_site_cookbook
-    source   new_resource.default_site_template
-    notifies :reload, 'service[nginx]', :delayed
-    variables(
-      nginx_log_dir: nginx_log_dir,
-      port: new_resource.port,
-      server_name: new_resource.server_name,
-      default_root: default_root
-    ).merge!(new_resource.default_site_variables)
-  end
-
-  nginx_site 'default' do
-    action default_site_enabled? ? :enable : :disable
   end
 
   if source?('passenger') && platform_family?('debian')
@@ -333,7 +207,6 @@ action :install do
     template passenger_conf_file do
       cookbook 'nginx'
       source   'modules/passenger.conf.erb'
-      notifies :reload, 'service[nginx]', :delayed
       variables(
         passenger_root: new_resource.passenger_root,
         passenger_ruby: new_resource.passenger_ruby,
@@ -351,48 +224,5 @@ action :install do
         passenger_nodejs: new_resource.passenger_nodejs
       )
     end
-  end
-
-  service 'nginx' do
-    supports status: true, restart: true, reload: true
-    action   [:start, :enable]
-    only_if "#{nginx_binary} -t"
-  end
-
-  log 'Validate nginx config' do
-    message 'nginx config is invalid'
-    level :error
-    not_if "#{nginx_binary} -t"
-
-    action :nothing
-    delayed_action :write
-  end
-end
-
-action_class do
-  def ohai_plugin_enabled?
-    new_resource.ohai_plugin_enabled
-  end
-
-  def default_site_enabled?
-    new_resource.default_site_enabled
-  end
-
-  def source?(source)
-    new_resource.source == source
-  end
-
-  def nginx_package
-    if new_resource.override_package_name
-      new_resource.override_package_name
-    elsif source?('passenger') && !(debian_9? || ubuntu_18?)
-      'nginx-extras'
-    else
-      'nginx'
-    end
-  end
-
-  def install_rake?
-    new_resource.install_rake
   end
 end

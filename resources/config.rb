@@ -1,10 +1,29 @@
-provides :nginx_config
+#
+# Cookbook:: nginx
+# Resource:: config
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+property :config_file, String,
+          description: 'The full path to the Nginx server configuration on disk.',
+          default: lazy { nginx_config_file }
 
 property :conf_cookbook, String,
          description: 'Which cookbook to use for the conf template.',
          default: 'nginx'
 
-property :conf_template, [String, Array],
+property :conf_template, String,
          description: 'Which template to use for the conf.',
          default: 'nginx.conf.erb'
 
@@ -12,9 +31,22 @@ property :conf_variables, Hash,
          description: 'Additional variables to include in conf template.',
          default: {}
 
-property :group, String,
-         description: 'Nginx group, if different than user.',
+property :port, [Integer, String],
+         description: 'Port to listen on.',
+         coerce: proc { |v| v.is_a?(Integer) ? v.to_s : v },
+         default: 80
+
+property :server_name, String,
+         description: 'Sets the server_name directive.',
+         default: lazy { node['hostname'] }
+
+property :user, String,
+         description: 'Nginx user',
          default: lazy { nginx_user }
+
+property :group, String,
+         description: 'Nginx group',
+         default: lazy { nginx_group }
 
 property :worker_processes, [Integer, String],
          description: 'The number of worker processes.',
@@ -51,11 +83,65 @@ property :types_hash_max_size, [Integer, String],
          coerce: proc { |v| v.is_a?(Integer) ? v.to_s : v },
          default: 2_048
 
+property :default_site_enabled, [true, false],
+         description: 'Whether or not the default site is enabled.',
+         equal_to: [true, false],
+         default: true
+
+property :default_site_cookbook, String,
+         description: 'Which cookbook to use for the default site template.',
+         default: 'nginx'
+
+property :default_site_template, String,
+         description: 'Which template to use for the default site.',
+         default: 'default-site.erb'
+
+property :default_site_variables, Hash,
+         description: 'Additional variables to include in default site template.',
+         default: {}
+
+action_class do
+  def default_site_enabled?
+    new_resource.default_site_enabled
+  end
+end
+
 action :create do
-  template ::File.join(nginx_dir, 'nginx.conf') do
+  %w(conf.d conf.site.d).each do |leaf|
+    directory ::File.join(nginx_dir, leaf) do
+      user new_resource.user
+      group new_resource.group
+      mode '0750'
+    end
+  end
+
+  if default_site_enabled? && platform_family?('amazon', 'fedora', 'rhel', 'suse')
+    %w(default.conf example_ssl.conf).each do |config|
+      file ::File.join(nginx_dir, "conf.d/#{config}") do
+        action :delete
+      end
+    end
+  end
+
+  template ::File.join(nginx_config_site_dir, 'default-site.conf') do
+    cookbook new_resource.default_site_cookbook
+    source   new_resource.default_site_template
+    variables(
+      nginx_log_dir: nginx_log_dir,
+      port: new_resource.port,
+      server_name: new_resource.server_name,
+      default_root: default_root
+    ).merge!(new_resource.default_site_variables)
+  end if default_site_enabled?
+
+  template new_resource.config_file do
     cookbook new_resource.conf_cookbook
     source   new_resource.conf_template
-    notifies :reload, 'service[nginx]', :delayed
+
+    user new_resource.user
+    group new_resource.group
+    mode '0640'
+
     variables(
       nginx_dir: nginx_dir,
       nginx_log_dir: nginx_log_dir,
@@ -70,5 +156,11 @@ action :create do
       keepalive_timeout: new_resource.keepalive_timeout,
       types_hash_max_size: new_resource.types_hash_max_size
     ).merge!(new_resource.conf_variables)
+  end
+end
+
+action :delete do
+  file ::File.join(nginx_dir, 'nginx.conf') do
+    action :delete
   end
 end
