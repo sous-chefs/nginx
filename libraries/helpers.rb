@@ -94,29 +94,6 @@ module Nginx
       def ubuntu_18?
         platform?('ubuntu') && node['platform_version'].to_f == 18.04
       end
-
-      def passenger_packages
-        if platform_family?('debian')
-          packages = %w(ruby-dev libcurl4-gnutls-dev)
-          packages << if debian_9? || ubuntu_18?
-                        'libnginx-mod-http-passenger'
-                      else
-                        'passenger'
-                      end
-
-          packages
-        end
-      end
-
-      def passenger_conf_file
-        if platform_family?('debian')
-          if debian_9? || ubuntu_18?
-            ::File.join(nginx_dir, 'conf.d/mod-http-passenger.conf')
-          else
-            ::File.join(nginx_dir, 'conf.d/passenger.conf')
-          end
-        end
-      end
     end
   end
 end

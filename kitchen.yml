@@ -67,19 +67,6 @@ suites:
       inspec_tests:
         - test/integration/default
         - test/integration/epel
-  - name: passenger
-    run_list:
-      - recipe[test::passenger]
-    excludes:
-      - opensuse-leap-15
-      - centos-7
-      - centos-8
-      - amazonlinux-2
-      - fedora-32
-    verifier:
-      inspec_tests:
-        - test/integration/default
-        - test/integration/passenger
   - name: invalid-conf
     run_list:
       - recipe[test::invalid-conf]
