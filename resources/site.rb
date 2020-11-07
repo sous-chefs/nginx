@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-property :config_dir, String,
+property :conf_dir, String,
           description: 'Which site to enable or disable.',
           default: lazy { nginx_config_site_dir }
 
@@ -39,6 +39,10 @@ property :variables, Hash,
           description: 'Additional variables to include in site template.',
           default: {}
 
+action_class do
+  include Nginx::Cookbook::ResourceHelpers
+end
+
 action :create do
   unless ::Dir.exist?(::File.dirname(new_resource.conf_dir))
     directory ::File.dirname(new_resource.conf_dir) do
@@ -49,7 +53,7 @@ action :create do
     end
   end
 
-  template ::File.join(new_resource.config_dir, "#{new_resource.name}.conf") do
+  template ::File.join(new_resource.conf_dir, "#{new_resource.name}.conf") do
     cookbook new_resource.cookbook
     source   new_resource.template
 
@@ -61,10 +65,20 @@ action :create do
       new_resource.variables
     )
   end
+
+  add_to_list_resource(
+    new_resource.conf_dir,
+    ::File.join(new_resource.conf_dir, "#{new_resource.name}.conf")
+  )
 end
 
 action :delete do
   file new_resource.config_file do
     action :delete
   end
+
+  remove_from_list_resource(
+    new_resource.conf_dir,
+    ::File.join(new_resource.conf_dir, "#{new_resource.name}.conf")
+  )
 end

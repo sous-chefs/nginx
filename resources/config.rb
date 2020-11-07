@@ -126,6 +126,11 @@ action :create do
   template ::File.join(nginx_config_site_dir, 'default-site.conf') do
     cookbook new_resource.default_site_cookbook
     source   new_resource.default_site_template
+
+    owner 'root'
+    group nginx_user
+    mode '0640'
+
     variables(
       nginx_log_dir: nginx_log_dir,
       port: new_resource.port,
