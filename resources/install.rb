@@ -200,6 +200,13 @@ action :install do
     end
   end
 
+  directory nginx_log_dir do
+    owner nginx_user
+    group nginx_user
+    mode '0750'
+    action :create
+  end
+
   if source?('passenger') && platform_family?('debian')
     gem_package 'rake' if install_rake?
     package     passenger_packages

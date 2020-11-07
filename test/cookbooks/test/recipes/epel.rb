@@ -1,1 +1,3 @@
-nginx_install 'epel'
+nginx_install 'nginx' do
+  source 'epel'
+end

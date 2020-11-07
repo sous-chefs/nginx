@@ -62,7 +62,7 @@ module Nginx
       def nginx_default_packages
         case node['platform_family']
         when 'rhel', 'fedora'
-          %w(nginx nginx-all-modules)
+          %w(nginx)
         when 'debian'
           %w(nginx-full)
         else

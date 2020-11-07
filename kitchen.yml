@@ -5,6 +5,11 @@ driver:
 provisioner:
   name: chef_zero
   deprecations_as_errors: true
+  chef_license: accept
+  product_name: chef
+  product_version: <%= ENV['CHEF_VERSION'] || 'latest' %>
+  install_strategy: always
+  chef_log_level: <%= ENV['CHEF_LOG_LEVEL'] || 'auto' %>
 
 verifier:
   name: inspec
@@ -16,32 +21,41 @@ platforms:
   - name: amazonlinux-2
   - name: centos-7
   - name: centos-8
-  - name: debian-8
   - name: debian-9
-  - name: fedora-31
+  - name: debian-10
+  - name: fedora-32
   - name: opensuse-leap-15
-  - name: ubuntu-16.04
   - name: ubuntu-18.04
+  - name: ubuntu-20.04
 
 suites:
   - name: distro
     run_list:
       - recipe[test::distro]
       - recipe[test::test_site]
-    excludes:  # these all lack distro packages
+    excludes:
       - centos-7
+    verifier:
+      inspec_tests:
+        - test/integration/default
   - name: distro-nginx-full
     run_list:
       - recipe[test::distro_nginx-full]
       - recipe[test::test_site]
-    includes:  # this may be platform specific
+    includes:
       - ubuntu-18.04
+      - ubuntu-20.04
     verifier:
-      inputs:
-        nginx_package_name: nginx-full
+      inspec_tests:
+        - test/integration/default
   - name: repo
     run_list:
       - recipe[test::repo]
+      - recipe[test::test_site]
+    verifier:
+      inspec_tests:
+        - test/integration/default
+        - test/integration/repo
   - name: epel
     run_list:
       - recipe[test::epel]
@@ -49,15 +63,23 @@ suites:
     includes:
       - centos-7
       - centos-8
+    verifier:
+      inspec_tests:
+        - test/integration/default
+        - test/integration/epel
   - name: passenger
     run_list:
       - recipe[test::passenger]
-    excludes:  # passenger distro install is not compatible with these
+    excludes:
       - opensuse-leap-15
       - centos-7
       - centos-8
       - amazonlinux-2
-      - fedora-31
+      - fedora-32
+    verifier:
+      inspec_tests:
+        - test/integration/default
+        - test/integration/passenger
   - name: invalid-conf
     run_list:
       - recipe[test::invalid-conf]
