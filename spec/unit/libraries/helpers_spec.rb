@@ -57,7 +57,7 @@ RSpec.describe Nginx::Cookbook::Helpers do
       let(:platform_family) { 'fedora' }
       let(:platform) { 'fedora' }
 
-      it { expect(subject.repo_url).to eq 'https://nginx.org/packages/rhel/7/$basearch' }
+      it { expect(subject.repo_url).to eq 'https://nginx.org/packages/rhel/8/$basearch' }
     end
 
     context 'with debian family' do

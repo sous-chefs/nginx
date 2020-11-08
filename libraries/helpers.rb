@@ -9,10 +9,12 @@ module Nginx
         case node['platform_family']
         when 'amazon', 'fedora', 'rhel'
           case node['platform']
-          when 'amazon', 'fedora'
+          when 'amazon'
             'https://nginx.org/packages/rhel/7/$basearch'
           when 'centos'
             "https://nginx.org/packages/centos/#{node['platform_version'].to_i}/$basearch"
+          when 'fedora'
+            'https://nginx.org/packages/rhel/8/$basearch'
           else
             "https://nginx.org/packages/rhel/#{node['platform_version'].to_i}/$basearch"
           end
