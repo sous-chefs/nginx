@@ -88,7 +88,7 @@ action :install do
       Chef::Log.warn "nginx.org does not maintain packages for platform #{node['platform']}. Cannot setup the repo!"
     end
 
-    package_install_opts = '--disablerepo=* --enablerepo=nginx' if platform_family?('amazon', 'rhel')
+    package_install_opts = '--disablerepo=* --enablerepo=nginx' if platform_family?('amazon', 'fedora', 'rhel')
   when 'epel'
     case node['platform_family']
     when 'amazon'

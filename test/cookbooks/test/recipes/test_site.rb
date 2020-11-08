@@ -5,14 +5,11 @@ bash 'test_site_hosts_entry' do
   user 'root'
 end
 
-nginx_service 'nginx' do
-  action :enable
-  delayed_action :start
-end
-
 nginx_config 'nginx' do
+  types_hash_max_size 2_048
+
   action :create
-  notifies :reload, 'nginx_service[nginx]', :delayed
+  notifies :restart, 'nginx_service[nginx]', :delayed
 end
 
 # Setup a test site
@@ -26,4 +23,9 @@ nginx_site 'test_site' do
   )
   action :create
   notifies :reload, 'nginx_service[nginx]', :delayed
+end
+
+nginx_service 'nginx' do
+  action :enable
+  delayed_action :start
 end
