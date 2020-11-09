@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'nginx_config' do
-  step_into :nginx_config, :nginx_install
+  step_into :nginx_config, :nginx_install, :nginx_site
   platform  'ubuntu'
 
   before do

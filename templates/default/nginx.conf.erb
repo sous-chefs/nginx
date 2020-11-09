@@ -35,5 +35,5 @@ http {
   default_type  application/octet-stream;
 
   include <%= @nginx_dir %>/conf.d/*.conf;
-  include <%= @nginx_dir %>/conf.site.d/list.conf;
+  include <%= @nginx_dir %>/conf.http.d/list*.conf;
 }

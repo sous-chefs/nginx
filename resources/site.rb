@@ -39,6 +39,10 @@ property :variables, Hash,
           description: 'Additional variables to include in site template.',
           default: {}
 
+property :list, [true, false],
+          description: 'Include in list resource',
+          default: true
+
 action_class do
   include Nginx::Cookbook::ResourceHelpers
 
@@ -73,7 +77,7 @@ action :create do
   add_to_list_resource(
     new_resource.conf_dir,
     config_file
-  )
+  ) if new_resource.list
 end
 
 action :delete do
@@ -84,5 +88,5 @@ action :delete do
   remove_from_list_resource(
     new_resource.conf_dir,
     config_file
-  )
+  ) if new_resource.list
 end

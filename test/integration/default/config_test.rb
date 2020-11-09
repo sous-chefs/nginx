@@ -9,7 +9,7 @@ describe file('/etc/nginx/nginx.conf') do
   it { should_not be_directory }
 end
 
-%w(conf.d conf.site.d).each do |dir|
+%w(conf.d conf.http.d).each do |dir|
   describe directory("/etc/nginx/#{dir}") do
     it { should exist }
     it { should be_directory }
@@ -42,7 +42,7 @@ describe file('/etc/nginx/nginx.conf') do
   its('content') { should include 'types_hash_max_size 2048;' }
 end
 
-describe file('/etc/nginx/conf.site.d/default-site.conf') do
+describe file('/etc/nginx/conf.http.d/default-site.conf') do
   it { should exist }
   it { should be_file }
   its('content') { should include 'listen       80;' }

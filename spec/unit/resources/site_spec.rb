@@ -6,8 +6,6 @@ describe 'nginx_site' do
 
   before do
     stub_command('/usr/sbin/nginx -t').and_return(true)
-    allow(File).to receive(:exist?).and_call_original
-    allow(File).to receive(:exist?).with('/etc/nginx/sites-available/default').and_return(true)
   end
 
   context 'with default properties' do
@@ -26,8 +24,8 @@ describe 'nginx_site' do
       end
     end
 
-    it { is_expected.to create_template('/etc/nginx/conf.site.d/default.conf').with_source('default-site.erb') }
-    it { is_expected.to create_template('/etc/nginx/conf.site.d/list.conf').with_source('list.conf.erb') }
+    it { is_expected.to create_template('/etc/nginx/conf.http.d/default.conf').with_source('default-site.erb') }
+    it { is_expected.to create_template('/etc/nginx/conf.http.d/list.conf').with_source('list.conf.erb') }
   end
 
   context 'delete site' do
@@ -39,6 +37,6 @@ describe 'nginx_site' do
       end
     end
 
-    it { is_expected.to delete_file('/etc/nginx/conf.site.d/default.conf') }
+    it { is_expected.to delete_file('/etc/nginx/conf.http.d/default.conf') }
   end
 end

@@ -109,7 +109,7 @@ action_class do
 end
 
 action :create do
-  %w(conf.d conf.site.d).each do |leaf|
+  %w(conf.d conf.http.d).each do |leaf|
     directory ::File.join(nginx_dir, leaf) do
       user new_resource.user
       group new_resource.group
@@ -126,13 +126,10 @@ action :create do
   end
 
   if default_site_enabled?
-    template ::File.join(nginx_config_site_dir, 'default-site.conf') do
+    nginx_site 'default-site' do
       cookbook new_resource.default_site_cookbook
-      source   new_resource.default_site_template
-
-      owner 'root'
-      group nginx_user
-      mode '0640'
+      template new_resource.default_site_template
+      conf_dir nginx_config_site_dir
 
       variables(
         nginx_log_dir: nginx_log_dir,
@@ -141,11 +138,6 @@ action :create do
         default_root: default_root
       ).merge!(new_resource.default_site_variables)
     end
-
-    add_to_list_resource(
-      new_resource.conf_dir,
-      ::File.join(nginx_config_site_dir, 'default-site.conf')
-    )
   end
 
   template new_resource.config_file do

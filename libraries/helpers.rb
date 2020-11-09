@@ -58,7 +58,7 @@ module Nginx
       end
 
       def nginx_config_site_dir
-        "#{nginx_dir}/conf.site.d"
+        "#{nginx_dir}/conf.http.d"
       end
 
       def nginx_default_packages
