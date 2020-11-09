@@ -101,6 +101,8 @@ property :default_site_variables, Hash,
          default: {}
 
 action_class do
+  include Nginx::Cookbook::ResourceHelpers
+
   def default_site_enabled?
     new_resource.default_site_enabled
   end
@@ -123,21 +125,28 @@ action :create do
     end
   end
 
-  template ::File.join(nginx_config_site_dir, 'default-site.conf') do
-    cookbook new_resource.default_site_cookbook
-    source   new_resource.default_site_template
+  if default_site_enabled?
+    template ::File.join(nginx_config_site_dir, 'default-site.conf') do
+      cookbook new_resource.default_site_cookbook
+      source   new_resource.default_site_template
 
-    owner 'root'
-    group nginx_user
-    mode '0640'
+      owner 'root'
+      group nginx_user
+      mode '0640'
 
-    variables(
-      nginx_log_dir: nginx_log_dir,
-      port: new_resource.port,
-      server_name: new_resource.server_name,
-      default_root: default_root
-    ).merge!(new_resource.default_site_variables)
-  end if default_site_enabled?
+      variables(
+        nginx_log_dir: nginx_log_dir,
+        port: new_resource.port,
+        server_name: new_resource.server_name,
+        default_root: default_root
+      ).merge!(new_resource.default_site_variables)
+    end
+
+    add_to_list_resource(
+      new_resource.conf_dir,
+      ::File.join(nginx_config_site_dir, 'default-site.conf')
+    )
+  end
 
   template new_resource.config_file do
     cookbook new_resource.conf_cookbook
