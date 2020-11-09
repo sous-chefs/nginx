@@ -66,7 +66,7 @@ action :create do
     mode '0640'
 
     variables(
-      new_resource.variables
+      new_resource.variables.merge({ name: new_resource.name })
     )
   end
 
