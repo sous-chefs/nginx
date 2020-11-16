@@ -38,10 +38,17 @@ action :enable do
     only_if "#{nginx_binary} -t"
   end
 
+  notify_group 'Delay nginx configuration validation' do
+    notifies :write, 'log[Validate nginx config]', :delayed
+    action :run
+  end
+
   log 'Validate nginx config' do
     message 'nginx config is invalid'
     level :error
     not_if "#{nginx_binary} -t"
+
+    action :nothing
   end
 end
 
@@ -68,9 +75,16 @@ action :disable do
     only_if "#{nginx_binary} -t"
   end
 
+  notify_group 'Delay nginx configuration validation' do
+    notifies :write, 'log[Validate nginx config]', :delayed
+    action :run
+  end
+
   log 'Validate nginx config' do
     message 'nginx config is invalid'
     level :error
     not_if "#{nginx_binary} -t"
+
+    action :nothing
   end
 end
