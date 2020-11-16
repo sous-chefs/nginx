@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## Unreleased
+
+- Update log to display at end of run to be more visible
+
 ## 10.6.0 (2020-11-03)
 
 - Allow multiple packages to be specified for install package name override.

@@ -363,6 +363,9 @@ action :install do
     message 'nginx config is invalid'
     level :error
     not_if "#{nginx_binary} -t"
+
+    action :nothing
+    delayed_action :write
   end
 end
 
