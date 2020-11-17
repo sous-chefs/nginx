@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
-## Unreleased
+## 10.6.1 (2020-11-16)
 
 - Update log to display at end of run to be more visible
 
