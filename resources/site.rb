@@ -49,6 +49,10 @@ action_class do
   def config_file
     ::File.join(new_resource.conf_dir, "#{new_resource.name}.conf")
   end
+
+  def config_file_disabled
+    "#{config_file}.disabled"
+  end
 end
 
 action :create do
@@ -89,4 +93,40 @@ action :delete do
     new_resource.conf_dir,
     config_file
   ) if new_resource.list
+end
+
+action :enable do
+  add_to_list_resource(
+    new_resource.conf_dir,
+    config_file
+  ) if new_resource.list
+
+  ruby_block "Enable site #{new_resource.name}" do
+    block do
+      ::File.rename(config_file_disabled, config_file)
+    end
+
+    only_if { ::File.exist?(config_file_disabled) }
+
+    action :nothing
+    delayed_action :run
+  end
+end
+
+action :disable do
+  remove_from_list_resource(
+    new_resource.conf_dir,
+    config_file
+  ) if new_resource.list
+
+  ruby_block "Disable site #{new_resource.name}" do
+    block do
+      ::File.rename(config_file, config_file_disabled)
+    end
+
+    only_if { ::File.exist?(config_file) }
+
+    action :nothing
+    delayed_action :run
+  end
 end

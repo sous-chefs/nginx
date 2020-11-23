@@ -6,6 +6,8 @@
 
 - `:create` - Create an nginx site configuration file
 - `:delete` - Delete an nginx site configuration file
+- `:enable` - Enable a pre-existing configuration file
+- `:disable` - Disable a pre-existing configuration file
 
 ## Properties
 

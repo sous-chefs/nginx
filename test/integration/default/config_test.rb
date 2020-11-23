@@ -54,3 +54,13 @@ describe file('/etc/nginx/conf.http.d/default-site.conf') do
     its('content') { should include 'root   /var/www/html;' }
   end
 end
+
+describe file('/etc/nginx/conf.http.d/test_site.conf') do
+  it { should exist }
+  it { should be_file }
+end
+
+describe file('/etc/nginx/conf.http.d/test_site_disabled.conf.disabled') do
+  it { should exist }
+  it { should be_file }
+end

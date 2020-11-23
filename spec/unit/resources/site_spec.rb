@@ -22,9 +22,16 @@ describe 'nginx_site' do
       nginx_site 'default' do
         template 'default-site.erb'
       end
+
+      nginx_site 'disabled' do
+        template 'default-site.erb'
+        action [:create, :disable]
+      end
     end
 
     it { is_expected.to create_template('/etc/nginx/conf.http.d/default.conf').with_source('default-site.erb') }
+    it { is_expected.to create_template('/etc/nginx/conf.http.d/disabled.conf').with_source('default-site.erb') }
+    it { is_expected.to nothing_ruby_block('Disable site disabled') }
     it { is_expected.to create_template('/etc/nginx/conf.http.d/list.conf').with_source('list.conf.erb') }
   end
 
