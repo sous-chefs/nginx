@@ -39,9 +39,10 @@ Other Debian and RHEL family distributions are assumed to work.
 
 ## Resources
 
-- [nginx_install](https://github.com/sous-chefs/nginx/blob/master/documentation/resources/install.md)
-- [nginx_config](https://github.com/sous-chefs/nginx/blob/master/documentation/resources/config.md)
-- [nginx_site](https://github.com/sous-chefs/nginx/blob/master/documentation/resources/site.md)
+- [nginx_install](documentation/nginx_install.md)
+- [nginx_config](documentation/nginx_config.md)
+- [nginx_site](documentation/nginx_site.md)
+- [nginx_service](documentation/nginx_service.md)
 
 ## Usage
 

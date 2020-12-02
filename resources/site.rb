@@ -1,82 +1,132 @@
-provides :nginx_site
+#
+# Cookbook:: nginx
+# Resource:: site
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
 
-property :site_name, String,
-         description: 'Which site to enable or disable.',
-         name_property: true
+property :conf_dir, String,
+          description: 'Which site to enable or disable.',
+          default: lazy { nginx_config_site_dir }
 
 property :cookbook, String,
-         description: 'Which cookbook to use for the template.',
-         default: 'nginx'
+          description: 'Which cookbook to use for the template.',
+          default: 'nginx'
 
 property :template, [String, Array],
-         description: 'Which template to use for the site.'
+          description: 'Which template to use for the site.',
+          default: 'site-template.erb'
+
+property :user, String,
+          description: 'Nginx user',
+          default: lazy { nginx_user }
+
+property :group, String,
+          description: 'Nginx group',
+          default: lazy { nginx_group }
 
 property :variables, Hash,
-         description: 'Additional variables to include in site template.',
-         default: {}
+          description: 'Additional variables to include in site template.',
+          default: {}
 
-action :enable do
-  if new_resource.template
-    template ::File.join(nginx_dir, "/sites-available/#{new_resource.site_name}") do
-      cookbook new_resource.cookbook
-      source   new_resource.template
-      notifies :reload, 'service[nginx]'
-      variables(new_resource.variables)
+property :list, [true, false],
+          description: 'Include in list resource',
+          default: true
+
+action_class do
+  include Nginx::Cookbook::ResourceHelpers
+
+  def config_file
+    ::File.join(new_resource.conf_dir, "#{new_resource.name}.conf")
+  end
+
+  def config_file_disabled
+    "#{config_file}.disabled"
+  end
+end
+
+action :create do
+  unless ::Dir.exist?(::File.dirname(new_resource.conf_dir))
+    directory ::File.dirname(new_resource.conf_dir) do
+      user new_resource.user
+      group new_resource.group
+      mode '0750'
+      action :create
     end
   end
 
-  execute "nxensite #{new_resource.site_name}" do
-    command  ::File.join(nginx_script_dir, "/nxensite #{new_resource.site_name}")
-    notifies :reload, 'service[nginx]', :delayed
-    not_if   { nginx_site_enabled?(new_resource.site_name) }
-    only_if  { nginx_site_available?(new_resource.site_name) }
+  template config_file do
+    cookbook new_resource.cookbook
+    source   new_resource.template
+
+    user new_resource.user
+    group new_resource.group
+    mode '0640'
+
+    variables(
+      new_resource.variables.merge({ name: new_resource.name })
+    )
   end
 
-  service 'nginx' do
-    supports status: true, restart: true, reload: true
-    action   :nothing
-    only_if "#{nginx_binary} -t"
+  add_to_list_resource(
+    new_resource.conf_dir,
+    config_file
+  ) if new_resource.list
+end
+
+action :delete do
+  file config_file do
+    action :delete
   end
 
-  log 'Validate nginx config' do
-    message 'nginx config is invalid'
-    level :error
-    not_if "#{nginx_binary} -t"
+  remove_from_list_resource(
+    new_resource.conf_dir,
+    config_file
+  ) if new_resource.list
+end
+
+action :enable do
+  add_to_list_resource(
+    new_resource.conf_dir,
+    config_file
+  ) if new_resource.list
+
+  ruby_block "Enable site #{new_resource.name}" do
+    block do
+      ::File.rename(config_file_disabled, config_file)
+    end
+
+    only_if { ::File.exist?(config_file_disabled) }
 
     action :nothing
-    delayed_action :write
+    delayed_action :run
   end
 end
 
 action :disable do
-  execute "nxdissite #{new_resource.site_name}" do
-    command  ::File.join(nginx_script_dir, "/nxdissite #{new_resource.site_name}")
-    notifies :reload, 'service[nginx]', :delayed
-    only_if  { nginx_site_enabled?(new_resource.site_name) }
-  end
+  remove_from_list_resource(
+    new_resource.conf_dir,
+    config_file
+  ) if new_resource.list
 
-  # The nginx.org packages store the default site at /etc/nginx/conf.d/default.conf and our
-  # normal script doesn't disable these.
-  if new_resource.site_name == 'default' && ::File.exist?("#{nginx_dir}/conf.d/default.conf")
-    execute 'Move nginx.org package default site config to sites-available' do
-      command "mv #{nginx_dir}/conf.d/default.conf #{nginx_dir}/sites-available/default"
-      user 'root'
-      notifies :reload, 'service[nginx]'
+  ruby_block "Disable site #{new_resource.name}" do
+    block do
+      ::File.rename(config_file, config_file_disabled)
     end
-  end
 
-  service 'nginx' do
-    supports status: true, restart: true, reload: true
-    action   :nothing
-    only_if "#{nginx_binary} -t"
-  end
-
-  log 'Validate nginx config' do
-    message 'nginx config is invalid'
-    level :error
-    not_if "#{nginx_binary} -t"
+    only_if { ::File.exist?(config_file) }
 
     action :nothing
-    delayed_action :write
+    delayed_action :run
   end
 end

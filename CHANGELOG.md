@@ -2,6 +2,15 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## Unreleased
+
+- Refactor cookbook to remove nxensite/nxdissite
+- Remove all configuration resources from nginx_install.
+- Move all general configuration to nginx_config.
+- Refactor nginx_site to remove use of scripts.
+- Create nginx_service resource to manage nginx service.
+- Remove passenger install option.
+
 ## 10.6.1 (2020-11-16)
 
 - Update log to display at end of run to be more visible

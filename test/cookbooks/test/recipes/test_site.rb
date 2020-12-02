@@ -5,23 +5,39 @@ bash 'test_site_hosts_entry' do
   user 'root'
 end
 
-# This could be in distro.rb and it would work just fine
-service 'nginx' do
-  extend Nginx::Cookbook::Helpers
-  # service_name 'nginx'
-  supports restart: true, status: true, reload: true
-  action :nothing
+nginx_config 'nginx' do
+  types_hash_max_size 2_048
+
+  action :create
+  notifies :restart, 'nginx_service[nginx]', :delayed
 end
 
-# setup another a test site
-siteconfig = { 'port': 80,
-               'server_name': 'test_site',
-               'default_root': '/var/www/nginx-default',
-               'nginx_log_dir': '/var/log/nginx',
-}
+# Setup a test site
 nginx_site 'test_site' do
-  site_name 'test_site'
   template 'default-site.erb'
-  variables siteconfig
+  variables(
+    'port': 80,
+    'server_name': 'test_site',
+    'default_root': '/var/www/nginx-default',
+    'nginx_log_dir': '/var/log/nginx'
+  )
+  action :create
+  notifies :reload, 'nginx_service[nginx]', :delayed
+end
+
+nginx_site 'test_site_disabled' do
+  template 'default-site.erb'
+  variables(
+    'port': 80,
+    'server_name': 'test_site',
+    'default_root': '/var/www/nginx-default',
+    'nginx_log_dir': '/var/log/nginx'
+  )
+  action [:create, :disable]
+  notifies :reload, 'nginx_service[nginx]', :delayed
+end
+
+nginx_service 'nginx' do
   action :enable
+  delayed_action :start
 end

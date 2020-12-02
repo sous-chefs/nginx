@@ -6,13 +6,6 @@ describe 'nginx_site' do
 
   before do
     stub_command('/usr/sbin/nginx -t').and_return(true)
-    allow(File).to receive(:exist?).and_call_original
-    allow(File).to receive(:exist?).with('/etc/nginx/sites-available/default').and_return(true)
-  end
-
-  shared_examples_for 'enable default site' do
-    it { is_expected.to run_execute('nxensite default') }
-    it { expect(chef_run.execute('nxensite default')).to notify('service[nginx]').to(:reload).delayed }
   end
 
   context 'with default properties' do
@@ -20,8 +13,6 @@ describe 'nginx_site' do
       nginx_install 'distro'
       nginx_site    'default'
     end
-
-    include_examples 'enable default site'
   end
 
   context 'with template' do
@@ -31,27 +22,28 @@ describe 'nginx_site' do
       nginx_site 'default' do
         template 'default-site.erb'
       end
+
+      nginx_site 'disabled' do
+        template 'default-site.erb'
+        action [:create, :disable]
+      end
     end
 
-    it { is_expected.to create_template('/etc/nginx/sites-available/default').with_source('default-site.erb') }
-    include_examples 'enable default site'
+    it { is_expected.to create_template('/etc/nginx/conf.http.d/default.conf').with_source('default-site.erb') }
+    it { is_expected.to create_template('/etc/nginx/conf.http.d/disabled.conf').with_source('default-site.erb') }
+    it { is_expected.to nothing_ruby_block('Disable site disabled') }
+    it { is_expected.to create_template('/etc/nginx/conf.http.d/list.conf').with_source('list.conf.erb') }
   end
 
-  context 'disable site' do
-    before do
-      allow(File).to receive(:symlink?).and_call_original
-      allow(File).to receive(:symlink?).with('/etc/nginx/sites-enabled/default').and_return(true)
-    end
-
+  context 'delete site' do
     recipe do
       nginx_install 'distro'
 
       nginx_site 'default' do
-        action :disable
+        action :delete
       end
     end
 
-    it { is_expected.to run_execute('nxdissite default') }
-    it { expect(chef_run.execute('nxdissite default')).to notify('service[nginx]').to(:reload).delayed }
+    it { is_expected.to delete_file('/etc/nginx/conf.http.d/default.conf') }
   end
 end
