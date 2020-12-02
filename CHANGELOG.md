@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## Unreleased
+
 ## 11.0.0 - *2020-12-02*
 
 - Refactor cookbook to remove nxensite/nxdissite
