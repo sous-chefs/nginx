@@ -6,7 +6,7 @@ maintainer_email 'help@sous-chefs.org'
 chef_version     '>= 14'
 license          'Apache-2.0'
 description      'Installs and configures nginx'
-version          '11.0.0'
+version          '11.1.0'
 
 depends  'ohai', '~> 5.2'
 
