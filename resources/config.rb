@@ -117,11 +117,9 @@ action :create do
     end
   end
 
-  if default_site_enabled? && platform_family?('amazon', 'fedora', 'rhel', 'suse')
-    %w(default.conf example_ssl.conf).each do |config|
-      file ::File.join(nginx_dir, "conf.d/#{config}") do
-        action :delete
-      end
+  %w(default.conf example_ssl.conf).each do |config|
+    file ::File.join(nginx_dir, "conf.d/#{config}") do
+      action :delete
     end
   end
 

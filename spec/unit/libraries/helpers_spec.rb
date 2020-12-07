@@ -16,7 +16,7 @@ RSpec.describe Nginx::Cookbook::Helpers do
       allow(subject).to receive(:[]).with('platform_family').and_return(platform_family)
     end
 
-    context 'with amazon family' do
+    context 'with amazon family stable' do
       before do
         allow(subject).to receive(:[]).with('platform').and_return(platform)
       end
@@ -27,7 +27,7 @@ RSpec.describe Nginx::Cookbook::Helpers do
       it { expect(subject.repo_url).to eq 'https://nginx.org/packages/rhel/7/$basearch' }
     end
 
-    context 'with rhel family' do
+    context 'with rhel family stable' do
       before do
         allow(subject).to receive(:[]).with('platform').and_return(platform)
         allow(subject).to receive(:[]).with('platform_version').and_return(platform_version)
@@ -36,20 +36,20 @@ RSpec.describe Nginx::Cookbook::Helpers do
       let(:platform_family) { 'rhel' }
       let(:platform_version) { '7' }
 
-      context 'with centos platform' do
+      context 'with centos platform stable' do
         let(:platform) { 'centos' }
 
         it { expect(subject.repo_url).to eq 'https://nginx.org/packages/centos/7/$basearch' }
       end
 
-      context 'with redhat platform' do
+      context 'with redhat platform stable' do
         let(:platform) { 'redhat' }
 
         it { expect(subject.repo_url).to eq 'https://nginx.org/packages/rhel/7/$basearch' }
       end
     end
 
-    context 'with fedora family' do
+    context 'with fedora family stable' do
       before do
         allow(subject).to receive(:[]).with('platform').and_return(platform)
       end
@@ -60,30 +60,100 @@ RSpec.describe Nginx::Cookbook::Helpers do
       it { expect(subject.repo_url).to eq 'https://nginx.org/packages/rhel/8/$basearch' }
     end
 
-    context 'with debian family' do
+    context 'with debian family stable' do
       before do
         allow(subject).to receive(:[]).with('platform').and_return(platform)
       end
 
       let(:platform_family) { 'debian' }
 
-      context 'with debian platform' do
+      context 'with debian platform stable' do
         let(:platform) { 'debian' }
 
         it { expect(subject.repo_url).to eq 'https://nginx.org/packages/debian' }
       end
 
-      context 'with ubuntu platform' do
+      context 'with ubuntu platform stable' do
         let(:platform) { 'ubuntu' }
 
         it { expect(subject.repo_url).to eq 'https://nginx.org/packages/ubuntu' }
       end
     end
 
-    context 'with suse family' do
+    context 'with suse family stable' do
       let(:platform_family) { 'suse' }
 
       it { expect(subject.repo_url).to eq 'https://nginx.org/packages/sles/12' }
+    end
+
+    context 'with amazon family stable' do
+      before do
+        allow(subject).to receive(:[]).with('platform').and_return(platform)
+      end
+
+      let(:platform_family) { 'amazon' }
+      let(:platform) { 'amazon' }
+
+      it { expect(subject.repo_url).to eq 'https://nginx.org/packages/rhel/7/$basearch' }
+    end
+
+    context 'with rhel family mainline' do
+      before do
+        allow(subject).to receive(:[]).with('platform').and_return(platform)
+        allow(subject).to receive(:[]).with('platform_version').and_return(platform_version)
+      end
+
+      let(:platform_family) { 'rhel' }
+      let(:platform_version) { '7' }
+
+      context 'with centos platform mainline' do
+        let(:platform) { 'centos' }
+
+        it { expect(subject.repo_url(train: 'mainline')).to eq 'https://nginx.org/packages/mainline/centos/7/$basearch' }
+      end
+
+      context 'with redhat platform mainline' do
+        let(:platform) { 'redhat' }
+
+        it { expect(subject.repo_url(train: 'mainline')).to eq 'https://nginx.org/packages/mainline/rhel/7/$basearch' }
+      end
+    end
+
+    context 'with fedora family mainline' do
+      before do
+        allow(subject).to receive(:[]).with('platform').and_return(platform)
+      end
+
+      let(:platform_family) { 'fedora' }
+      let(:platform) { 'fedora' }
+
+      it { expect(subject.repo_url(train: 'mainline')).to eq 'https://nginx.org/packages/mainline/rhel/8/$basearch' }
+    end
+
+    context 'with debian family mainline' do
+      before do
+        allow(subject).to receive(:[]).with('platform').and_return(platform)
+      end
+
+      let(:platform_family) { 'debian' }
+
+      context 'with debian platform mainline' do
+        let(:platform) { 'debian' }
+
+        it { expect(subject.repo_url(train: 'mainline')).to eq 'https://nginx.org/packages/mainline/debian' }
+      end
+
+      context 'with ubuntu platform mainline' do
+        let(:platform) { 'ubuntu' }
+
+        it { expect(subject.repo_url(train: 'mainline')).to eq 'https://nginx.org/packages/mainline/ubuntu' }
+      end
+    end
+
+    context 'with suse family mainline' do
+      let(:platform_family) { 'suse' }
+
+      it { expect(subject.repo_url(train: 'mainline')).to eq 'https://nginx.org/packages/mainline/sles/12' }
     end
   end
 
@@ -132,6 +202,42 @@ RSpec.describe Nginx::Cookbook::Helpers do
       let(:platform_family) { 'suse' }
 
       it { expect(subject.nginx_user).to eq 'nginx' }
+    end
+  end
+
+  describe '#nginx_group' do
+    before do
+      allow(subject).to receive(:[]).with(:platform_family).and_return(platform_family)
+    end
+
+    context 'with amazon family' do
+      let(:platform_family) { 'amazon' }
+
+      it { expect(subject.nginx_group).to eq 'nginx' }
+    end
+
+    context 'with debian family' do
+      let(:platform_family) { 'debian' }
+
+      it { expect(subject.nginx_group).to eq 'www-data' }
+    end
+
+    context 'with fedora family' do
+      let(:platform_family) { 'fedora' }
+
+      it { expect(subject.nginx_group).to eq 'nginx' }
+    end
+
+    context 'with rhel family' do
+      let(:platform_family) { 'rhel' }
+
+      it { expect(subject.nginx_group).to eq 'nginx' }
+    end
+
+    context 'with suse family' do
+      let(:platform_family) { 'suse' }
+
+      it { expect(subject.nginx_group).to eq 'nginx' }
     end
   end
 

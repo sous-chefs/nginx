@@ -51,26 +51,3 @@ end
 def ubuntu_18?
   chefspec_platform == 'ubuntu' && chefspec_platform_version.to_f == 18.04
 end
-
-def passenger_packages
-  packages = %w(ruby-dev libcurl4-gnutls-dev)
-  packages << if debian_9? || ubuntu_18?
-                'libnginx-mod-http-passenger'
-              else
-                'passenger'
-              end
-
-  packages
-end
-
-def passenger_conf_file
-  if debian_9? || ubuntu_18?
-    '/etc/nginx/conf.d/mod-http-passenger.conf'
-  else
-    '/etc/nginx/conf.d/passenger.conf'
-  end
-end
-
-def passenger_nginx_package
-  debian_9? || ubuntu_18? ? 'nginx' : 'nginx-extras'
-end

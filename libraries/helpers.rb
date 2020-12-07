@@ -5,23 +5,25 @@ module Nginx
         '/usr/sbin/nginx'
       end
 
-      def repo_url
+      def repo_url(train: 'stable')
+        repo_base_url = train.eql?('mainline') ? 'https://nginx.org/packages/mainline' : 'https://nginx.org/packages'
+
         case node['platform_family']
         when 'amazon', 'fedora', 'rhel'
           case node['platform']
           when 'amazon'
-            'https://nginx.org/packages/rhel/7/$basearch'
+            "#{repo_base_url}/rhel/7/$basearch"
           when 'centos'
-            "https://nginx.org/packages/centos/#{node['platform_version'].to_i}/$basearch"
+            "#{repo_base_url}/centos/#{node['platform_version'].to_i}/$basearch"
           when 'fedora'
-            'https://nginx.org/packages/rhel/8/$basearch'
+            "#{repo_base_url}/rhel/8/$basearch"
           else
-            "https://nginx.org/packages/rhel/#{node['platform_version'].to_i}/$basearch"
+            "#{repo_base_url}/rhel/#{node['platform_version'].to_i}/$basearch"
           end
         when 'debian'
-          "https://nginx.org/packages/#{node['platform']}"
+          "#{repo_base_url}/#{node['platform']}"
         when 'suse'
-          'https://nginx.org/packages/sles/12'
+          "#{repo_base_url}/sles/12"
         end
       end
 
@@ -61,7 +63,9 @@ module Nginx
         "#{nginx_dir}/conf.http.d"
       end
 
-      def nginx_default_packages
+      def nginx_default_packages(source)
+        return 'nginx' if source.eql?('repo')
+
         case node['platform_family']
         when 'rhel', 'fedora'
           %w(nginx)
