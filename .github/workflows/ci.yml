@@ -53,10 +53,11 @@ jobs:
         suite:
           - 'distro'
           - 'repo'
+          - 'repo-overrides'
           - 'epel'
           - 'nginx-full'
         exclude:
-          - os: 'opensuse-leap-15' # broken, see https://github.com/chef/chef/issues/9947
+          - os: 'opensuse-leap-15'
             suite: 'repo'
           - os: 'centos-7'
             suite: 'distro'
@@ -96,6 +97,18 @@ jobs:
             suite: 'nginx-full'
           - os: 'opensuse-leap-15'
             suite: 'nginx-full'
+          - os: 'amazonlinux'
+            suite: 'repo-overrides'
+          - os: 'amazonlinux-2'
+            suite: 'repo-overrides'
+          - os: 'amazonlinux'
+            suite: 'repo-overrides'
+          - os: 'debian-9'
+            suite: 'repo-overrides'
+          - os: 'opensuse-leap-15'
+            suite: 'repo-overrides'
+          - os: 'ubuntu-1804'
+            suite: 'repo-overrides'
       fail-fast: false
 
     steps:

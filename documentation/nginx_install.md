@@ -15,7 +15,9 @@ Installs nginx via distro, repo, or EPEL.
 | ---------------------- | ------------- | -------------------------------- | ------------------------------------------------------------------- | ------------------- |
 | `ohai_plugin_enabled`  | True, False   | `true`                           | Install the nginx ohai plugin.                                      |                     |
 | `source`               | String        | `distro`                         | Source to install Nginx from.                                       |`distro`, `repo`, `epel`|
-| `packages`             | String, Array | Platform specific                | Packages to install.                                                |                     |
+| `repo_train`           | String        | `distro`                         | Train to use for installation from nginx repoistory.                |`stable`, `mainline` |
+| `packages`             | String, Array | Platform specific                | Packages to install/remove.                                         |                     |
+| `packages_versions`    | String, Array | `nil`                            | Package versions to install/remove.                                 |                     |
 
 ## Examples
 

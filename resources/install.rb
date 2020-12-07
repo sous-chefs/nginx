@@ -24,9 +24,18 @@ property :source, String,
           equal_to: %w(distro repo epel),
           default: 'distro'
 
+property :repo_train, String,
+          description: 'Train to use for installation from nginx repoistory',
+          equal_to: %w(stable mainline),
+          default: 'stable'
+
 property :packages, [String, Array],
           description: 'Override the default installation packages for the platform.',
-          default: lazy { nginx_default_packages },
+          default: lazy { nginx_default_packages(source) },
+          coerce: proc { |p| p.is_a?(Array) ? p : [p] }
+
+property :packages_versions, [String, Array],
+          description: 'Override the package versions to be installed.',
           coerce: proc { |p| p.is_a?(Array) ? p : [p] }
 
 action_class do
@@ -64,7 +73,7 @@ action :install do
     when 'amazon', 'fedora', 'rhel'
       yum_repository 'nginx' do
         description  'Nginx.org Repository'
-        baseurl      repo_url
+        baseurl      repo_url(train: new_resource.repo_train)
         gpgkey       repo_signing_key
       end
       execute 'dnf -qy module disable nginx' do
@@ -73,7 +82,7 @@ action :install do
       end
     when 'debian'
       apt_repository 'nginx' do
-        uri          repo_url
+        uri          repo_url(train: new_resource.repo_train)
         components   %w(nginx)
         deb_src      true
         key          repo_signing_key
@@ -81,7 +90,7 @@ action :install do
     when 'suse'
       zypper_repository 'nginx' do
         description 'Nginx.org Repository'
-        baseurl     repo_url
+        baseurl     repo_url(train: new_resource.repo_train)
         gpgkey      repo_signing_key
       end
     else
@@ -106,11 +115,10 @@ action :install do
       notifies :reload, 'ohai[reload_nginx]', :immediately if ohai_plugin_enabled?
     end
   else
-    new_resource.packages.each do |pkg|
-      package pkg do
-        options package_install_opts
-        notifies :reload, 'ohai[reload_nginx]', :immediately if ohai_plugin_enabled?
-      end
+    package new_resource.packages do
+      version new_resource.packages_versions
+      options package_install_opts
+      notifies :reload, 'ohai[reload_nginx]', :immediately if ohai_plugin_enabled?
     end
   end
 
@@ -123,10 +131,9 @@ action :install do
 end
 
 action :remove do
-  new_resource.packages.each do |pkg|
-    package pkg do
-      options package_install_opts
-      action :remove
-    end
+  package new_resource.packages do
+    version new_resource.packages_versions
+    options package_install_opts
+    action :remove
   end
 end

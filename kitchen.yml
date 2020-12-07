@@ -38,6 +38,7 @@ suites:
     verifier:
       inspec_tests:
         - test/integration/default
+        - test/integration/default_install
   - name: distro-nginx-full
     run_list:
       - recipe[test::distro_nginx-full]
@@ -48,6 +49,7 @@ suites:
     verifier:
       inspec_tests:
         - test/integration/default
+        - test/integration/default_install
   - name: repo
     run_list:
       - recipe[test::repo]
@@ -56,6 +58,22 @@ suites:
       inspec_tests:
         - test/integration/default
         - test/integration/repo
+        - test/integration/repo_install
+  - name: repo_overrides
+    run_list:
+      - recipe[test::repo_overrides]
+      - recipe[test::test_site]
+    includes:
+      - centos-7
+      - centos-8
+      - debian-10
+      - fedora-latest
+      - ubuntu-20.04
+    verifier:
+      inspec_tests:
+        - test/integration/default
+        - test/integration/repo_overrides
+        - test/integration/repo_install
   - name: epel
     run_list:
       - recipe[test::epel]
