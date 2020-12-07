@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
-## Unreleased
+## 11.1.0 - *2020-12-07*
 
 - Add `repo_train` property to nginx_install to select stable/mainline when installing from the nginx repo.
 - Add `packages_versions` property to nginx_install to specify specific package versions.
