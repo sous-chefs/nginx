@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## Unreleased
+
 ## 11.1.1 - *2020-12-08*
 
 - Fix site containing directory creation when nginx_config is not used
