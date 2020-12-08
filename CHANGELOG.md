@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the nginx cookbook.
 
 ## Unreleased
 
+- Fix site containing directory creation when nginx_config is not used
+
 ## 11.1.0 - *2020-12-07*
 
 - Add `repo_train` property to nginx_install to select stable/mainline when installing from the nginx repo.

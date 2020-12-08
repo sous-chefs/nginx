@@ -56,14 +56,12 @@ action_class do
 end
 
 action :create do
-  unless ::Dir.exist?(::File.dirname(new_resource.conf_dir))
-    directory ::File.dirname(new_resource.conf_dir) do
-      user new_resource.user
-      group new_resource.group
-      mode '0750'
-      action :create
-    end
-  end
+  directory new_resource.conf_dir do
+    user new_resource.user
+    group new_resource.group
+    mode '0750'
+    action :create
+  end unless ::Dir.exist?(new_resource.conf_dir)
 
   template config_file do
     cookbook new_resource.cookbook
