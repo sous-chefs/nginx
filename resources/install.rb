@@ -121,13 +121,6 @@ action :install do
       notifies :reload, 'ohai[reload_nginx]', :immediately if ohai_plugin_enabled?
     end
   end
-
-  directory nginx_log_dir do
-    owner nginx_user
-    group nginx_user
-    mode '0750'
-    action :create
-  end
 end
 
 action :remove do

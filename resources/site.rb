@@ -27,13 +27,25 @@ property :template, [String, Array],
           description: 'Which template to use for the site.',
           default: 'site-template.erb'
 
-property :user, String,
-          description: 'Nginx user',
+property :owner, String,
+          description: 'File/folder user',
           default: lazy { nginx_user }
 
 property :group, String,
-          description: 'Nginx group',
+          description: 'File/folder group',
           default: lazy { nginx_group }
+
+property :mode, String,
+          description: 'File mode',
+          default: '0640'
+
+property :folder_mode, String,
+          description: 'Folder mode',
+          default: '0750'
+
+property :folder_mode, String,
+          description: 'Folder mode',
+          default: '0750'
 
 property :variables, Hash,
           description: 'Additional variables to include in site template.',
@@ -57,9 +69,10 @@ end
 
 action :create do
   directory new_resource.conf_dir do
-    user new_resource.user
+    owner new_resource.owner
     group new_resource.group
-    mode '0750'
+    mode new_resource.folder_mode
+
     action :create
   end unless ::Dir.exist?(new_resource.conf_dir)
 
@@ -67,13 +80,15 @@ action :create do
     cookbook new_resource.cookbook
     source   new_resource.template
 
-    user new_resource.user
+    owner new_resource.owner
     group new_resource.group
-    mode '0640'
+    mode new_resource.mode
 
     variables(
       new_resource.variables.merge({ name: new_resource.name })
     )
+
+    action :create
   end
 
   add_to_list_resource(
@@ -100,9 +115,7 @@ action :enable do
   ) if new_resource.list
 
   ruby_block "Enable site #{new_resource.name}" do
-    block do
-      ::File.rename(config_file_disabled, config_file)
-    end
+    block { ::File.rename(config_file_disabled, config_file) }
 
     only_if { ::File.exist?(config_file_disabled) }
 
@@ -118,9 +131,7 @@ action :disable do
   ) if new_resource.list
 
   ruby_block "Disable site #{new_resource.name}" do
-    block do
-      ::File.rename(config_file, config_file_disabled)
-    end
+    block { ::File.rename(config_file, config_file_disabled) }
 
     only_if { ::File.exist?(config_file) }
 

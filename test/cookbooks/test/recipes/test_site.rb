@@ -7,6 +7,7 @@ end
 
 nginx_config 'nginx' do
   types_hash_max_size 2_048
+  folder_mode '0755'
 
   action :create
   notifies :restart, 'nginx_service[nginx]', :delayed
@@ -14,6 +15,7 @@ end
 
 # Setup a test site
 nginx_site 'test_site' do
+  mode '0644'
   template 'default-site.erb'
   variables(
     'port': 80,

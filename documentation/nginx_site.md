@@ -16,6 +16,10 @@
 | `config_dir`           | String        | `/etc/nginx/conf.sites.d`        | Directory to create configuration file in                           |
 | `cookbook`             | String        | `syslog-ng`                      | Cookbook to source configuration file template from                 |
 | `template`             | String        | `syslog-ng/destination.conf.erb` | Template to use to generate the configuration file                  |
+| `owner`                | String        | `nginx`                          | Nginx configuration file/folder owner.                              |
+| `group`                | String        | `nginx`                          | Nginx configuration file/folder group.                              |
+| `mode`                 | String        | `0640`                           | Nginx configuration file mode.                                      |
+| `folder_mode`          | String        | `0750`                           | Nginx configuration folder mode.                                    |
 | `variables`            | Hash          | `{}`                             | Additional variables to include in site template                    |
 
 ## Usage
