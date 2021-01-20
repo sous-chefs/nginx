@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## Unreleased
+
 ## 11.2.0 - *2021-01-20*
 
 - Add file and folder mode overrides to `nginx_config` and `nginx_site`
