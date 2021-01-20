@@ -3,14 +3,19 @@ module Nginx
     module ResourceHelpers
       def create_list_resource(directory)
         with_run_context(:root) do
-          edit_resource(:directory, directory)
+          edit_resource(:directory, directory) do
+            owner new_resource.owner
+            group new_resource.group
+            mode new_resource.folder_mode
+          end
+
           edit_resource(:template, "#{directory}/list.conf") do
             cookbook 'nginx'
             source 'list.conf.erb'
 
             owner 'root'
-            group nginx_user
-            mode '0640'
+            group new_resource.group
+            mode new_resource.mode
 
             variables['files'] ||= []
 
@@ -41,7 +46,7 @@ module Nginx
 
         case action
         when :add
-          files.push(config_file)
+          files.push(config_file) unless files.include?(config_file)
         when :remove
           files.delete(config_file) if files.include?(config_file)
         end

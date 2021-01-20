@@ -7,7 +7,7 @@
 # No files to include
 <% else -%>
 # Include files
-<% @files.sort.each do |file| -%>
+<% @files.uniq.sort.each do |file| -%>
 include <%= file %>;
 <% end -%>
 <% end -%>

@@ -13,14 +13,14 @@ end
   describe directory("/etc/nginx/#{dir}") do
     it { should exist }
     it { should be_directory }
-    its('mode') { should cmp '0750' }
+    its('mode') { should cmp '0755' }
   end
 end
 
 describe directory('/var/log/nginx') do
   it { should exist }
   it { should be_directory }
-  its('mode') { should cmp '0750' }
+  its('mode') { should cmp '0755' }
 end
 
 %w(default.conf example_ssl.conf).each do |config|
@@ -58,6 +58,7 @@ end
 describe file('/etc/nginx/conf.http.d/test_site.conf') do
   it { should exist }
   it { should be_file }
+  its('mode') { should cmp '0644' }
 end
 
 describe file('/etc/nginx/conf.http.d/test_site_disabled.conf.disabled') do
