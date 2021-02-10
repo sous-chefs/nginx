@@ -4,6 +4,9 @@ This file is used to list changes made in each version of the nginx cookbook.
 
 ## Unreleased
 
+- Add seperate `process_*` properties for nginx process use and group to `nginx_config` resource (Issue #572)
+  - Deprecate and alias the `user` property as the `process_*` properties supercede it
+
 ## 11.2.0 - *2021-01-20*
 
 - Add file and folder mode overrides to `nginx_config` and `nginx_site`

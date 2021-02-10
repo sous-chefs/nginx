@@ -15,6 +15,10 @@
 # limitations under the License.
 #
 
+deprecated_property_alias 'user',
+                          'process_user',
+                          'The user property was renamed process_user in the 11.3 release of this cookbook. Please update your cookbooks to use the new property name. This alias will be removed in the next major version.'
+
 property :config_file, String,
           description: 'The full path to the Nginx server configuration on disk.',
           default: lazy { nginx_config_file }
@@ -40,13 +44,9 @@ property :server_name, String,
           description: 'Sets the server_name directive.',
           default: lazy { node['hostname'] }
 
-property :user, String,
-          description: 'Nginx user',
-          default: lazy { nginx_user }
-
 property :owner, String,
           description: 'File/folder group',
-          default: lazy { user }
+          default: lazy { nginx_user }
 
 property :group, String,
           description: 'File/folder group',
@@ -59,6 +59,14 @@ property :mode, String,
 property :folder_mode, String,
           description: 'Folder mode',
           default: '0750'
+
+property :process_user, String,
+          description: 'Nginx process user',
+          default: lazy { nginx_user }
+
+property :process_group, String,
+          description: 'Nginx process group',
+          default: lazy { nginx_group }
 
 property :worker_processes, [Integer, String],
           description: 'The number of worker processes.',
@@ -172,8 +180,8 @@ action :create do
     variables(
       nginx_dir: nginx_dir,
       nginx_log_dir: nginx_log_dir,
-      nginx_user: new_resource.user,
-      group: new_resource.group,
+      process_user: new_resource.process_user,
+      process_group: new_resource.process_group,
       worker_processes: new_resource.worker_processes,
       pid: nginx_pid_file,
       worker_connections: new_resource.worker_connections,

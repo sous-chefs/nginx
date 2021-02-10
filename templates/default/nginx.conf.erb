@@ -2,7 +2,7 @@
 # Do NOT modify this file by hand.
 #
 
-user <%= @nginx_user %><% if @nginx_user != @group %> <%= @group %><% end %>;
+user <%= @process_user %><% if @process_group != @process_user %> <%= @process_group %><% end %>;
 worker_processes <%= @worker_processes %>;
 error_log <%= @nginx_log_dir %>/error.log;
 pid <%= @pid %>;
