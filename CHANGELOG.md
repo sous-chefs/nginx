@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## Unreleased
+
 ## 11.3.0 - *2021-02-11*
 
 - Add seperate `process_*` properties for nginx process use and group to `nginx_config` resource (Issue #572)
