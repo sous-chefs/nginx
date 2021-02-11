@@ -17,11 +17,12 @@
 | `conf_variables`       | Hash          | `{}`                             | Additional variables to include in conf template.                   |
 | `port`                 | Integer, String | `80`                           | Port to listen on.                                                  |
 | `server_name`          | String        | `node['hostname']`               | Sets the server_name directive.                                     |
-| `user`                 | String        | `nginx`                          | Nginx run-as user.                                                  |
 | `owner`                | String        | `nginx`                          | Nginx file/folder owner.                                            |
 | `group`                | String        | `nginx`                          | Nginx run-as/file/folder group.                                     |
 | `mode`                 | String        | `0640`                           | Nginx configuration file mode.                                      |
 | `folder_mode`          | String        | `0750`                           | Nginx configuration folder mode.                                    |
+| `process_user`         | String        | `nginx`                          | Nginx run-as user.                                                  |
+| `process_group`        | String        | `nginx`                          | Nginx run-as group.                                                 |
 | `worker_processes`     | Integer, String | `auto`                         | The number of worker processes.                                     |
 | `worker_connections`   | Integer, String | `1_024`                        | The maximum number of simultaneous connections that can be opened by a worker process.|
 | `sendfile`             | String        | `on`                             | Enables or disables the use of sendfile().                          |
