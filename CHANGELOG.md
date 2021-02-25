@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## Unreleased
+
 ## 11.3.1 - *2021-02-25*
 
 - Fixup the default site template and update nginx_site doc to match
