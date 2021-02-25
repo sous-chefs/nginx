@@ -177,6 +177,10 @@ action :create do
     group new_resource.group
     mode new_resource.mode
 
+    helpers(
+      Nginx::Cookbook::TemplateHelpers
+    )
+
     variables(
       nginx_dir: nginx_dir,
       nginx_log_dir: nginx_log_dir,

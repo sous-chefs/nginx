@@ -17,6 +17,10 @@ module Nginx
             group new_resource.group
             mode new_resource.mode
 
+            helpers(
+              Nginx::Cookbook::TemplateHelpers
+            )
+
             variables['files'] ||= []
 
             action :nothing

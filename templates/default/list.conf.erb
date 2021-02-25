@@ -3,7 +3,7 @@
 # Do NOT modify this file by hand, changes will be overwritten.
 #
 
-<% if @files.empty? -%>
+<% if nil_or_empty?(@files) -%>
 # No files to include
 <% else -%>
 # Include files

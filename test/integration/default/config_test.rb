@@ -32,9 +32,9 @@ end
 describe file('/etc/nginx/nginx.conf') do
   it { should exist }
   it { should be_file }
-  its('content') { should include 'worker_processes auto;' }
-  its('content') { should include 'pid /run/nginx.pid;' }
-  its('content') { should include 'worker_connections 1024;' }
+  its('content') { should include 'worker_processes      auto;' }
+  its('content') { should include 'pid                   /run/nginx.pid;' }
+  its('content') { should include 'worker_connections  1024;' }
   its('content') { should include 'sendfile            on;' }
   its('content') { should include 'tcp_nopush          on;' }
   its('content') { should include 'tcp_nodelay         on;' }
@@ -49,9 +49,9 @@ describe file('/etc/nginx/conf.http.d/default-site.conf') do
   its('content') { should include 'access_log   /var/log/nginx/localhost.access.log;' }
   case os.family
   when 'redhat'
-    its('content') { should include 'root   /usr/share/nginx/html;' }
+    its('content') { should include 'root       /usr/share/nginx/html;' }
   when 'debian'
-    its('content') { should include 'root   /var/www/html;' }
+    its('content') { should include 'root       /var/www/html;' }
   end
 end
 

@@ -2,7 +2,8 @@
 # Do NOT modify this file by hand.
 #
 
-<% unless @upstream.nil? || @upstream.empty? -%>
+<% unless nil_or_empty?(@upstream) -%>
+# Upstream
 <% @upstream.each do |name, hash| -%>
 upstream <%= name %> {
   <% if hash.fetch('server', nil).kind_of?(Array) -%>
@@ -24,7 +25,8 @@ upstream <%= name %> {
 <% end -%>
 <% end -%>
 
-<% unless @server.nil? || @server.empty? -%>
+<% unless nil_or_empty?(@server) -%>
+# Server
 # <%= @name %>
 server {
   <% @server.fetch('listen').each do |listener| %>
@@ -35,20 +37,20 @@ server {
   <% if @server.fetch('extra_options', nil).nil? || !@server.fetch('extra_options', nil).has_key?('root') -%>
   root /usr/share/nginx/html;
   <% end -%>
+  <% unless nil_or_empty?(@server.fetch('ssl', nil)) -%>
 
-  <% unless @server.fetch('ssl', nil).nil? || @server.fetch('ssl', nil).empty? -%>
   <% @server.fetch('ssl').each do |key, value| -%>
   <%= key %> <%= value %>;
   <% end -%>
   <% end -%>
+  <% unless nil_or_empty?(@server.fetch('includes', nil)) -%>
 
-  <% unless @server.fetch('includes', nil).nil? || @server.fetch('includes', nil).empty? -%>
   <% @server.fetch('includes').each do |include| -%>
   include <%= include %>;
   <% end -%>
   <% end -%>
+  <% unless nil_or_empty?(@server.fetch('extra_options', nil)) -%>
 
-  <% unless @server.fetch('extra_options', nil).nil? || @server.fetch('extra_options', nil).empty? -%>
   <% @server.fetch('extra_options').each do |key, value| -%>
   <% if value.kind_of?(Array) -%>
   <% value.each do | val | -%>
@@ -59,38 +61,47 @@ server {
   <% end -%>
   <% end -%>
   <% end -%>
+  <% unless nil_or_empty?(@server.fetch('locations', nil)) -%>
 
-  <% unless @server.fetch('locations', nil).nil? || @server.fetch('locations', nil).empty? -%>
   <% @server.fetch('locations').each do |location, options| -%>
   location <%= location %> {
-    <% unless options.nil? || options.empty? -%>
-    <% options.fetch('options').each do |option| -%>
-    <%= option %>;
+    <% unless nil_or_empty?(options) -%>
+    <% options.each do |option, value| -%>
+    <%= option %><% unless nil_or_empty?(value) -%> <%= value %><% end -%>;
     <% end -%>
     <% end -%>
   }
   <% end -%>
   <% end -%>
 
-  <% if @server.fetch('access_log', nil).nil? || @server.fetch('access_log', nil).empty? -%>
-  access_log /var/log/nginx/site-<%= @server.fetch('server_name').first %>/access-$year-$month-$day.log;
+  <% if nil_or_empty?(@server.fetch('access_log', nil)) -%>
+  access_log /var/log/nginx/site-<%= @server.fetch('server_name').first %>-access.log;
   <% else -%>
-  access_log <%= @server.fetch('access_log') %>
+  access_log <%= @server.fetch('access_log') %>;
   <% end -%>
-  <% if @server.fetch('error_log', nil).nil? || @server.fetch('error_log', nil).empty? -%>
-  error_log /var/log/nginx/site-<%= @server.fetch('server_name').first %>/error.log;
+  <% if nil_or_empty?(@server.fetch('error_log', nil)) -%>
+  error_log /var/log/nginx/site-<%= @server.fetch('server_name').first %>-error.log;
   <% else -%>
-  error_log <%= @server.fetch('error_log') %>
+  error_log <%= @server.fetch('error_log') %>;
   <% end -%>
 }
 <% end -%>
+<% unless nil_or_empty?(@map) -%>
 
-<% unless @map.nil? || @map.empty? -%>
-<% @map.each do |vars, hash| -%>
-map <%= vars %> {
-<% hash.fetch('options').each do |option| -%>
-  <%= option %>;
+# Map
+<% @map.each do |name, hostnames| -%>
+map <%= name %> {
+<% hostnames.each do |hostname, option| -%>
+  <%= hostname %> <%= option %>;
 <% end -%>
 }
 <% end -%>
+<% end -%>
+<% unless nil_or_empty?(@options) -%>
+
+# Options
+<% @options.each do |option, value| -%>
+<%= option %> <%= value %>;
+<% end -%>
+}
 <% end -%>

@@ -2,20 +2,20 @@
 # Do NOT modify this file by hand.
 #
 
-user <%= @process_user %><% if @process_group != @process_user %> <%= @process_group %><% end %>;
-worker_processes <%= @worker_processes %>;
-error_log <%= @nginx_log_dir %>/error.log;
-pid <%= @pid %>;
+user                  <%= @process_user %><% if @process_group != @process_user %> <%= @process_group %><% end %>;
+worker_processes      <%= @worker_processes %>;
+error_log             <%= @nginx_log_dir %>/error.log;
+pid                   <%= @pid %>;
 
 <% if (node['platform'] == 'debian' && node['platform_version'].to_i >= 9) || (node['platform'] == 'ubuntu' && node['platform_version'].to_i >= 18) %>
-include /etc/nginx/modules-enabled/*.conf;
+include               /etc/nginx/modules-enabled/*.conf;
 <% end -%>
 <% if %w(amazon centos fedora).include?(node['platform']) -%>
-include /usr/share/nginx/modules/*.conf;
+include               /usr/share/nginx/modules/*.conf;
 <% end -%>
 
 events {
-  worker_connections <%= @worker_connections %>;
+  worker_connections  <%= @worker_connections %>;
 }
 
 http {
@@ -23,7 +23,7 @@ http {
                     '$status $body_bytes_sent "$http_referer" '
                     '"$http_user_agent" "$http_x_forwarded_for"';
 
-  access_log  <%= @nginx_log_dir %>/access.log main;
+  access_log          <%= @nginx_log_dir %>/access.log main;
 
   sendfile            <%= @sendfile %>;
   tcp_nopush          <%= @tcp_nopush %>;
@@ -31,9 +31,9 @@ http {
   keepalive_timeout   <%= @keepalive_timeout %>;
   types_hash_max_size <%= @types_hash_max_size %>;
 
-  include       <%= @nginx_dir %>/mime.types;
-  default_type  application/octet-stream;
+  include             <%= @nginx_dir %>/mime.types;
+  default_type        application/octet-stream;
 
-  include <%= @nginx_dir %>/conf.d/*.conf;
-  include <%= @nginx_dir %>/conf.http.d/list*.conf;
+  include             <%= @nginx_dir %>/conf.d/*.conf;
+  include             <%= @nginx_dir %>/conf.http.d/list*.conf;
 }
