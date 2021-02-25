@@ -84,6 +84,10 @@ action :create do
     group new_resource.group
     mode new_resource.mode
 
+    helpers(
+      Nginx::Cookbook::TemplateHelpers
+    )
+
     variables(
       new_resource.variables.merge({ name: new_resource.name })
     )

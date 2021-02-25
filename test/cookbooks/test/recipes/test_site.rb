@@ -16,19 +16,28 @@ end
 # Setup a test site
 nginx_site 'test_site' do
   mode '0644'
-  template 'default-site.erb'
+
   variables(
-    'port': 80,
-    'server_name': 'test_site',
-    'default_root': '/var/www/nginx-default',
-    'nginx_log_dir': '/var/log/nginx'
+    'server' => {
+      'listen' => [ '*:80' ],
+      'server_name' => [ 'test_site' ],
+      'access_log' => '/var/log/nginx/test_site.access.log',
+      'locations' => {
+        '/' => {
+          'root' => '/var/www/nginx-default',
+          'index' => 'index.html index.htm',
+        },
+      },
+    }
   )
+
   action :create
   notifies :reload, 'nginx_service[nginx]', :delayed
 end
 
 nginx_site 'test_site_disabled' do
   template 'default-site.erb'
+
   variables(
     'port': 80,
     'server_name': 'test_site',
