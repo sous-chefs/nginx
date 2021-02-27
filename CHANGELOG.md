@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
-## Unreleased
+## 11.4.0 - *2021-02-27*
 
 - Refactor `ResourceHelpers` library to inherit properties from the calling resource
 - Allow for inclusion of arbitrary template helper modules
