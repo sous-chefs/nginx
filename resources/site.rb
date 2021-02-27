@@ -16,7 +16,7 @@
 #
 
 property :conf_dir, String,
-          description: 'Which site to enable or disable.',
+          description: 'The directory to create the site configuraiton file in.',
           default: lazy { nginx_config_site_dir }
 
 property :cookbook, String,
@@ -55,6 +55,10 @@ property :list, [true, false],
           description: 'Include in list resource',
           default: true
 
+property :template_helpers, [String, Array],
+          description: 'Additional helper modules to include in the site template',
+          coerce: proc { |p| p.is_a?(Array) ? p : [p] }
+
 action_class do
   include Nginx::Cookbook::ResourceHelpers
 
@@ -84,9 +88,8 @@ action :create do
     group new_resource.group
     mode new_resource.mode
 
-    helpers(
-      Nginx::Cookbook::TemplateHelpers
-    )
+    helpers(Nginx::Cookbook::TemplateHelpers)
+    new_resource.template_helpers.each { |th| helpers(::Object.const_get(th)) } unless new_resource.template_helpers.nil?
 
     variables(
       new_resource.variables.merge({ name: new_resource.name })
@@ -95,10 +98,7 @@ action :create do
     action :create
   end
 
-  add_to_list_resource(
-    new_resource.conf_dir,
-    config_file
-  ) if new_resource.list
+  add_to_list_resource if new_resource.list
 end
 
 action :delete do
@@ -106,17 +106,11 @@ action :delete do
     action :delete
   end
 
-  remove_from_list_resource(
-    new_resource.conf_dir,
-    config_file
-  ) if new_resource.list
+  remove_from_list_resource if new_resource.list
 end
 
 action :enable do
-  add_to_list_resource(
-    new_resource.conf_dir,
-    config_file
-  ) if new_resource.list
+  add_to_list_resource if new_resource.list
 
   ruby_block "Enable site #{new_resource.name}" do
     block { ::File.rename(config_file_disabled, config_file) }
@@ -129,10 +123,7 @@ action :enable do
 end
 
 action :disable do
-  remove_from_list_resource(
-    new_resource.conf_dir,
-    config_file
-  ) if new_resource.list
+  remove_from_list_resource if new_resource.list
 
   ruby_block "Disable site #{new_resource.name}" do
     block { ::File.rename(config_file, config_file_disabled) }

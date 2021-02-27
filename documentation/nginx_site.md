@@ -21,6 +21,7 @@
 | `mode`                 | String        | `0640`                           | Nginx configuration file mode.                                      |
 | `folder_mode`          | String        | `0750`                           | Nginx configuration folder mode.                                    |
 | `variables`            | Hash          | `{}`                             | Additional variables to include in site template                    |
+| `template_helpers`     | String, Array | `nil`                            | Additional helper modules to include in the site template           |
 
 ## Usage
 
