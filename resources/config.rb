@@ -149,25 +149,23 @@ action :create do
     end
   end
 
-  if default_site_enabled?
-    nginx_site 'default-site' do
-      cookbook new_resource.default_site_cookbook
-      template new_resource.default_site_template
-      conf_dir nginx_config_site_dir
+  nginx_site 'default-site' do
+    cookbook new_resource.default_site_cookbook
+    template new_resource.default_site_template
+    conf_dir nginx_config_site_dir
 
-      owner new_resource.owner
-      group new_resource.group
-      mode new_resource.mode
-      folder_mode new_resource.folder_mode
+    owner new_resource.owner
+    group new_resource.group
+    mode new_resource.mode
+    folder_mode new_resource.folder_mode
 
-      variables(
-        nginx_log_dir: nginx_log_dir,
-        port: new_resource.port,
-        server_name: new_resource.server_name,
-        default_root: default_root
-      ).merge!(new_resource.default_site_variables)
-    end
-  end
+    variables(
+      nginx_log_dir: nginx_log_dir,
+      port: new_resource.port,
+      server_name: new_resource.server_name,
+      default_root: default_root
+    ).merge!(new_resource.default_site_variables)
+  end if default_site_enabled?
 
   template new_resource.config_file do
     cookbook new_resource.conf_cookbook

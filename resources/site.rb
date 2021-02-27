@@ -16,7 +16,7 @@
 #
 
 property :conf_dir, String,
-          description: 'Which site to enable or disable.',
+          description: 'The directory to create the site configuraiton file in.',
           default: lazy { nginx_config_site_dir }
 
 property :cookbook, String,
@@ -95,10 +95,7 @@ action :create do
     action :create
   end
 
-  add_to_list_resource(
-    new_resource.conf_dir,
-    config_file
-  ) if new_resource.list
+  add_to_list_resource if new_resource.list
 end
 
 action :delete do
@@ -106,17 +103,11 @@ action :delete do
     action :delete
   end
 
-  remove_from_list_resource(
-    new_resource.conf_dir,
-    config_file
-  ) if new_resource.list
+  remove_from_list_resource if new_resource.list
 end
 
 action :enable do
-  add_to_list_resource(
-    new_resource.conf_dir,
-    config_file
-  ) if new_resource.list
+  add_to_list_resource if new_resource.list
 
   ruby_block "Enable site #{new_resource.name}" do
     block { ::File.rename(config_file_disabled, config_file) }
@@ -129,10 +120,7 @@ action :enable do
 end
 
 action :disable do
-  remove_from_list_resource(
-    new_resource.conf_dir,
-    config_file
-  ) if new_resource.list
+  remove_from_list_resource if new_resource.list
 
   ruby_block "Disable site #{new_resource.name}" do
     block { ::File.rename(config_file, config_file_disabled) }
