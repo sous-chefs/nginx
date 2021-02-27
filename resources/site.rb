@@ -55,6 +55,10 @@ property :list, [true, false],
           description: 'Include in list resource',
           default: true
 
+property :template_helpers, [String, Array],
+          description: 'Additional helper modules to include in the site template',
+          coerce: proc { |p| p.is_a?(Array) ? p : [p] }
+
 action_class do
   include Nginx::Cookbook::ResourceHelpers
 
@@ -84,9 +88,8 @@ action :create do
     group new_resource.group
     mode new_resource.mode
 
-    helpers(
-      Nginx::Cookbook::TemplateHelpers
-    )
+    helpers(Nginx::Cookbook::TemplateHelpers)
+    new_resource.template_helpers.each { |th| helpers(::Object.const_get(th)) } unless new_resource.template_helpers.nil?
 
     variables(
       new_resource.variables.merge({ name: new_resource.name })

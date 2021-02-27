@@ -120,6 +120,10 @@ property :default_site_variables, Hash,
           description: 'Additional variables to include in default site template.',
           default: {}
 
+property :template_helpers, [String, Array],
+          description: 'Additional helper modules to include in the default site and config template',
+          coerce: proc { |p| p.is_a?(Array) ? p : [p] }
+
 action_class do
   include Nginx::Cookbook::ResourceHelpers
 
@@ -159,6 +163,8 @@ action :create do
     mode new_resource.mode
     folder_mode new_resource.folder_mode
 
+    template_helpers new_resource.template_helpers
+
     variables(
       nginx_log_dir: nginx_log_dir,
       port: new_resource.port,
@@ -175,9 +181,8 @@ action :create do
     group new_resource.group
     mode new_resource.mode
 
-    helpers(
-      Nginx::Cookbook::TemplateHelpers
-    )
+    helpers(Nginx::Cookbook::TemplateHelpers)
+    new_resource.template_helpers.each { |th| helpers(::Object.const_get(th)) } unless new_resource.template_helpers.nil?
 
     variables(
       nginx_dir: nginx_dir,

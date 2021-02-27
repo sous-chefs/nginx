@@ -33,6 +33,7 @@
 | `default_site_enabled` | True, False   | `true`                           | Whether or not the default site is enabled.                         |
 | `default_site_cookbook`| String        | `nginx`                          | Which cookbook to use for the default site template.                |
 | `default_site_template`| String        | `default-site.erb`               | Which template to use for the default site.                         |
+| `template_helpers`     | String, Array | `nil`                            | Additional helper modules to include in the default site and config template. |
 
 ## Examples
 

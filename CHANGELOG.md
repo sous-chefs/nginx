@@ -4,7 +4,8 @@ This file is used to list changes made in each version of the nginx cookbook.
 
 ## Unreleased
 
-- Refactor ResourceHelpers library to inherit properties from the calling resource
+- Refactor `ResourceHelpers` library to inherit properties from the calling resource
+- Allow for inclusion of arbitrary template helper modules
 
 ## 11.3.1 - *2021-02-25*
 
