@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## Unreleased
+
 ## 11.5.0 - *2021-03-26*
 
 - Fix generating multiple actions from the service resource - [@bmhughes](https://github.com/bmhughes)
