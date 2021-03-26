@@ -34,60 +34,32 @@ property :config_test_fail_action, Symbol,
 
 action_class do
   def do_service_action(resource_action)
-    with_run_context(:root) do
-      if %i(start restart reload).include?(resource_action) && ::File.exist?(new_resource.config_file)
-        begin
-          if new_resource.config_test
-            cmd = Mixlib::ShellOut.new("#{nginx_binary} -t -c #{new_resource.config_file}")
-            cmd.run_command.error!
-            Chef::Log.info("Configuration test passed, creating #{new_resource.service_name} #{new_resource.declared_type} resource with action #{resource_action}")
-          else
-            Chef::Log.info("Configuration test disabled, creating #{new_resource.service_name} #{new_resource.declared_type} resource with action #{resource_action}")
-          end
-
-          edit_resource(:service, new_resource.service_name) do
-            action :nothing
-            delayed_action resource_action
-          end
-        rescue Mixlib::ShellOut::ShellCommandFailed
-          if new_resource.config_test_fail_action.eql?(:log)
-            Chef::Log.error("Configuration test failed, #{new_resource.service_name} #{resource_action} action aborted!\n\n"\
-                            "Error\n-----\n#{cmd.stderr}")
-          else
-            raise "Configuration test failed, #{new_resource.service_name} #{resource_action} action aborted!\n\n"\
-                  "Error\n-----\nAction: #{resource_action}\n#{cmd.stderr}"
-          end
+    if %i(start restart reload).include?(resource_action)
+      begin
+        if new_resource.config_test
+          cmd = Mixlib::ShellOut.new("#{nginx_binary} -t -c #{new_resource.config_file}")
+          cmd.run_command.error!
+          Chef::Log.info("Configuration test passed, creating #{new_resource.service_name} #{new_resource.declared_type} resource with action #{resource_action}")
+        else
+          Chef::Log.info("Configuration test disabled, creating #{new_resource.service_name} #{new_resource.declared_type} resource with action #{resource_action}")
         end
-      else
-        edit_resource(:service, new_resource.service_name.delete_suffix('.service')) do
-          action :nothing
-          delayed_action resource_action
+
+        declare_resource(:service, new_resource.service_name.delete_suffix('.service')).action(resource_action)
+      rescue Mixlib::ShellOut::ShellCommandFailed
+        if new_resource.config_test_fail_action.eql?(:log)
+          Chef::Log.error("Configuration test failed, #{new_resource.service_name} #{resource_action} action aborted!\n\n"\
+                          "Error\n-----\n#{cmd.stderr}")
+        else
+          raise "Configuration test failed, #{new_resource.service_name} #{resource_action} action aborted!\n\n"\
+                "Error\n-----\nAction: #{resource_action}\n#{cmd.stderr}"
         end
       end
+    else
+      declare_resource(:service, new_resource.service_name.delete_suffix('.service')).action(resource_action)
     end
   end
 end
 
-action :start do
-  do_service_action(action)
-end
-
-action :stop do
-  do_service_action(action)
-end
-
-action :restart do
-  do_service_action(action)
-end
-
-action :reload do
-  do_service_action(action)
-end
-
-action :enable do
-  do_service_action(action)
-end
-
-action :disable do
-  do_service_action(action)
+%i(start stop restart reload enable disable).each do |action_type|
+  send(:action, action_type) { do_service_action(action) }
 end

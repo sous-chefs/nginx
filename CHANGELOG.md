@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the nginx cookbook.
 
 ## Unreleased
 
+- Fix generating multiple actions from the service resource - [@bmhughes](https://github.com/bmhughes)
+
 ## 11.4.0 - *2021-02-27*
 
 - Refactor `ResourceHelpers` library to inherit properties from the calling resource
