@@ -15,6 +15,8 @@
 # limitations under the License.
 #
 
+include Nginx::Cookbook::Helpers
+
 property :service_name, String,
           default: lazy { default_nginx_service_name },
           description: 'The service name to perform actions upon'

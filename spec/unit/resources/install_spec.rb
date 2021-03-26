@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe 'nginx_install' do
   step_into :nginx_install
+  platform 'centos'
 
   before do
     stub_command('dnf module list nginx | grep -q "^nginx.*\\[x\\]"').and_return(false)
@@ -71,7 +72,7 @@ describe 'nginx_install' do
       shared_examples_for 'yum repository is created' do
         it do
           is_expected.to create_yum_repository('nginx')
-            .with_baseurl(repo_url)
+            .with_baseurl(platform_repo_url)
             .with_gpgkey(repo_signing_key)
         end
       end
@@ -79,7 +80,7 @@ describe 'nginx_install' do
       shared_examples_for 'apt repository is added' do
         it do
           is_expected.to add_apt_repository('nginx')
-            .with_uri(repo_url)
+            .with_uri(platform_repo_url)
             .with_distribution(platform_distribution_nginx)
             .with_components(%w(nginx))
             .with_deb_src(true)
@@ -125,7 +126,7 @@ describe 'nginx_install' do
 
         it do
           is_expected.to create_zypper_repository('nginx')
-            .with_baseurl(repo_url)
+            .with_baseurl(platform_repo_url)
             .with_gpgkey(repo_signing_key)
         end
       end

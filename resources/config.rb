@@ -15,6 +15,8 @@
 # limitations under the License.
 #
 
+include Nginx::Cookbook::Helpers
+
 deprecated_property_alias 'user',
                           'process_user',
                           'The user property was renamed process_user in the 11.3 release of this cookbook. Please update your cookbooks to use the new property name. This alias will be removed in the next major version.'

@@ -1,7 +1,7 @@
 require 'chefspec'
 require 'chefspec/berkshelf'
-require_relative '../libraries/helpers'
 
+Dir['libraries/*.rb'].sort.each { |f| require File.expand_path(f) }
 Dir['./spec/support/**/*.rb'].sort.each { |f| require f }
 
 RSpec.configure do |config|

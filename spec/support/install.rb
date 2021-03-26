@@ -1,4 +1,4 @@
-def repo_url
+def platform_repo_url
   case chefspec_platform
   when 'amazon', 'fedora', 'redhat'
     'https://nginx.org/packages/rhel/7/$basearch'
