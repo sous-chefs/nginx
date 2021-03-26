@@ -1,9 +1,34 @@
 module Nginx
   module Cookbook
     module ResourceHelpers
+      # Create a list resource for the present conf_dir unless it already exists in the resource collection
+      def init_list_resource
+        create_list_resource unless list_resource_exist?
+      end
+
+      # Add the caller configuration resource to the relevant list for the directory it is being created in
+      def add_to_list_resource
+        manage_list_resource(:add)
+      end
+
+      # Remove the caller configuration resource from the relevant list for the directory it is being created in
+      def remove_from_list_resource
+        manage_list_resource(:remove)
+      end
+
+      private
+
+      # Check if the list resource is already present in the resource collection
+      def list_resource_exist?
+        !find_resource!(:template, "#{new_resource.conf_dir}/list.conf").nil?
+      rescue Chef::Exceptions::ResourceNotFound
+        false
+      end
+
+      # Declare resources to create a list resource and it's containing directory
       def create_list_resource
-        with_run_context(:root) do
-          edit_resource(:directory, new_resource.conf_dir) do |new_resource|
+        with_run_context :root do
+          declare_resource(:directory, new_resource.conf_dir) do
             owner new_resource.owner
             group new_resource.group
             mode new_resource.folder_mode
@@ -11,7 +36,7 @@ module Nginx
             action :create
           end
 
-          edit_resource(:template, "#{new_resource.conf_dir}/list.conf") do |new_resource|
+          declare_resource(:template, "#{new_resource.conf_dir}/list.conf") do
             cookbook 'nginx'
             source 'list.conf.erb'
 
@@ -29,26 +54,17 @@ module Nginx
         end
       end
 
-      def add_to_list_resource
-        manage_list_resource(:add)
+      # Find the include list resource for the relevant directory and return it
+      def list_resource
+        find_resource!(:template, "#{new_resource.conf_dir}/list.conf")
       end
 
-      def remove_from_list_resource
-        manage_list_resource(:remove)
-      end
-
-      private
-
+      # Manage addition and removal from an include list template ensuring it is already declared in the resource collection
       def manage_list_resource(action)
         raise ArgumentError, "manage_list_resource: Invalid action #{action}." unless %i(add remove).include?(action)
 
-        list = begin
-                 find_resource!(:template, "#{new_resource.conf_dir}/list.conf")
-               rescue Chef::Exceptions::ResourceNotFound
-                 create_list_resource
-               end
-
-        files = list.variables['files']
+        init_list_resource
+        files = list_resource.variables['files']
 
         case action
         when :add
