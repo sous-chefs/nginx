@@ -15,6 +15,8 @@
 # limitations under the License.
 #
 
+include Nginx::Cookbook::Helpers
+
 property :conf_dir, String,
           description: 'The directory to create the site configuraiton file in.',
           default: lazy { nginx_config_site_dir }

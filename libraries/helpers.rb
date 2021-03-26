@@ -103,5 +103,3 @@ module Nginx
     end
   end
 end
-
-Chef::DSL::Universal.include(Nginx::Cookbook::Helpers)

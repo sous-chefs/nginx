@@ -15,6 +15,8 @@
 # limitations under the License.
 #
 
+include Nginx::Cookbook::Helpers
+
 property :ohai_plugin_enabled, [true, false],
           description: 'Whether or not ohai_plugin is enabled.',
           default: true
@@ -39,6 +41,8 @@ property :packages_versions, [String, Array],
           coerce: proc { |p| p.is_a?(Array) ? p : [p] }
 
 action_class do
+  include Nginx::Cookbook::Helpers
+
   def ohai_plugin_enabled?
     new_resource.ohai_plugin_enabled
   end

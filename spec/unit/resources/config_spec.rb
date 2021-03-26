@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'nginx_config' do
   step_into :nginx_config, :nginx_install, :nginx_site
-  platform  'ubuntu'
+  platform 'centos'
 
   before do
     stub_command('/usr/sbin/nginx -t').and_return(true)
@@ -21,8 +21,8 @@ describe 'nginx_config' do
         .with_variables(
           nginx_dir: '/etc/nginx',
           nginx_log_dir: '/var/log/nginx',
-          process_user: 'www-data',
-          process_group: 'www-data',
+          process_user: 'nginx',
+          process_group: 'nginx',
           worker_processes: 'auto',
           pid: '/run/nginx.pid',
           worker_connections: '1024',
@@ -43,11 +43,11 @@ describe 'nginx_config' do
           nginx_log_dir: '/var/log/nginx',
           port: '80',
           server_name: 'Fauxhai',
-          default_root: '/var/www/html'
+          default_root: '/usr/share/nginx/html'
         )
     end
 
-    it { is_expected.to create_directory('/var/log/nginx').with_mode('0750').with_owner(nginx_user) }
+    it { is_expected.to create_directory('/var/log/nginx').with_mode('0750').with_owner('nginx') }
     it { is_expected.to create_directory('/etc/nginx/conf.d').with_mode('0750') }
     it { is_expected.to create_directory('/etc/nginx/conf.http.d').with_mode('0750') }
   end
