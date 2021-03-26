@@ -66,6 +66,7 @@ suites:
     includes:
       - centos-7
       - centos-8
+      - centos-stream-8
       - debian-10
       - fedora-latest
       - ubuntu-20.04
@@ -81,6 +82,7 @@ suites:
     includes:
       - centos-7
       - centos-8
+      - centos-stream-8
     verifier:
       inspec_tests:
         - test/integration/default
