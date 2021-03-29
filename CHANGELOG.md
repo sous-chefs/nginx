@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## Unreleased
+
 ## 11.5.1 - *2021-03-29*
 
 - Fix start/restart/reload delayed actions - [@bmhughes](https://github.com/bmhughes)
