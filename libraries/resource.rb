@@ -27,7 +27,7 @@ module Nginx
 
       # Declare resources to create a list resource and it's containing directory
       def create_list_resource
-        with_run_context :root do
+        with_run_context(:root) do
           declare_resource(:directory, new_resource.conf_dir) do
             owner new_resource.owner
             group new_resource.group
