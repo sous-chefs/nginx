@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
-## Unreleased
+## 11.5.2 - *2021-04-16*
 
 ## 11.5.1 - *2021-03-29*
 
