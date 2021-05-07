@@ -11,15 +11,15 @@ describe 'nginx_install' do
 
   context 'with default properties' do
     shared_examples_for 'ohai is enabled' do
-      it { is_expected.to nothing_ohai('reload_nginx').with_plugin('nginx') }
-      it { is_expected.to create_ohai_plugin('nginx').with_variables(binary: '/usr/sbin/nginx') }
+      it { is_expected.to reload_ohai('nginx') }
+      it { is_expected.to create_template(%r{/ohai/plugins/nginx.rb}).with_variables(binary: '/usr/sbin/nginx') }
     end
 
     let(:package_install_options) { nil }
 
     shared_examples_for 'nginx package is installed' do
       it { is_expected.to install_package('nginx').with_options(package_install_options) }
-      it { expect(chef_run.package('nginx')).to notify('ohai[reload_nginx]').to(:reload).immediately }
+      it { expect(chef_run.package('nginx')).to notify('ohai[nginx]').to(:reload).immediately }
     end
 
     context 'with distro source' do
@@ -33,7 +33,7 @@ describe 'nginx_install' do
         include_examples 'ohai is enabled'
 
         it { is_expected.to run_execute('amazon-linux-extras install nginx1.12') }
-        it { expect(chef_run.execute('amazon-linux-extras install nginx1.12')).to notify('ohai[reload_nginx]').to(:reload).immediately }
+        it { expect(chef_run.execute('amazon-linux-extras install nginx1.12')).to notify('ohai[nginx]').to(:reload).immediately }
       end
 
       context 'with debian platform' do
@@ -42,7 +42,7 @@ describe 'nginx_install' do
         include_examples 'ohai is enabled'
 
         it { is_expected.to install_package('nginx-full').with_options(package_install_options) }
-        it { expect(chef_run.package('nginx-full')).to notify('ohai[reload_nginx]').to(:reload).immediately }
+        it { expect(chef_run.package('nginx-full')).to notify('ohai[nginx]').to(:reload).immediately }
       end
 
       context 'with opensuse platform' do
@@ -58,7 +58,7 @@ describe 'nginx_install' do
         include_examples 'ohai is enabled'
 
         it { is_expected.to install_package('nginx-full').with_options(package_install_options) }
-        it { expect(chef_run.package('nginx-full')).to notify('ohai[reload_nginx]').to(:reload).immediately }
+        it { expect(chef_run.package('nginx-full')).to notify('ohai[nginx]').to(:reload).immediately }
       end
     end
 
@@ -115,7 +115,7 @@ describe 'nginx_install' do
         include_examples 'apt repository is added'
 
         it { is_expected.to install_package('nginx').with_options(package_install_options) }
-        it { expect(chef_run.package('nginx')).to notify('ohai[reload_nginx]').to(:reload).immediately }
+        it { expect(chef_run.package('nginx')).to notify('ohai[nginx]').to(:reload).immediately }
       end
 
       context 'with opensuse platform' do
@@ -138,7 +138,7 @@ describe 'nginx_install' do
         include_examples 'apt repository is added'
 
         it { is_expected.to install_package('nginx').with_options(package_install_options) }
-        it { expect(chef_run.package('nginx')).to notify('ohai[reload_nginx]').to(:reload).immediately }
+        it { expect(chef_run.package('nginx')).to notify('ohai[nginx]').to(:reload).immediately }
       end
     end
 

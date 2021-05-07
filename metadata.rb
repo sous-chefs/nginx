@@ -8,8 +8,6 @@ license          'Apache-2.0'
 description      'Installs and configures nginx'
 version          '11.5.3'
 
-depends  'ohai', '~> 5.2'
-
 supports 'amazon'
 supports 'centos'
 supports 'fedora'
