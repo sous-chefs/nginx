@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
-## Unreleased
+## 12.0.0 - *2021-05-07*
 
 - Enable unified_mode resource for Chef 17
 - Remove dependency on the deprecated ohai cookbook
