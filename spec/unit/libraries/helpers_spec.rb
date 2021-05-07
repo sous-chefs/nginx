@@ -109,13 +109,13 @@ RSpec.describe Nginx::Cookbook::Helpers do
       context 'with centos platform mainline' do
         let(:platform) { 'centos' }
 
-        it { expect(subject.repo_url(train: 'mainline')).to eq 'https://nginx.org/packages/mainline/centos/7/$basearch' }
+        it { expect(subject.repo_url('mainline')).to eq 'https://nginx.org/packages/mainline/centos/7/$basearch' }
       end
 
       context 'with redhat platform mainline' do
         let(:platform) { 'redhat' }
 
-        it { expect(subject.repo_url(train: 'mainline')).to eq 'https://nginx.org/packages/mainline/rhel/7/$basearch' }
+        it { expect(subject.repo_url('mainline')).to eq 'https://nginx.org/packages/mainline/rhel/7/$basearch' }
       end
     end
 
@@ -127,7 +127,7 @@ RSpec.describe Nginx::Cookbook::Helpers do
       let(:platform_family) { 'fedora' }
       let(:platform) { 'fedora' }
 
-      it { expect(subject.repo_url(train: 'mainline')).to eq 'https://nginx.org/packages/mainline/rhel/8/$basearch' }
+      it { expect(subject.repo_url('mainline')).to eq 'https://nginx.org/packages/mainline/rhel/8/$basearch' }
     end
 
     context 'with debian family mainline' do
@@ -140,20 +140,20 @@ RSpec.describe Nginx::Cookbook::Helpers do
       context 'with debian platform mainline' do
         let(:platform) { 'debian' }
 
-        it { expect(subject.repo_url(train: 'mainline')).to eq 'https://nginx.org/packages/mainline/debian' }
+        it { expect(subject.repo_url('mainline')).to eq 'https://nginx.org/packages/mainline/debian' }
       end
 
       context 'with ubuntu platform mainline' do
         let(:platform) { 'ubuntu' }
 
-        it { expect(subject.repo_url(train: 'mainline')).to eq 'https://nginx.org/packages/mainline/ubuntu' }
+        it { expect(subject.repo_url('mainline')).to eq 'https://nginx.org/packages/mainline/ubuntu' }
       end
     end
 
     context 'with suse family mainline' do
       let(:platform_family) { 'suse' }
 
-      it { expect(subject.repo_url(train: 'mainline')).to eq 'https://nginx.org/packages/mainline/sles/12' }
+      it { expect(subject.repo_url('mainline')).to eq 'https://nginx.org/packages/mainline/sles/12' }
     end
   end
 

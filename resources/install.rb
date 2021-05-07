@@ -15,6 +15,8 @@
 # limitations under the License.
 #
 
+unified_mode true
+
 include Nginx::Cookbook::Helpers
 
 property :ohai_plugin_enabled, [true, false],
@@ -50,22 +52,30 @@ action_class do
   def source?(source)
     new_resource.source == source
   end
+
+  def chef_config_path
+    return '/etc/chef' unless Chef::Config['config_file']
+
+    ::File.dirname(Chef::Config['config_file'])
+  end
 end
 
 action :install do
   if ohai_plugin_enabled?
-    ohai 'reload_nginx' do
-      plugin 'nginx'
-      action :nothing
+    directory ::File.join(chef_config_path, 'ohai', 'plugins') do
+      recursive true
     end
 
-    ohai_plugin 'nginx' do
-      cookbook    'nginx'
-      source_file 'plugins/ohai-nginx.rb.erb'
-      resource    :template
+    template ::File.join(chef_config_path, 'ohai', 'plugins', 'nginx.rb') do
+      cookbook 'nginx'
+      source 'plugins/ohai-nginx.rb.erb'
       variables(
         binary: nginx_binary
       )
+    end
+
+    ohai 'nginx' do
+      action :reload
     end
   end
 
@@ -77,7 +87,7 @@ action :install do
     when 'amazon', 'fedora', 'rhel'
       yum_repository 'nginx' do
         description  'Nginx.org Repository'
-        baseurl      repo_url(train: new_resource.repo_train)
+        baseurl      repo_url(new_resource.repo_train)
         gpgkey       repo_signing_key
       end
       execute 'dnf -qy module disable nginx' do
@@ -86,7 +96,7 @@ action :install do
       end
     when 'debian'
       apt_repository 'nginx' do
-        uri          repo_url(train: new_resource.repo_train)
+        uri          repo_url(new_resource.repo_train)
         components   %w(nginx)
         deb_src      true
         key          repo_signing_key
@@ -94,7 +104,7 @@ action :install do
     when 'suse'
       zypper_repository 'nginx' do
         description 'Nginx.org Repository'
-        baseurl     repo_url(train: new_resource.repo_train)
+        baseurl     repo_url(new_resource.repo_train)
         gpgkey      repo_signing_key
       end
     else
@@ -116,13 +126,13 @@ action :install do
   if source?('distro') && platform?('amazon')
     execute 'install nginx from amazon extras library' do
       command 'amazon-linux-extras install nginx1.12'
-      notifies :reload, 'ohai[reload_nginx]', :immediately if ohai_plugin_enabled?
+      notifies :reload, 'ohai[nginx]', :immediately if ohai_plugin_enabled?
     end
   else
     package new_resource.packages do
       version new_resource.packages_versions
       options package_install_opts
-      notifies :reload, 'ohai[reload_nginx]', :immediately if ohai_plugin_enabled?
+      notifies :reload, 'ohai[nginx]', :immediately if ohai_plugin_enabled?
     end
   end
 end
@@ -133,4 +143,6 @@ action :remove do
     options package_install_opts
     action :remove
   end
+
+  file ::File.join(chef_config_path, 'ohai', 'plugins', 'nginx.rb') { action :delete }
 end

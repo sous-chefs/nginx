@@ -5,7 +5,7 @@ module Nginx
         '/usr/sbin/nginx'
       end
 
-      def repo_url(train: 'stable')
+      def repo_url(train = 'stable')
         repo_base_url = train.eql?('mainline') ? 'https://nginx.org/packages/mainline' : 'https://nginx.org/packages'
 
         case node['platform_family']
