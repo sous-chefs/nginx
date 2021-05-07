@@ -87,7 +87,7 @@ action :install do
     when 'amazon', 'fedora', 'rhel'
       yum_repository 'nginx' do
         description  'Nginx.org Repository'
-        baseurl      repo_url(train: new_resource.repo_train)
+        baseurl      repo_url(new_resource.repo_train)
         gpgkey       repo_signing_key
       end
       execute 'dnf -qy module disable nginx' do
@@ -96,7 +96,7 @@ action :install do
       end
     when 'debian'
       apt_repository 'nginx' do
-        uri          repo_url(train: new_resource.repo_train)
+        uri          repo_url(new_resource.repo_train)
         components   %w(nginx)
         deb_src      true
         key          repo_signing_key
@@ -104,7 +104,7 @@ action :install do
     when 'suse'
       zypper_repository 'nginx' do
         description 'Nginx.org Repository'
-        baseurl     repo_url(train: new_resource.repo_train)
+        baseurl     repo_url(new_resource.repo_train)
         gpgkey      repo_signing_key
       end
     else
