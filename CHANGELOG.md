@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the nginx cookbook.
 
 ## Unreleased
 
+- Enable unified_mode resource for Chef 17
+
 ## 11.5.3 - *2021-04-20*
 
 - Fix site template: remove unmatching rbrace in options
