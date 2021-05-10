@@ -48,6 +48,20 @@ nginx_site 'test_site_disabled' do
   notifies :reload, 'nginx_service[nginx]', :delayed
 end
 
+nginx_site 'foo' do
+  mode '0644'
+  cookbook 'test'
+  template 'override-site-template.erb'
+  variables(
+    'upstream' => {
+      'bar' => {
+        'server' => 'localhost:1234',
+      },
+    }
+  )
+  action :create
+end
+
 nginx_service 'nginx' do
   action :enable
   delayed_action :start

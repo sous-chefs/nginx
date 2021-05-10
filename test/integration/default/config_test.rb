@@ -65,3 +65,11 @@ describe file('/etc/nginx/conf.http.d/test_site_disabled.conf.disabled') do
   it { should exist }
   it { should be_file }
 end
+
+describe file('/etc/nginx/conf.http.d/foo.conf') do
+  it { should exist }
+  it { should be_file }
+  its('content') { should include '## OVERRIDE FROM TEST COOKBOOK' }
+  its('content') { should include 'upstream bar {' }
+  its('content') { should include '  server localhost:1234;' }
+end

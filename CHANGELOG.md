@@ -4,6 +4,11 @@ This file is used to list changes made in each version of the nginx cookbook.
 
 ## Unreleased
 
+- Refactor the default site template
+  - Cast to Array where possible to remove type check logic.
+  - Make upstream options key optional.
+  - Add test case for overriding template.
+
 ## 12.0.0 - *2021-05-07*
 
 - Enable unified_mode resource for Chef 17
