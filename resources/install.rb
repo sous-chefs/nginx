@@ -75,7 +75,7 @@ action :install do
     end
 
     ohai 'nginx' do
-      action :reload
+      action :nothing
     end
   end
 

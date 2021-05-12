@@ -11,7 +11,7 @@ describe 'nginx_install' do
 
   context 'with default properties' do
     shared_examples_for 'ohai is enabled' do
-      it { is_expected.to reload_ohai('nginx') }
+      it { expect(chef_run.ohai('nginx')).to do_nothing }
       it { is_expected.to create_template(%r{/ohai/plugins/nginx.rb}).with_variables(binary: '/usr/sbin/nginx') }
     end
 
