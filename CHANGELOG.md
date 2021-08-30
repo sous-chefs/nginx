@@ -4,7 +4,12 @@ This file is used to list changes made in each version of the nginx cookbook.
 
 ## Unreleased
 
+- Standardise files with files in sous-chefs/repo-management
+- Fix ChefSpec test
+
 ## 12.0.4 - *2021-06-01*
+
+- Standardise files with files in sous-chefs/repo-management
 
 ## 12.0.3 - *2021-05-12*
 
