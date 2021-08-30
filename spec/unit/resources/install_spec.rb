@@ -127,7 +127,7 @@ describe 'nginx_install' do
         it do
           is_expected.to create_zypper_repository('nginx')
             .with_baseurl(platform_repo_url)
-            .with_gpgkey(repo_signing_key)
+            .with_gpgkey([repo_signing_key])
         end
       end
 
