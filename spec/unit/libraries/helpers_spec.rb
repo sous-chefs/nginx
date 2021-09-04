@@ -81,9 +81,23 @@ RSpec.describe Nginx::Cookbook::Helpers do
     end
 
     context 'with suse family stable' do
-      let(:platform_family) { 'suse' }
+      before do
+        allow(subject).to receive(:[]).with('platform_version').and_return(platform_version)
+      end
 
-      it { expect(subject.repo_url).to eq 'https://nginx.org/packages/sles/12' }
+      context 'with suse 12 family stable' do
+        let(:platform_family) { 'suse' }
+        let(:platform_version) { '12' }
+
+        it { expect(subject.repo_url).to eq 'https://nginx.org/packages/sles/12' }
+      end
+
+      context 'with suse 15 family stable' do
+        let(:platform_family) { 'suse' }
+        let(:platform_version) { '15' }
+
+        it { expect(subject.repo_url).to eq 'https://nginx.org/packages/sles/15' }
+      end
     end
 
     context 'with amazon family stable' do
@@ -151,9 +165,23 @@ RSpec.describe Nginx::Cookbook::Helpers do
     end
 
     context 'with suse family mainline' do
-      let(:platform_family) { 'suse' }
+      before do
+        allow(subject).to receive(:[]).with('platform_version').and_return(platform_version)
+      end
 
-      it { expect(subject.repo_url('mainline')).to eq 'https://nginx.org/packages/mainline/sles/12' }
+      context 'with suse 12 family mainline' do
+        let(:platform_family) { 'suse' }
+        let(:platform_version) { '12' }
+
+        it { expect(subject.repo_url('mainline')).to eq 'https://nginx.org/packages/mainline/sles/12' }
+      end
+
+      context 'with suse 15 family mainline' do
+        let(:platform_family) { 'suse' }
+        let(:platform_version) { '15' }
+
+        it { expect(subject.repo_url('mainline')).to eq 'https://nginx.org/packages/mainline/sles/15' }
+      end
     end
   end
 
@@ -183,7 +211,7 @@ RSpec.describe Nginx::Cookbook::Helpers do
     context 'with debian family' do
       let(:platform_family) { 'debian' }
 
-      it { expect(subject.nginx_user).to eq 'www-data' }
+      it { expect(subject.nginx_user).to eq 'root' }
     end
 
     context 'with fedora family' do
@@ -219,7 +247,7 @@ RSpec.describe Nginx::Cookbook::Helpers do
     context 'with debian family' do
       let(:platform_family) { 'debian' }
 
-      it { expect(subject.nginx_group).to eq 'www-data' }
+      it { expect(subject.nginx_group).to eq 'root' }
     end
 
     context 'with fedora family' do

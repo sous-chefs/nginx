@@ -23,7 +23,7 @@ module Nginx
         when 'debian'
           "#{repo_base_url}/#{node['platform']}"
         when 'suse'
-          "#{repo_base_url}/sles/12"
+          "#{repo_base_url}/sles/#{node['platform_version'].to_i}"
         end
       end
 
@@ -40,11 +40,11 @@ module Nginx
       end
 
       def nginx_user
-        platform_family?('debian') ? 'www-data' : 'nginx'
+        platform_family?('debian') ? 'root' : 'nginx'
       end
 
       def nginx_group
-        platform_family?('debian') ? 'www-data' : 'nginx'
+        platform_family?('debian') ? 'root' : 'nginx'
       end
 
       def nginx_pid_file
