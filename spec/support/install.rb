@@ -7,7 +7,7 @@ def platform_repo_url
   when 'debian'
     'https://nginx.org/packages/debian'
   when 'opensuse'
-    'https://nginx.org/packages/sles/12'
+    'https://nginx.org/packages/sles/15'
   when 'ubuntu'
     'https://nginx.org/packages/ubuntu'
   end

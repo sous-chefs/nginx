@@ -23,7 +23,7 @@ module Nginx
         when 'debian'
           "#{repo_base_url}/#{node['platform']}"
         when 'suse'
-          "#{repo_base_url}/sles/12"
+          "#{repo_base_url}/sles/#{node['platform_version'].to_i}"
         end
       end
 
