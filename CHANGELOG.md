@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
-## Unreleased
+## 12.0.6 - *2021-09-04*
 
 - Fix repo helper incorrect version for SLES
 - Set default user/group to `root` for Debian/Ubuntu platforms
