@@ -40,11 +40,11 @@ module Nginx
       end
 
       def nginx_user
-        platform_family?('debian') ? 'www-data' : 'nginx'
+        platform_family?('debian') ? 'root' : 'nginx'
       end
 
       def nginx_group
-        platform_family?('debian') ? 'www-data' : 'nginx'
+        platform_family?('debian') ? 'root' : 'nginx'
       end
 
       def nginx_pid_file
