@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
-## Unreleased
+## 12.0.7 - *2021-10-08*
 
 - Correct default value for `config_dir` in nginx_site.md
 
