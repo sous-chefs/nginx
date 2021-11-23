@@ -13,7 +13,7 @@
 
 | Name               | Type          | Default                  | Description                                               |
 |--------------------|---------------|--------------------------|-----------------------------------------------------------|
-| `config_dir`       | String        | `/etc/nginx/conf.http.d` | Directory to create configuration file in                 |
+| `conf_dir`       | String        | `/etc/nginx/conf.http.d` | Directory to create configuration file in                 |
 | `cookbook`         | String        | `nginx`                  | Cookbook to source configuration file template from       |
 | `template`         | String        | `site-template.erb`      | Template to use to generate the configuration file        |
 | `owner`            | String        | `nginx`                  | Nginx configuration file/folder owner.                    |
