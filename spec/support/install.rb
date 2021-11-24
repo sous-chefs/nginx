@@ -20,7 +20,7 @@ end
 def platform_distribution_nginx
   case chefspec_platform
   when 'debian'
-    'buster'
+    'bullseye'
   when 'ubuntu'
     'focal'
   end

@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the nginx cookbook.
 
 ## Unreleased
 
+- Change the unit tested Debian platform to bullseye
+
 ## 12.0.8 - *2021-11-23*
 
 - Rename `config_dir` to `conf_dir` in nginx_site.md
