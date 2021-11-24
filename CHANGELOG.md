@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## Unreleased
+
 ## 12.0.9 - *2021-11-24*
 
 - Change the unit tested Debian platform to bullseye
