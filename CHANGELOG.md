@@ -7,6 +7,7 @@ This file is used to list changes made in each version of the nginx cookbook.
 ## 12.0.7 - *2021-10-08*
 
 - Correct default value for `config_dir` in nginx_site.md
+- Change test from `buster` to `bullseye`
 
 ## 12.0.6 - *2021-09-04*
 
