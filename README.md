@@ -1,7 +1,7 @@
 # nginx Cookbook
 
 [![Cookbook Version](https://img.shields.io/cookbook/v/nginx.svg)](https://supermarket.chef.io/cookbooks/nginx)
-[![Build Status](https://img.shields.io/circleci/project/github/sous-chefs/nginx/master.svg)](https://circleci.com/gh/sous-chefs/nginx)
+[![CI State](https://github.com/sous-chefs/nginx/workflows/ci/badge.svg)](https://github.com/sous-chefs/nginx/actions?query=workflow%3Aci)
 [![OpenCollective](https://opencollective.com/sous-chefs/backers/badge.svg)](#backers)
 [![OpenCollective](https://opencollective.com/sous-chefs/sponsors/badge.svg)](#sponsors)
 [![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](https://opensource.org/licenses/Apache-2.0)
