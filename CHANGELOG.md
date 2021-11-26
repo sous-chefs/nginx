@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## Unreleased
+
 ## 12.0.10 - *2021-11-26*
 
 - Fix CI Badge Link in README
