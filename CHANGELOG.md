@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
-## Unreleased
+## 12.0.11 - *2022-02-04*
 
 - Remove delivery and move to calling RSpec directly via a reusable workflow
 - Update tested platforms
