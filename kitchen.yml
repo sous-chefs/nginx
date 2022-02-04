@@ -66,7 +66,6 @@ suites:
       - almalinux-8
       - centos-7
       - centos-stream-8
-      - debian-10
       - debian-11
       - fedora-latest
       - rockylinux-8

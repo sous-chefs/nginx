@@ -39,5 +39,5 @@ end
 
 describe package('nginx') do
   it { should be_installed }
-  its('version') { should cmp >= '1.19' }
+  its('version') { should cmp >= '1.21' }
 end
