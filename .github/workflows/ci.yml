@@ -8,47 +8,24 @@ name: ci
       - main
 
 jobs:
-  delivery:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v2
-      - name: Run Chef Delivery
-        uses: actionshub/chef-delivery@main
-        env:
-          CHEF_LICENSE: accept-no-persist
-
-  yamllint:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v2
-      - name: Run yaml Lint
-        uses: actionshub/yamllint@main
-
-  mdl:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v2
-      - name: Run Markdown Lint
-        uses: actionshub/markdownlint@main
+  lint-unit:
+    uses: sous-chefs/.github/.github/workflows/lint-unit.yml@0.0.3
 
   integration:
-    needs: [mdl, yamllint, delivery]
+    needs: lint-unit
     runs-on: ubuntu-latest
     strategy:
       matrix:
         os:
-          - 'amazonlinux'
+          - 'almalinux-8'
           - 'amazonlinux-2'
           - 'centos-7'
-          - 'centos-8'
           - 'centos-stream-8'
-          - 'debian-9'
           - 'debian-10'
+          - 'debian-11'
           - 'fedora-latest'
           - 'opensuse-leap-15'
+          - 'rockylinux-8'
           - 'ubuntu-1804'
           - 'ubuntu-2004'
         suite:
@@ -62,15 +39,13 @@ jobs:
             suite: 'repo'
           - os: 'centos-7'
             suite: 'distro'
-          - os: 'centos-8'
-            suite: 'distro'
-          - os: 'amazonlinux'
-            suite: 'epel'
           - os: 'amazonlinux-2'
             suite: 'epel'
           - os: 'debian-9'
             suite: 'epel'
           - os: 'debian-10'
+            suite: 'epel'
+          - os: 'debian-11'
             suite: 'epel'
           - os: 'ubuntu-1804'
             suite: 'epel'
@@ -80,35 +55,31 @@ jobs:
             suite: 'epel'
           - os: 'opensuse-leap-15'
             suite: 'epel'
-          - os: 'amazonlinux'
-            suite: 'nginx-full'
           - os: 'amazonlinux-2'
             suite: 'nginx-full'
           - os: 'centos-7'
             suite: 'nginx-full'
-          - os: 'centos-8'
-            suite: 'nginx-full'
           - os: 'centos-stream-8'
             suite: 'nginx-full'
-          - os: 'centos-stream-8'
+          - os: 'almalinux-8'
+            suite: 'nginx-full'
+          - os: 'rockylinux-8'
             suite: 'nginx-full'
           - os: 'amazonlinux'
             suite: 'nginx-full'
-          - os: 'debian-9'
-            suite: 'nginx-full'
           - os: 'debian-10'
+            suite: 'nginx-full'
+          - os: 'debian-11'
             suite: 'nginx-full'
           - os: 'fedora-latest'
             suite: 'nginx-full'
           - os: 'opensuse-leap-15'
             suite: 'nginx-full'
-          - os: 'amazonlinux'
-            suite: 'repo-overrides'
           - os: 'amazonlinux-2'
             suite: 'repo-overrides'
-          - os: 'amazonlinux'
+          - os: 'centos-7'
             suite: 'repo-overrides'
-          - os: 'debian-9'
+          - os: 'debian-10'
             suite: 'repo-overrides'
           - os: 'opensuse-leap-15'
             suite: 'repo-overrides'

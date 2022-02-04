@@ -2,11 +2,11 @@ apt_update 'update' if platform_family?('debian')
 
 ver = case node['platform']
       when 'debian'
-        '1.19.4-1~buster'
+        '1.21.6-1~bullseye'
       when 'ubuntu'
-        '1.19.4-1~focal'
+        '1.21.6-1~focal'
       else
-        '1.19.4'
+        '1.21.6'
       end
 
 nginx_install 'nginx' do
