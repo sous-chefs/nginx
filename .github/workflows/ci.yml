@@ -77,6 +77,8 @@ jobs:
             suite: 'nginx-full'
           - os: 'amazonlinux-2'
             suite: 'repo-overrides'
+          - os: 'centos-7'
+            suite: 'repo-overrides'
           - os: 'debian-10'
             suite: 'repo-overrides'
           - os: 'opensuse-leap-15'

@@ -64,7 +64,6 @@ suites:
       - recipe[test::test_site]
     includes:
       - almalinux-8
-      - centos-7
       - centos-stream-8
       - debian-11
       - fedora-latest
