@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the nginx cookbook.
 
 ## Unreleased
 
+Standardise files with files in sous-chefs/repo-management
+
 ## 12.0.11 - *2022-02-04*
 
 - Remove delivery and move to calling RSpec directly via a reusable workflow
