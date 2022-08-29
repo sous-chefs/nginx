@@ -211,7 +211,7 @@ RSpec.describe Nginx::Cookbook::Helpers do
     context 'with debian family' do
       let(:platform_family) { 'debian' }
 
-      it { expect(subject.nginx_user).to eq 'root' }
+      it { expect(subject.nginx_user).to eq 'www-data' }
     end
 
     context 'with fedora family' do
@@ -247,7 +247,7 @@ RSpec.describe Nginx::Cookbook::Helpers do
     context 'with debian family' do
       let(:platform_family) { 'debian' }
 
-      it { expect(subject.nginx_group).to eq 'root' }
+      it { expect(subject.nginx_group).to eq 'www-data' }
     end
 
     context 'with fedora family' do

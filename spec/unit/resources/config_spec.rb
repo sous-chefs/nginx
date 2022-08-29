@@ -47,7 +47,7 @@ describe 'nginx_config' do
         )
     end
 
-    it { is_expected.to create_directory('/var/log/nginx').with_mode('0750').with_owner('nginx') }
+    it { is_expected.to create_directory('/var/log/nginx').with_mode('0750').with_owner('root') }
     it { is_expected.to create_directory('/etc/nginx/conf.d').with_mode('0750') }
     it { is_expected.to create_directory('/etc/nginx/conf.http.d').with_mode('0750') }
   end

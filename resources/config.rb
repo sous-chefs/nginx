@@ -49,12 +49,12 @@ property :server_name, String,
           default: lazy { node['hostname'] }
 
 property :owner, String,
-          description: 'File/folder group',
-          default: lazy { nginx_user }
+          description: 'File/folder user',
+          default: 'root'
 
 property :group, String,
           description: 'File/folder group',
-          default: lazy { nginx_group }
+          default: 'root'
 
 property :mode, String,
           description: 'File mode',
