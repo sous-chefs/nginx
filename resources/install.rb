@@ -90,10 +90,15 @@ action :install do
         baseurl      repo_url(new_resource.repo_train)
         gpgkey       repo_signing_key
       end
+
       execute 'dnf -qy module disable nginx' do
         only_if { node['platform_version'].to_i >= 8 && platform_family?('rhel') || platform_family?('fedora') }
         not_if 'dnf module list nginx | grep -q "^nginx.*\[x\]"'
       end
+
+      package 'pcre2' # Required dependency from base repo
+
+      package_install_opts = '--disablerepo=* --enablerepo=nginx'
     when 'debian'
       apt_repository 'nginx' do
         uri          repo_url(new_resource.repo_train)
@@ -110,8 +115,6 @@ action :install do
     else
       Chef::Log.warn "nginx.org does not maintain packages for platform #{node['platform']}. Cannot setup the repo!"
     end
-
-    package_install_opts = '--disablerepo=* --enablerepo=nginx' if platform_family?('amazon', 'fedora', 'rhel')
   when 'epel'
     case node['platform_family']
     when 'amazon'
