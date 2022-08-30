@@ -16,7 +16,7 @@ module Nginx
           when 'centos'
             "#{repo_base_url}/centos/#{node['platform_version'].to_i}/$basearch"
           when 'fedora'
-            "#{repo_base_url}/rhel/8/$basearch"
+            "#{repo_base_url}/rhel/9/$basearch"
           else
             "#{repo_base_url}/rhel/#{node['platform_version'].to_i}/$basearch"
           end
@@ -40,11 +40,11 @@ module Nginx
       end
 
       def nginx_user
-        platform_family?('debian') ? 'root' : 'nginx'
+        platform_family?('debian') ? 'www-data' : 'nginx'
       end
 
       def nginx_group
-        platform_family?('debian') ? 'root' : 'nginx'
+        platform_family?('debian') ? 'www-data' : 'nginx'
       end
 
       def nginx_pid_file

@@ -29,9 +29,19 @@ end
   end
 end
 
+process_owner = case os.family
+                when 'debian'
+                  'www-data'
+                else
+                  'nginx'
+                end
+
 describe file('/etc/nginx/nginx.conf') do
   it { should exist }
   it { should be_file }
+  its('owner') { should eq 'root' }
+  its('group') { should eq 'root' }
+  its('content') { should match(/user\s+#{process_owner};/) }
   its('content') { should include 'worker_processes      auto;' }
   its('content') { should include 'pid                   /run/nginx.pid;' }
   its('content') { should include 'worker_connections  1024;' }
@@ -45,6 +55,8 @@ end
 describe file('/etc/nginx/conf.http.d/default-site.conf') do
   it { should exist }
   it { should be_file }
+  its('owner') { should eq 'root' }
+  its('group') { should eq 'root' }
   its('content') { should include 'listen       80;' }
   its('content') { should include 'access_log   /var/log/nginx/localhost.access.log;' }
   case os.family

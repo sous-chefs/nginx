@@ -16,8 +16,8 @@
 | `conf_dir`         | String        | `/etc/nginx/conf.http.d` | Directory to create configuration file in                 |
 | `cookbook`         | String        | `nginx`                  | Cookbook to source configuration file template from       |
 | `template`         | String        | `site-template.erb`      | Template to use to generate the configuration file        |
-| `owner`            | String        | `nginx`                  | Nginx configuration file/folder owner.                    |
-| `group`            | String        | `nginx`                  | Nginx configuration file/folder group.                    |
+| `owner`            | String        | `root`                   | Nginx configuration file/folder owner.                    |
+| `group`            | String        | `root`                   | Nginx configuration file/folder group.                    |
 | `mode`             | String        | `0640`                   | Nginx configuration file mode.                            |
 | `folder_mode`      | String        | `0750`                   | Nginx configuration folder mode.                          |
 | `variables`        | Hash          | `{}`                     | Additional variables to include in site template          |

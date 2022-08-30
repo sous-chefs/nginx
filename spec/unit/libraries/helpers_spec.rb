@@ -57,7 +57,7 @@ RSpec.describe Nginx::Cookbook::Helpers do
       let(:platform_family) { 'fedora' }
       let(:platform) { 'fedora' }
 
-      it { expect(subject.repo_url).to eq 'https://nginx.org/packages/rhel/8/$basearch' }
+      it { expect(subject.repo_url).to eq 'https://nginx.org/packages/rhel/9/$basearch' }
     end
 
     context 'with debian family stable' do
@@ -141,7 +141,7 @@ RSpec.describe Nginx::Cookbook::Helpers do
       let(:platform_family) { 'fedora' }
       let(:platform) { 'fedora' }
 
-      it { expect(subject.repo_url('mainline')).to eq 'https://nginx.org/packages/mainline/rhel/8/$basearch' }
+      it { expect(subject.repo_url('mainline')).to eq 'https://nginx.org/packages/mainline/rhel/9/$basearch' }
     end
 
     context 'with debian family mainline' do
@@ -211,7 +211,7 @@ RSpec.describe Nginx::Cookbook::Helpers do
     context 'with debian family' do
       let(:platform_family) { 'debian' }
 
-      it { expect(subject.nginx_user).to eq 'root' }
+      it { expect(subject.nginx_user).to eq 'www-data' }
     end
 
     context 'with fedora family' do
@@ -247,7 +247,7 @@ RSpec.describe Nginx::Cookbook::Helpers do
     context 'with debian family' do
       let(:platform_family) { 'debian' }
 
-      it { expect(subject.nginx_group).to eq 'root' }
+      it { expect(subject.nginx_group).to eq 'www-data' }
     end
 
     context 'with fedora family' do

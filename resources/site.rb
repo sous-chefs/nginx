@@ -33,11 +33,11 @@ property :template, [String, Array],
 
 property :owner, String,
           description: 'File/folder user',
-          default: lazy { nginx_user }
+          default: 'root'
 
 property :group, String,
           description: 'File/folder group',
-          default: lazy { nginx_group }
+          default: 'root'
 
 property :mode, String,
           description: 'File mode',
