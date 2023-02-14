@@ -1,7 +1,7 @@
 ---
 name: ci
 
-'on':
+"on":
   pull_request:
   push:
     branches:
@@ -17,83 +17,83 @@ jobs:
     strategy:
       matrix:
         os:
-          - 'almalinux-8'
-          - 'amazonlinux-2'
-          - 'centos-7'
-          - 'centos-stream-8'
-          - 'debian-10'
-          - 'debian-11'
-          - 'fedora-latest'
-          - 'opensuse-leap-15'
-          - 'rockylinux-8'
-          - 'ubuntu-1804'
-          - 'ubuntu-2004'
+          - "almalinux-8"
+          - "amazonlinux-2"
+          - "centos-7"
+          - "centos-stream-8"
+          - "debian-10"
+          - "debian-11"
+          - "fedora-latest"
+          - "opensuse-leap-15"
+          - "rockylinux-8"
+          - "ubuntu-1804"
+          - "ubuntu-2004"
         suite:
-          - 'distro'
-          - 'repo'
-          - 'repo-overrides'
-          - 'epel'
-          - 'nginx-full'
+          - "distro"
+          - "repo"
+          - "repo-overrides"
+          - "epel"
+          - "nginx-full"
         exclude:
-          - os: 'opensuse-leap-15'
-            suite: 'repo'
-          - os: 'centos-7'
-            suite: 'distro'
-          - os: 'amazonlinux-2'
-            suite: 'epel'
-          - os: 'debian-9'
-            suite: 'epel'
-          - os: 'debian-10'
-            suite: 'epel'
-          - os: 'debian-11'
-            suite: 'epel'
-          - os: 'ubuntu-1804'
-            suite: 'epel'
-          - os: 'ubuntu-2004'
-            suite: 'epel'
-          - os: 'fedora-latest'
-            suite: 'epel'
-          - os: 'opensuse-leap-15'
-            suite: 'epel'
-          - os: 'amazonlinux-2'
-            suite: 'nginx-full'
-          - os: 'centos-7'
-            suite: 'nginx-full'
-          - os: 'centos-stream-8'
-            suite: 'nginx-full'
-          - os: 'almalinux-8'
-            suite: 'nginx-full'
-          - os: 'rockylinux-8'
-            suite: 'nginx-full'
-          - os: 'amazonlinux'
-            suite: 'nginx-full'
-          - os: 'debian-10'
-            suite: 'nginx-full'
-          - os: 'debian-11'
-            suite: 'nginx-full'
-          - os: 'fedora-latest'
-            suite: 'nginx-full'
-          - os: 'opensuse-leap-15'
-            suite: 'nginx-full'
-          - os: 'amazonlinux-2'
-            suite: 'repo-overrides'
-          - os: 'centos-7'
-            suite: 'repo-overrides'
-          - os: 'debian-10'
-            suite: 'repo-overrides'
-          - os: 'opensuse-leap-15'
-            suite: 'repo-overrides'
-          - os: 'ubuntu-1804'
-            suite: 'repo-overrides'
+          - os: "opensuse-leap-15"
+            suite: "repo"
+          - os: "centos-7"
+            suite: "distro"
+          - os: "amazonlinux-2"
+            suite: "epel"
+          - os: "debian-9"
+            suite: "epel"
+          - os: "debian-10"
+            suite: "epel"
+          - os: "debian-11"
+            suite: "epel"
+          - os: "ubuntu-1804"
+            suite: "epel"
+          - os: "ubuntu-2004"
+            suite: "epel"
+          - os: "fedora-latest"
+            suite: "epel"
+          - os: "opensuse-leap-15"
+            suite: "epel"
+          - os: "amazonlinux-2"
+            suite: "nginx-full"
+          - os: "centos-7"
+            suite: "nginx-full"
+          - os: "centos-stream-8"
+            suite: "nginx-full"
+          - os: "almalinux-8"
+            suite: "nginx-full"
+          - os: "rockylinux-8"
+            suite: "nginx-full"
+          - os: "amazonlinux"
+            suite: "nginx-full"
+          - os: "debian-10"
+            suite: "nginx-full"
+          - os: "debian-11"
+            suite: "nginx-full"
+          - os: "fedora-latest"
+            suite: "nginx-full"
+          - os: "opensuse-leap-15"
+            suite: "nginx-full"
+          - os: "amazonlinux-2"
+            suite: "repo-overrides"
+          - os: "centos-7"
+            suite: "repo-overrides"
+          - os: "debian-10"
+            suite: "repo-overrides"
+          - os: "opensuse-leap-15"
+            suite: "repo-overrides"
+          - os: "ubuntu-1804"
+            suite: "repo-overrides"
       fail-fast: false
 
     steps:
       - name: Check out code
         uses: actions/checkout@v2
       - name: Install Chef
-        uses: actionshub/chef-install@main
+        uses: actionshub/chef-install@2.0.4
       - name: Dokken
-        uses: actionshub/test-kitchen@main
+        uses: actionshub/test-kitchen@2.1.0
         env:
           CHEF_LICENSE: accept-no-persist
           KITCHEN_LOCAL_YAML: kitchen.dokken.yml
