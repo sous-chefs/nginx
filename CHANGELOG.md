@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
-## Unreleased
+## 12.1.2 - *2023-02-15*
 
 Standardise files with files in sous-chefs/repo-management
 
