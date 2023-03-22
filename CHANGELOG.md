@@ -473,7 +473,7 @@ Ideally we'd offer perfect backwards compatibility forever, but in order to main
 - The minimum chef-client version is now 12.1 or later, which will enables support for Ohai 7+ plugins, the ohai_plugin custom resource, and automatic init system discovery.
 - Support for Gentoo has been removed. Gentoo lacks an official Chef package and there is no Bento image to use for Test Kitchen integration tests.
 - Support for the bluepill init system has been removed. Usage of this init system has declined, and supporting it added a cookbook dependency as well as code complexity.
-- Ubuntu source installs will no longer default to runit, and will instead use either Upstart or Systemd depending on the release of Ubuntu. You can still force the use of runit by setting default['nginx']['init_style'] to 'runit'. Runit was used historically before reliable init systems were shipped with Ubuntu. Both Upstart and Systemd have the concept of restarting on failure, which was the main reason for choosing Runit over sys-v init.
+- Ubuntu source installs will no longer default to runit, and will instead use either Upstart or Systemd depending on the release of Ubuntu. You can still force the use of runit by setting `default['nginx']['init_style']` to 'runit'. Runit was used historically before reliable init systems were shipped with Ubuntu. Both Upstart and Systemd have the concept of restarting on failure, which was the main reason for choosing Runit over sys-v init.
 
 ### Other changes
 
@@ -886,7 +886,6 @@ Version #'s are cheap.
 [#188]: https://github.com/miketheman/nginx/issues/188
 [#200]: https://github.com/miketheman/nginx/issues/200
 [#204]: https://github.com/miketheman/nginx/issues/204
-[#205]: https://github.com/miketheman/nginx/issues/205
 [#219]: https://github.com/miketheman/nginx/issues/219
 [#220]: https://github.com/miketheman/nginx/issues/220
 [#223]: https://github.com/miketheman/nginx/issues/223
@@ -894,14 +893,12 @@ Version #'s are cheap.
 [#230]: https://github.com/miketheman/nginx/issues/230
 [#236]: https://github.com/miketheman/nginx/issues/236
 [#240]: https://github.com/miketheman/nginx/issues/240
-[#243]: https://github.com/miketheman/nginx/issues/243
 [#249]: https://github.com/miketheman/nginx/issues/249
 [#252]: https://github.com/miketheman/nginx/issues/252
 [#254]: https://github.com/miketheman/nginx/issues/254
 [#259]: https://github.com/miketheman/nginx/issues/259
 [#269]: https://github.com/miketheman/nginx/issues/269
 [#279]: https://github.com/miketheman/nginx/issues/279
-[#294]: https://github.com/miketheman/nginx/issues/294
 [#298]: https://github.com/miketheman/nginx/issues/298
 [#302]: https://github.com/miketheman/nginx/issues/302
 [#305]: https://github.com/miketheman/nginx/issues/305
@@ -916,7 +913,6 @@ Version #'s are cheap.
 [#331]: https://github.com/miketheman/nginx/issues/331
 [#332]: https://github.com/miketheman/nginx/issues/332
 [#335]: https://github.com/miketheman/nginx/issues/335
-[#338]: https://github.com/miketheman/nginx/issues/338
 [@9minutesnooze]: https://github.com/9minutesnooze
 [@adepue]: https://github.com/adepue
 [@auth0]: https://github.com/auth0
