@@ -918,7 +918,6 @@ Version #'s are cheap.
 [@auth0]: https://github.com/auth0
 [@bchrobot]: https://github.com/bchrobot
 [@bkw]: https://github.com/bkw
-[@canofspam3bug324]: https://github.com/CanOfSpam3bug324
 [@dwradcliffe]: https://github.com/dwradcliffe
 [@evertrue]: https://github.com/evertrue
 [@ffuenf]: https://github.com/ffuenf
