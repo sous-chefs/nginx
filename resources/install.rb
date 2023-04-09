@@ -92,7 +92,7 @@ action :install do
       end
 
       execute 'dnf -qy module disable nginx' do
-        only_if { node['platform_version'].to_i >= 8 && platform_family?('rhel') || platform_family?('fedora') }
+        only_if { node['platform_version'].to_i == 8 && platform_family?('rhel') || platform_family?('fedora') }
         not_if 'dnf module list nginx | grep -q "^nginx.*\[x\]"'
       end
 
