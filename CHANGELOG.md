@@ -4,6 +4,9 @@ This file is used to list changes made in each version of the nginx cookbook.
 
 ## Unreleased
 
+- Fix installation on EL9 platforms
+- Fix installation on newer Amazon Linux platforms
+
 ## 12.1.7 - *2023-04-04*
 
 Standardise files with files in sous-chefs/repo-management

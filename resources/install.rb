@@ -92,7 +92,7 @@ action :install do
       end
 
       execute 'dnf -qy module disable nginx' do
-        only_if { node['platform_version'].to_i >= 8 && platform_family?('rhel') || platform_family?('fedora') }
+        only_if { node['platform_version'].to_i == 8 && platform_family?('rhel') || platform_family?('fedora') }
         not_if 'dnf module list nginx | grep -q "^nginx.*\[x\]"'
       end
 
@@ -126,7 +126,7 @@ action :install do
     end
   end
 
-  if source?('distro') && platform?('amazon')
+  if source?('distro') && (platform?('amazon') && node['platform_version'] == 2)
     execute 'install nginx from amazon extras library' do
       command 'amazon-linux-extras install nginx1.12'
       notifies :reload, 'ohai[nginx]', :immediately if ohai_plugin_enabled?

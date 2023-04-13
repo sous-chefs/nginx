@@ -19,12 +19,14 @@ RSpec.describe Nginx::Cookbook::Helpers do
     context 'with amazon family stable' do
       before do
         allow(subject).to receive(:[]).with('platform').and_return(platform)
+        allow(subject).to receive(:[]).with('platform_version').and_return(platform_version)
       end
 
       let(:platform_family) { 'amazon' }
       let(:platform) { 'amazon' }
+      let(:platform_version) { '2023' }
 
-      it { expect(subject.repo_url).to eq 'https://nginx.org/packages/rhel/7/$basearch' }
+      it { expect(subject.repo_url).to eq 'https://nginx.org/packages/amzn/2023/$basearch' }
     end
 
     context 'with rhel family stable' do
@@ -103,12 +105,14 @@ RSpec.describe Nginx::Cookbook::Helpers do
     context 'with amazon family stable' do
       before do
         allow(subject).to receive(:[]).with('platform').and_return(platform)
+        allow(subject).to receive(:[]).with('platform_version').and_return(platform_version)
       end
 
       let(:platform_family) { 'amazon' }
       let(:platform) { 'amazon' }
+      let(:platform_version) { '2023' }
 
-      it { expect(subject.repo_url).to eq 'https://nginx.org/packages/rhel/7/$basearch' }
+      it { expect(subject.repo_url).to eq 'https://nginx.org/packages/amzn/2023/$basearch' }
     end
 
     context 'with rhel family mainline' do

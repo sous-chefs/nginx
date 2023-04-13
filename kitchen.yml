@@ -64,10 +64,13 @@ suites:
       - recipe[test::test_site]
     includes:
       - almalinux-8
+      - almalinux-9
       - centos-stream-8
+      - centos-stream-9
       - debian-11
       - fedora-latest
       - rockylinux-8
+      - rockylinux-9
       - ubuntu-20.04
     verifier:
       inspec_tests:
@@ -80,9 +83,12 @@ suites:
       - recipe[test::test_site]
     includes:
       - almalinux-8
+      - almalinux-9
       - centos-7
       - centos-stream-8
+      - centos-stream-9
       - rockylinux-8
+      - rockylinux-9
     verifier:
       inspec_tests:
         - test/integration/default
