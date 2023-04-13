@@ -12,7 +12,11 @@ module Nginx
         when 'amazon', 'fedora', 'rhel'
           case node['platform']
           when 'amazon'
-            "#{repo_base_url}/rhel/7/$basearch"
+            if node['platform_version'].to_i == 2
+              "#{repo_base_url}/amzn2/$releasever/$basearch"
+            else
+              "#{repo_base_url}/amzn/#{node['platform_version'].to_i}/$basearch"
+            end
           when 'centos'
             "#{repo_base_url}/centos/#{node['platform_version'].to_i}/$basearch"
           when 'fedora'

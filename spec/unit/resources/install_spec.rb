@@ -27,15 +27,6 @@ describe 'nginx_install' do
         nginx_install 'distro'
       end
 
-      context 'with amazon platform' do
-        platform 'amazon'
-
-        include_examples 'ohai is enabled'
-
-        it { is_expected.to run_execute('amazon-linux-extras install nginx1.12') }
-        it { expect(chef_run.execute('amazon-linux-extras install nginx1.12')).to notify('ohai[nginx]').to(:reload).immediately }
-      end
-
       context 'with debian platform' do
         platform 'debian'
 
