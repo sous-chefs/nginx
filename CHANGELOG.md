@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
-## Unreleased
+## 12.2.0 - *2023-04-13*
 
 - Fix installation on EL9 platforms
 - Fix installation on newer Amazon Linux platforms
