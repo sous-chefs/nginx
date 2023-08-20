@@ -34,7 +34,7 @@ module Nginx
             mode new_resource.folder_mode
 
             action :create
-          end
+          end unless ::Dir.exist?(new_resource.conf_dir)
 
           declare_resource(:template, "#{new_resource.conf_dir}/list.conf") do
             cookbook 'nginx'

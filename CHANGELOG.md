@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the nginx cookbook.
 
 ## Unreleased
 
+- Skip creation of the list directory resource if the directory already exists as it is managed elsewhere
+
 ## 12.2.2 - *2023-07-10*
 
 ## 12.2.1 - *2023-05-17*
