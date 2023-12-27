@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
+## Unreleased
+
 ## 12.2.6 - *2023-12-27*
 
 Remove Fedora Linux from test matrix
