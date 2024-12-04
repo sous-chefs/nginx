@@ -4,39 +4,19 @@ This file is used to list changes made in each version of the nginx cookbook.
 
 ## Unreleased
 
-## 12.2.11 - *2024-11-18*
-
-Standardise files with files in sous-chefs/repo-management
-
-Standardise files with files in sous-chefs/repo-management
+Fix Rspec issues
 
 ## 12.2.10 - *2024-07-10*
 
 Standardise files with files in sous-chefs/repo-management
 
-Standardise files with files in sous-chefs/repo-management
-
-## 12.2.9 - *2024-05-02*
-
-## 12.2.8 - *2024-05-02*
-
-## 12.2.7 - *2023-12-27*
-
 ## 12.2.6 - *2023-12-27*
 
 Remove Fedora Linux from test matrix
 
-## 12.2.5 - *2023-09-28*
-
-## 12.2.4 - *2023-09-28*
-
 ## 12.2.3 - *2023-08-20*
 
 - Skip creation of the list directory resource if the directory already exists as it is managed elsewhere
-
-## 12.2.2 - *2023-07-10*
-
-## 12.2.1 - *2023-05-17*
 
 ## 12.2.0 - *2023-04-13*
 
