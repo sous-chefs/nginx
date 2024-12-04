@@ -1,11 +1,11 @@
 def platform_repo_url
   case chefspec_platform
   when 'fedora', 'redhat'
-    'https://nginx.org/packages/rhel/7/$basearch'
+    'https://nginx.org/packages/rhel/8/$basearch'
   when 'amazon'
-    'https://nginx.org/packages/amzn/2018/$basearch'
-  when 'centos'
-    'https://nginx.org/packages/centos/8/$basearch'
+    'https://nginx.org/packages/amzn/2023/$basearch'
+  when 'centos-stream'
+    'https://nginx.org/packages/centos/9/$basearch'
   when 'debian'
     'https://nginx.org/packages/debian'
   when 'opensuse'
@@ -22,9 +22,9 @@ end
 def platform_distribution_nginx
   case chefspec_platform
   when 'debian'
-    'bullseye'
+    'bookworm'
   when 'ubuntu'
-    'focal'
+    'noble'
   end
 end
 
@@ -46,10 +46,10 @@ def nginx_user
   end
 end
 
-def debian_9?
-  chefspec_platform == 'debian' && chefspec_platform_version.to_i == 9
-end
+# def debian_9?
+#   chefspec_platform == 'debian' && chefspec_platform_version.to_i == 9
+# end
 
-def ubuntu_18?
-  chefspec_platform == 'ubuntu' && chefspec_platform_version.to_f == 18.04
-end
+# def ubuntu_18?
+#   chefspec_platform == 'ubuntu' && chefspec_platform_version.to_f == 18.04
+# end
