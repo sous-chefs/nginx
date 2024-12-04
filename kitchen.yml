@@ -20,8 +20,8 @@ platforms:
   - name: almalinux-9
   - name: rockylinux-8
   - name: rockylinux-9
-  - name: centos-stream-8
   - name: centos-stream-9
+  - name: centos-stream-10
   - name: debian-11
   - name: debian-12
   - name: fedora-latest
@@ -73,8 +73,8 @@ suites:
     includes:
       - almalinux-8
       - almalinux-9
-      - centos-stream-8
       - centos-stream-9
+      - centos-stream-10
       - rockylinux-8
       - rockylinux-9
     verifier:

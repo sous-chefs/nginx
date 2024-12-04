@@ -11,8 +11,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Check out code
-      uses: actions/checkout@v4
     - name: Install Chef
       uses: actionshub/chef-install@3.0.0
     - name: Dokken
