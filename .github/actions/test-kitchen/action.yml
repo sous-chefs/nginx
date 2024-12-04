@@ -1,0 +1,25 @@
+name: 'Test Kitchen Action'
+description: 'Runs Test Kitchen tests with the specified suite and OS'
+inputs:
+  suite:
+    description: 'Test suite to run'
+    required: true
+  os:
+    description: 'OS to test on'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Check out code
+      uses: actions/checkout@v4
+    - name: Install Chef
+      uses: actionshub/chef-install@3.0.0
+    - name: Dokken
+      uses: actionshub/test-kitchen@3.0.0
+      env:
+        CHEF_LICENSE: accept-no-persist
+        KITCHEN_LOCAL_YAML: kitchen.dokken.yml
+      with:
+        suite: ${{ inputs.suite }}
+        os: ${{ inputs.os }}
