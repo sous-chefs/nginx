@@ -17,7 +17,7 @@ module Nginx
             else
               "#{repo_base_url}/amzn/#{node['platform_version'].to_i}/$basearch"
             end
-          when 'centos'
+          when 'centos', 'centos-stream'
             "#{repo_base_url}/centos/#{node['platform_version'].to_i}/$basearch"
           when 'fedora'
             "#{repo_base_url}/rhel/9/$basearch"

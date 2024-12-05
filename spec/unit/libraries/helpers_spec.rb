@@ -39,7 +39,7 @@ RSpec.describe Nginx::Cookbook::Helpers do
       let(:platform_version) { '7' }
 
       context 'with centos platform stable' do
-        let(:platform) { 'centos' }
+        let(:platform) { 'centos-stream' }
 
         it { expect(subject.repo_url).to eq 'https://nginx.org/packages/centos/7/$basearch' }
       end
@@ -125,7 +125,7 @@ RSpec.describe Nginx::Cookbook::Helpers do
       let(:platform_version) { '7' }
 
       context 'with centos platform mainline' do
-        let(:platform) { 'centos' }
+        let(:platform) { 'centos-stream' }
 
         it { expect(subject.repo_url('mainline')).to eq 'https://nginx.org/packages/mainline/centos/7/$basearch' }
       end

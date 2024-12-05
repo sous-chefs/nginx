@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'nginx_install' do
   step_into :nginx_install
-  platform 'centos'
+  platform 'centos-stream'
 
   before do
     stub_command('dnf module list nginx | grep -q "^nginx.*\\[x\\]"').and_return(false)
@@ -90,7 +90,7 @@ describe 'nginx_install' do
       end
 
       context 'with centos platform' do
-        platform 'centos'
+        platform 'centos-stream'
 
         let(:package_install_options) { ['--disablerepo=*', '--enablerepo=nginx'] }
 
@@ -149,8 +149,8 @@ describe 'nginx_install' do
         it { is_expected.to run_execute('amazon-linux-extras install epel') }
       end
 
-      context 'with centos 7 platform' do
-        platform 'centos', '7.7.1908'
+      context 'with centos-stream 9 platform' do
+        platform 'centos-stream', '9'
 
         include_examples 'ohai is enabled'
         include_examples 'nginx package is installed'
@@ -159,7 +159,7 @@ describe 'nginx_install' do
       end
 
       context 'with centos 8 platform' do
-        platform 'centos', '8'
+        platform 'centos-stream', '8'
 
         include_examples 'ohai is enabled'
         include_examples 'nginx package is installed'

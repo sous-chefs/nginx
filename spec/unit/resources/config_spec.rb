@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'nginx_config' do
   step_into :nginx_config, :nginx_install, :nginx_site
-  platform 'centos'
+  platform 'centos-stream'
 
   before do
     stub_command('/usr/sbin/nginx -t').and_return(true)

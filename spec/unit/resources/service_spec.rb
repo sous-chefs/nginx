@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'nginx_service' do
   step_into :nginx_service
-  platform 'centos'
+  platform 'centos-stream'
 
   context 'configure nginx service' do
     recipe do
