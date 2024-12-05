@@ -38,6 +38,9 @@ jobs:
             "ubuntu-2404",
           ]
         suite: ["distro", "repo"]
+        exclude:
+          - os: "centos-stream-10"
+            suite: "repo"
     steps:
       - name: Check out code
         uses: actions/checkout@v4
