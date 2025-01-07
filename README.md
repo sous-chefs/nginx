@@ -24,18 +24,16 @@ The following cookbooks are direct dependencies because they're used for common 
 
 The following platforms are supported and tested with Test Kitchen:
 
-- Amazon Linux 2
-- CentOS 7
-- Debian 8+
-- Fedora 30
-- openSUSE Leap 15
-- Ubuntu 16.04+
-
-Other Debian and RHEL family distributions are assumed to work.
+- AlmaLinux 8/9
+- Rocky Linux 8/9
+- CentOS Stream 8/9
+- Amazon Linux 2023
+- Debian 11/12
+- Ubuntu 22.04/24.04
 
 ### Chef
 
-- Chef 14+
+- Chef 15.3+
 
 ## Resources
 

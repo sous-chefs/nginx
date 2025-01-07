@@ -15,25 +15,24 @@ verifier:
   name: inspec
 
 platforms:
+  - name: amazonlinux-2023
   - name: almalinux-8
-  - name: amazonlinux-2
-  - name: centos-7
-  - name: centos-stream-8
-  - name: debian-10
-  - name: debian-11
-  - name: fedora-latest
-  - name: opensuse-leap-15
+  - name: almalinux-9
   - name: rockylinux-8
-  - name: ubuntu-18.04
-  - name: ubuntu-20.04
+  - name: rockylinux-9
+  - name: centos-stream-9
+  - name: centos-stream-10
+  - name: debian-11
+  - name: debian-12
+  - name: fedora-latest
+  - name: ubuntu-22.04
+  - name: ubuntu-24.04
 
 suites:
   - name: distro
     run_list:
       - recipe[test::distro]
       - recipe[test::test_site]
-    excludes:
-      - centos-7
     verifier:
       inspec_tests:
         - test/integration/default
@@ -43,8 +42,8 @@ suites:
       - recipe[test::distro_nginx-full]
       - recipe[test::test_site]
     includes:
-      - ubuntu-18.04
-      - ubuntu-20.04
+      - ubuntu-22.04
+      - ubuntu-24.04
     verifier:
       inspec_tests:
         - test/integration/default
@@ -62,16 +61,6 @@ suites:
     run_list:
       - recipe[test::repo_overrides]
       - recipe[test::test_site]
-    includes:
-      - almalinux-8
-      - almalinux-9
-      - centos-stream-8
-      - centos-stream-9
-      - debian-11
-      - fedora-latest
-      - rockylinux-8
-      - rockylinux-9
-      - ubuntu-20.04
     verifier:
       inspec_tests:
         - test/integration/default
@@ -84,9 +73,8 @@ suites:
     includes:
       - almalinux-8
       - almalinux-9
-      - centos-7
-      - centos-stream-8
       - centos-stream-9
+      - centos-stream-10
       - rockylinux-8
       - rockylinux-9
     verifier:
