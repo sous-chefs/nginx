@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
-## Unreleased
+## 12.2.12 - *2025-01-07*
 
 Fix Rspec issues
 Update workflows
