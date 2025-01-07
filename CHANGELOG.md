@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
-## Unreleased
+## 12.2.13 - *2025-01-07*
 
 - Convert all test files to proper InSpec format with controls and metadata
 - Rename test files to use _spec.rb suffix
