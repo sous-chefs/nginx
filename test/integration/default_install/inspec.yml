@@ -1,0 +1,10 @@
+---
+name: default_install
+title: Nginx Default Install Suite
+summary: Nginx default installation tests
+depends:
+  - name: default
+    path: test/integration/default
+supports:
+  - os-family: linux
+  - os-family: bsd

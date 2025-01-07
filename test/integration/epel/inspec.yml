@@ -1,0 +1,9 @@
+---
+name: epel
+title: Nginx EPEL Suite
+summary: Nginx EPEL repository tests
+depends:
+  - name: default
+    path: test/integration/default
+supports:
+  - os-family: redhat

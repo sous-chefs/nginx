@@ -1,0 +1,7 @@
+---
+name: default
+title: Nginx Suite
+summary: Nginx integration tests
+supports:
+  - os-family: linux
+  - os-family: bsd
