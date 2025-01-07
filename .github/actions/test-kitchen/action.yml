@@ -1,12 +1,16 @@
-name: 'Test Kitchen Action'
-description: 'Runs Test Kitchen tests with the specified suite and OS'
+name: "Test Kitchen Action"
+description: "Runs Test Kitchen tests with the specified suite and OS"
 inputs:
   suite:
-    description: 'Test suite to run'
+    description: "Test suite to run"
     required: true
   os:
-    description: 'OS to test on'
+    description: "OS to test on"
     required: true
+  chef_version:
+    description: "Chef version to use"
+    required: false
+    default: "current"
 
 runs:
   using: "composite"
@@ -18,6 +22,7 @@ runs:
       env:
         CHEF_LICENSE: accept-no-persist
         KITCHEN_LOCAL_YAML: kitchen.dokken.yml
+        CHEF_VERSION: ${{ inputs.chef_version }}
       with:
         suite: ${{ inputs.suite }}
         os: ${{ inputs.os }}

@@ -48,23 +48,7 @@ jobs:
         with:
           suite: ${{ matrix.suite }}
           os: ${{ matrix.os }}
-
-  # TODO: This is currently broken
-  # integration-repo-overrides:
-  #   needs: lint-unit
-  #   runs-on: ubuntu-latest
-  #   strategy:
-  #     fail-fast: false
-  #     matrix:
-  #       os: ["ubuntu-2204", "ubuntu-2404"]
-  #       suite: ["repo-overrides"]
-  #   steps:
-  #     - name: Check out code
-  #       uses: actions/checkout@v4
-  #     - uses: ./.github/actions/test-kitchen
-  #       with:
-  #         suite: ${{ matrix.suite }}
-  #         os: ${{ matrix.os }}
+          chef_version: ${{ vars.CHEF_VERSION }}
 
   integration-epel:
     needs: lint-unit
@@ -89,6 +73,7 @@ jobs:
         with:
           suite: ${{ matrix.suite }}
           os: ${{ matrix.os }}
+          chef_version: ${{ vars.CHEF_VERSION }}
 
   integration-nginx-full:
     needs: lint-unit
@@ -105,6 +90,7 @@ jobs:
         with:
           suite: ${{ matrix.suite }}
           os: ${{ matrix.os }}
+          chef_version: ${{ vars.CHEF_VERSION }}
 
   final:
     runs-on: ubuntu-latest

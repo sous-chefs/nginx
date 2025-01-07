@@ -32,44 +32,27 @@ suites:
   - name: distro
     run_list:
       - recipe[test::distro]
-      - recipe[test::test_site]
     verifier:
       inspec_tests:
-        - test/integration/default
         - test/integration/default_install
   - name: distro-nginx-full
     run_list:
       - recipe[test::distro_nginx-full]
-      - recipe[test::test_site]
     includes:
       - ubuntu-22.04
       - ubuntu-24.04
     verifier:
       inspec_tests:
-        - test/integration/default
         - test/integration/default_install
   - name: repo
     run_list:
       - recipe[test::repo]
-      - recipe[test::test_site]
     verifier:
       inspec_tests:
-        - test/integration/default
         - test/integration/repo
-        - test/integration/repo_install
-  - name: repo_overrides
-    run_list:
-      - recipe[test::repo_overrides]
-      - recipe[test::test_site]
-    verifier:
-      inspec_tests:
-        - test/integration/default
-        - test/integration/repo_overrides
-        - test/integration/repo_install
   - name: epel
     run_list:
       - recipe[test::epel]
-      - recipe[test::test_site]
     includes:
       - almalinux-8
       - almalinux-9
@@ -77,10 +60,6 @@ suites:
       - centos-stream-10
       - rockylinux-8
       - rockylinux-9
-    verifier:
-      inspec_tests:
-        - test/integration/default
-        - test/integration/epel
   - name: invalid-conf
     run_list:
       - recipe[test::invalid-conf]

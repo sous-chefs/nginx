@@ -1,3 +1,5 @@
-apt_update 'update' if platform_family?('debian')
+apt_update 'update'
 
 nginx_install 'distro'
+
+include_recipe 'test::test_site'

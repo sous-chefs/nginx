@@ -1,0 +1,8 @@
+---
+name: repo
+title: Nginx Repository Suite
+summary: Nginx repository configuration tests
+supports:
+  - os-family: debian
+  - os-family: suse
+  - os-family: redhat
