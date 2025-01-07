@@ -48,7 +48,8 @@ suites:
     run_list:
       - recipe[test::repo]
     verifier:
-      inspec_tests: test/integration/repo_install
+      inspec_tests:
+        - test/integration/repo
   - name: epel
     run_list:
       - recipe[test::epel]
