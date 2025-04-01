@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the nginx cookbook.
 
-## Unreleased
+## 12.3.0 - *2025-04-01*
 
 - Correct trailing semicolon for blocks - [#643](https://github.com/sous-chefs/nginx/issues/643)
 - Support multiple options - [#644](https://github.com/sous-chefs/nginx/issues/644)
