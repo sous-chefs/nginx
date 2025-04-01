@@ -57,7 +57,13 @@ server {
   location <%= location %> {
     <% unless nil_or_empty?(options) -%>
     <% options.each do |option, value| -%>
-    <%= option %><% unless nil_or_empty?(value) -%> <%= value %><% end -%>;
+    <% if nil_or_empty?(value) -%>
+    <%= option %>;
+    <% else -%>
+    <% Array(value).each do |val| -%>
+    <%= option %> <%= val %><% unless String(val).end_with?('}') -%>;<% end -%>
+    <% end -%>
+    <% end -%>
     <% end -%>
     <% end -%>
   }

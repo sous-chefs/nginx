@@ -87,6 +87,9 @@ control 'nginx-config-04' do
     it { should exist }
     it { should be_file }
     its('mode') { should cmp '0644' }
+    its('content') { should include 'proxy_set_header X-My-Real-IP $remote_addr;' }
+    its('content') { should include 'proxy_set_header X-My-Real-Port $remote_port;' }
+    its('content') { should include 'limit_except GET POST { deny all; }' }
   end
 
   describe file('/etc/nginx/conf.http.d/test_site_disabled.conf.disabled') do
