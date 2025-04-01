@@ -6,7 +6,7 @@ maintainer_email 'help@sous-chefs.org'
 chef_version     '>= 15.3'
 license          'Apache-2.0'
 description      'Installs and configures nginx'
-version          '12.2.13'
+version          '12.3.0'
 
 supports 'amazon'
 supports 'centos'
