@@ -26,6 +26,13 @@ nginx_site 'test_site' do
         '/' => {
           'root' => '/var/www/nginx-default',
           'index' => 'index.html index.htm',
+          'proxy_set_header' => [
+            'Connection ""',
+            'X-My-Real-IP $remote_addr',
+            'X-My-Real-Port $remote_port',
+            'X-My-Server-Port $server_port',
+          ],
+          'limit_except' => 'GET POST { deny all; }',
         },
       },
     }
