@@ -43,7 +43,7 @@ jobs:
             suite: "repo"
     steps:
       - name: Check out code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - uses: ./.github/actions/test-kitchen
         with:
           suite: ${{ matrix.suite }}
@@ -68,7 +68,7 @@ jobs:
         suite: ["epel"]
     steps:
       - name: Check out code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - uses: ./.github/actions/test-kitchen
         with:
           suite: ${{ matrix.suite }}
@@ -85,7 +85,7 @@ jobs:
         suite: ["distro-nginx-full"]
     steps:
       - name: Check out code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - uses: ./.github/actions/test-kitchen
         with:
           suite: ${{ matrix.suite }}
