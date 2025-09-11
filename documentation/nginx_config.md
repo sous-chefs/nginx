@@ -46,3 +46,15 @@ nginx_config 'nginx' do
   notifies :reload, 'nginx_service[nginx]', :delayed
 end
 ```
+
+### Using custom log directory permissions
+
+```ruby
+nginx_config 'nginx' do
+  log_dir_mode '0750'
+  log_dir_owner 'nginx'
+  log_dir_group 'nginx'
+  action :create
+  notifies :reload, 'nginx_service[nginx]', :delayed
+end
+```
