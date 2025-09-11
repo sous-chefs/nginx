@@ -47,7 +47,22 @@ describe 'nginx_config' do
         )
     end
 
-    it { is_expected.to create_directory('/var/log/nginx').with_mode('0750').with_owner('root') }
+    it { is_expected.to create_directory('/var/log/nginx').with_mode('0755').with_owner('root') }
+    it { is_expected.to create_directory('/etc/nginx/conf.d').with_mode('0750') }
+    it { is_expected.to create_directory('/etc/nginx/conf.http.d').with_mode('0750') }
+  end
+
+  context 'with custom log directory properties' do
+    recipe do
+      nginx_install 'distro'
+      nginx_config 'default' do
+        log_dir_mode '0750'
+        log_dir_owner 'nginx'
+        log_dir_group 'nginx'
+      end
+    end
+
+    it { is_expected.to create_directory('/var/log/nginx').with_mode('0750').with_owner('nginx').with_group('nginx') }
     it { is_expected.to create_directory('/etc/nginx/conf.d').with_mode('0750') }
     it { is_expected.to create_directory('/etc/nginx/conf.http.d').with_mode('0750') }
   end
