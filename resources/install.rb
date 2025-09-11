@@ -126,7 +126,7 @@ action :install do
     end
   end
 
-  if source?('distro') && (platform?('amazon') && node['platform_version'] == 2)
+  if source?('distro') && platform?('amazon') && node['platform_version'] == 2
     execute 'install nginx from amazon extras library' do
       command 'amazon-linux-extras install nginx1.12'
       notifies :reload, 'ohai[nginx]', :immediately if ohai_plugin_enabled?
