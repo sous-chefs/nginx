@@ -21,6 +21,9 @@
 | `group`                | String        | `root`                           | Nginx run-as/file/folder group.                                     |
 | `mode`                 | String        | `0640`                           | Nginx configuration file mode.                                      |
 | `folder_mode`          | String        | `0750`                           | Nginx configuration folder mode.                                    |
+| `log_dir_mode`         | String        | `0755`                           | Nginx log directory mode.                                           |
+| `log_dir_owner`        | String        | `root`                           | Nginx log directory owner.                                          |
+| `log_dir_group`        | String        | `root`                           | Nginx log directory group.                                          |
 | `process_user`         | String        | `www-data` (Debian) or `nginx`   | Nginx run-as user.                                                  |
 | `process_group`        | String        | `www-data` (Debian) or `nginx`   | Nginx run-as group.                                                 |
 | `worker_processes`     | Integer, String | `auto`                         | The number of worker processes.                                     |
@@ -39,6 +42,18 @@
 
 ```ruby
 nginx_config 'nginx' do
+  action :create
+  notifies :reload, 'nginx_service[nginx]', :delayed
+end
+```
+
+### Using custom log directory permissions
+
+```ruby
+nginx_config 'nginx' do
+  log_dir_mode '0750'
+  log_dir_owner 'nginx'
+  log_dir_group 'nginx'
   action :create
   notifies :reload, 'nginx_service[nginx]', :delayed
 end
