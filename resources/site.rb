@@ -63,12 +63,12 @@ property :template_helpers, [String, Array],
           description: 'Additional helper modules to include in the site template',
           coerce: proc { |p| p.is_a?(Array) ? p : [p] }
 
+def config_file
+  ::File.join(conf_dir, "#{name}.conf")
+end
+
 action_class do
   include Nginx::Cookbook::ResourceHelpers
-
-  def config_file
-    ::File.join(new_resource.conf_dir, "#{new_resource.name}.conf")
-  end
 
   def config_file_disabled
     "#{config_file}.disabled"
