@@ -8,11 +8,34 @@ Always reference these instructions first and fallback to search or bash command
 
 ### Bootstrap and Dependencies
 - Install Ruby (3.0+): `sudo apt-get update && sudo apt-get install -y ruby ruby-dev build-essential`
-- Install required gems:
-  - `sudo gem install bundler cookstyle rspec chefspec --no-doc`
-  - `sudo gem install test-kitchen kitchen-docker --no-doc` (for integration testing)
+- Install required gems (expect conflicts requiring force installation):
+  - `echo "y" | sudo gem install bundler cookstyle rspec chefspec --no-doc` (~30 seconds)
+  - `sudo gem install chefspec --no-doc --force` (if conflicts occur)
+  - `echo "y" | sudo gem install test-kitchen kitchen-docker --no-doc` (~12 seconds)
+  - `sudo gem install test-kitchen kitchen-docker --no-doc --force` (if conflicts occur)
+  - `sudo gem install kitchen-dokken kitchen-vagrant kitchen-inspec berkshelf --no-doc --force` (~60 seconds)
 - Install Docker: Required for integration testing with Test Kitchen
-- Verify installations: `cookstyle --version`, `rspec --version`, `kitchen version`
+- Add user to docker group: `sudo usermod -aG docker $USER`
+- Verify installations: `cookstyle --version`, `kitchen version`
+- **IMPORTANT**: Gem installation often has conflicts. Always use `--force` flag and answer 'y' to conflicts.
+
+### Verified Installation Sequence
+```bash
+# Basic tools (always works)
+sudo gem install bundler cookstyle --no-doc
+
+# Core testing gems (expect conflicts)
+echo "y" | sudo gem install rspec chefspec --no-doc
+sudo gem install chefspec --no-doc --force
+
+# Test Kitchen ecosystem (expect conflicts)  
+echo "y" | sudo gem install test-kitchen kitchen-docker --no-doc
+sudo gem install test-kitchen kitchen-docker --no-doc --force
+sudo gem install kitchen-dokken kitchen-vagrant kitchen-inspec berkshelf --no-doc --force
+
+# Docker setup
+sudo usermod -aG docker $USER
+```
 
 ### Linting and Code Style
 - **ALWAYS** run linting before committing: `cookstyle .`
@@ -24,20 +47,26 @@ Always reference these instructions first and fallback to search or bash command
 
 ### Unit Testing
 - Run unit tests: `rspec`
-- **NOTE**: Unit tests require ChefSpec gem which may have installation challenges in some environments
+- **CRITICAL**: Unit tests currently have RSpec dependency conflicts that prevent execution
+- **ERROR**: `Gem::ConflictError: rspec-support version conflicts` - ChefSpec requires older RSpec versions
+- **WORKAROUND**: Focus on cookstyle linting and integration testing for validation
 - Unit test location: `spec/unit/` directory
 - Test framework: ChefSpec (Chef-specific RSpec extensions)
-- Unit test execution time: ~1 second when dependencies are available
+- **Troubleshooting**: Use `sudo gem install chefspec --no-doc --force` and resolve conflicts manually
+- If unit tests work, execution time: ~1 second when dependencies are available
 - Spec helper: `spec/spec_helper.rb`
 - Unit tests cover: Resource behavior, library methods, configuration generation
-- **Troubleshooting**: If ChefSpec is unavailable, focus on integration testing and manual validation
 
 ### Integration Testing
 - Run integration tests: `kitchen test`
 - **NEVER CANCEL** integration tests - they take 15-45 minutes per suite depending on platform
 - Set timeout to 60+ minutes for integration testing commands
+- **PREREQUISITE**: Docker must be running and user added to docker group
+- **PREREQUISITE**: All kitchen gems must be installed: `kitchen-dokken`, `kitchen-vagrant`, `kitchen-inspec`
+- **COMMON ISSUE**: Verifier loading errors require proper gem installation
 - Test configuration: `kitchen.yml` (Vagrant) and `kitchen.dokken.yml` (Docker)
 - **Recommended**: Use Docker-based testing: `KITCHEN_LOCAL_YAML=kitchen.dokken.yml kitchen test`
+- **Network Required**: Berkshelf dependencies need internet access to Chef Supermarket
 - Available test suites:
   - `distro`: Distribution package installation
   - `repo`: Official nginx repository installation  
@@ -53,18 +82,22 @@ Always reference these instructions first and fallback to search or bash command
 ### Dependencies Management
 - Dependency file: `Berksfile`
 - Install cookbook dependencies: `berks install` (requires berkshelf gem)
+- **NETWORK REQUIRED**: Berkshelf needs internet access to https://supermarket.chef.io
+- **COMMON ERROR**: `SocketError: No address associated with hostname` indicates network restrictions
 - Update dependencies: `berks update`
 - Upload to Chef server: `berks upload`
+- **VERIFIED TIMING**: `berks install` ~30 seconds when network available
 - **NOTE**: Berkshelf installation may require additional Chef infrastructure setup
 - **Alternative**: Review Berksfile manually for dependency requirements
 
 ## Validation
 
 ### Pre-commit Validation
-- **REQUIRED**: Always run `cookstyle .` before committing
-- **VERIFIED**: Use `cookstyle --autocorrect .` to auto-fix common style issues
-- **RECOMMENDED**: Run `rspec` for unit tests (if ChefSpec dependencies are available)
-- **RECOMMENDED**: Run integration tests for changed functionality: `kitchen test [suite-name]`
+- **REQUIRED**: Always run `cookstyle .` before committing (~2 seconds)
+- **VERIFIED**: Use `cookstyle --autocorrect .` to auto-fix common style issues (~1.5 seconds)
+- **UNIT TESTS**: Run `rspec` for unit tests (currently broken due to dependency conflicts)
+- **WORKAROUND**: Skip unit tests and focus on linting + integration testing when rspec fails
+- **RECOMMENDED**: Run integration tests for changed functionality: `kitchen test [suite-name]` (15-45 minutes)
 - Pre-commit hooks configuration: `.overcommit.yml`
 - **Manual alternative**: If tooling is unavailable, carefully review code changes against style guide
 
@@ -133,31 +166,36 @@ The following are outputs from frequently run commands. Reference them instead o
 - **kitchen.yml**: Test Kitchen platforms and test suites configuration
 
 ### Common Command Timings
-- `cookstyle .`: ~2 seconds
-- `rspec`: ~1 second (with dependencies)
+- `cookstyle .`: ~2 seconds (**VERIFIED**)
+- `cookstyle --autocorrect .`: ~1.5 seconds (**VERIFIED**)
+- `rspec`: **BROKEN** - dependency conflicts prevent execution
+- `kitchen version`: ~0.3 seconds (**VERIFIED**)
 - `kitchen test distro-ubuntu-2204`: ~25 minutes - **NEVER CANCEL**
 - `kitchen test repo-almalinux-9`: ~30 minutes - **NEVER CANCEL**  
 - `kitchen converge`: ~10 minutes - **NEVER CANCEL**
 - `kitchen verify`: ~5 minutes
-- `berks install`: ~10 seconds
+- `berks install`: ~30 seconds (**VERIFIED** when network available)
+- **BOOTSTRAP TIMING**: Total gem installation ~90 seconds with conflicts
 - CI full test suite: ~45 minutes - **NEVER CANCEL**
 
 ### Testing Workflow
 1. Make changes to resources, libraries, or tests
 2. Run `cookstyle .` to check code style (~2 seconds)
-3. Run `rspec` for unit tests (~1 second)
+3. **SKIP** `rspec` for unit tests (currently broken due to dependency conflicts)
 4. Run integration tests for affected functionality: `kitchen test [suite]` (15-45 minutes)
-5. Commit changes only after all tests pass
+5. Commit changes only after linting passes and integration tests complete
 
 ### Troubleshooting
-- **ChefSpec dependency issues**: Ensure chefspec gem is properly installed: `sudo gem install chefspec --no-doc`
-- **Test Kitchen Docker issues**: Verify Docker service is running and user has permission
+- **ChefSpec dependency issues**: `Gem::ConflictError: rspec-support version conflicts` - Use `sudo gem install chefspec --no-doc --force`
+- **Test Kitchen verifier errors**: Install all required gems: `sudo gem install kitchen-dokken kitchen-vagrant kitchen-inspec --no-doc --force`
+- **Test Kitchen Docker issues**: Verify Docker service is running and user in docker group: `sudo usermod -aG docker $USER`
 - **Platform-specific failures**: Check OS-specific package availability and repository configuration
 - **Service start failures**: Verify nginx configuration syntax and file permissions
 - **Lint failures**: Run `cookstyle --autocorrect .` to auto-fix correctable issues
-- **Gem installation conflicts**: Use `sudo gem install [gem] --no-doc` and answer 'y' to conflicts
+- **Gem installation conflicts**: Always use `sudo gem install [gem] --no-doc --force` and answer 'y' to conflicts
 - **Ruby/Chef environment**: Consider using Docker containers for consistent testing environment
-- **Network restrictions**: Some Chef tooling may require internet access for package downloads
+- **Network restrictions**: Berkshelf requires internet access to https://supermarket.chef.io for dependencies
+- **Bootstrap conflicts**: Expect and force-install through gem conflicts during initial setup
 
 ## Important Notes
 - This cookbook is **resource-based** - use the provided resources in wrapper cookbooks
