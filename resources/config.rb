@@ -66,7 +66,7 @@ property :folder_mode, String,
 
 property :log_dir_mode, String,
           description: 'Log directory mode',
-          default: '0755'
+          default: lazy { platform_family?('debian') ? '0755' : '0750' }
 
 property :log_dir_owner, String,
           description: 'Log directory owner',
