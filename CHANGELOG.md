@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the nginx cookbook.
 
 ## Unreleased
 
+Standardise files with files in sous-chefs/repo-management
+
 ## 12.3.1 - *2025-09-04*
 
 ## 12.3.0 - *2025-04-01*
