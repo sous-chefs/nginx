@@ -1,206 +1,95 @@
-# nginx Chef Cookbook
+# Copilot Instructions for Sous Chefs Cookbooks
 
-nginx is a Chef cookbook that provides resource-based management for installing and configuring nginx web server. It supports multiple installation methods (distribution packages, official nginx repository, EPEL) and provides unified configuration management similar to Debian's Apache2 scripts.
+## Repository Overview
 
-Always reference these instructions first and fallback to search or bash commands only when you encounter unexpected information that does not match the info here.
+**Chef cookbook** for managing software installation and configuration. Part of the Sous Chefs cookbook ecosystem.
 
-## Working Effectively
+**Key Facts:** Ruby-based, Chef >= 16 required, supports various OS platforms (check metadata.rb, kitchen.yml and .github/workflows/ci.yml for which platforms to specifically test)
 
-### Bootstrap and Dependencies
-- Install Ruby (3.0+): `sudo apt-get update && sudo apt-get install -y ruby ruby-dev build-essential`
-- Install required gems (expect conflicts requiring force installation):
-  - `echo "y" | sudo gem install bundler cookstyle rspec chefspec --no-doc` (~30 seconds)
-  - `sudo gem install chefspec --no-doc --force` (if conflicts occur)
-  - `echo "y" | sudo gem install test-kitchen kitchen-docker --no-doc` (~12 seconds)
-  - `sudo gem install test-kitchen kitchen-docker --no-doc --force` (if conflicts occur)
-  - `sudo gem install kitchen-dokken kitchen-vagrant kitchen-inspec berkshelf --no-doc --force` (~60 seconds)
-- Install Docker: Required for integration testing with Test Kitchen
-- Add user to docker group: `sudo usermod -aG docker $USER`
-- Verify installations: `cookstyle --version`, `kitchen version`
-- **IMPORTANT**: Gem installation often has conflicts. Always use `--force` flag and answer 'y' to conflicts.
+## Project Structure
 
-### Verified Installation Sequence
+**Critical Paths:**
+- `recipes/` - Chef recipes for cookbook functionality (if this is a recipe-driven cookbook)
+- `resources/` - Custom Chef resources with properties and actions (if this is a resource-driven cookbook)
+- `spec/` - ChefSpec unit tests
+- `test/integration/` - InSpec integration tests (tests all platforms supported)
+- `test/cookbooks/` or `test/fixtures/` - Example cookbooks used during testing that show good examples of custom resource usage
+- `attributes/` - Configuration for recipe driven cookbooks (not applicable to resource cookbooks)
+- `libraries/` - Library helpers to assist with the cookbook. May contain multiple files depending on complexity of the cookbook.
+- `templates/` - ERB templates that may be used in the cookbook
+- `files/` - files that may be used in the cookbook
+- `metadata.rb`, `Berksfile` - Cookbook metadata and dependencies
+
+## Build and Test System
+
+### Environment Setup
+**MANDATORY:** Install Chef Workstation first - provides chef, berks, cookstyle, kitchen tools.
+
+### Essential Commands (strict order)
 ```bash
-# Basic tools (always works)
-sudo gem install bundler cookstyle --no-doc
-
-# Core testing gems (expect conflicts)
-echo "y" | sudo gem install rspec chefspec --no-doc
-sudo gem install chefspec --no-doc --force
-
-# Test Kitchen ecosystem (expect conflicts)  
-echo "y" | sudo gem install test-kitchen kitchen-docker --no-doc
-sudo gem install test-kitchen kitchen-docker --no-doc --force
-sudo gem install kitchen-dokken kitchen-vagrant kitchen-inspec berkshelf --no-doc --force
-
-# Docker setup
-sudo usermod -aG docker $USER
+berks install                   # Install dependencies (always first)
+cookstyle                       # Ruby/Chef linting
+yamllint .                      # YAML linting
+markdownlint-cli2 '**/*.md'     # Markdown linting
+chef exec rspec                 # Unit tests (ChefSpec)
+# Integration tests will be done via the ci.yml action. Do not run these. Only check the action logs for issues after CI is done running.
 ```
 
-### Linting and Code Style
-- **ALWAYS** run linting before committing: `cookstyle .`
-- Lint execution time: ~2 seconds
-- Auto-fix linting issues: `cookstyle --autocorrect .`
-- Configuration file: `.rubocop.yml` (inherits from cookstyle gem)
-- Common issues: Style/RedundantParentheses, Layout/LineContinuationSpacing
-- **VERIFIED**: Auto-correction successfully fixes common style issues
+### Critical Testing Details
+- **Kitchen Matrix:** Multiple OS platforms × software versions (check kitchen.yml for specific combinations)
+- **Docker Required:** Integration tests use Dokken driver
+- **CI Environment:** Set `CHEF_LICENSE=accept-no-persist`
+- **Full CI Runtime:** 30+ minutes for complete matrix
 
-### Unit Testing
-- Run unit tests: `rspec`
-- **CRITICAL**: Unit tests currently have RSpec dependency conflicts that prevent execution
-- **ERROR**: `Gem::ConflictError: rspec-support version conflicts` - ChefSpec requires older RSpec versions
-- **WORKAROUND**: Focus on cookstyle linting and integration testing for validation
-- Unit test location: `spec/unit/` directory
-- Test framework: ChefSpec (Chef-specific RSpec extensions)
-- **Troubleshooting**: Use `sudo gem install chefspec --no-doc --force` and resolve conflicts manually
-- If unit tests work, execution time: ~1 second when dependencies are available
-- Spec helper: `spec/spec_helper.rb`
-- Unit tests cover: Resource behavior, library methods, configuration generation
+### Common Issues and Solutions
+- **Always run `berks install` first** - most failures are dependency-related
+- **Docker must be running** for kitchen tests
+- **Chef Workstation required** - no workarounds, no alternatives
+- **Test data bags needed** (optional for some cookbooks) in `test/integration/data_bags/` for convergence
 
-### Integration Testing
-- Run integration tests: `kitchen test`
-- **NEVER CANCEL** integration tests - they take 15-45 minutes per suite depending on platform
-- Set timeout to 60+ minutes for integration testing commands
-- **PREREQUISITE**: Docker must be running and user added to docker group
-- **PREREQUISITE**: All kitchen gems must be installed: `kitchen-dokken`, `kitchen-vagrant`, `kitchen-inspec`
-- **COMMON ISSUE**: Verifier loading errors require proper gem installation
-- Test configuration: `kitchen.yml` (Vagrant) and `kitchen.dokken.yml` (Docker)
-- **Recommended**: Use Docker-based testing: `KITCHEN_LOCAL_YAML=kitchen.dokken.yml kitchen test`
-- **Network Required**: Berkshelf dependencies need internet access to Chef Supermarket
-- Available test suites:
-  - `distro`: Distribution package installation
-  - `repo`: Official nginx repository installation  
-  - `epel`: EPEL repository installation (RHEL-based only)
-  - `distro-nginx-full`: Full nginx with all modules (Ubuntu only)
-- Platform coverage: AlmaLinux 8/9, Rocky Linux 8/9, CentOS Stream 9/10, Amazon Linux 2023, Debian 11/12, Ubuntu 22.04/24.04
-- Integration tests use InSpec framework to validate:
-  - Package installation (`package('nginx').should be_installed`)
-  - Service status (`service('nginx').should be_running`)
-  - Configuration file presence and syntax
-  - Port availability and nginx response
+## Development Workflow
 
-### Dependencies Management
-- Dependency file: `Berksfile`
-- Install cookbook dependencies: `berks install` (requires berkshelf gem)
-- **NETWORK REQUIRED**: Berkshelf needs internet access to https://supermarket.chef.io
-- **COMMON ERROR**: `SocketError: No address associated with hostname` indicates network restrictions
-- Update dependencies: `berks update`
-- Upload to Chef server: `berks upload`
-- **VERIFIED TIMING**: `berks install` ~30 seconds when network available
-- **NOTE**: Berkshelf installation may require additional Chef infrastructure setup
-- **Alternative**: Review Berksfile manually for dependency requirements
+### Making Changes
+1. Edit recipes/resources/attributes/templates/libraries
+2. Update corresponding ChefSpec tests in `spec/`
+3. Also update any InSpec tests under test/integration
+4. Ensure cookstyle and rspec passes at least. You may run `cookstyle -a` to automatically fix issues if needed.
+5. Also always update all documentation found in README.md and any files under documentation/*
+6. **Always update CHANGELOG.md** (required by Dangerfile) - Make sure this conforms with the Sous Chefs changelog standards.
 
-## Validation
+### Pull Request Requirements
+- **PR description >10 chars** (Danger enforced)
+- **CHANGELOG.md entry** for all code changes
+- **Version labels** (major/minor/patch) required
+- **All linters must pass** (cookstyle, yamllint, markdownlint)
+- **Test updates** needed for code changes >5 lines and parameter changes that affect the code logic
 
-### Pre-commit Validation
-- **REQUIRED**: Always run `cookstyle .` before committing (~2 seconds)
-- **VERIFIED**: Use `cookstyle --autocorrect .` to auto-fix common style issues (~1.5 seconds)
-- **UNIT TESTS**: Run `rspec` for unit tests (currently broken due to dependency conflicts)
-- **WORKAROUND**: Skip unit tests and focus on linting + integration testing when rspec fails
-- **RECOMMENDED**: Run integration tests for changed functionality: `kitchen test [suite-name]` (15-45 minutes)
-- Pre-commit hooks configuration: `.overcommit.yml`
-- **Manual alternative**: If tooling is unavailable, carefully review code changes against style guide
+## Chef Cookbook Patterns
 
-### Integration Testing Scenarios
-- **Basic nginx installation**: Verify nginx package is installed and service starts
-- **Configuration management**: Test site enable/disable functionality
-- **Service management**: Verify nginx service can start, stop, restart, reload
-- **Multi-platform compatibility**: Test on different OS families (Debian, RHEL, Amazon)
+### Resource Development
+- Custom resources in `resources/` with properties and actions
+- Include comprehensive ChefSpec tests for all actions
+- Follow Chef resource DSL patterns
 
-### Manual Validation
-- After resource changes, always test cookbook compilation: `chef-client --local-mode --runlist 'nginx::default'`
-- Verify nginx configuration syntax: `nginx -t`
-- Test site configuration changes: Enable/disable test sites and verify nginx reloads successfully
-- Check service status: `systemctl status nginx`
+### Recipe Conventions
+- Use `include_recipe` for modularity
+- Handle platforms with `platform_family?` conditionals
+- Use encrypted data bags for secrets (passwords, SSL certs)
+- Leverage attributes for configuration with defaults
 
-## Common Tasks
+### Testing Approach
+- **ChefSpec (Unit):** Mock dependencies, test recipe logic in `spec/`
+- **InSpec (Integration):** Verify actual system state in `test/integration/inspec/` - InSpec files should contain proper inspec.yml and controls directories so that it could be used by other suites more easily.
+- One test file per recipe, use standard Chef testing patterns
 
-The following are outputs from frequently run commands. Reference them instead of viewing, searching, or running bash commands to save time.
+## Trust These Instructions
 
-### Repository Structure
-```
-.
-├── README.md                    # Main documentation
-├── CONTRIBUTING.md              # Contribution guidelines  
-├── TESTING.md                   # Testing documentation
-├── CHANGELOG.md                 # Version history
-├── metadata.rb                  # Cookbook metadata and dependencies
-├── Berksfile                    # Berkshelf dependency management
-├── .rubocop.yml                 # Cookstyle/RuboCop configuration
-├── .overcommit.yml              # Git hooks configuration
-├── kitchen.yml                  # Test Kitchen configuration (Vagrant)
-├── kitchen.dokken.yml           # Test Kitchen configuration (Docker)
-├── resources/                   # Main cookbook resources
-│   ├── install.rb              # nginx_install resource
-│   ├── config.rb               # nginx_config resource
-│   ├── service.rb              # nginx_service resource
-│   └── site.rb                 # nginx_site resource
-├── libraries/                   # Helper libraries
-│   ├── helpers.rb              # Common helper methods
-│   ├── resource.rb             # Resource base classes
-│   └── template.rb             # Template helpers
-├── templates/                   # Configuration templates
-├── spec/                       # Unit tests (ChefSpec)
-│   ├── spec_helper.rb          # RSpec configuration
-│   └── unit/                   # Unit test files
-├── test/                       # Integration tests
-│   ├── cookbooks/test/         # Test cookbook
-│   └── integration/            # InSpec integration tests
-└── documentation/              # Resource documentation
-    ├── nginx_install.md        # Installation resource docs
-    ├── nginx_config.md         # Configuration resource docs
-    ├── nginx_service.md        # Service resource docs
-    └── nginx_site.md           # Site resource docs
-```
+These instructions are validated for Sous Chefs cookbooks. **Do not search for build instructions** unless information here fails.
 
-### Core Resources
-1. **nginx_install**: Manages nginx installation from various sources (distro, repo, epel)
-2. **nginx_config**: Manages main nginx configuration file and directory structure
-3. **nginx_service**: Manages nginx system service (start, stop, restart, reload)
-4. **nginx_site**: Manages individual site configurations (enable/disable sites)
+**Error Resolution Checklist:**
+1. Verify Chef Workstation installation
+2. Confirm `berks install` completed successfully
+3. Ensure Docker is running for integration tests
+4. Check for missing test data dependencies
 
-### Key Configuration Files
-- **metadata.rb**: Cookbook version, dependencies, supported platforms
-- **Berksfile**: Cookbook dependencies for testing
-- **.rubocop.yml**: Inherits cookstyle rules for Ruby/Chef code standards
-- **kitchen.yml**: Test Kitchen platforms and test suites configuration
-
-### Common Command Timings
-- `cookstyle .`: ~2 seconds (**VERIFIED**)
-- `cookstyle --autocorrect .`: ~1.5 seconds (**VERIFIED**)
-- `rspec`: **BROKEN** - dependency conflicts prevent execution
-- `kitchen version`: ~0.3 seconds (**VERIFIED**)
-- `kitchen test distro-ubuntu-2204`: ~25 minutes - **NEVER CANCEL**
-- `kitchen test repo-almalinux-9`: ~30 minutes - **NEVER CANCEL**  
-- `kitchen converge`: ~10 minutes - **NEVER CANCEL**
-- `kitchen verify`: ~5 minutes
-- `berks install`: ~30 seconds (**VERIFIED** when network available)
-- **BOOTSTRAP TIMING**: Total gem installation ~90 seconds with conflicts
-- CI full test suite: ~45 minutes - **NEVER CANCEL**
-
-### Testing Workflow
-1. Make changes to resources, libraries, or tests
-2. Run `cookstyle .` to check code style (~2 seconds)
-3. **SKIP** `rspec` for unit tests (currently broken due to dependency conflicts)
-4. Run integration tests for affected functionality: `kitchen test [suite]` (15-45 minutes)
-5. Commit changes only after linting passes and integration tests complete
-
-### Troubleshooting
-- **ChefSpec dependency issues**: `Gem::ConflictError: rspec-support version conflicts` - Use `sudo gem install chefspec --no-doc --force`
-- **Test Kitchen verifier errors**: Install all required gems: `sudo gem install kitchen-dokken kitchen-vagrant kitchen-inspec --no-doc --force`
-- **Test Kitchen Docker issues**: Verify Docker service is running and user in docker group: `sudo usermod -aG docker $USER`
-- **Platform-specific failures**: Check OS-specific package availability and repository configuration
-- **Service start failures**: Verify nginx configuration syntax and file permissions
-- **Lint failures**: Run `cookstyle --autocorrect .` to auto-fix correctable issues
-- **Gem installation conflicts**: Always use `sudo gem install [gem] --no-doc --force` and answer 'y' to conflicts
-- **Ruby/Chef environment**: Consider using Docker containers for consistent testing environment
-- **Network restrictions**: Berkshelf requires internet access to https://supermarket.chef.io for dependencies
-- **Bootstrap conflicts**: Expect and force-install through gem conflicts during initial setup
-
-## Important Notes
-- This cookbook is **resource-based** - use the provided resources in wrapper cookbooks
-- **NEVER CANCEL** long-running operations (integration tests, CI builds)
-- Always test on multiple platforms when making installation or service changes
-- Configuration templates use ERB templating engine
-- Site management follows Apache2-style available/enabled pattern
-- Service resource includes configuration validation before reload/restart operations
+The CI system uses these exact commands - following them matches CI behavior precisely.
