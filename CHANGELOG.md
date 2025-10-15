@@ -5,6 +5,13 @@ This file is used to list changes made in each version of the nginx cookbook.
 Standardise files with files in sous-chefs/repo-management
 Standardise files with files in sous-chefs/repo-management
 
+## [12.3.2](https://github.com/sous-chefs/nginx/compare/12.3.1...v12.3.2) (2025-10-15)
+
+
+### Bug Fixes
+
+* **ci:** Update workflows to use release pipeline ([#656](https://github.com/sous-chefs/nginx/issues/656)) ([436cf3e](https://github.com/sous-chefs/nginx/commit/436cf3eae721839ccb69b2a05682e6a197ff9e89))
+
 ## 12.3.0 - *2025-04-01*
 
 * Correct trailing semicolon for blocks - [#643](https://github.com/sous-chefs/nginx/issues/643)
