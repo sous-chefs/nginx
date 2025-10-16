@@ -64,6 +64,18 @@ property :folder_mode, String,
           description: 'Folder mode',
           default: '0750'
 
+property :log_dir_mode, String,
+          description: 'Log directory mode',
+          default: lazy { platform_family?('debian') ? '0755' : '0750' }
+
+property :log_dir_owner, String,
+          description: 'Log directory owner',
+          default: lazy { owner }
+
+property :log_dir_group, String,
+          description: 'Log directory group',
+          default: lazy { group }
+
 property :process_user, String,
           description: 'Nginx process user',
           default: lazy { nginx_user }
@@ -146,9 +158,9 @@ action :create do
   end
 
   directory nginx_log_dir do
-    owner new_resource.owner
-    group new_resource.group
-    mode new_resource.folder_mode
+    owner new_resource.log_dir_owner
+    group new_resource.log_dir_group
+    mode new_resource.log_dir_mode
   end
 
   %w(default.conf example_ssl.conf).each do |config|
