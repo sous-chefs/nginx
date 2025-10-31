@@ -64,7 +64,7 @@ property :template_helpers, [String, Array],
           coerce: proc { |p| p.is_a?(Array) ? p : [p] }
 
 def config_file
-  ::File.join(conf_dir, "#{name}.conf")
+  nginx_site_config_file(conf_dir, name)
 end
 
 action_class do
