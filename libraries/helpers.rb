@@ -104,6 +104,10 @@ module Nginx
       def ubuntu_18?
         platform?('ubuntu') && node['platform_version'].to_f == 18.04
       end
+
+      def nginx_site_config_file(conf_dir, site_name)
+        ::File.join(conf_dir, "#{site_name}.conf")
+      end
     end
   end
 end
