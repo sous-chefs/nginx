@@ -46,4 +46,28 @@ describe 'nginx_site' do
 
     it { is_expected.to delete_file('/etc/nginx/conf.http.d/default.conf') }
   end
+
+  context 'config_file method accessibility' do
+    recipe do
+      nginx_install 'distro'
+
+      site = nginx_site 'test-site' do
+        conf_dir '/etc/nginx/sites-available'
+        action :create
+      end
+
+      # This tests the new functionality - accessing config_file on the resource instance
+      ruby_block 'test_config_file_access' do
+        block do
+          expected_path = '/etc/nginx/sites-available/test-site.conf'
+          actual_path = site.config_file
+          raise "Expected #{expected_path}, got #{actual_path}" unless actual_path == expected_path
+        end
+        action :run
+      end
+    end
+
+    it { is_expected.to create_template('/etc/nginx/sites-available/test-site.conf') }
+    it { is_expected.to run_ruby_block('test_config_file_access') }
+  end
 end
