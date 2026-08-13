@@ -95,6 +95,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: [integration, integration-nginx-full, integration-epel]
     steps:
-      - run: echo ${{needs.integration.outputs}}
-      - run: echo ${{needs.integration-nginx-full.outputs}}
-      - run: echo ${{needs.integration-epel.outputs}}
+      - run: echo "integration completed"
+      - run: echo "integration-nginx-full completed"
+      - run: echo "integration-epel completed"
