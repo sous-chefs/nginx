@@ -83,10 +83,8 @@ test/*
 */.hg/*
 */.svn/*
 
-# Berkshelf #
-#############
-Berksfile
-Berksfile.lock
+# Dependency cache #
+####################
 cookbooks/*
 tmp
 
@@ -98,7 +96,6 @@ Gemfile.lock
 
 # Policyfile #
 ##############
-Policyfile.rb
 Policyfile.lock.json
 
 # Documentation #

@@ -1,5 +1,5 @@
 require 'chefspec'
-require 'chefspec/berkshelf'
+require 'chefspec/policyfile'
 
 Dir['libraries/*.rb'].sort.each { |f| require File.expand_path(f) }
 Dir['./spec/support/**/*.rb'].sort.each { |f| require f }

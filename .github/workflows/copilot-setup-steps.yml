@@ -21,4 +21,4 @@ jobs:
       - name: Install Chef
         uses: actionshub/chef-install@main
       - name: Install cookbooks
-        run: berks install
+        run: chef install Policyfile.rb
