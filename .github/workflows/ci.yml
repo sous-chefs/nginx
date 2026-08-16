@@ -43,11 +43,18 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v7
-      - uses: ./.github/actions/test-kitchen
+      - name: Install Cinc Workstation
+        uses: sous-chefs/.github/.github/actions/install-workstation@9.0.0
+      - name: Dokken
+        uses: actionshub/test-kitchen@3.0.0
+        env:
+          CHEF_LICENSE: accept-no-persist
+          CHEF_VERSION: latest
+          KITCHEN_LOCAL_YAML: kitchen.dokken.yml
+          KITCHEN_PRODUCT_NAME: cinc
         with:
           suite: ${{ matrix.suite }}
           os: ${{ matrix.os }}
-          chef_version: ${{ vars.CHEF_VERSION }}
 
   integration-epel:
     needs: lint-unit
@@ -68,11 +75,18 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v7
-      - uses: ./.github/actions/test-kitchen
+      - name: Install Cinc Workstation
+        uses: sous-chefs/.github/.github/actions/install-workstation@9.0.0
+      - name: Dokken
+        uses: actionshub/test-kitchen@3.0.0
+        env:
+          CHEF_LICENSE: accept-no-persist
+          CHEF_VERSION: latest
+          KITCHEN_LOCAL_YAML: kitchen.dokken.yml
+          KITCHEN_PRODUCT_NAME: cinc
         with:
           suite: ${{ matrix.suite }}
           os: ${{ matrix.os }}
-          chef_version: ${{ vars.CHEF_VERSION }}
 
   integration-nginx-full:
     needs: lint-unit
@@ -85,11 +99,18 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v7
-      - uses: ./.github/actions/test-kitchen
+      - name: Install Cinc Workstation
+        uses: sous-chefs/.github/.github/actions/install-workstation@9.0.0
+      - name: Dokken
+        uses: actionshub/test-kitchen@3.0.0
+        env:
+          CHEF_LICENSE: accept-no-persist
+          CHEF_VERSION: latest
+          KITCHEN_LOCAL_YAML: kitchen.dokken.yml
+          KITCHEN_PRODUCT_NAME: cinc
         with:
           suite: ${{ matrix.suite }}
           os: ${{ matrix.os }}
-          chef_version: ${{ vars.CHEF_VERSION }}
 
   final:
     runs-on: ubuntu-latest
