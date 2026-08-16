@@ -100,7 +100,7 @@ describe 'nginx_install' do
       end
 
       context 'with debian platform' do
-        platform 'debian'
+        platform 'debian', '12'
 
         include_examples 'ohai is enabled'
         include_examples 'apt repository is added'
@@ -110,7 +110,7 @@ describe 'nginx_install' do
       end
 
       context 'with opensuse platform' do
-        platform 'opensuse'
+        platform 'opensuse', '15.6'
 
         include_examples 'ohai is enabled'
         include_examples 'nginx package is installed'

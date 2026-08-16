@@ -30,12 +30,14 @@ platforms:
 
 suites:
   - name: distro
+    named_run_list: distro
     run_list:
       - recipe[test::distro]
     verifier:
       inspec_tests:
         - test/integration/default_install
   - name: distro-nginx-full
+    named_run_list: distro_nginx-full
     run_list:
       - recipe[test::distro_nginx-full]
     includes:
@@ -45,12 +47,14 @@ suites:
       inspec_tests:
         - test/integration/default_install
   - name: repo
+    named_run_list: repo
     run_list:
       - recipe[test::repo]
     verifier:
       inspec_tests:
         - test/integration/repo
   - name: epel
+    named_run_list: epel
     run_list:
       - recipe[test::epel]
     includes:
@@ -61,5 +65,6 @@ suites:
       - rockylinux-8
       - rockylinux-9
   - name: invalid-conf
+    named_run_list: invalid-conf
     run_list:
       - recipe[test::invalid-conf]
