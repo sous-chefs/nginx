@@ -16,7 +16,7 @@ permissions:
 
 jobs:
   release:
-    uses: sous-chefs/.github/.github/workflows/release-cookbook.yml@575761f56c5b0f641debcbf8cd9fedcc45fdfb91 # OCI pilot
+    uses: sous-chefs/.github/.github/workflows/release-cookbook.yml@295a6077a524ea05a6f409ef469c7f4cfde91091 # OCI pilot
     with:
       publish_oci: true
     secrets:
