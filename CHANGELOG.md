@@ -5,6 +5,14 @@ This file is used to list changes made in each version of the nginx cookbook.
 Standardise files with files in sous-chefs/repo-management
 Standardise files with files in sous-chefs/repo-management
 
+## [12.3.4](https://github.com/sous-chefs/nginx/compare/v12.3.3...v12.3.4) (2026-09-14)
+
+
+### Bug Fixes
+
+* **ci:** enable OCI publishing for nginx ([#673](https://github.com/sous-chefs/nginx/issues/673)) ([9dde393](https://github.com/sous-chefs/nginx/commit/9dde393e689130be67cbf7d8d3f4d0c8cecf1dcb))
+* **ci:** use shared release workflow on main ([#674](https://github.com/sous-chefs/nginx/issues/674)) ([8ae0245](https://github.com/sous-chefs/nginx/commit/8ae02453775a264932c3b59b01c93a2586ca86fb))
+
 ## [12.3.3](https://github.com/sous-chefs/nginx/compare/v12.3.2...v12.3.3) (2026-08-16)
 
 
