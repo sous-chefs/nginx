@@ -101,10 +101,10 @@ action :install do
       package_install_opts = '--disablerepo=* --enablerepo=nginx'
     when 'debian'
       apt_repository 'nginx' do
-        uri          repo_url(new_resource.repo_train)
+        uri repo_url(new_resource.repo_train)
         components   %w(nginx)
         deb_src      true
-        key          repo_signing_key
+        key repo_signing_key
       end
     when 'suse'
       zypper_repository 'nginx' do
