@@ -1,0 +1,166 @@
+---
+name: Workstation shell trial
+
+"on":
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  contracts:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: sous-chefs/.github
+          ref: 88c2de9f8359e27fdc119d4569548f9400ba471a
+          path: installer
+      - name: Check scripts and failure behaviour
+        env:
+          INSTALLER_SCRIPTS: ${{ github.workspace }}/installer/.github/actions/install-workstation/scripts
+        run: |
+          shellcheck .github/scripts/*.sh .github/scripts/tests/*.sh
+          bash .github/scripts/tests/test-run-kitchen.sh
+          python3 -B .github/scripts/tests/test-report-ci-trial.py
+          bash .github/scripts/tests/test-installer-failures.sh
+          bash installer/.github/actions/install-workstation/tests/check-script-contracts.sh
+
+  trial:
+    name: trial / ${{ matrix.variant }} / ${{ matrix.repeat }} / ${{ matrix.suite }} / ${{ matrix.os }}
+    needs: contracts
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    strategy:
+      fail-fast: false
+      max-parallel: 6
+      matrix:
+        include:
+          - {variant: current-js, repeat: 1, suite: distro, os: ubuntu-2404}
+          - {variant: proposed-js, repeat: 1, suite: distro, os: ubuntu-2404}
+          - {variant: proposed-shell, repeat: 1, suite: distro, os: ubuntu-2404}
+          - {variant: current-js, repeat: 2, suite: distro, os: ubuntu-2404}
+          - {variant: proposed-js, repeat: 2, suite: distro, os: ubuntu-2404}
+          - {variant: proposed-shell, repeat: 2, suite: distro, os: ubuntu-2404}
+          - {variant: current-js, repeat: 3, suite: distro, os: ubuntu-2404}
+          - {variant: proposed-js, repeat: 3, suite: distro, os: ubuntu-2404}
+          - {variant: proposed-shell, repeat: 3, suite: distro, os: ubuntu-2404}
+          - {variant: current-js, repeat: 4, suite: distro, os: ubuntu-2404}
+          - {variant: proposed-js, repeat: 4, suite: distro, os: ubuntu-2404}
+          - {variant: proposed-shell, repeat: 4, suite: distro, os: ubuntu-2404}
+          - {variant: current-js, repeat: 5, suite: distro, os: ubuntu-2404}
+          - {variant: proposed-js, repeat: 5, suite: distro, os: ubuntu-2404}
+          - {variant: proposed-shell, repeat: 5, suite: distro, os: ubuntu-2404}
+          - {variant: full-shell, repeat: 1, suite: distro, os: almalinux-8}
+          - {variant: full-shell, repeat: 1, suite: distro, os: almalinux-9}
+          - {variant: full-shell, repeat: 1, suite: distro, os: amazonlinux-2023}
+          - {variant: full-shell, repeat: 1, suite: distro, os: centos-stream-9}
+          - {variant: full-shell, repeat: 1, suite: distro, os: centos-stream-10}
+          - {variant: full-shell, repeat: 1, suite: distro, os: debian-12}
+          - {variant: full-shell, repeat: 1, suite: distro, os: rockylinux-8}
+          - {variant: full-shell, repeat: 1, suite: distro, os: rockylinux-9}
+          - {variant: full-shell, repeat: 1, suite: distro, os: ubuntu-2204}
+          - {variant: full-shell, repeat: 1, suite: distro, os: ubuntu-2404}
+          - {variant: full-shell, repeat: 1, suite: repo, os: almalinux-8}
+          - {variant: full-shell, repeat: 1, suite: repo, os: almalinux-9}
+          - {variant: full-shell, repeat: 1, suite: repo, os: amazonlinux-2023}
+          - {variant: full-shell, repeat: 1, suite: repo, os: centos-stream-9}
+          - {variant: full-shell, repeat: 1, suite: repo, os: debian-12}
+          - {variant: full-shell, repeat: 1, suite: repo, os: rockylinux-8}
+          - {variant: full-shell, repeat: 1, suite: repo, os: rockylinux-9}
+          - {variant: full-shell, repeat: 1, suite: repo, os: ubuntu-2204}
+          - {variant: full-shell, repeat: 1, suite: repo, os: ubuntu-2404}
+          - {variant: full-shell, repeat: 1, suite: epel, os: almalinux-8}
+          - {variant: full-shell, repeat: 1, suite: epel, os: almalinux-9}
+          - {variant: full-shell, repeat: 1, suite: epel, os: centos-stream-9}
+          - {variant: full-shell, repeat: 1, suite: epel, os: centos-stream-10}
+          - {variant: full-shell, repeat: 1, suite: epel, os: rockylinux-8}
+          - {variant: full-shell, repeat: 1, suite: epel, os: rockylinux-9}
+          - {variant: full-shell, repeat: 1, suite: distro-nginx-full, os: ubuntu-2204}
+          - {variant: full-shell, repeat: 1, suite: distro-nginx-full, os: ubuntu-2404}
+    env:
+      CHEF_LICENSE: accept-no-persist
+      CHEF_VERSION: latest
+      KITCHEN_LOCAL_YAML: kitchen.trial.yml
+      KITCHEN_PRODUCT_NAME: cinc
+      SUITE: ${{ matrix.suite }}
+      OS: ${{ matrix.os }}
+      TRIAL_VARIANT: ${{ matrix.variant }}
+      TRIAL_REPEAT: ${{ matrix.repeat }}
+      TRIAL_SCRIPTS: ${{ github.workspace }}/.ci-trial/.github/scripts
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Check out fixed Nginx subject
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: bc2143233598c6216987b89231e3a7af67537ca6
+      - name: Check out trial harness
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ github.sha }}
+          path: .ci-trial
+      - name: Start installer timer
+        run: |
+          mkdir -p "$RUNNER_TEMP/trial-times"
+          date +%s.%N > "$RUNNER_TEMP/trial-times/install-start"
+      - name: Install current Workstation
+        if: matrix.variant == 'current-js'
+        id: current
+        uses: sous-chefs/.github/.github/actions/install-workstation@35e22059a1c35d51a9651472c5cd2aa94af1f563
+        with:
+          version: '26.2.4'
+          channel: stable
+      - name: Install proposed Workstation
+        if: matrix.variant != 'current-js'
+        id: proposed
+        uses: sous-chefs/.github/.github/actions/install-workstation@88c2de9f8359e27fdc119d4569548f9400ba471a
+        with:
+          distribution: workstation
+          version: '26.2.4'
+          channel: stable
+      - name: Stop installer timer
+        if: always()
+        run: date +%s.%N > "$RUNNER_TEMP/trial-times/install-end"
+      - name: Validate proposed outputs in a new step
+        if: success() && matrix.variant != 'current-js'
+        env:
+          INSTALL_OUTPUTS: ${{ toJSON(steps.proposed.outputs) }}
+        run: bash "$TRIAL_SCRIPTS/verify-installer-outputs.sh"
+      - name: Prepare pinned Kitchen images and verify tools
+        run: bash "$TRIAL_SCRIPTS/prepare-ci-trial.sh"
+      - name: Start Kitchen timer
+        run: date +%s.%N > "$RUNNER_TEMP/trial-times/kitchen-start"
+      - name: Kitchen JavaScript wrapper
+        if: matrix.variant == 'current-js' || matrix.variant == 'proposed-js'
+        uses: actionshub/test-kitchen@6e6b61feb197118be2cbbb39795c6b089afe17b5
+        with:
+          suite: ${{ matrix.suite }}
+          os: ${{ matrix.os }}
+      - name: Kitchen shell wrapper
+        if: matrix.variant == 'proposed-shell' || matrix.variant == 'full-shell'
+        run: bash "$TRIAL_SCRIPTS/run-kitchen.sh"
+      - name: Stop Kitchen timer
+        if: always()
+        run: date +%s.%N > "$RUNNER_TEMP/trial-times/kitchen-end"
+      - name: Save timings and diagnostics
+        if: always()
+        env:
+          TRIAL_STATUS: ${{ job.status }}
+          INSTALL_STATUS: ${{ (matrix.variant == 'current-js' && steps.current.outcome) || steps.proposed.outcome }}
+        run: bash "$TRIAL_SCRIPTS/save-trial-result.sh"
+      - name: Upload trial evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: trial-${{ matrix.variant }}-${{ matrix.repeat }}-${{ matrix.suite }}-${{ matrix.os }}
+          include-hidden-files: true
+          path: |
+            trial-result.json
+            kitchen.trial.yml
+            .kitchen/logs/
+          retention-days: 14
