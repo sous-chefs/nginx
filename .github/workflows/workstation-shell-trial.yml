@@ -3,11 +3,6 @@ name: Workstation shell trial
 
 "on":
   workflow_dispatch:
-  push:
-    branches: [codex/chore-nginx-shell-ci-trial]
-    paths:
-      - .github/workflows/workstation-shell-trial.yml
-      - .github/scripts/**
 
 permissions:
   contents: read
@@ -30,7 +25,7 @@ jobs:
         run: |
           shellcheck .github/scripts/*.sh .github/scripts/tests/*.sh
           bash .github/scripts/tests/test-run-kitchen.sh
-          python3 .github/scripts/tests/test-report-ci-trial.py
+          python3 -B .github/scripts/tests/test-report-ci-trial.py
           bash .github/scripts/tests/test-installer-failures.sh
           bash installer/.github/actions/install-workstation/tests/check-script-contracts.sh
 
@@ -156,7 +151,7 @@ jobs:
         if: always()
         env:
           TRIAL_STATUS: ${{ job.status }}
-          INSTALL_STATUS: ${{ steps.current.outcome || steps.proposed.outcome }}
+          INSTALL_STATUS: ${{ (matrix.variant == 'current-js' && steps.current.outcome) || steps.proposed.outcome }}
         run: bash "$TRIAL_SCRIPTS/save-trial-result.sh"
       - name: Upload trial evidence
         if: always()

@@ -6,8 +6,9 @@ JavaScript Kitchen wrapper with a shell script. Existing CI is unchanged.
 
 ## Reproduce
 
-Run `Workstation shell trial` on the trial branch. It also runs when its
-workflow or scripts change on `codex/chore-nginx-shell-ci-trial`.
+Run `Workstation shell trial` manually on the trial branch. The initial
+evidence run was triggered by a push; subsequent runs are opt-in to avoid
+repeating 42 jobs when only the report changes.
 
 The workflow runs five repetitions of each variant on fresh Ubuntu 24.04
 runners, followed by the 27 existing Nginx integration combinations using
@@ -39,11 +40,14 @@ python3 .github/scripts/report-ci-trial.py \
 
 Installer and Kitchen timers surround the action invocations. Image pulls,
 tool diagnostics and output validation are outside those timers, but included
-in job duration. Job duration comes from GitHub's start and completion times,
+in job duration. GitHub downloads all referenced actions during setup, even
+when their steps are skipped, so this trial measures wrapper execution rather
+than the setup saving from completely removing the JavaScript action. Job duration comes from GitHub's start and completion times,
 excluding queue time. Artifacts preserve timings, resolved Kitchen configuration
 and Kitchen logs, including failures. Artifact retention is 14 days.
 
-The report retains every job. Successful install timings remain usable when a
+The report retains every job and takes installer success from GitHub step
+conclusions, which are authoritative over artifact metadata. Successful install timings remain usable when a
 later Kitchen step fails. Failed installs do not enter successful-install
 medians. Kitchen and total-job medians use successful jobs only.
 
@@ -60,9 +64,9 @@ reliability. Runner image revisions are recorded because the hosted runner
 label itself is mutable; different revisions require separate comparisons.
 Package mirrors and cookbook dependencies can still introduce network noise.
 
-The oldest tagged `actionshub/chef-install` versions (`v1.0.0` and `1.1.0`)
-use Node 12, and version 6.0.0 uses a composite action. No comparable Docker
-installer was identified. Docker-versus-composite installation performance
+All 12 historical `action.yml` revisions in `actionshub/chef-install` use
+Node 12, Node 16, Node 20 or composite execution. No Docker installer
+was identified in that history. Docker-versus-composite installation performance
 remains untested. Docker containers used by Dokken are a separate concern.
 
 ## Local checks

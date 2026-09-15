@@ -20,14 +20,18 @@ def report(artifacts, jobs):
         if not job['name'].startswith('trial / '):
             continue
         key = tuple(job['name'].split(' / ')[1:])
-        result = results.get(key, {})
+        result = dict(results.get(key, {}))
+        installer = 'Install current Workstation' if key[0] == 'current-js' else 'Install proposed Workstation'
+        for step in job.get('steps', []):
+            if step['name'] == installer:
+                result['install_status'] = step['conclusion']
         started, completed = job.get('started_at'), job.get('completed_at')
         total = None
         if started and completed:
             total = (datetime.datetime.fromisoformat(completed.replace('Z', '+00:00')) -
                      datetime.datetime.fromisoformat(started.replace('Z', '+00:00'))).total_seconds()
         rows.append(dict(result, variant=key[0], repeat=key[1], suite=key[2], os=key[3],
-                         status=job['conclusion'], total_seconds=total, url=job['html_url']))
+                         status=job.get('conclusion') or job.get('status', 'unknown'), total_seconds=total, url=job['html_url']))
     lines = ['# Nginx Workstation shell trial', '',
              'Times are seconds. Job totals include setup, image pulls and artifact upload, but exclude queue time.', '',
              '| Variant | Repeat | Instance | Result | Install | Kitchen | Job |',
@@ -53,7 +57,9 @@ def report(artifacts, jobs):
                 medians[variant, metric] = median
                 lines.append(f'  - {metric}: median {median:.3f}; range {min(values):.3f}–{max(values):.3f}; n={len(values)}.')
     for before, after, metric in [('current-js', 'proposed-js', 'install_seconds'),
-                                  ('proposed-js', 'proposed-shell', 'kitchen_seconds')]:
+                                  ('proposed-js', 'proposed-shell', 'kitchen_seconds'),
+                                  ('current-js', 'proposed-js', 'total_seconds'),
+                                  ('proposed-js', 'proposed-shell', 'total_seconds')]:
         if (before, metric) in medians and (after, metric) in medians:
             old, new = medians[before, metric], medians[after, metric]
             delta = new - old

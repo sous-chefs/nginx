@@ -11,6 +11,18 @@ spec.loader.exec_module(module)
 
 
 class ReportTest(unittest.TestCase):
+    def test_github_step_result_is_authoritative_for_install_status(self):
+        with tempfile.TemporaryDirectory() as directory:
+            (Path(directory) / 'trial-result.json').write_text(json.dumps(dict(
+                variant='proposed-js', repeat='1', suite='distro', os='ubuntu-2404',
+                install_seconds=20, install_status='skipped')))
+            job = dict(name='trial / proposed-js / 1 / distro / ubuntu-2404',
+                       conclusion='failure', html_url='https://example.com/job',
+                       steps=[dict(name='Install proposed Workstation', conclusion='success')])
+            result = module.report(directory, [job])
+            self.assertIn('install_seconds: median 20.000', result)
+            self.assertIn('1 attempts, 1 unsuccessful', result)
+
     def test_failed_install_does_not_improve_median_and_missing_artifact_is_visible(self):
         with tempfile.TemporaryDirectory() as directory:
             jobs = []
