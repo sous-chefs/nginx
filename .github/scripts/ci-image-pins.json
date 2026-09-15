@@ -1,0 +1,13 @@
+{
+  "dokken/almalinux-8": "dokken/almalinux-8@sha256:aeda246de494bbf6657f370ee1183419620806453493321600985a52e2f29a0d",
+  "dokken/almalinux-9": "dokken/almalinux-9@sha256:acb21929cf6e3c4a44b819ee8df4ed78ae80d5717f880b671c21dede42dbe66c",
+  "dokken/amazonlinux-2023": "dokken/amazonlinux-2023@sha256:65d71c4473cf3267f05dbdab59b5108a585fcc2ecda7bc3d9690fbf3e3598597",
+  "dokken/centos-stream-9": "dokken/centos-stream-9@sha256:b3f56515634ce21447af25847e6b1f355bf1a3f303da0f0d5b4472cba5df2b24",
+  "dokken/centos-stream-10": "dokken/centos-stream-10@sha256:cced9fcc7bc26be0f074f67d93bb0d9085cf4d75a39324e99096d039b09e979f",
+  "dokken/debian-12": "dokken/debian-12@sha256:dfe9f1039ce42980e3114e60160be83a125e06d791c38bc2724a98c041db448f",
+  "dokken/rockylinux-8": "dokken/rockylinux-8@sha256:88161bb36d96736889fe7d4c3b6810f993a6ffef351a329e0d11cc09d9937f46",
+  "dokken/rockylinux-9": "dokken/rockylinux-9@sha256:1908dbc9374670644b8b6e398026345255aed9e88139b0aac016a11d9e04ec73",
+  "dokken/ubuntu-22.04": "dokken/ubuntu-22.04@sha256:c558a1f3b50b6563894cbea0d51d69d90c95b844c9603183e42a88ee9b16c41f",
+  "dokken/ubuntu-24.04": "dokken/ubuntu-24.04@sha256:969f927134539f498a377301c2208ed9941b0dfe5bec10839b470a9edbc87273",
+  "cincproject/cinc": "cincproject/cinc@sha256:7bc0f8a2120bba146a63613505e9a1e55df331cda874f8531eab2199b801fb8a"
+}
