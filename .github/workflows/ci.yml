@@ -13,7 +13,7 @@ concurrency:
 
 jobs:
   lint-unit:
-    uses: sous-chefs/.github/.github/workflows/lint-unit.yml@9.0.1
+    uses: sous-chefs/.github/.github/workflows/lint-unit.yml@9.0.2
     permissions:
       actions: write
       checks: write
@@ -48,7 +48,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v7
       - name: Install Cinc Workstation
-        uses: sous-chefs/.github/.github/actions/install-workstation@9.0.1
+        uses: sous-chefs/.github/.github/actions/install-workstation@9.0.2
       - name: Dokken
         uses: actionshub/test-kitchen@3.0.0
         env:
@@ -80,7 +80,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v7
       - name: Install Cinc Workstation
-        uses: sous-chefs/.github/.github/actions/install-workstation@9.0.1
+        uses: sous-chefs/.github/.github/actions/install-workstation@9.0.2
       - name: Dokken
         uses: actionshub/test-kitchen@3.0.0
         env:
@@ -104,7 +104,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v7
       - name: Install Cinc Workstation
-        uses: sous-chefs/.github/.github/actions/install-workstation@9.0.1
+        uses: sous-chefs/.github/.github/actions/install-workstation@9.0.2
       - name: Dokken
         uses: actionshub/test-kitchen@3.0.0
         env:
